@@ -1,6 +1,7 @@
 # qubic.li - Wallet
 
-A simple wallet for the QUBIC Network.
+A simple wallet for the QUBIC Network. Find more about QUBIC on https://doc.qubic.world/ or visit us on https://qubic.li.
+To join the QUBIC Community on discord use this link http://discord.gg/2vDMR8m.
 
 
 ## License
