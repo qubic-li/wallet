@@ -1,0 +1,66 @@
+{
+  "name": "qubic-li-wallet",
+  "version": "0.1.0",
+  "main": "app.js",
+  "author": "qubic.li",
+  "description": "Qubic.li - Wallet - Send Quo's around the globe.",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --open",
+    "start-electron": "ng build --base-href ./ && electron .",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "app:dir": "electron-builder --dir",
+    "app:dist": "electron-builder"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^15.0.0",
+    "@angular/cdk": "^15.0.4",
+    "@angular/common": "^15.0.0",
+    "@angular/compiler": "^15.0.0",
+    "@angular/core": "^15.0.0",
+    "@angular/forms": "^15.0.0",
+    "@angular/material": "^15.0.4",
+    "@angular/platform-browser": "^15.0.0",
+    "@angular/platform-browser-dynamic": "^15.0.0",
+    "@angular/router": "^15.0.0",
+    "@ngneat/transloco": "4.2.2",
+    "angularx-qrcode": "^15.0.1",
+    "bignumber.js": "^9.1.1",
+    "electron-squirrel-startup": "^1.0.0",
+    "ngx-device-detector": "^5.0.1",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.12.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^15.0.4",
+    "@angular/cli": "~15.0.4",
+    "@angular/compiler-cli": "^15.0.0",
+    "@electron-forge/cli": "^6.0.4",
+    "@electron-forge/maker-deb": "^6.0.4",
+    "@electron-forge/maker-rpm": "^6.0.4",
+    "@electron-forge/maker-squirrel": "^6.0.4",
+    "@electron-forge/maker-zip": "^6.0.4",
+    "@types/jasmine": "~4.3.0",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0",
+    "jasmine-core": "~4.5.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.0.0",
+    "typescript": "~4.8.2"
+  },
+  "build": {
+    "appId": "qubic.li.wallet",
+    "mac": {
+      "category": "business"
+    }
+  }
+}

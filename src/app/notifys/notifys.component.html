@@ -1,0 +1,9 @@
+<ng-container *transloco="let t">
+    <button *ngIf="walletService.shouldExportKey && walletService.privateKey" mat-icon-button [title]="t('notifyComponent.saveYourKey')"
+        (click)="lock();">
+        <mat-icon>warning</mat-icon>
+    </button>
+    <!-- <button mat-icon-button [title]="t('notifyComponent.qubicLiSync')" (click)="sync();">
+        <mat-icon>sync</mat-icon>
+    </button> -->
+</ng-container>

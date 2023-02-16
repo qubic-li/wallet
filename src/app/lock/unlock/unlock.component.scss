@@ -1,0 +1,20 @@
+.important {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    font-size: 1.5em;
+}
+form {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 15px;
+    mat-form-field {
+        min-width:350px;
+    }
+}
+.file-input {
+    display: none;
+}

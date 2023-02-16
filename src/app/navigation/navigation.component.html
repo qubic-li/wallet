@@ -1,0 +1,59 @@
+<ng-container *transloco="let t">
+  <div *ngIf="walletService.configError" class="open-wallet-screen">
+    <qli-config-error></qli-config-error>
+  </div>
+  <div *ngIf="!walletService.publicKey && !walletService.configError" class="open-wallet-screen">
+    <qli-unlock></qli-unlock>
+  </div>
+  <div class="container" [class.is-mobile]="mobileQuery.matches"
+    *ngIf="walletService.publicKey && !walletService.configError">
+
+    <mat-toolbar color="primary" class="toolbar">
+      <div class="left-icon-area">
+        <img src="/assets/img/qubic.li-icon.svg" class="qubic-icon">
+        <button mat-icon-button (click)="snav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </div>
+      <img src="/assets/img/qubic.li-slogan-white.png" class="logo">
+      <div class="topIcons">
+        <qli-notifys></qli-notifys>
+        <qli-lock></qli-lock>
+      </div>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+      <mat-sidenav class="navigation" #snav opened [mode]="mobileQuery.matches ? 'over' : 'side'"
+        [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+        <mat-nav-list>
+          <a mat-list-item routerLink="."
+            (click)="checkMobileToggle()"><mat-icon>home</mat-icon>{{t("general.navigation.home")}}</a>
+          <a mat-list-item routerLink="payment"
+            (click)="checkMobileToggle()"><mat-icon>payments</mat-icon>{{t("general.navigation.payment")}}</a>
+          <a mat-list-item routerLink="balance"
+            (click)="checkMobileToggle()"><mat-icon>account_balance</mat-icon>{{t("general.navigation.balance")}}</a>
+          <a mat-list-item routerLink="settings"
+            (click)="checkMobileToggle()"><mat-icon>settings</mat-icon>{{t("general.navigation.settings")}}</a>
+        </mat-nav-list>
+        <div>
+
+          <div class="version">
+            <qli-language-chooser></qli-language-chooser>
+            <br>
+            <a href="#" (click)="themService.toggleTheme()">Theme Switch</a>
+            <br><br>
+            {{t("general.version")}}<br>
+            <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}</a><br>
+
+          </div>
+        </div>
+
+      </mat-sidenav>
+
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+
+  </div>
+</ng-container>

@@ -1,0 +1,215 @@
+{
+    "general": {
+        "title": "qubic.li - Wallet",
+        "comingSoon": "¡próximamente!",
+        "navigation": {
+            "home": "Home",
+            "payment": "Pago",
+            "balance": "Saldo de cuenta",
+            "settings": "Ajustes"
+        },
+        "version": "Verstion 0.2 - preview",
+        "version.url": "qubic.li",
+        "error": "Error",
+        "close": "close",
+        "currency": "qus"
+    },
+    "payment": {
+        "keyRequestReason": "Como las transacciones se firman digitalmente con su clave, primero tiene que cargar su clave."
+    },
+    "confirmDialog": {
+        "title": "Confirmar",
+        "buttons": {
+            "cancel": "Cancelar",
+            "confirm": "Sí, confirmo"
+        }
+    },
+    "notifyComponent": {
+        "saveYourKey": "Debes guardar tu clave",
+        "qubicLiSync": "Sincroniza tus ID's con qubic.li"
+    },
+    "revealSeedComponent": {
+        "title": "Seed Revelada",
+        "publicId": "ID Pública",
+        "privateId": "ID Privada (Seed)",
+        "buttons": {
+            "close": "Cerrar"
+        }
+    },
+    "qrReceiveComponent": {
+        "title": "Pago recibido",
+        "downloadLink": "Descargar",
+        "hint": "Escanee/Envíe este código QR para recibir un pago por {{publicId}}.",
+        "buttons.close": "Cerrar"
+    },
+
+    "seedEditComponent": {
+        "title.add": "Añadir Seed",
+        "title.edit": "Editar Seed",
+        "newSeedName": "Seed",
+        "form": {
+            "alias": {
+                "placeholer": "Alias - Asigna un nombre a tu ID",
+                "error": {
+                    "required": "Alias necesario",
+                    "min": "El alias debe tener un mínimo de 3 caracteres",
+                    "max": "El alias debe tener un máximo de 50 caracteres",
+                    "regex": "Sólo puede contener {{regex}}"
+                }
+            },
+            "seed": {
+                "placeholer": "Seed",
+                "error": {
+                    "required": "Seed necesaria",
+                    "min": "El alias debe tener un mínimo de 3 caracteres",
+                    "max": "El alias debe tener un máximo de 50 caracteres",
+                    "regex": "Sólo puede contener a-zA-Z0-9_-"
+                },
+                "generateSeed": "Generar Seed"
+            },
+            "error": {
+                "text": "Por favor revise el formulario.",
+                "close": "cerca"
+            }
+        },
+        "publicIdMessage": "Su ID público es",
+        "privateKeyWarning": " Su clave privada no está cargada. Asegúrese de hacerlo.",
+        "buttons": {
+            "cancel": "Cancelar",
+            "create": "Crear Seed",
+            "Save": "Guardar Seed"
+        }
+    },
+
+    "seedOverviewComponent": {
+        "addSeedButton": "Añadir Seed",
+        "importButton": "Importar",
+        "exportButton": "Exportar",
+        "table": {
+            "alias": "Alias",
+            "publicId": "Id Pública",
+            "balance": "Saldo",
+            "actions": {
+                "title": "Acciones",
+                "revealSeed": "Mostrar Seed",
+                "makePayment": "Hacer un pago",
+                "receivePayment": "Código QR para recibir un pago",
+                "editSeed": "Editar Seed",
+                "deleteSeed": "Borrar Seed"
+            }
+        }
+    },
+
+    "unlockComponent": {
+        "title": "Desbloquear wallet",
+        "title.new": "Create a Vault",
+        "reasonMessage": " Para desbloquear tu wallet necesitamos una clave privada. Tu clave privada se utilizará mientras tu navegador esté abierto o hasta que decidas\"Lock Wallet\".",
+        "welcomeMessage": "Welcome to the qubic.li Wallet.\nTo use this Wallet you must create a Vault file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+        "choosePrivateKeyFile": "Seleccione el archivo de clave privada",
+        "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
+        "form": {
+            "file.error.required": "Archivo necesario",
+            "password.error.required": "Contraseña necesaria",
+            "password.error.min": " La contraseña debe tener un mínimo de 8 caracteres"
+        },
+        "buttons": {
+            "cancel": "Cancelar",
+            "generateKey": "Crear clave nueva",
+            "unlock": "Importar y desbloquear wallet",
+            "existingUser": "I already have a Vault",
+            "newUser": "I want to create a new Vault",
+            "closeWallet": "Close Wallet"
+        }
+    },
+
+    "lockIconComponent": {
+        "lock": "Bloquear Wallet",
+        "unlock": "Desbloquear  Wallet"
+    },
+
+    "lockComponent": {
+        "title": "¿Cerrar Wallet?",
+        "forceDownload": {
+            "title": "Descargar Clave",
+            "reason": "Cuando cierres tu monedero borraremos tu clave privada de la caché. Sin su clave privada no podrá volver a abrir su monedero. No compartas tu clave privada con otros. Manténgala segura.",
+            "buttons": {
+                "allOk": "Tengo mi clave, gracias"
+            }
+        },
+        "reason": "Es muy importante que guardes tu clave privada. Sin esta clave no podrás volver a ver tus seeds. Por favor, elija una clave y descargue el archivo. Guárdelo de manera segura.",
+        "warning": "Confirmo que he guardado mi clave privada.",
+        "passwor.required": "Contraseña necesaria",
+        "password.min": "La contraseña debe tener un mínimo de 8 caracteres",
+        "buttons": {
+            "savePrivateKey": "Guardar clave Privada",
+            "closeWallet": "Wallet Segura",
+            "enableExport": "Habilitar exportación",
+            "cancel": "Cancelar"
+
+        }
+    },
+
+    "paymentComponent": {
+        "title": "Enviar Quo's",
+        "form": {
+            "sourceSeed": {
+                "label": "Seed de origen",
+                "error": {
+                    "required": "Se requiere la Seed de origen"
+                }
+            },
+            "receiver": {
+                "placeholder": "ID pública de destino",
+                "hint": "semilla pública de 60 mayúsculas",
+                "chooseOwnSeed": "Choose an own Account ID",
+                "error": {
+                    "required": "ID de destino necesaria",
+                    "length": "La ID de destino debe tener 60 letras mayúsculas"
+                }
+            },
+            "amount": {
+                "placeholder": "Cantidad",
+                "error": {
+                    "required": "Cantidad necesaria",
+                    "min": "La cantidad debe tener un mínimo de 1"
+                }
+            },
+            "tick": {
+                "placeholder": "Tick de ejecución",
+                "error": {
+                    "required": "Tick necesario",
+                    "min": "Tick debe tener un mínimo de {{currentTick}}"
+                }
+            }
+        },
+        "buttons": {
+            "send": "Enviar Quo's",
+            "reset": "Reset",
+            "loadPrivateKey": "Cargar clave privada"
+        }
+    },
+    "balanceComponent": {
+        "title": "Account Balance",
+        "overview": {
+            "title": "Overview",
+            "totalWalletValue": "Total Wallet Value",
+            "baseDate": "per"
+
+        },
+        "transactions": {
+            "title": "Transactions in current Epoch",
+            "noTransactions": "No Transactions found",
+            "send.tooltip": "Outgoing Transfer",
+            "receive.tooltip": "Incoming Transfer",
+            "status.pending.tooltip": "Pending",
+            "status.executed.tooltip": "Executed",
+            "status.dissmissed.tooltip": "Dissmissed",
+            "status.unknown.tooltip": "Unknown",
+            "status.confirmed.tooltip": "Confirmado",
+            "filter.seed.label": "Filter by Seed"
+        }
+
+    }
+
+
+}

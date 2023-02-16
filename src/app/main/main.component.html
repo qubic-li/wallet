@@ -1,0 +1,64 @@
+<ng-container *transloco="let t">
+<div class="content_container">
+    <div>
+        <button mat-raised-button aria-label="Add Seed" title="Add Seed" (click)="addSeed();">
+            <mat-icon>add_circle</mat-icon> {{ t("seedOverviewComponent.addSeedButton")}}
+        </button>
+    </div>
+    <div class="mobileOnly seedList">
+        <div *ngFor="let seed of dataSource">
+            <h3>{{ seed.alias }} - {{ getBalance(seed.publicId) | number: '1.0-0' }}</h3>
+            <ng-container *ngTemplateOutlet="actions;context:seed"></ng-container>
+            <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="seed.publicId">{{seed.publicId}}</div><br>
+        </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 desktopOnly">
+
+        <ng-container matColumnDef="alias">
+        <th mat-header-cell *matHeaderCellDef>{{ t("seedOverviewComponent.table.alias")}}</th>
+        <td mat-cell *matCellDef="let element">{{element.alias}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="computorId">
+            <th mat-header-cell *matHeaderCellDef>{{ t("seedOverviewComponent.table.publicId")}}</th>
+            <td mat-cell *matCellDef="let element">
+                <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="element.publicId">{{element.publicId}}</div>
+            </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="balance">
+            <th mat-header-cell *matHeaderCellDef>{{ t("seedOverviewComponent.table.balance")}}</th>
+            <td mat-cell *matCellDef="let element">
+               {{ getBalance(element.publicId) | number: '1.0-0' }}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>{{ t("seedOverviewComponent.table.actions.title")}}</th>
+            <td mat-cell *matCellDef="let seed">
+                <ng-container *ngTemplateOutlet="actions;context:seed"></ng-container>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>
+<ng-template #actions let-publicId="publicId">
+    <button *ngIf="walletService.privateKey" mat-icon-button [title]="t('seedOverviewComponent.table.actions.revealSeed')" (click)="reveal(publicId);">
+        <mat-icon>visibility</mat-icon>
+    </button>
+    <button mat-icon-button  [title]="t('seedOverviewComponent.table.actions.makePayment')" (click)="payment(publicId);">
+        <mat-icon>payment</mat-icon>
+    </button>
+    <button mat-icon-button [title]="t('seedOverviewComponent.table.actions.receivePayment')" (click)="receive(publicId);">
+        <mat-icon>qr_code_2</mat-icon>
+    </button>
+    <button mat-icon-button [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId);">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button [title]="t('seedOverviewComponent.table.actions.deleteSeed')"(click)="delete(publicId);">
+        <mat-icon>delete</mat-icon>
+    </button>
+</ng-template>
+</ng-container>

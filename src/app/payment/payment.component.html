@@ -1,0 +1,114 @@
+<ng-container *transloco="let t">
+
+    <h1>{{ t("paymentComponent.title") }}</h1>
+
+    <form [formGroup]="transferForm" novalidate (ngSubmit)="onSubmit()">
+        <mat-card class="transfer-card">
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="fill" placeholder="Sender Seed" class="full-width">
+                            <mat-label>{{ t("paymentComponent.form.sourceSeed.label") }}</mat-label>
+                            <mat-select formControlName="sourceId">
+                                <mat-option *ngFor="let seed of getSeeds()" [value]="seed.publicId">
+                                    {{seed.alias}} | {{ seed.publicId }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="transferForm.controls['sourceId'].hasError('required')">
+                                {{ t("paymentComponent.form.sourceSeed.error.required") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field  appearance="fill" placeholder="Sender Seed" class="full-width"
+                            *ngIf="selectedAccountId">
+                            <button type="button" matSuffix mat-icon-button
+                            (click)="toggleDestinationSelect()"
+                            matTooltip="{{ t('paymentComponent.form.receiver.chooseOwnSeed') }}">
+                            <mat-icon>account_balance_wallet</mat-icon>
+                        </button>
+                            <mat-label>{{ t("paymentComponent.form.receiver.placeholder") }}</mat-label>
+                            <mat-select #selectedDestinationId  formControlName="selectedDestinationId">
+                                <mat-option *ngFor="let seed of getSeeds(true)" [value]="seed.publicId">
+                                    {{seed.alias}} | {{ seed.publicId }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="transferForm.controls['selectedDestinationId'].hasError('required')">
+                                {{ t("paymentComponent.form.receiver.error.required") }}
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field class="full-width" *ngIf="!selectedAccountId">
+                            <mat-label>{{ t("paymentComponent.form.receiver.placeholder") }}</mat-label>
+                            <input matInput [placeholder]="t('paymentComponent.form.receiver.placeholder')"
+                                formControlName="destinationId">
+                            <button *ngIf="transferForm.controls['destinationId'].value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="transferForm.controls['destinationId'].setValue(null)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <button type="button" matSuffix mat-icon-button
+                                (click)="toggleDestinationSelect()"
+                                matTooltip="{{ t('paymentComponent.form.receiver.chooseOwnSeed') }}">
+                                <mat-icon>import_contacts</mat-icon>
+                            </button>
+                            <mat-hint align="start">{{ t("paymentComponent.form.receiver.hint") }}</mat-hint>
+                            <mat-hint align="end">{{ transferForm.controls['destinationId'].value?.length }} /
+                                60</mat-hint>
+                            <mat-error *ngIf="transferForm.controls['destinationId'].hasError('required')">
+                                {{ t("paymentComponent.form.receiver.error.required") }}
+                            </mat-error>
+                            <mat-error
+                                *ngIf="transferForm.controls['destinationId'].hasError('minlength') || transferForm.controls['destinationId'].hasError('maxlength')">
+                                {{ t("paymentComponent.form.receiver.error.length") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>{{ t("paymentComponent.form.amount.placeholder") }}</mat-label>
+                            <input matInput type="number" [placeholder]="t('paymentComponent.form.amount.placeholder')"
+                                formControlName="amount">
+                            <button *ngIf="transferForm.controls['amount'].value" matSuffix mat-icon-button
+                                aria-label="Clear" (click)="transferForm.controls['amount'].setValue(null)">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                            <mat-error *ngIf="transferForm.controls['amount'].hasError('required')">
+                                {{ t("paymentComponent.form.amount.error.required") }}
+                            </mat-error>
+                            <mat-error *ngIf="transferForm.controls['amount'].hasError('min')">
+                                {{ t("paymentComponent.form.amount.error.min") }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width">
+                            <mat-label>{{ t("paymentComponent.form.tick.placeholder") }}</mat-label>
+                            <input matInput [placeholder]="t('paymentComponent.form.tick.placeholder')"
+                                formControlName="tick">
+                            <mat-error *ngIf="transferForm.controls['tick'].hasError('required')">
+                                {{ t("paymentComponent.form.tick.error.required") }}
+                            </mat-error>
+                            <mat-error *ngIf="transferForm.controls['tick'].hasError('min')">
+                                {{ t("paymentComponent.form.tick.error.min", {currentTick: currentTick}) }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="padding">
+                <button mat-raised-button color="primary" type="submit"
+                    [disabled]="!transferForm.valid || !walletService.privateKey">{{ t("paymentComponent.buttons.send",
+                    {currentTick: currentTick}) }}</button>
+                <button mat-raised-button color="accent" type="button" (click)="init()">{{
+                    t("paymentComponent.buttons.reset", {currentTick: currentTick}) }}</button>
+                <div *ngIf="!walletService.privateKey">
+                    <button mat-raised-button color="warn" type="button" (click)="loadKey()">{{
+                        t("paymentComponent.buttons.loadPrivateKey", {currentTick: currentTick}) }}</button>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</ng-container>
