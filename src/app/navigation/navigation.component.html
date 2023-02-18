@@ -17,6 +17,7 @@
       </div>
       <img src="/assets/img/qubic.li-slogan-white.png" class="logo">
       <div class="topIcons">
+        <div>{{ t("general.currentTick", { tick: us.currentTick.getValue() }) }}</div>
         <qli-notifys></qli-notifys>
         <qli-lock></qli-lock>
       </div>
@@ -42,8 +43,8 @@
             <br>
             <a href="#" (click)="themService.toggleTheme()">Theme Switch</a>
             <br><br>
-            {{t("general.version")}}<br>
-            <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}</a><br>
+            {{t("general.version", { version: version})}}<br>
+            <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}}</a><br>
 
           </div>
         </div>

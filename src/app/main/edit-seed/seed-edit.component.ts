@@ -20,7 +20,7 @@ import { QubicDialogWrapper } from 'src/app/core/dialog-wrapper/dialog-wrapper';
 export class SeedEditDialog extends QubicDialogWrapper {
 
   seedEditForm = this.fb.group({
-    alias: ["Seed " + (this.walletService.seeds.length + 1), [Validators.required, Validators.minLength(3), Validators.maxLength(50), Validators.pattern('[ a-zA-Z0-9_-]*')]],
+    alias: ["Seed " + (this.walletService.seeds.length + 1), [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
     seed: ['', [Validators.required, Validators.minLength(55), Validators.maxLength(55), Validators.pattern('[a-z]*')]],
     publicId: ['', [Validators.required, Validators.minLength(60), Validators.maxLength(60), Validators.pattern('[A-Z]*')]],
   });

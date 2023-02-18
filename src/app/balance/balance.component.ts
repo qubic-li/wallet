@@ -40,8 +40,8 @@ export class BalanceComponent implements OnInit {
     return this.walletService.seeds.length > 0;
   }
 
-  onlyUnique(value: any, index:any, array:any) {
-    return array.find((f: any) => f != value &&  f.destId === value.destId && f.sourceId == value.sourceId) !== value;
+  onlyUnique(value: Transaction, index:any, array:Transaction[]) {
+    return array.findIndex((f: Transaction) => f.id === value.id) == index;
   }
 
   getTransactions(publicId: string | null = null): Transaction[] {

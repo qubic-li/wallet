@@ -13,7 +13,7 @@ export class LanguageChooserComponent {
   selected = 'en';
 
   constructor(public translocoService: TranslocoService, public dialog: MatDialog){
-    
+    this.selected = translocoService.getActiveLang();
   }
 
   changeLang(event:any ): void {

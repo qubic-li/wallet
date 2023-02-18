@@ -5,6 +5,9 @@ import { map, shareReplay } from 'rxjs/operators';
 import {MediaMatcher} from '@angular/cdk/layout';
 import { WalletService } from '../services/wallet.service';
 import { ThemeService } from '../services/theme.service';
+import { environment } from 'src/environments/environment';
+import { UpdaterService } from '../services/updater-service';
+
 
 @Component({
   selector: 'app-navigation',
@@ -24,14 +27,18 @@ export class NavigationComponent {
 
   mobileQuery: MediaQueryList;
   title = 'qubic-li-wallet';
+  public version = 0.0;
 
 
   private _mobileQueryListener: () => void;
 
-  constructor(public themService: ThemeService, private breakpointObserver: BreakpointObserver, public walletService: WalletService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(public us: UpdaterService, public themService: ThemeService, private breakpointObserver: BreakpointObserver, public walletService: WalletService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+    console.log("ENV", environment);
+    this.version = environment.version;
+
   }
 
 

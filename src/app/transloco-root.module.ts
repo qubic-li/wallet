@@ -8,6 +8,10 @@ import {
   TranslocoModule
 } from '@ngneat/transloco';
 import { Injectable, isDevMode, NgModule } from '@angular/core';
+import {
+  TRANSLOCO_PERSIST_LANG_STORAGE,
+  TranslocoPersistLangModule,
+} from '@ngneat/transloco-persist-lang';
 
 
 @Injectable({ providedIn: 'root' })
@@ -21,11 +25,19 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 
 @NgModule({
   exports: [ TranslocoModule ],
+  imports: [
+    TranslocoPersistLangModule.forRoot({
+      storage: {
+        provide: TRANSLOCO_PERSIST_LANG_STORAGE,
+        useValue: localStorage,
+      },
+    }),
+  ],
   providers: [
     {
       provide: TRANSLOCO_CONFIG,
       useValue: translocoConfig({
-        availableLangs: ['en', 'de', 'es'],
+        availableLangs: ['en', 'de', 'es', 'ru'],
         defaultLang: 'en',
         // Remove this option if your application doesn't support changing language in runtime.
         reRenderOnLangChange: true,

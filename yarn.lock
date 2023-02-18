@@ -2343,6 +2343,13 @@
     "@material/theme" "15.0.0-canary.7971d6ad5.0"
     tslib "^2.1.0"
 
+"@ngneat/transloco-persist-lang@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@ngneat/transloco-persist-lang/-/transloco-persist-lang-4.0.0.tgz#da9beec9ee25c449993feb4aece2ba61e33e549f"
+  integrity sha512-OpYph1obkcB9clC5JGUMkD/Bb8n/jLYkqYUEOHf7/Y/0LcJpLiSTydN99+UhTND03uKAzDcP0WaQvAZaPnXxrw==
+  dependencies:
+    tslib "^2.2.0"
+
 "@ngneat/transloco-utils@^3.0.1":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@ngneat/transloco-utils/-/transloco-utils-3.0.4.tgz#6cc7b686be44e38d2e6e0475849b62ffaf5e69a5"

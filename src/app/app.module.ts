@@ -43,6 +43,7 @@ import { QrReceiveDialog } from './main/qr-receive/qr-receive.component';
 import { TranslocoRootModule } from './transloco-root.module';
 import { LanguageChooserComponent } from './core/language-chooser/language-chooser.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { UpdaterService } from './services/updater-service';
 
 
 /** Http interceptor providers in outside-in order */
@@ -96,7 +97,7 @@ export const httpInterceptorProviders = [
     TranslocoRootModule
   ],
 
-  providers: [WalletService, AuthInterceptor, ApiService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+  providers: [WalletService, AuthInterceptor, ApiService, UpdaterService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
     httpInterceptorProviders
   ],
   bootstrap: [AppComponent]

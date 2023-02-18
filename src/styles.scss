@@ -1,6 +1,8 @@
 /* THEMING START */
 @use '@angular/material' as mat;
 
+@import 'vars';
+
 // Foreground Elements
 
 // Light Theme Text
@@ -130,7 +132,7 @@ body {
 }
 
 $mat-primary: (
-  main: #0d6357,
+  main: $mainColor,
   lighter: #b6d0cd,
   darker: #07473c,
   200: #0d6357,
@@ -211,6 +213,10 @@ $altTheme: (
 
 .darkTheme {
   @include mat.all-component-themes($altTheme);
+
+  .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
+    color: map-get($map: $mat-primary, $key: lighter );
+  }
 }
 
 // Specific component overrides, pieces that are not in line with the general theming

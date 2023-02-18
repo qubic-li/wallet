@@ -1,0 +1,212 @@
+{
+  "general": {
+    "title": "qubic.li - Кошелек",
+    "comingSoon": "В разработке!",
+    "navigation": {
+      "home": "Домашняя страница",
+      "payment": "Платежи",
+      "balance": "Баланс",
+      "settings": "Настройки"
+    },
+    "version": "Версия {{version}} - тестовая",
+    "version.url": "qubic.li",
+    "copy.tooltip": "Копировать",
+    "error": "Ошибка",
+    "close": "Закрыть",
+    "currency": "qus",
+    "currentTick": "Current Tick: {{tick}}"
+  },
+  "payment": {
+    "keyRequestReason": "Поскольку транзакции подписываются цифровым ключом, вам необходимо сначала загрузить свой ключ."
+  },
+  "confirmDialog": {
+    "title": "Подтверждение",
+    "buttons": {
+      "cancel": "Отменить",
+      "confirm": "Подтвердить"
+    },
+    "confirmationText": "Вы уверены?"
+  },
+  "notifyComponent": {
+    "saveYourKey": "Пожалуйста, сохраните ваш файл Vault в надежном месте",
+    "qubicLiSync": "Синхронизируйте свои настройки с qubic.li"
+  },
+  "revealSeedComponent": {
+    "title": "Информация о счете",
+    "publicId": "ID счета",
+    "privateId": "Пароль счета",
+    "buttons": {
+      "close": "Закрыть"
+    }
+  },
+  "qrReceiveComponent": {
+    "title": "Получить платеж",
+    "downloadLink": "Загрузить",
+    "hint": "Отсканируйте/отправьте этот QR-код, для получения оплаты на {{publicId}}",
+    "buttons.close": "Закрыть"
+  },
+  "seedEditComponent": {
+    "title.add": "Добавить аккаунт",
+    "title.edit": "Редактировать аккаунт",
+    "newSeedName": "Имя счета",
+    "form": {
+      "alias": {
+        "placeholder": "Выберите имя для вашей учетной записи",
+        "error": {
+          "required": "Имя обязательно",
+          "min": "Имя должно содержать минимум 3 символа",
+          "max": "Имя должно содержать максимум 50 символов",
+          "regex": "Может содержать только {{regex}}"
+        }
+      },
+      "seed": {
+        "placeholder": "Пароль учетной записи",
+        "error": {
+          "required": "Требуется пароль учетной записи",
+          "min": "Пароль учетной записи должен точно состоять из 55 символов нижнего регистра",
+          "max": "Пароль учетной записи должен состоять из 55 символов нижнего регистра",
+          "regex": "Может содержать только a-zA-Z0-9_-"
+        },
+        "generateSeed": "Случайная генерация пароля учетной записи"
+      },
+      "error": {
+        "text": "Пожалуйста, проверьте форму",
+        "close": "Закрыть"
+      }
+    },
+    "publicIdMessage": "Ваш ID:",
+    "privateKeyWarning": "Внимание! Ваш файл Vault не загружен. Пожалуйста, убедитесь, что он надежно сохранен.",
+    "buttons": {
+      "cancel": "Отмена",
+      "create": "Создать аккаунт",
+      "save": "Сохранить счет"
+    }
+  },
+  "seedOverviewComponent": {
+    "addSeedButton": "Добавить счет",
+    "importButton": "Импортировать",
+    "exportButton": "Экспорт",
+    "table": {
+      "alias": "Имя счета",
+      "publicId": "ID счета",
+      "balance": "Баланс",
+      "actions": {
+        "title": "Действия",
+        "revealSeed": "Раскрыть пароль счета",
+        "makePayment": "Произвести платеж",
+        "receivePayment": "Сгенерировать QR-код для получения платежа",
+        "editSeed": "Редактировать счет",
+        "deleteSeed": "Удалить аккаунт"
+      }
+    }
+  },
+  "unlockComponent": {
+    "title": "Разблокировать кошелек",
+    "title.new": "Создать файл Vault",
+    "welcomeMessage": "Добро пожаловать в кошелек qubic.li. Для использования этого кошелька вы должны создать файл Vault. Он будет содержать ваш открытый/закрытый ключ, который впоследствии будет использоваться для шифрования/дешифрования ваших данных.",
+    "reasonMessage": "Для разблокировки кошелька необходим файл Vault. Этот файл автоматически удаляется после перезагрузки или закрытия страницы.",
+    "choosePrivateKeyFile": "Выберите файл Vault",
+    "overwriteVault": "Похоже, что в этом браузере уже сохранены некоторые данные. Вы действительно хотите перезаписать их?",
+    "form": {
+      "file.error.required": "Требуется файл Vault",
+      "password.error.required": "Требуется пароль к файлу Vault",
+      "password.error.min": "Ваш пароль должен состоять минимум из 8 символов."
+    },
+    "buttons": {
+      "cancel": "Отмена",
+      "generateKey": "Создать новый файл Vault",
+      "unlock": "Разблокировать кошелек",
+      "existingUser": "У меня уже есть мой Vault",
+      "newUser": "Я хочу создать новый файл Vault",
+      "closeWallet": "Закрыть кошелек"
+    }
+  },
+  "lockIconComponent": {
+    "lock": "Заблокировать кошелек",
+    "unlock": "Разблокировать кошелек"
+  },
+  "lockComponent": {
+    "title": "Закрыть кошелек?",
+    "forceDownload": {
+      "title": "Загрузить файл хранилища",
+      "reason": "При блокировке кошелька файл Vault автоматически удаляется. Без файла Vault транзакции невозможны. Пожалуйста, убедитесь, что ваш файл Vault надежно сохранен. Экспортируйте его снова в случае каких-либо сомнений...",
+      "buttons": {
+        "allOk": "У меня есть мой ключ"
+      }
+    },
+    "reason": "Очень важно хранить ваш файл Vault в безопасности. Пожалуйста, выберите надежный пароль, который вы не забудете, а затем нажмите \"Сохранить\".",
+    "warning": "Я подтверждаю, что сохранил свой файл Vault",
+    "password.placeholder": "Пароль",
+    "passwor.required": "Требуется пароль",
+    "password.min": "Пароль должен состоять минимум из 8 символов",
+    "buttons": {
+      "savePrivateKey": "Сохранить файл Vault",
+      "closeWallet": "Закрыть кошелек",
+      "enableExport": "Экспорт",
+      "cancel": "Отменить"
+    }
+  },
+  "paymentComponent": {
+    "title": "Отправить Qubic Units (qus)",
+    "form": {
+      "sourceSeed": {
+        "label": "ID с которого будут отправлены qus",
+        "error": {
+          "required": "Требуется учетная запись отправителя"
+        }
+      },
+      "receiver": {
+        "placeholder": "ID счета получателя",
+        "hint": "60 заглавных символов",
+        "chooseOwnSeed": "Выбрать собственный ID",
+        "error": {
+          "required": "Требуется ID",
+          "length": "ID Qubic состоит из 60 заглавных букв"
+        }
+      },
+      "amount": {
+        "placeholder": "Сумма в монетах кубика (qus)",
+        "max.tooltip": "Set to maximum available amount on this Seed",
+        "error": {
+          "required": "Сумма обязательна",
+          "min": "Сумма должна быть минимум 1"
+        }
+      },
+      "tick": {
+        "placeholder": "На каком тике выполнить",
+        "max.tooltip": "Выбрать все доступные средства этого сида",
+        "customize.tooltip": "Установить тик выполнения вручную",
+        "error": {
+          "required": "Обязательно укажите тик",
+          "min": "Тик должен быть минимум {{currentTick}}"
+        }
+      }
+    },
+    "buttons": {
+      "send": "Выполнить транзакцию",
+      "reset": "Сбросить",
+      "loadPrivateKey": "Загрузить файл хранилища"
+    }
+  },
+  "balanceComponent": {
+    "title": "Баланс",
+    "createSeedHint": "Пожалуйста, сначала создайте Seed",
+    "overview": {
+      "title": "Обзор",
+      "totalWalletValue": "Общий баланс кошелька",
+      "baseDate": "на"
+    },
+    "transactions": {
+      "title": "Транзакции в текущей эпохе",
+      "noTransactions": "Транзакции не найдены",
+      "send.tooltip": "Исходящая передача",
+      "receive.tooltip": "Входящая передача",
+      "status.pending.tooltip": "В ожидании",
+      "status.executed.tooltip": "В обработке",
+      "status.dismissed.tooltip": "Отклонено",
+      "status.unknown.tooltip": "Неизвестно",
+      "status.confirmed.tooltip": "Непонятно",
+      "filter.seed.label": "Сортировка по seed"
+    }
+  }
+}

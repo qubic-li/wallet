@@ -5,6 +5,7 @@
     <div *ngIf="isNewUser()">
       {{ t("unlockComponent.welcomeMessage") }}
       <br><br>
+      <qli-language-chooser></qli-language-chooser>
     </div>
     <div *ngIf="!isNewUser()">
       {{ t("unlockComponent.reasonMessage")}}

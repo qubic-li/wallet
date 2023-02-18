@@ -8,12 +8,13 @@
             "balance": "Account Balance",
             "settings": "Settings"
         },
-        "version": "Version 0.2 - preview",
+        "version": "Version {{version}} - preview",
         "version.url": "qubic.li",
         "copy.tooltip": "Copy",
         "error": "Error",
         "close": "close",
-        "currency": "qus"
+        "currency": "qus",
+        "currentTick": "Current Tick: {{tick}}"
     },
     "payment": {
         "keyRequestReason": "As transactions are digitally signed with your key you need to load your key first."
@@ -44,7 +45,6 @@
         "hint": "Scan/Send this QR Code to receive a payment for {{publicId}}.",
         "buttons.close": "Close"
     },
-
     "seedEditComponent": {
         "title.add": "Add Account",
         "title.edit": "Edit Account",
@@ -82,7 +82,6 @@
             "save": "Save account"
         }
     },
-
     "seedOverviewComponent": {
         "addSeedButton": "Add account",
         "importButton": "Import",
@@ -101,7 +100,6 @@
             }
         }
     },
-
     "unlockComponent": {
         "title": "Unlock wallet",
         "title.new": "Create a Vault",
@@ -123,12 +121,10 @@
             "closeWallet": "Close Wallet"
         }
     },
-
     "lockIconComponent": {
         "lock": "Lock Wallet",
         "unlock": "Unlock Wallet"
     },
-
     "lockComponent": {
         "title": "Close Wallet?",
         "forceDownload": {
@@ -148,10 +144,8 @@
             "closeWallet": "Lock Wallet",
             "enableExport": "Export",
             "cancel": "Cancel"
-
         }
     },
-
     "paymentComponent": {
         "title": "Send Qubic Units (qus)",
         "form": {
@@ -172,6 +166,7 @@
             },
             "amount": {
                 "placeholder": "Amount in Qubic Unis (qus)",
+                "max.tooltip": "Set to maximum available amount on this Seed",
                 "error": {
                     "required": "Amount is required",
                     "min": "Amount must be a minimum of 1"
@@ -179,6 +174,7 @@
             },
             "tick": {
                 "placeholder": "Execution Tick",
+                "customize.tooltip": "Toggle to set custom Execution Tick",
                 "error": {
                     "required": "Tick is required",
                     "min": "Tick must be a minimum of {{currentTick}}"
@@ -206,12 +202,10 @@
             "receive.tooltip": "Incoming Transfer",
             "status.pending.tooltip": "Pending",
             "status.executed.tooltip": "Executed",
-            "status.dissmissed.tooltip": "Dissmissed",
+            "status.dismissed.tooltip": "Dismissed",
             "status.unknown.tooltip": "Unknown",
-            "status.confirmed.tooltip": "Confirmed",
+            "status.confirmed.tooltip": "Staged",
             "filter.seed.label": "Filter by Seed"
-
         }
-
     }
 }

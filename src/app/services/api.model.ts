@@ -21,6 +21,7 @@ export interface SubmitTransactionRequest {
 }
 
 export interface Transaction {
+  id: string;
   sourceId: string;
   destId: string;
   amount: number;
@@ -32,6 +33,7 @@ export interface Transaction {
 
 export interface BalanceResponse {
   publicId: string;
+  currentEstimatedAmount: number;
   epochBaseAmount: number;
   baseDate: Date;
   transactions: Transaction[]
