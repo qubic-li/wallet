@@ -8,16 +8,6 @@
   right: 0;
 }
 
-.is-mobile {
-  h1 {
-    font-size:1.2em;
-  }
-  .toolbar {
-    position: fixed;
-    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
-    z-index: 2;
-  }
-}
 
 h1.app-name {
   margin-left: 8px;
@@ -63,4 +53,24 @@ mat-sidenav-content{
 
 .logo {
   max-height: 50px;
+}
+
+.is-mobile {
+  h1 {
+    font-size:1.2em;
+  }
+  .toolbar {
+    position: fixed;
+    /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+    z-index: 2;
+  }
+  .logo {
+    max-width: 100px;
+  }
+  .currentTick {
+    max-width: 75px;
+    .title {
+      display: none;
+    }
+  }
 }

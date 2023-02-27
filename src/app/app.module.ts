@@ -26,7 +26,8 @@ import { LockConfirmDialog } from './lock/confirm-lock/confirm-lock.component';
 import { UnLockComponent } from './lock/unlock/unlock.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SeedEditDialog } from './main/edit-seed/seed-edit.component';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableModule} from '@angular/material/table';
+import {MatSortModule} from '@angular/material/sort'
 import { ConfigErrorComponent } from './lock/config-error/config-error.component';
 import { NotifysComponent } from './notifys/notifys.component';
 import { ConfirmDialog } from './core/confirm-dialog/confirm-dialog.component';
@@ -90,6 +91,7 @@ export const httpInterceptorProviders = [
     MatDialogModule,
     MatSnackBarModule,
     MatTableModule,
+    MatSortModule,
     ClipboardModule,
     MatTooltipModule,
     HttpClientModule,

@@ -8,3 +8,36 @@
         margin-bottom: 0px;;
     }
 }
+.mobileActionLine {
+    display: flex;
+    flex-wrap: wrap;
+}
+.epochChanges {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+.down, .up{
+    display: none;
+}
+.straight{
+    display: inline;
+}
+.isPositiv {
+    color: green;
+    .down, .straight{
+        display: none;
+    }
+    .up{
+        display: inline;
+    }
+}
+.isNegativ {
+    color: red;
+    .up, .straight{
+        display: none;
+    }
+    .down{
+        display: inline;
+    }
+}

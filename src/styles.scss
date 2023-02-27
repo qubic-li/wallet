@@ -668,3 +668,18 @@ h2 {
 }
 
 /* balance page end */
+
+.target-highlight {
+  animation: highlight 2s;
+}
+
+@keyframes highlight {
+  0%   {background-color: none;}
+  50%  {background-color: $highlightColor;}
+  100% {background-color: none;}
+}
+
+.alignRight, .alignRight .mat-sort-header-container, .alignRight .mat-sort-header-content, .alignRight .mdc-data-table__cell{
+  text-align: right !important;
+  justify-content: right;
+}

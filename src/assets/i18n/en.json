@@ -86,10 +86,13 @@
         "addSeedButton": "Add account",
         "importButton": "Import",
         "exportButton": "Export",
+        "search.label": "Search",
         "table": {
             "alias": "Account Name",
             "publicId": "Account ID",
             "balance": "Balance",
+            "epochChanges": "Epoch Changes",
+            "noData": "No data matching the filter \"{{q}}\"",
             "actions": {
                 "title": "Actions",
                 "revealSeed": "Reveal account password",
@@ -192,11 +195,13 @@
         "createSeedHint": "Please create first a Seed",
         "overview": {
             "title": "Overview",
-            "totalWalletValue": "Total Wallet Value",
+            "totalWalletValue": "Fixed Wallet Value",
+            "estimatedWalletValue": "Estimated Wallet Value",
             "baseDate": "per"
         },
         "transactions": {
             "title": "Transactions in current Epoch",
+            "verificationAlert": "Preview data could not be verified",
             "noTransactions": "No Transactions found",
             "send.tooltip": "Outgoing Transfer",
             "receive.tooltip": "Incoming Transfer",

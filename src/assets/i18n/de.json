@@ -86,10 +86,13 @@
     "addSeedButton": "Konto hinzufügen",
     "importButton": "Import",
     "exportButton": "Export",
+    "search.label": "Filter",
     "table": {
       "alias": "Konto-Name",
       "publicId": "Konto-ID",
       "balance": "Vermögen",
+      "epochChanges": "Veränderung in Epoche",
+      "noData": "Keine Treffer für \"{{q}}\"",
       "actions": {
         "title": "Aktionen",
         "revealSeed": "Konto-Passwort anzeigen",
@@ -165,7 +168,7 @@
         }
       },
       "amount": {
-        "placeholder": "Betrag in Qubic Units (qus)",
+        "placeholder": "Betrag in qus",
         "max.tooltip": "Maximal möglicher Betrag für dieses Konto einsetzen",
         "error": {
           "required": "Betrag wird benötigt",
@@ -174,7 +177,7 @@
       },
       "tick": {
         "placeholder": "Ausführen bei folgendem Tick",
-        "max.tooltip": "Eigenen Ausführungszeitraum festlegen",
+        "customize.tooltip": "Eigenen Ausführungszeitraum festlegen",
         "error": {
           "required": "Tick wird benötigt.",
           "min": "Der Tick muss mindestens {{currentTick}} sein."
@@ -192,10 +195,12 @@
     "overview": {
       "title": "Gesamtübersicht",
       "totalWalletValue": "Gesamtes Vermögen",
+      "estimatedWalletValue": "Geschätztes Vermögen",
       "baseDate": "per"
     },
     "transactions": {
       "title": "Transaktionen in aktueller Epoche",
+      "verificationAlert": "Vorschaudaten konnten nicht verifiziert werden",
       "noTransactions": "Keine Transaktionen gefunden",
       "send.tooltip": "Ausgehender Transfer",
       "receive.tooltip": "Ankommender Transfer",

@@ -43,15 +43,15 @@ export class WalletService {
   private loadConfig() {
     const jsonString = localStorage.getItem(this.configName);
     if (jsonString) {
-      try{
+      try {
         const config = JSON.parse(jsonString);
-        if(config.publicKey)
-          crypto.subtle.importKey("jwk", config.publicKey, this.rsaAlg, true, ['encrypt']).then(k => 
+        if (config.publicKey)
+          crypto.subtle.importKey("jwk", config.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
             this.publicKey = k
           );
-        if(config.seeds)
+        if (config.seeds)
           this.seeds = config.seeds;
-      }catch(e) {
+      } catch (e) {
         this.configError = true;
         this.erroredCOnfig = jsonString;
       }
@@ -69,45 +69,58 @@ export class WalletService {
   }
 
   public getSeeds(): ISeed[] {
-    return [...this.seeds]
+    var seeds = [...this.seeds];
+    return seeds.sort((a, b) => {
+      const nameA = a.alias.toUpperCase(); // ignore upper and lowercase
+      const nameB = b.alias.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
   }
   public getSeed(publicId: string): ISeed | undefined {
     return this.seeds.find(f => f.publicId === publicId);
   }
-  public revealSeed(publicId: string): Promise<string>{
+  public revealSeed(publicId: string): Promise<string> {
     const seed = this.getSeed(publicId);
     return this.decrypt(this.privateKey!, this.base64ToArrayBuffer(seed?.encryptedSeed!)).then(result => {
-      return  new TextDecoder().decode(result);
+      return new TextDecoder().decode(result);
     });
-    
+
   }
-  public updateSeedAlias(publicId: string, alias: string){
+  public updateSeedAlias(publicId: string, alias: string) {
     let seed = this.getSeed(publicId);
-    if(seed)
+    if (seed)
       seed.alias = alias;
   }
 
-  arrayBufferToBase64( buffer: ArrayBuffer ) {
+  arrayBufferToBase64(buffer: ArrayBuffer) {
     var binary = '';
-    var bytes = new Uint8Array( buffer );
+    var bytes = new Uint8Array(buffer);
     var len = bytes.byteLength;
     for (var i = 0; i < len; i++) {
-        binary += String.fromCharCode( bytes[ i ] );
+      binary += String.fromCharCode(bytes[i]);
     }
-    return btoa( binary );
-}
+    return btoa(binary);
+  }
 
 
 
-base64ToArrayBuffer(base64: string) {
-    var binary_string =  atob(base64);
+  base64ToArrayBuffer(base64: string) {
+    var binary_string = atob(base64);
     var len = binary_string.length;
-    var bytes = new Uint8Array( len );
-    for (var i = 0; i < len; i++)        {
-        bytes[i] = binary_string.charCodeAt(i);
+    var bytes = new Uint8Array(len);
+    for (var i = 0; i < len; i++) {
+      bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes.buffer;
-}
+  }
 
   public addSeed(seed: IDecodedSeed): Promise<ISeed> {
     return this.encrypt(seed.seed).then(encryptedSeed => {
@@ -146,7 +159,7 @@ base64ToArrayBuffer(base64: string) {
   }
 
   private saveConfig(lock: boolean) {
-    if(lock) { // when locking we don't want that the public key is saved.
+    if (lock) { // when locking we don't want that the public key is saved.
       const config = {
         seeds: this.seeds
       };
@@ -170,7 +183,7 @@ base64ToArrayBuffer(base64: string) {
 
   private setKeys(publicKey: CryptoKey, privateKey: CryptoKey | null = null) {
     this.publicKey = publicKey;
-    if(privateKey)
+    if (privateKey)
       this.privateKey = privateKey;
   }
 

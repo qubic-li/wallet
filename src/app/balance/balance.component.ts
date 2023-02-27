@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { BalanceResponse, Transaction } from '../services/api.model';
 import { FormControl } from '@angular/forms';
+import { UpdaterService } from '../services/updater-service';
 
 @Component({
   selector: 'app-balance',
@@ -16,24 +17,32 @@ export class BalanceComponent implements OnInit {
   public accountBalances: BalanceResponse[] = [];
   public seedFilterFormControl: FormControl = new FormControl();
 
-  constructor(private transloco: TranslocoService, private api: ApiService, private walletService: WalletService, private _snackBar: MatSnackBar) {
+  constructor(private transloco: TranslocoService, private api: ApiService, private walletService: WalletService, private _snackBar: MatSnackBar, private us: UpdaterService) {
 
   }
 
   ngOnInit(): void {
     if(this.hasSeeds()){
-      this.api.getCurrentBalance(this.walletService.seeds.map(m => m.publicId)).subscribe(response => {
+      this.us.currentBalance.subscribe(response => {
         this.accountBalances = response;
-      }, e => {
-        this._snackBar.open(this.transloco.translate("general.error"), this.transloco.translate("general.close"), {
-          duration: 3000,
+      }, errorResponse => {
+        this._snackBar.open(errorResponse.error, this.transloco.translate("general.close"), {
+          duration: 0,
+          panelClass: "error"
         });
       });
     }
   }
 
-  getTotalBalance(): number {
-    return this.accountBalances.reduce((p, c) => p + c.epochBaseAmount, 0);
+  getDate() {
+    return new Date();
+  }
+
+  getTotalBalance(estimaed = false): number {
+    if(estimaed)
+      return this.accountBalances.reduce((p, c) => p + (c.currentEstimatedAmount), 0);
+    else
+      return this.accountBalances.reduce((p, c) => p + (c.epochBaseAmount), 0);
   }
 
   hasSeeds() {

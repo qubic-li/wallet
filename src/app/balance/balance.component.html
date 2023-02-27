@@ -9,8 +9,9 @@
             </mat-card-header>
             <mat-card-content>
                 <div>
-                    {{ t("balanceComponent.overview.totalWalletValue") }} <strong>{{ getTotalBalance() | number: '1.0-0'
-                        }}</strong>
+                    {{ t("balanceComponent.overview.estimatedWalletValue") }} <strong>{{ getTotalBalance(true) | number: '1.0-0' }} {{ t("general.currency") }}</strong>
+                    {{ t("balanceComponent.overview.baseDate")}} {{ getDate() | date }}<br><br>
+                    {{ t("balanceComponent.overview.totalWalletValue") }} <strong>{{ getTotalBalance() | number: '1.0-0' }} {{ t("general.currency") }}</strong>
                     {{ t("balanceComponent.overview.baseDate")}} {{ accountBalances[0].baseDate | date }}
                 </div>
             </mat-card-content>
@@ -24,7 +25,7 @@
             </mat-card-header>
             <mat-card-content>
                 <div class="alert">
-                    PREVIEW DATA NOT VERIFIED
+                    {{ t("balanceComponent.transactions.verificationAlert") }}
                 </div>
                 <mat-form-field appearance="fill" class="full-width">
                     <mat-label>{{ t("balanceComponent.transactions.filter.seed.label") }}</mat-label>
@@ -39,14 +40,14 @@
                 </div>
                 <div *ngFor="let transaction of getTransactions(seedFilterFormControl.value)" class="transaction-list">
                     <div class="status-buttons">
-                        <span *ngIf="transaction.status == 'Pending'" class="loading-btn-wrapper"
+                        <span *ngIf="transaction.status == 'Pending' || transaction.status == 'Broadcasted'" class="loading-btn-wrapper"
                             matTooltip="{{ t('balanceComponent.transactions.status.pending.tooltip') }}">
                             <button class="loading-btn loading-btn--pending">
                                 <span class="loading-btn__text">
                                 </span>
                             </button>
                         </span>
-                        <span *ngIf="transaction.status == 'Confirmed'" class="loading-btn-wrapper"
+                        <span *ngIf="transaction.status == 'Confirmed' || transaction.status == 'Staged'" class="loading-btn-wrapper"
                             matTooltip="{{ t('balanceComponent.transactions.status.confirmed.tooltip') }}">
                             <button class="loading-btn loading-btn--confirmed">
                                 <span class="loading-btn__text">
@@ -77,9 +78,17 @@
                                 </span>
                             </button>
                         </span>
+                        <span *ngIf="transaction.status == 'Created'" class="loading-btn-wrapper"
+                            matTooltip="{{ t('balanceComponent.transactions.status.unknown.tooltip') }}">
+                            <button class="loading-btn loading-btn--unknown">
+                                <span class="loading-btn__text">
+                                    <mat-icon>new_releases</mat-icon>
+                                </span>
+                            </button>
+                        </span>
                     </div>
                     <div class="center">
-                        <div class="trans-amount">{{ transaction.amount }} {{ t("general.currency") }}</div>
+                        <div class="trans-amount">{{ transaction.amount | number: '1.0-0' }} {{ t("general.currency") }}</div>
                         <div class="trans-date">{{ transaction.created | date }}</div>
                     </div>
                     <div class="send-receive-indicator">
@@ -90,10 +99,17 @@
                     </div>
                     <div>
                         <div [class]="{copy: true, ownId: isOwnId(transaction.sourceId)}">
-                            From: <span matTooltip="{{ t('general.copy.tooltip') }}">{{ transaction.sourceId }} {{ getSeedName(transaction.sourceId) }}</span>
+                            From: <span matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="transaction.sourceId">{{ transaction.sourceId }} {{ getSeedName(transaction.sourceId) }}</span>
                         </div>
                         <div [class]="{copy: true, ownId: isOwnId(transaction.destId)}">To: <span
-                                matTooltip="{{ t('general.copy.tooltip') }}">{{ transaction.destId }} {{ getSeedName(transaction.destId) }}</span></div>
+                                matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="transaction.destId">{{ transaction.destId }} {{ getSeedName(transaction.destId) }}</span></div>
+                    </div>
+                    <div>
+                        <span *ngIf="transaction.created" >Created: {{ transaction.created | date:'short' }}<br></span>
+                        <span *ngIf="transaction.broadcasted && !transaction.stored" >Broadcasted: {{ transaction.broadcasted | date:'short' }}<br></span>
+                        <span *ngIf="transaction.stored" >Stored: {{ transaction.stored | date:'short' }}<br></span>
+                        <span *ngIf="transaction.staged" >Staged: {{ transaction.staged | date:'short' }}<br></span>
+                        <span *ngIf="transaction.confirmed" >Confirmed: {{ transaction.confirmed | date:'short' }}</span>
                     </div>
 
 

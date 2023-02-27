@@ -35,7 +35,7 @@ export class ApiService {
   private setToken(token: string) {
     localStorage.setItem('token', token);
     this.token.next(token);
-    this.authInterceptor.token = token;
+    this.authInterceptor.token.next(token);
   }
 
   public login(authRequest: {username: string, password: string}) {

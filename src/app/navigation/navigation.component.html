@@ -17,7 +17,7 @@
       </div>
       <img src="/assets/img/qubic.li-slogan-white.png" class="logo">
       <div class="topIcons">
-        <div>{{ t("general.currentTick", { tick: us.currentTick.getValue() }) }}</div>
+        <div class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() }}</span></div>
         <qli-notifys></qli-notifys>
         <qli-lock></qli-lock>
       </div>

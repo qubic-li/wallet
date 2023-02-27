@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialog } from '../core/confirm-dialog/confirm-dialog.component';
 import { UnLockComponent } from '../lock/unlock/unlock.component';
 import { ISeed } from '../model/seed';
@@ -10,45 +10,67 @@ import { RevealSeedDialog } from './reveal-seed/reveal-seed.component';
 import { Router } from '@angular/router';
 import { QrReceiveDialog } from './qr-receive/qr-receive.component';
 import { ApiService } from '../services/api.service';
-import { BalanceResponse } from '../services/api.model';
-
+import { BalanceResponse, Transaction } from '../services/api.model';
+import {MatSort} from '@angular/material/sort';
+import { UpdaterService } from '../services/updater-service';
 
 @Component({
   selector: 'qli-main',
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent {
+export class MainComponent implements AfterViewInit {
 
-  displayedColumns: string[] = ['alias', 'computorId', 'balance', 'actions'];
-  dataSource: ISeed[] = [];
+  displayedColumns: string[] = ['alias', 'publicId', 'balance', 'currentEstimatedAmount', 'actions'];
+  dataSource!: MatTableDataSource<ISeed>;
   balances: BalanceResponse[] = [];
 
   @ViewChild(MatTable)
-  table!: MatTable<ISeed>;
+  table!: MatTable<ISeed> ;
+
+  @ViewChild(MatSort)
+  sort!: MatSort;
 
 
-  constructor(public walletService: WalletService, public dialog: MatDialog, private router: Router, api: ApiService) {
-    this.dataSource = [...walletService.seeds];
-    api.getCurrentBalance(this.walletService.seeds.map(m => m.publicId)).subscribe(s => {
-      if (s) {
-        this.balances = s;
-      }
-    });
+  constructor(public walletService: WalletService, public dialog: MatDialog, private router: Router, us: UpdaterService) {
+    this.setDataSource();
+    us.currentBalance.subscribe(b => {
+      this.balances = b;
+      this.setDataSource();
+    })
+  }
+  ngAfterViewInit(): void {
+    this.setDataSource();
+  }
+
+  setDataSource(): void {
+    this.dataSource = new MatTableDataSource(this.walletService.getSeeds().map(m => {
+      m.balance = this.getBalance(m.publicId);
+      (<any>m).currentEstimatedAmount = this.getEpochChanges(m.publicId);
+      return m;
+    }));
+    this.dataSource.sort = this.sort;
   }
 
   getBalance(publicId: string): number{
     var balanceEntry = this.balances.find(f => f.publicId === publicId);
-    if(balanceEntry && balanceEntry.epochBaseAmount) {
-      return balanceEntry.epochBaseAmount;
-    }else {
-      return 0;
-    }
+    return balanceEntry?.currentEstimatedAmount ?? balanceEntry?.epochBaseAmount ?? 0;
+  }
+
+
+  getEpochChanges(publicId: string): number{
+    var balanceEntry = this.balances.find(f => f.publicId === publicId);
+    return balanceEntry?.epochChanges ?? 0;
   }
 
   refreshData() {
-    this.dataSource = [...this.walletService.seeds];
+    this.setDataSource();
     this.table.renderRows();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   addSeed() {
@@ -74,14 +96,11 @@ export class MainComponent {
         }
       });
       dialogRef.afterClosed().subscribe((r) => {
-        // do anything :)
-        this.dataSource = [...this.walletService.seeds];
-        this.table.renderRows();
+        this.setDataSource();
       });
     }
 
   }
-
 
   payment(publicId: string) {
     this.router.navigate(['/', 'payment'], {
@@ -98,7 +117,6 @@ export class MainComponent {
       }
     });
   }
-
 
   receive(publicId: string) {
     const qrDialog = this.dialog.open(QrReceiveDialog, {

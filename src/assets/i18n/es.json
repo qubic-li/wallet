@@ -8,7 +8,7 @@
             "balance": "Saldo de cuenta",
             "settings": "Ajustes"
         },
-        "version": "Verstion {{version}} - preview",
+        "version": "Versión {{version}} - preview",
         "version.url": "qubic.li",
         "error": "Error",
         "close": "close",
@@ -84,10 +84,13 @@
         "addSeedButton": "Añadir Seed",
         "importButton": "Importar",
         "exportButton": "Exportar",
+        "search.label": "Busca",
         "table": {
             "alias": "Alias",
             "publicId": "Id Pública",
             "balance": "Saldo",
+            "epochChanges": "Epoch Changes",
+            "noData": "No data matching the filter \"{{q}}\"",
             "actions": {
                 "title": "Acciones",
                 "revealSeed": "Mostrar Seed",
@@ -190,10 +193,12 @@
         "overview": {
             "title": "Overview",
             "totalWalletValue": "Total Wallet Value",
+            "estimatedWalletValue": "Estimated Wallet Value",
             "baseDate": "per"
         },
         "transactions": {
             "title": "Transactions in current Epoch",
+            "verificationAlert": "No se pudieron verificar los datos de la vista previa",
             "noTransactions": "No Transactions found",
             "send.tooltip": "Outgoing Transfer",
             "receive.tooltip": "Incoming Transfer",

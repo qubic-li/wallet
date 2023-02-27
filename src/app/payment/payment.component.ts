@@ -56,10 +56,23 @@ export class PaymentComponent implements OnInit {
         this.transferForm.controls.tick.setValue(tick + 10);
       }
     })
+
+
+    this.transferForm.controls.sourceId.valueChanges.subscribe(s => {
+      if (s) {
+        // try to get max amount
+        this.getMaxAmount(s);
+        if (this.transferForm.controls.selectedDestinationId.value == this.transferForm.controls.sourceId.value) {
+          this.transferForm.controls.selectedDestinationId.setValue(null);
+        }
+      }
+    });
+
     this.route.queryParams.subscribe(params => {
       if (params['publicId']) {
         const publicId = params['publicId'];
         this.transferForm.controls.sourceId.setValue(publicId);
+
       }
     });
     this.route.params.subscribe(params => {
@@ -72,21 +85,13 @@ export class PaymentComponent implements OnInit {
         this.transferForm.controls.amount.setValue(amount);
       }
     });
-    this.transferForm.controls.sourceId.valueChanges.subscribe(s => {
-      if (s) {
-        // try to get max amount
-        this.getMaxAmount(s);
-        if (this.transferForm.controls.selectedDestinationId.value == this.transferForm.controls.sourceId.value) {
-          this.transferForm.controls.selectedDestinationId.setValue(null);
-        }
-      }
-    });
+   
   }
 
   getMaxAmount(publicId: string) {
-    this.api.getCurrentBalance([publicId]).subscribe(s => {
-      if (s && s.length > 0) {
-        this.maxAmount = s[0].currentEstimatedAmount ?? s[0].epochBaseAmount;
+    this.us.currentBalance.subscribe(s => {
+      if (s && s.length > 0 && s.find(f => f.publicId == publicId)) {
+        this.maxAmount = s.find(f => f.publicId == publicId)?.currentEstimatedAmount ?? s.find(f => f.publicId == publicId)?.epochBaseAmount ?? 0;
       } else {
         this.maxAmount = 0;
       }
@@ -161,7 +166,7 @@ export class PaymentComponent implements OnInit {
     this.changeDetectorRef?.detectChanges();
   }
   getSeeds(isDestination = false) {
-    return this.walletService.getSeeds().filter(f => !isDestination || f.publicId != this.transferForm.controls.sourceId.value);
+    return this.walletService.getSeeds().filter(f => !isDestination || f.publicId != this.transferForm.controls.sourceId.value)
   }
 
   loadKey() {

@@ -86,10 +86,13 @@
     "addSeedButton": "Добавить счет",
     "importButton": "Импортировать",
     "exportButton": "Экспорт",
+    "search.label": "Search",
     "table": {
       "alias": "Имя счета",
       "publicId": "ID счета",
       "balance": "Баланс",
+      "epochChanges": "Epoch Changes",
+      "noData": "No data matching the filter \"{{q}}\"",
       "actions": {
         "title": "Действия",
         "revealSeed": "Раскрыть пароль счета",
@@ -194,10 +197,12 @@
     "overview": {
       "title": "Обзор",
       "totalWalletValue": "Общий баланс кошелька",
+      "estimatedWalletValue": "Estimated Wallet Value",
       "baseDate": "на"
     },
     "transactions": {
       "title": "Транзакции в текущей эпохе",
+      "verificationAlert": "Не удалось проверить данные предварительного просмотра",
       "noTransactions": "Транзакции не найдены",
       "send.tooltip": "Исходящая передача",
       "receive.tooltip": "Входящая передача",
