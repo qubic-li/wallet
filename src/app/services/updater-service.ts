@@ -12,6 +12,8 @@ export class UpdaterService {
   public currentTick: BehaviorSubject<number> = new BehaviorSubject(0);
   public currentBalance: BehaviorSubject<BalanceResponse[]> = new BehaviorSubject<BalanceResponse[]>([]);
   public errorStatus: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  private tickLoading = false;
+  private balanceLoading = false;
 
   constructor(private api: ApiService, private walletService: WalletService) {
     this.init();
@@ -27,32 +29,45 @@ export class UpdaterService {
   }
 
   private getCurrentTick() {
+    if(this.tickLoading)
+      return;
+
+    this.tickLoading = true;
     // todo: Use Websocket!
     this.api.getCurrentTick().subscribe(r => {
       if (r && r.tick) {
         this.currentTick.next(r.tick);
       }
+      this.tickLoading = false;
     }, errorResponse => {
-      console.log("errr", errorResponse);
       this.processError(errorResponse);
+      this.tickLoading = false;
     });
   }
 
   private getCurrentBalance() {
+    if(this.balanceLoading)
+      return;
+
+    this.balanceLoading = true;
     if (this.walletService.getSeeds().length > 0) {
       // todo: Use Websocket!
       this.api.getCurrentBalance(this.walletService.getSeeds().map(m => m.publicId)).subscribe(r => {
         if (r) {
           this.currentBalance.next(r);
         }
+        this.balanceLoading = false;
       }, errorResponse => {
         this.processError(errorResponse);
+        this.balanceLoading = false;
       });
     }
   }
 
   private processError(errObject: any) {
-    if (errObject.statusText) {
+    if(errObject.status == 401){
+      this.api.reAuthenticate();
+    }else if (errObject.statusText) {
       this.errorStatus.next(errObject.statusText);
     }
   }

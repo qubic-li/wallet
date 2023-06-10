@@ -144,4 +144,8 @@ export class MainComponent implements AfterViewInit {
     })
   }
 
+  hasPendingTransaction(publicId: string) {
+    return this.balances.find(f => f.transactions.find(t => (t.sourceId == publicId || t.destId == publicId) &&  t.isPending));
+  }
+
 }

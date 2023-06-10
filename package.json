@@ -1,9 +1,9 @@
 {
   "name": "qubic-li-wallet",
-  "version": "0.1.0",
+  "version": "1.0",
   "main": "app.js",
   "author": "qubic.li",
-  "description": "Qubic.li - Wallet - Send Quo's around the globe.",
+  "description": "Qubic.li - Wallet - Send Qu's around the globe.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
@@ -34,6 +34,7 @@
     "bignumber.js": "^9.1.1",
     "electron-squirrel-startup": "^1.0.0",
     "ngx-device-detector": "^5.0.1",
+    "ngx-file-drop": "^15.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

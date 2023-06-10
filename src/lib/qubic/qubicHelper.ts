@@ -186,7 +186,7 @@ export class QubicHelper {
         });
     };
 
-    private createPublicKey(privateKey: Uint8Array, schnorrq:any, K12:any): Uint8Array{
+    private createPublicKey(privateKey: Uint8Array, schnorrq: any, K12: any): Uint8Array {
         const publicKeyWithChecksum = new Uint8Array(this.PUBLIC_KEY_LENGTH + this.CHECKSUM_LENGTH);
         publicKeyWithChecksum.set(schnorrq.generatePublicKey(privateKey));
         K12(
@@ -198,11 +198,20 @@ export class QubicHelper {
         return publicKeyWithChecksum;
     }
 
+    private REQUEST_RESPONSE_HEADER_SIZE = 8;
     private TRANSACTION_SIZE = 144;
+    private SET_PROPOSAL_AND_BALLOT_REQUEST_SIZE = 592;
     private TRANSACTION_INPUT_SIZE_OFFSET = 0;
     private TRANSACTION_INPUT_SIZE_LENGTH = 0;
     private SIGNATURE_LENGTH = 64;
     private DIGEST_LENGTH = 32;
+    private SPECIAL_COMMAND_SHUT_DOWN = 0;
+    private SPECIAL_COMMAND_GET_PROPOSAL_AND_BALLOT_REQUEST = 1;
+    private SPECIAL_COMMAND_GET_PROPOSAL_AND_BALLOT_RESPONSE = 2;
+    private SPECIAL_COMMAND_SET_PROPOSAL_AND_BALLOT_REQUEST = 3;
+    private SPECIAL_COMMAND_SET_PROPOSAL_AND_BALLOT_RESPONSE = 4;
+    private PROCESS_SPECIAL_COMMAND = 255;
+
 
 
     public async createTransaction(sourceSeed: string, destPublicId: string, amount: number, tick: number): Promise<Uint8Array> {
@@ -211,7 +220,7 @@ export class QubicHelper {
             // sender
             const sourcePrivateKey = this.privateKey(sourceSeed, 0, K12);
             const sourcePublicKey = this.createPublicKey(sourcePrivateKey, schnorrq, K12);
-            const destPublicKey =  publicKeyStringToBytes(destPublicId).slice(0, this.PUBLIC_KEY_LENGTH);
+            const destPublicKey = publicKeyStringToBytes(destPublicId).slice(0, this.PUBLIC_KEY_LENGTH);
 
             const tx = new Uint8Array(this.TRANSACTION_SIZE).fill(0);
             const txView = new DataView(tx.buffer);
@@ -219,13 +228,13 @@ export class QubicHelper {
             // sourcePublicKey byte[] // 32
             let offset = 0;
             let i = 0;
-            for(i = 0;i < this.PUBLIC_KEY_LENGTH;i++){
+            for (i = 0; i < this.PUBLIC_KEY_LENGTH; i++) {
                 tx[i] = sourcePublicKey[i];
             }
             offset = i;
-            
-            for(i = 0;i < this.PUBLIC_KEY_LENGTH;i++){
-                tx[offset+i] = destPublicKey[i];
+
+            for (i = 0; i < this.PUBLIC_KEY_LENGTH; i++) {
+                tx[offset + i] = destPublicKey[i];
             }
             offset += i;
 
@@ -254,20 +263,232 @@ export class QubicHelper {
         });
     }
 
+    private getIncreasingNonceAndCommandType(type: number): Uint8Array {
+        let timestamp = Math.floor(Date.now() / 1000);
+        const byteArray = new Uint8Array(8);
+
+        const txView = new DataView(byteArray.buffer);
+        txView.setUint32(0, timestamp, true);
+        byteArray[7] = type;
+        return byteArray;
+    }
+
+    public async createProposal(protocol: number, computorIndex: number, operatorSeed: string, url: string): Promise<Uint8Array> {
+
+        return crypto.then(({ schnorrq, K12 }) => {
+
+            // operator
+            const operatorPrivateKey = this.privateKey(operatorSeed, 0, K12);
+            const operatorPublicKey = this.createPublicKey(operatorPrivateKey, schnorrq, K12);
+
+            // prepare url
+            const encoder = new TextEncoder();
+            const urlBytes = encoder.encode(url);
+            const uri = new Uint8Array(255);
+            const uriSize = urlBytes.length;
+            uri.set(urlBytes);
+
+            const proposal = new Uint8Array(this.SET_PROPOSAL_AND_BALLOT_REQUEST_SIZE + this.REQUEST_RESPONSE_HEADER_SIZE).fill(0);
+            const txView = new DataView(proposal.buffer);
+            let offset = 0;
+
+            // header
+            // byte[3] size
+            const size = 600;
+            proposal[0] = size;
+            proposal[1] = (size >> 8);
+            proposal[2] = (size >> 16);
+            offset += 3;
+
+            // byte protocol
+            proposal[offset] = protocol;
+            offset++;
+
+            // byte[3] dejavu (we let it empty)
+            proposal[offset++] = Math.floor(Math.random() * 255);
+            proposal[offset++] = Math.floor(Math.random() * 255);
+            proposal[offset++] = Math.floor(Math.random() * 255);
+
+            // byte type
+            proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
+            offset++;
+
+            // ulong everIncreasingNonceAndCommandType // 8
+            var timeStamp = this.getIncreasingNonceAndCommandType(this.SPECIAL_COMMAND_SET_PROPOSAL_AND_BALLOT_REQUEST);
+            for (let i = 0; i < timeStamp.length; i++) {
+                proposal[offset + i] = timeStamp[i];
+            }
+            offset += timeStamp.length;
+
+            // ushort computorIndex // 2
+            txView.setUint16(offset, computorIndex, true);
+            offset += 2;
+
+            // padding //6
+            const padding = 6;
+            for (let i = 0; i < padding; i++) {
+                proposal[offset + i] = 0;
+            }
+            offset += padding;
+
+            // Start ComputorProposal
+            // byte uriSize // 1
+            proposal[offset] = uriSize;
+            offset++;
+
+            // byte[255] uri // 255
+            for (let i = 0; i < uriSize; i++) {
+                proposal[offset + i] = uri[i];
+            }
+            offset += 255;
+
+            // Start ComputorBallot
+            // not used for this request therefore we let it empty
+            offset += 256;
+
+            const digest = new Uint8Array(this.DIGEST_LENGTH);
+            const toSign = proposal.slice(this.REQUEST_RESPONSE_HEADER_SIZE, offset);
+
+            K12(toSign, digest, this.DIGEST_LENGTH);
+            const signatur = schnorrq.sign(operatorPrivateKey, operatorPublicKey, digest);
+
+            proposal.set(signatur, offset);
+            offset += this.SIGNATURE_LENGTH;
+
+            return proposal;
+        });
+    }
+
+
+    private VotesToByteArray(votes: number[]) {
+        var bitArray = [];
+
+        for (var computorIndex = 0; computorIndex < votes.length; computorIndex++) {
+            var vote = votes[computorIndex];
+
+            for (var i = 0; i < 3; i++) {
+                var bit = (vote >> i) & 1;
+                bitArray.push(bit);
+            }
+        }
+
+        var output = new Uint8Array(Math.ceil(bitArray.length / 8));
+
+        for (var k = 0; k < bitArray.length; k += 8) {
+            var byteIndex = Math.floor(k / 8);
+            var byteValue = 0;
+            for (var j = 0; j < 8; j++) {
+                var bit = bitArray[k + j] || 0; // Use 0 for padding if bitArray is exhausted
+                byteValue |= (bit << j);
+            }
+            output[byteIndex] = byteValue;
+        }
+        return output;
+    }
+
+    public async createBallotRequests(protocol: number, operatorSeed: string, computorIndices: number[], votes: number[]): Promise<Uint8Array[]> {
+
+        return crypto.then(({ schnorrq, K12 }) => {
+
+            const output: Uint8Array[] = [];
+
+            // operator
+            const operatorPrivateKey = this.privateKey(operatorSeed, 0, K12);
+            const operatorPublicKey = this.createPublicKey(operatorPrivateKey, schnorrq, K12);
+
+            for (let index = 0; index < computorIndices.length; index++) {
+
+                const proposal = new Uint8Array(this.SET_PROPOSAL_AND_BALLOT_REQUEST_SIZE + this.REQUEST_RESPONSE_HEADER_SIZE).fill(0);
+                const txView = new DataView(proposal.buffer);
+                let offset = 0;
+
+                // header
+                // byte[3] size
+                const size = 600;
+                proposal[0] = size;
+                proposal[1] = (size >> 8);
+                proposal[2] = (size >> 16);
+                offset += 3;
+
+                // byte protocol
+                proposal[offset] = protocol;
+                offset++;
+
+                // byte[3] dejavu (we let it empty)
+                proposal[offset++] = Math.floor(Math.random() * 255);
+                proposal[offset++] = Math.floor(Math.random() * 255);
+                proposal[offset++] = Math.floor(Math.random() * 255);
+
+                // byte type
+                proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
+                offset++;
+
+                // ulong everIncreasingNonceAndCommandType // 8
+                var timeStamp = this.getIncreasingNonceAndCommandType(this.SPECIAL_COMMAND_SET_PROPOSAL_AND_BALLOT_REQUEST);
+                for (let i = 0; i < timeStamp.length; i++) {
+                    proposal[offset + i] = timeStamp[i];
+                }
+                offset += timeStamp.length;
+
+                // ushort computorIndex // 2
+                txView.setUint16(offset, computorIndices[index], true);
+                offset += 2;
+
+                // padding //6
+                const padding = 6;
+                for (let i = 0; i < padding; i++) {
+                    proposal[offset + i] = 0;
+                }
+                offset += padding;
+
+                // Start ComputorProposal
+                // byte uriSize // 1
+                proposal[offset] = 0;
+                offset++;
+
+                // byte[255] uri // 255 // => ignore for ballot request
+                // not used for this request therefore we let it empty
+                offset += 255;
+
+                // Start ComputorBallot
+                offset++; // zero
+
+                // map votes
+                var voteBytes = this.VotesToByteArray(votes);
+                for (let i = 0; i < voteBytes.length; i++) {
+                    proposal[offset++] = voteBytes[i]
+                }
+                offset++; // quasirandomnumber
+
+                const digest = new Uint8Array(this.DIGEST_LENGTH);
+                const toSign = proposal.slice(this.REQUEST_RESPONSE_HEADER_SIZE, offset);
+
+                K12(toSign, digest, this.DIGEST_LENGTH);
+                const signatur = schnorrq.sign(operatorPrivateKey, operatorPublicKey, digest);
+
+                proposal.set(signatur, offset);
+                offset += this.SIGNATURE_LENGTH;
+
+                output.push(proposal);
+            }
+            return output;
+        });
+    }
+
 
     private downloadBlob(fileName: string, blob: Blob): void {
         if ((<any>window.navigator).msSaveOrOpenBlob) {
-          (<any>window.navigator).msSaveBlob(blob, fileName);
+            (<any>window.navigator).msSaveBlob(blob, fileName);
         } else {
-          const anchor = window.document.createElement('a');
-          anchor.href = window.URL.createObjectURL(blob);
-          anchor.download = fileName;
-          document.body.appendChild(anchor);
-          anchor.click();
-          document.body.removeChild(anchor);
-          window.URL.revokeObjectURL(anchor.href);
+            const anchor = window.document.createElement('a');
+            anchor.href = window.URL.createObjectURL(blob);
+            anchor.download = fileName;
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+            window.URL.revokeObjectURL(anchor.href);
         }
-      }
+    }
 }
 
 

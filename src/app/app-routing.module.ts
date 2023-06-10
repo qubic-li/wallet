@@ -4,6 +4,9 @@ import { BalanceComponent } from './balance/balance.component';
 import { MainComponent } from './main/main.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PaymentComponent } from './payment/payment.component';
+import { VotingComponent } from './voting/voting.component';
+import { VotingParticipateComponent } from './voting/participate/voting-participate.component';
+import { VotingCreateComponent } from './voting/create/voting-create.component';
 
 const routes: Routes = [
   {
@@ -25,6 +28,22 @@ const routes: Routes = [
   {
     path     : 'balance',
     component: BalanceComponent
+  },
+  {
+    path     : 'voting',
+    component: VotingComponent
+  },
+  {
+    path     : 'voting/create',
+    component: VotingCreateComponent
+  },
+  {
+    path     : 'voting/create/:computorId',
+    component: VotingCreateComponent
+  },
+  {
+    path     : 'voting/participate/:index',
+    component: VotingParticipateComponent
   },
   {
     path     : 'settings',

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { bytes32ToString } from 'src/lib/qubic/converter/converter';
+import { IConfig } from '../model/config';
 import { IDecodedSeed, ISeed } from '../model/seed';
 import { ITx } from '../model/tx';
 
@@ -37,25 +38,31 @@ export class WalletService {
   }
 
   private load(): void {
-    this.loadConfig();
+    this.loadConfigFromStorage();
   }
 
-  private loadConfig() {
+  private loadConfigFromStorage() {
     const jsonString = localStorage.getItem(this.configName);
     if (jsonString) {
       try {
         const config = JSON.parse(jsonString);
-        if (config.publicKey)
-          crypto.subtle.importKey("jwk", config.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
-            this.publicKey = k
-          );
-        if (config.seeds)
-          this.seeds = config.seeds;
+        this.loadConfig(config);
       } catch (e) {
         this.configError = true;
         this.erroredCOnfig = jsonString;
       }
     }
+  }
+
+  private loadConfig(config: IConfig) {
+
+    if (config.publicKey)
+      crypto.subtle.importKey("jwk", config.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
+        this.publicKey = k
+      );
+    if (config.seeds)
+      this.seeds = config.seeds;
+
   }
 
   public createNewKeys() {
@@ -96,8 +103,10 @@ export class WalletService {
   }
   public updateSeedAlias(publicId: string, alias: string) {
     let seed = this.getSeed(publicId);
-    if (seed)
+    if (seed){
       seed.alias = alias;
+      this.saveConfig(false);
+    }
   }
 
   arrayBufferToBase64(buffer: ArrayBuffer) {
@@ -166,7 +175,7 @@ export class WalletService {
       localStorage.setItem(this.configName, JSON.stringify(config));
     } else {
       crypto.subtle.exportKey('jwk', this.publicKey!).then(jwk => {
-        const config = {
+        const config: IConfig = {
           publicKey: jwk,
           seeds: this.seeds
         };
@@ -245,7 +254,7 @@ export class WalletService {
     )
   }
 
-  public async export(password: string) {
+  public async exportKey(password: string) {
     if (!this.privateKey)
       return Promise.resolve();
 
@@ -258,6 +267,31 @@ export class WalletService {
         });
       });
     });
+  }
+
+  public importConfig(config: IConfig): boolean {
+    if (!config || config.seeds.length <= 0)
+      return false;
+
+    this.loadConfig(config);
+    this.saveConfig(false);
+
+    return true;
+  }
+
+  public exportConfig(): boolean {
+    if (!this.seeds || this.seeds.length <= 0)
+      return false;
+
+    const exportConfig: IConfig = {
+      seeds: this.seeds
+    };
+
+    const data = new TextEncoder().encode(JSON.stringify(exportConfig));
+    const blob = new Blob([data], { type: 'application/octet-stream' });
+    this.downloadBlob("qubic.li-wallet.config", blob);
+
+    return true;
   }
 
   private downloadBlob(fileName: string, blob: Blob): void {

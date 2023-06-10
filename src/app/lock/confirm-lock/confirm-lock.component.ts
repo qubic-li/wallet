@@ -41,7 +41,7 @@ export class LockConfirmDialog  extends QubicDialogWrapper{
 
   onSubmit(): void {
     if (this.exportForm.valid && this.exportForm.controls.password.value) {
-      this.walletService.export(this.exportForm.controls.password.value).then(r => {
+      this.walletService.exportKey(this.exportForm.controls.password.value).then(r => {
       });
     }
   }

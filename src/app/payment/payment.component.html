@@ -24,7 +24,7 @@
                     <div class="col">
                         <mat-form-field appearance="fill" placeholder="Sender Seed" class="full-width"
                             *ngIf="selectedAccountId">
-                            <button type="button" matSuffix mat-icon-button (click)="toggleDestinationSelect()"
+                            <button type="button" matPrefix mat-icon-button (click)="toggleDestinationSelect()"
                                 matTooltip="{{ t('paymentComponent.form.receiver.chooseOwnSeed') }}">
                                 <mat-icon>account_balance_wallet</mat-icon>
                             </button>
@@ -46,7 +46,7 @@
                                 aria-label="Clear" (click)="transferForm.controls['destinationId'].setValue(null)">
                                 <mat-icon>close</mat-icon>
                             </button>
-                            <button type="button" matSuffix mat-icon-button (click)="toggleDestinationSelect()"
+                            <button type="button" matPrefix mat-icon-button (click)="toggleDestinationSelect()"
                                 matTooltip="{{ t('paymentComponent.form.receiver.chooseOwnSeed') }}">
                                 <mat-icon>import_contacts</mat-icon>
                             </button>
@@ -73,6 +73,11 @@
                                 aria-label="Clear" (click)="transferForm.controls['amount'].setValue(null)"
                                 type="button">
                                 <mat-icon>close</mat-icon>
+                            </button>
+                            <button *ngIf="maxAmount > 0" matSuffix mat-icon-button
+                                matTooltip="{{ t('paymentComponent.form.amount.max.tooltip') }} -1"
+                                (click)="setAmounToMax(-1)" type="button">
+                                <mat-icon>looks_one</mat-icon>
                             </button>
                             <button *ngIf="maxAmount > 0" matSuffix mat-icon-button
                                 matTooltip="{{ t('paymentComponent.form.amount.max.tooltip') }}"

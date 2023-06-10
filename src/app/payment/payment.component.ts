@@ -9,6 +9,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../services/api.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UpdaterService } from '../services/updater-service';
+import { Transaction } from '../services/api.model';
 
 @Component({
   selector: 'app-wallet',
@@ -34,30 +35,32 @@ export class PaymentComponent implements OnInit {
   public selectedAccountId = false;
 
   private destinationValidators = [Validators.required, Validators.minLength(60), Validators.maxLength(60)];
+  private txTemplate: Transaction | undefined;
 
   transferForm = this.fb.group({
-    sourceId: [],
+    sourceId: [''],
     destinationId: ["", this.destinationValidators],
     selectedDestinationId: [""],
     amount: [10000, [Validators.required, Validators.min(1)]],
     tick: [0, [Validators.required]],
   });
 
-  constructor(private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
+  constructor(private router: Router, private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
+    const state = this.router.getCurrentNavigation()?.extras.state;
+    if (state && state['template']) {
+      this.txTemplate = state['template'];
+    }
   }
-
 
   ngOnInit(): void {
     this.us.currentTick.subscribe(tick => {
       this.currentTick = tick;
       this.transferForm.controls.tick.addValidators(Validators.min(tick));
-      if(!this.tickOverwrite){
+      if (!this.tickOverwrite) {
         this.transferForm.controls.tick.setValue(tick);
         this.transferForm.controls.tick.setValue(tick + 10);
       }
     })
-
-
     this.transferForm.controls.sourceId.valueChanges.subscribe(s => {
       if (s) {
         // try to get max amount
@@ -72,7 +75,6 @@ export class PaymentComponent implements OnInit {
       if (params['publicId']) {
         const publicId = params['publicId'];
         this.transferForm.controls.sourceId.setValue(publicId);
-
       }
     });
     this.route.params.subscribe(params => {
@@ -85,7 +87,16 @@ export class PaymentComponent implements OnInit {
         this.transferForm.controls.amount.setValue(amount);
       }
     });
-   
+
+    if (this.txTemplate) {
+      this.fillFromTemplate(this.txTemplate);
+    }
+  }
+
+  fillFromTemplate(tx: Transaction) {
+    this.transferForm.controls.amount.setValue(tx.amount);
+    this.transferForm.controls.sourceId.setValue(tx.sourceId);
+    this.transferForm.controls.destinationId.setValue(tx.destId);
   }
 
   getMaxAmount(publicId: string) {
@@ -98,8 +109,8 @@ export class PaymentComponent implements OnInit {
     });
   }
 
-  setAmounToMax() {
-    this.transferForm.controls.amount.setValue(this.maxAmount);
+  setAmounToMax(addAmount: number = 0) {
+    this.transferForm.controls.amount.setValue(this.maxAmount + addAmount);
   }
 
   init() {
@@ -125,7 +136,8 @@ export class PaymentComponent implements OnInit {
               this._snackBar.open("Your transaction (" + r.id + ") has been stored for propagation", "close", {
                 duration: 3000,
               });
-              this.init();
+              // this.init();
+              this.router.navigate(['/']);
             }
           }, er => {
             this._snackBar.open("Your transaction could not be sent. Pleas try again later.", "close", {

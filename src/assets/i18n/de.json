@@ -5,16 +5,18 @@
     "navigation": {
       "home": "Home",
       "payment": "Zahlung",
-      "balance": "Vermögen",
-      "settings": "Einstellungen"
+      "balance": "Buchungen",
+      "settings": "Einstellungen",
+      "voting": "Voting"
     },
-    "version": "Version {{version}} - Vorschau",
+    "version": "Version {{version}} - Beta",
     "version.url": "qubic.li",
     "copy.tooltip": "Kopieren",
     "error": "Error",
     "close": "close",
     "currency": "qus",
-    "currentTick": "Aktueller Tick: {{tick}}"
+    "currentTick": "Aktueller Tick: {{tick}}",
+    "loading": "loading..."
   },
   "payment": {
     "keyRequestReason": "Transaktionen werden mit dem Konto-Passwort abgesichert. Alle Konto-Passwörter sind verschlüsselt in einer Datei auf deinem Gerät, die wir Tresor nennen. Daher musst du deinen Tresor vorher mit deiner Kombination - dem Tresor-Passwort - entriegeln."
@@ -101,7 +103,8 @@
         "editSeed": "Konto bearbeiten",
         "deleteSeed": "Konto löschen"
       }
-    }
+    },
+    "hasPendingTransaction": "Offene Zahlungen"
   },
   "unlockComponent": {
     "title": "Wallet öffnen",
@@ -191,25 +194,99 @@
     }
   },
   "balanceComponent": {
-    "title": "Vermögensübersicht",
+    "title": "Buchungen",
     "overview": {
-      "title": "Gesamtübersicht",
+      "title": "Vermögen",
       "totalWalletValue": "Gesamtes Vermögen",
       "estimatedWalletValue": "Geschätztes Vermögen",
-      "baseDate": "per"
+      "baseDate": "vom"
     },
     "transactions": {
-      "title": "Transaktionen in aktueller Epoche",
+      "title": "Aktuelle Buchungen",
       "verificationAlert": "Vorschaudaten konnten nicht verifiziert werden",
-      "noTransactions": "Keine Transaktionen gefunden",
-      "send.tooltip": "Ausgehender Transfer",
-      "receive.tooltip": "Ankommender Transfer",
+      "noTransactions": "Keine Buchungen gefunden",
+      "send.tooltip": "Ausgehende Überweisung",
+      "receive.tooltip": "Eingehende Überweisung",
       "status.pending.tooltip": "In Bearbeitung",
       "status.executed.tooltip": "Ausgeführt",
       "status.dismissed.tooltip": "Fehlgeschlagen",
       "status.unknown.tooltip": "Unbekannt",
       "status.confirmed.tooltip": "Vorbereitet",
       "filter.seed.label": "Filtern nach Konto"
+    },
+    "repeatTransaction": "Zahlung wiederholen"
+  },
+  "settings": {
+    "import": {
+      "title": "Einstellungen importieren",
+      "doneMessage": "Import erfolgreich",
+      "dropMessage": "Datei hier her ziehen",
+      "buttons.import": "Starte Import",
+      "seedsMessage": "Du wirst {{amount}} Accounts importieren.",
+      "goHomeLink": "Zeige importierte Seeds"
+    },
+    "export": {
+      "title": "Einstellungen exportieren",
+      "hint": "Drücke den untenstehenden Button um deine Einstellingen (Accounts) zu exportieren. Dies beinhaltet nur die Accounts. Deinen Wallet Schlüssel musst du auch speichern.",
+      "buttons.export": "Starte Export"
     }
-  }
+  },
+  "votingComponent": {
+      "title": "Qubic Computor Abstimmung",
+      "description": "The Qubic computor voting is used to reach a consensus on topics to be decided regarding the entire network. This can include accepting smart contracts or making other protocol decisions. Only computors are allowed to participate.",
+      "proposals": {
+          "editButton": "Bearbeiten",
+          "createButton": "Vorschlag erstellen",
+          "voteButton": "Abstimmen",
+          "title": "{{amount}} Vorschläge",
+          "noComputorHint": "Du hast keine registrierten Computors. Wenn du etwas vorschlagen möchtest, musst du mindestens einen Computor haben.",
+          "votingResult": "Ergebnis",
+          "noVotes": "keine Stimmen",
+          "from": "Von:",
+          "url": "URL:"
+      },
+      "participate": {
+          "title": "Abstimmen",
+          "cancelButton": "Abbrechen",
+          "sendVotesButton": "Stimmen senden",
+          "notConfirmedMessage": "Dieser Vorschlag ist vom Netzwerk noch nicht bestätigt. Bitte warte mit abstimmen.",
+          "noComputorsText": "Du hast keine Computoren oder diese wurden bereits für Vorschläge verwendet.",
+          "computorsSelected": "Alle auswählen"
+      },
+      "create": {
+          "title": "Vorschlag erstellen",
+          "cancelButton": "Abbrechen",
+          "sendVotesButton": "Vorschlag speichern",
+          "alreadyPublished": "Dieser Computor hat bereits einen veröffentlichten Vorschlag. Es ist pro Epoche nur ein Vorschlag erlaubt.",
+          "buttons": {
+              "create": "Vorschlag erstellen",
+              "publish": "Verbinden und Vorschlag publizieren",
+              "reset": "Zurücksetzen",
+              "loadPrivateKey": "Vault öffnen",
+              "finish": "Zeige Vorschläge"
+          },
+          "form": {
+              "operatorSeed.label": "Operator Seed",
+              "operatorSeed.error.required": "Operator is required",
+              "sourceSeed.label": "Computor",
+              "sourceSeed.error.required": "Computor is required",
+              "title.label": "Titel",
+              "title.placeholder": "Titel",
+              "title.error.required": "Titel is required",
+              "description.label": "Beschreibung",
+              "description.placeholder": "Beschreibung",
+              "description.error.required": "Beschreibung is required",
+              "option.label": "Option {{id}}",
+              "option.placeholder": "Option {{id}}",
+              "option.error.required": "Option {{id}} is required",
+              "computorIp.label": "Computor IP Adresse",
+              "computorIp.placeholder": "Computor IP Adresse",
+              "computorIp.error.required": "Computor IP Adresse required"
+          },
+          "proposalStep.label": "Erstellen",
+          "publishStep.label": "Veröffentlichen",
+          "finishStep.label": "Abschluss",
+          "finishStep.success": "Dein Vorschlag wurde zu deinem Computor gesendet."
+      }
+    }
 }

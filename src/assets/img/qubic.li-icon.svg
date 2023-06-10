@@ -30,10 +30,10 @@
       }
     </style>
     <linearGradient id="GradientFill_1" data-name="GradientFill 1" x1="108.14" y1="51.72" x2="108.15" y2="133.96" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#006e63"/>
-      <stop offset=".25" stop-color="#00564e"/>
-      <stop offset=".78" stop-color="#001b19"/>
-      <stop offset="1" stop-color="#000102"/>
+      <stop offset="0" stop-color="#377299"/>
+      <stop offset=".25" stop-color="#2472a7"/>
+      <stop offset=".78" stop-color="#171744"/>
+      <stop offset="1" stop-color="#171744"/>
     </linearGradient>
     <linearGradient id="GradientFill_1-2" data-name="GradientFill 1" x1="244.13" y1="124.88" x2="-33.16" y2="124.87" xlink:href="#GradientFill_1"/>
     <linearGradient id="GradientFill_1-3" data-name="GradientFill 1" x1="167.49" y1="139.41" x2="101.3" y2="139.41" xlink:href="#GradientFill_1"/>

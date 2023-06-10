@@ -1,34 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { WalletService } from '../services/wallet.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { BalanceResponse, Transaction } from '../services/api.model';
+import { BalanceResponse, ProposalDto, Transaction } from '../services/api.model';
 import { FormControl } from '@angular/forms';
 import { UpdaterService } from '../services/updater-service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-balance',
-  templateUrl: './balance.component.html',
-  styleUrls: ['./balance.component.scss']
+  selector: 'app-voting',
+  templateUrl: './voting.component.html',
+  styleUrls: ['./voting.component.scss']
 })
-export class BalanceComponent implements OnInit {
+export class VotingComponent implements OnInit, OnDestroy {
   
   public accountBalances: BalanceResponse[] = [];
   public seedFilterFormControl: FormControl = new FormControl();
   public currentTick = 0;
+  public userServiceSubscription: Subscription | undefined;
+  public proposals: ProposalDto[] | undefined;
 
   constructor(private router: Router, private transloco: TranslocoService, private api: ApiService, private walletService: WalletService, private _snackBar: MatSnackBar, private us: UpdaterService) {
    
   }
+  ngOnDestroy(): void {
+    if(this.userServiceSubscription)
+      this.userServiceSubscription.unsubscribe();
+  }
 
   ngOnInit(): void {
     if(this.hasSeeds()){
-      this.us.currentTick.subscribe(s => {
-        this.currentTick = s;
-      });
-      this.us.currentBalance.subscribe(response => {
+      this.userServiceSubscription = this.us.currentBalance.subscribe(response => {
         this.accountBalances = response;
       }, errorResponse => {
         this._snackBar.open(errorResponse.error, this.transloco.translate("general.close"), {
@@ -37,6 +41,9 @@ export class BalanceComponent implements OnInit {
         });
       });
     }
+    this.api.getProposals().subscribe(s => {
+      this.proposals = s;
+    });
   }
 
   getDate() {
@@ -86,5 +93,9 @@ export class BalanceComponent implements OnInit {
         template: transaction
       }
     });
+  }
+
+  hasComputors() {
+    return this.accountBalances.find(f => f.isComputor);
   }
 }

@@ -45,6 +45,14 @@ import { TranslocoRootModule } from './transloco-root.module';
 import { LanguageChooserComponent } from './core/language-chooser/language-chooser.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { UpdaterService } from './services/updater-service';
+import {MatTabsModule} from '@angular/material/tabs';
+import { AccountComponent } from './settings/account/account.component';
+import { ExportComponent } from './settings/export/export.component';
+import { NgxFileDropModule } from 'ngx-file-drop';
+import { VotingComponent } from './voting/voting.component';
+import { VotingParticipateComponent } from './voting/participate/voting-participate.component';
+import { VotingCreateComponent } from './voting/create/voting-create.component';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 /** Http interceptor providers in outside-in order */
@@ -70,7 +78,12 @@ export const httpInterceptorProviders = [
     BalanceComponent,
     QrReceiveDialog,
     LanguageChooserComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AccountComponent,
+    ExportComponent,
+    VotingComponent,
+    VotingParticipateComponent,
+    VotingCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +109,10 @@ export const httpInterceptorProviders = [
     MatTooltipModule,
     HttpClientModule,
     QRCodeModule,
-    TranslocoRootModule
+    TranslocoRootModule,
+    MatTabsModule,
+    NgxFileDropModule,
+    MatStepperModule
   ],
 
   providers: [WalletService, AuthInterceptor, ApiService, UpdaterService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },

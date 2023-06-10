@@ -6,15 +6,17 @@
             "home": "Home",
             "payment": "Payment",
             "balance": "Account Balance",
-            "settings": "Settings"
+            "settings": "Settings",
+            "voting": "Voting"
         },
-        "version": "Version {{version}} - preview",
+        "version": "Version {{version}} - beta",
         "version.url": "qubic.li",
         "copy.tooltip": "Copy",
         "error": "Error",
         "close": "close",
         "currency": "qus",
-        "currentTick": "Current Tick: {{tick}}"
+        "currentTick": "Current Tick: {{tick}}",
+        "loading": "loading..."
     },
     "payment": {
         "keyRequestReason": "As transactions are digitally signed with your key you need to load your key first."
@@ -101,7 +103,8 @@
                 "editSeed": "Edit account",
                 "deleteSeed": "Delete account"
             }
-        }
+        },
+        "hasPendingTransaction": "Transactions pending"
     },
     "unlockComponent": {
         "title": "Unlock wallet",
@@ -211,6 +214,80 @@
             "status.unknown.tooltip": "Unknown",
             "status.confirmed.tooltip": "Staged",
             "filter.seed.label": "Filter by Seed"
+        },
+        "repeatTransaction": "Repeat Transaction"
+    },
+    "settings": {
+        "import": {
+            "title": "Import Settings",
+            "doneMessage": "Import Successful",
+            "dropMessage": "Drop your config to import here",
+            "buttons.import": "Import Config",
+            "seedsMessage": "You are about to import {{amount}} seeds.",
+            "goHomeLink": "Show imported Seeds"
+        },
+        "export": {
+            "title": "Export Settings",
+            "hint": "Press the below button to download your current config. It contains your encrypted seeds. You also should have saved your private key.",
+            "buttons.export": "Export/Save Config"
+        }
+    },
+    "votingComponent": {
+        "title": "Qubic Computor Voting",
+        "description": "The Qubic computor voting is used to reach a consensus on topics to be decided regarding the entire network. This can include accepting smart contracts or making other protocol decisions. Only computors are allowed to participate.",
+        "proposals": {
+            "editButton": "Edit",
+            "createButton": "Create Proposal",
+            "voteButton": "Vote",
+            "title": "{{amount}} Current Proposals",
+            "noComputorHint": "You don't have registered any Computor. If you want to propose anything, you need to have at least one Computor Seed.",
+            "votingResult": "Voting Result",
+            "noVotes": "no votes",
+            "from": "From:",
+            "url": "Propsal URL:"
+        },
+        "participate": {
+            "title": "Participate",
+            "cancelButton": "Cancel",
+            "sendVotesButton": "Send Votes",
+            "notConfirmedMessage": "This Proposal is not yet confirmed by the Qubic Network. Please wait to vote.",
+            "noComputorsText": "You do not have Computors or your Computors already have created a proposal.",
+            "computorsSelected": "Computors selected"
+        },
+        "create": {
+            "title": "Create Proposal",
+            "cancelButton": "Cancel",
+            "sendVotesButton": "Send Proposal",
+            "alreadyPublished": "This Computor has already a published Proposal. Only one is allowed per Epoch",
+            "buttons": {
+                "create": "Create Proposal",
+                "publish": "Connect and Publish Proposal",
+                "reset": "Rest Form",
+                "loadPrivateKey": "Load vault file",
+                "finish": "Show Proposals"
+            },
+            "form": {
+                "operatorSeed.label": "Operator Seed",
+                "operatorSeed.error.required": "Operator is required",
+                "sourceSeed.label": "Computor to use for proposal",
+                "sourceSeed.error.required": "Computor is required",
+                "title.label": "Proposal Title",
+                "title.placeholder": "Proposal Title",
+                "title.error.required": "Title is required",
+                "description.label": "Proposal Description",
+                "description.placeholder": "Proposal Description",
+                "description.error.required": "Description is required",
+                "option.label": "Option {{id}}",
+                "option.placeholder": "Option {{id}}",
+                "option.error.required": "Option {{id}} is required",
+                "computorIp.label": "Computor IP Address",
+                "computorIp.placeholder": "Computor IP Address",
+                "computorIp.error.required": "Computor IP Address required"
+            },
+            "proposalStep.label": "Create Proposal",
+            "publishStep.label": "Publish Proposal",
+            "finishStep.label": "Done",
+            "finishStep.success": "Your Proposal has been sent to your computor."
         }
     }
 }

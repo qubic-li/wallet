@@ -8,14 +8,14 @@
   <div class="container" [class.is-mobile]="mobileQuery.matches"
     *ngIf="walletService.publicKey && !walletService.configError">
 
-    <mat-toolbar color="primary" class="toolbar">
+    <mat-toolbar class="toolbar">
       <div class="left-icon-area">
-        <img src="/assets/img/qubic.li-icon.svg" class="qubic-icon">
         <button mat-icon-button (click)="snav.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-      <img src="/assets/img/qubic.li-slogan-white.png" class="logo">
+      <img src="/assets/img/qubic.li-icon-logo-right-white.png" class="logo" *ngIf="themService.isDarkTheme">
+      <img src="/assets/img/qubic.li-icon-logo-right.png" class="logo" *ngIf="!themService.isDarkTheme">
       <div class="topIcons">
         <div class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() }}</span></div>
         <qli-notifys></qli-notifys>
@@ -33,6 +33,8 @@
             (click)="checkMobileToggle()"><mat-icon>payments</mat-icon>{{t("general.navigation.payment")}}</a>
           <a mat-list-item routerLink="balance"
             (click)="checkMobileToggle()"><mat-icon>account_balance</mat-icon>{{t("general.navigation.balance")}}</a>
+          <a mat-list-item routerLink="voting"
+            (click)="checkMobileToggle()"><mat-icon>how_to_vote</mat-icon>{{t("general.navigation.voting")}}</a>
           <a mat-list-item routerLink="settings"
             (click)="checkMobileToggle()"><mat-icon>settings</mat-icon>{{t("general.navigation.settings")}}</a>
         </mat-nav-list>
@@ -44,7 +46,7 @@
             <a href="#" (click)="themService.toggleTheme()">Theme Switch</a>
             <br><br>
             {{t("general.version", { version: version})}}<br>
-            <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}}</a><br>
+            <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}</a><br>
 
           </div>
         </div>
