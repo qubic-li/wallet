@@ -79,7 +79,7 @@ export class WelcomeComponent implements OnInit {
   onSubmit(): void {
     if(!this.walletService.privateKey)
     {
-      this._snackBar.open("Please unlock your Wallet first", "close", {
+      this._snackBar.open("Please unlock your Wallet first.", "close", {
         duration: 5000,
         panelClass: "error"
       });
@@ -97,20 +97,20 @@ export class WelcomeComponent implements OnInit {
               this.init();
             }
           }, er => {
-            this._snackBar.open("Your transaction could not be sent. Pleas try again later.", "close", {
+            this._snackBar.open("Your transaction could not be sent. Please try again later.", "close", {
               duration: 5000,
               panelClass: "error"
             });
           });
         });
       }).catch(e => {
-        this._snackBar.open("We were not able to decrypt your seed. Do you use the correct private key?", "close", {
+        this._snackBar.open("We were not able to decrypt your seed. Did you use the correct private key?", "close", {
           duration: 10000,
           panelClass: "error"
         });
       });
     }else{
-      this._snackBar.open("We hat validation errors. Please check the form.", "close", {
+      this._snackBar.open("We had validation errors. Please check the form.", "close", {
         duration: 5000,
         panelClass: "error"
       });
