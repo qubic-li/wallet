@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthResponse, BalanceResponse, CurrentTickResponse, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, SubmitTransactionRequest, SubmitTransactionResponse } from './api.model';
+import { AuthResponse, BalanceResponse, ContractDto, CurrentTickResponse, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, SubmitTransactionRequest, SubmitTransactionResponse, Transaction } from './api.model';
 import { HttpClient, HttpHeaders, HttpParams,
   HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
  }       from '@angular/common/http';
@@ -16,6 +16,7 @@ export class ApiService {
 
   public token: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public currentProposals: BehaviorSubject<ProposalDto[]> = new BehaviorSubject<ProposalDto[]>([]);
+  public currentIpoContracts: BehaviorSubject<ContractDto[]> = new BehaviorSubject<ContractDto[]>([]);
   public currentProtocol: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private basePath = environment.apiUrl;
   private authenticationActive = false;
@@ -68,6 +69,20 @@ export class ApiService {
   public getCurrentBalance(publicIds: string[]) {
     let localVarPath = `/Wallet/CurrentBalance`;
     return this.httpClient.request<BalanceResponse[]>('post', `${this.basePath}${localVarPath}`,
+            {
+                context: new HttpContext(),
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: publicIds,
+                responseType: 'json'
+            }
+        );
+  }
+
+  public getCurrentIpoBids(publicIds: string[]) {
+    let localVarPath = `/Wallet/CurrentIpoBids`;
+    return this.httpClient.request<Transaction[]>('post', `${this.basePath}${localVarPath}`,
             {
                 context: new HttpContext(),
                 headers: {
@@ -132,6 +147,22 @@ export class ApiService {
             }
         ).pipe(map((p) => {
           this.currentProposals.next(p);
+          return p;
+        }));
+  }
+
+  public getIpoContracts() {
+    let localVarPath = `/Wallet/IpoContracts`;
+    return this.httpClient.request<ContractDto[]>('get', `${this.basePath}${localVarPath}`,
+            {
+                context: new HttpContext(),
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                responseType: 'json'
+            }
+        ).pipe(map((p) => {
+          this.currentIpoContracts.next(p);
           return p;
         }));
   }

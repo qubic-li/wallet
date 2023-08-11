@@ -3,24 +3,34 @@
     <div *ngIf="accountBalances.length > 0">
         <mat-card class="transfer-card word-break" *ngIf="!hasComputors()">
             {{ t("votingComponent.participate.noComputorsText") }}
-            
+
         </mat-card>
         <mat-card class="transfer-card word-break" *ngIf="hasComputors()">
             <mat-card-content>
-                <div class="proposal" *ngFor="let p of proposals">
-                    <a href="{{p.url}}" target="_blank">{{p.url}}</a>
-                    <br><br>
-                    <mat-form-field>
-                        <mat-select [(value)]="votes[p.computorIndex!]">
-                            <mat-option value="1">Option 1</mat-option>
-                            <mat-option value="2">Option 2</mat-option>
-                            <mat-option value="3">Option 3</mat-option>
-                            <mat-option value="4">Option 4</mat-option>
-                            <mat-option value="5">Option 5</mat-option>
-                            <mat-option value="6">Option 6</mat-option>
-                            <mat-option value="7">Option 7</mat-option>
-                        </mat-select>
-                    </mat-form-field>
+                <div class="proposal" *ngFor="let p of getProposals()">
+                    <div class="flex">
+                        <div>
+                            {{ t("votingComponent.proposals.from") }}<br>
+                            <div class="copy" [matTooltip]="t('general.copy.tooltip')"
+                                [cdkCopyToClipboard]="p.computorId">
+                                {{p.computorId}} {{getSeedName(p.computorId)}}
+                            </div>
+                            {{ t("votingComponent.proposals.url") }}<br>
+                            <a href="{{p.url}}" target="_blank">{{p.url}}</a><br><br>
+                        </div>
+                        <app-voting-status [proposal]="p"></app-voting-status>
+                        <mat-form-field>
+                            <mat-select [(value)]="votes[p.computorIndex!]">
+                                <mat-option value="1">Option 1</mat-option>
+                                <mat-option value="2">Option 2</mat-option>
+                                <mat-option value="3">Option 3</mat-option>
+                                <mat-option value="4">Option 4</mat-option>
+                                <mat-option value="5">Option 5</mat-option>
+                                <mat-option value="6">Option 6</mat-option>
+                                <mat-option value="7">Option 7</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
                     <hr>
                 </div>
 
@@ -38,8 +48,12 @@
                                     <mat-checkbox [checked]="subtask.completed"
                                         (change)="setComputor(subtask, $event.checked)"
                                         (ngModelChange)="updateAllComplete()">
-                                        {{subtask.name}}
-                                        <mat-icon *ngIf="subtask.published">done</mat-icon>
+                                        <div class="flex">
+                                            {{subtask.name}}
+                                            <mat-icon *ngIf="subtask.published">done</mat-icon>
+                                            <mat-progress-spinner mode="indeterminate" [diameter]="20" *ngIf="subtask.publishing">
+                                            </mat-progress-spinner>
+                                        </div>
                                     </mat-checkbox>
                                 </li>
                             </ul>
@@ -78,22 +92,25 @@
                 <hr>
                 {{getSelectedComputorCount()}} {{ t("votingComponent.participate.computorsSelected") }}
                 <hr>
-                <div class="lds-grid" *ngIf="isPublishing"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-                <button *ngIf="isPublishing" mat-raised-button (click)="cancelPublish()"  type="button">
-                    {{ t("votingComponent.participate.cancelButton") }}
-                </button>
-                <div *ngIf="!isPublishing">
-                    <button mat-raised-button *ngIf="walletService.privateKey" color="primary" [disabled]="!publishForm.valid || getSelectedComputorCount() <= 0"
-                        (click)="sendVotes()"
-                    >
-                        <mat-icon>how_to_vote</mat-icon> {{ t("votingComponent.participate.sendVotesButton") }}
+                <div>
+                    <button mat-raised-button *ngIf="walletService.privateKey" color="primary" [disabled]="isPublishing"
+                        [disabled]="!publishForm.valid || getSelectedComputorCount() <= 0" (click)="sendVotes()">
+                        <mat-icon>how_to_vote</mat-icon>
+                        <span *ngIf="!isPublishing">
+                            {{ t("votingComponent.participate.sendVotesButton") }}
+                        </span>
+                        <mat-progress-spinner mode="indeterminate" [diameter]="20" *ngIf="isPublishing">
+                        </mat-progress-spinner>
+                    </button>
+                    <button *ngIf="isPublishing" mat-raised-button (click)="cancelPublish()" type="button">
+                        {{ t("votingComponent.participate.cancelButton") }}
                     </button>
                     <button *ngIf="!walletService.privateKey" mat-raised-button color="accent" type="button"
                         (click)="loadKey()">{{
                         t("votingComponent.create.buttons.loadPrivateKey") }}</button>
-                        <button [routerLink]="['/voting']" mat-raised-button  type="button">
-                            {{ t("votingComponent.participate.cancelButton") }}
-                        </button>
+                    <button *ngIf="!isPublishing" [routerLink]="['/voting']" mat-raised-button type="button">
+                        {{ t("votingComponent.participate.cancelButton") }}
+                    </button>
                 </div>
             </mat-card-content>
         </mat-card>

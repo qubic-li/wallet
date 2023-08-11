@@ -16,14 +16,21 @@
         <h2> {{ t("votingComponent.proposals.title", {amount: proposals?.length}) }}</h2>
         <mat-card class="proposal-card word-break" *ngFor="let p of proposals">
             <mat-card-content>
+                <app-voting-status [proposal]="p"></app-voting-status>
                 {{ t("votingComponent.proposals.from") }}<br>
-                    <div class="copy" [matTooltip]="t('general.copy.tooltip')" [cdkCopyToClipboard]="p.computorId">
-                        {{p.computorId}} {{getSeedName(p.computorId)}}                        
-                    </div>
-                    {{ t("votingComponent.proposals.url") }}<br>
-                    <a href="{{p.url}}" target="_blank">{{p.url}}</a><br><br>
-                <div class="proposal" >
-                    
+                <div class="copy" [matTooltip]="t('general.copy.tooltip')" [cdkCopyToClipboard]="p.computorId">
+                    {{p.shortCode}} | {{p.computorId}} {{getSeedName(p.computorId)}}
+                </div>
+                {{ t("votingComponent.proposals.url") }}<br>
+                <a href="{{p.url}}" target="_blank">{{p.url}}</a><br>
+                <div *ngIf="p.published">
+                    Published: <br>{{p.published}} @ {{p.publishedTick}}
+                </div>
+                <div *ngIf="!p.published">
+                    Publish in progress... (in ~{{p.tickForPublish}} ticks)
+                </div>
+                <div class="proposal">
+
                     <h2>{{ t("votingComponent.proposals.votingResult") }}</h2>
                     <div *ngIf="!p.hasVotes">
                         {{ t("votingComponent.proposals.noVotes") }}
@@ -37,10 +44,12 @@
                         </div>
                     </div>
                     <hr *ngIf="hasComputors()">
-                    <button *ngIf="hasComputors() && p.isPublished" [routerLink]="['/voting/participate/', p.computorIndex]" mat-raised-button color="primary">
+                    <button *ngIf="hasComputors() && p.isPublished"
+                        [routerLink]="['/voting/participate/', p.computorIndex]" mat-raised-button color="primary">
                         <mat-icon>how_to_vote</mat-icon> {{ t("votingComponent.proposals.voteButton") }}
                     </button>
-                    <button *ngIf="isOwnId(p.computorId) && !p.isPublished" [routerLink]="['/voting/create/', p.computorId]" mat-raised-button>
+                    <button *ngIf="isOwnId(p.computorId) && !p.isPublished"
+                        [routerLink]="['/voting/create/', p.computorId]" mat-raised-button>
                         <mat-icon>edit</mat-icon> {{ t("votingComponent.proposals.editButton") }}
                     </button>
                 </div>

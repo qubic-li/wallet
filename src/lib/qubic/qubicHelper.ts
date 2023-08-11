@@ -127,7 +127,31 @@ export class QubicHelper {
         }
         return newId;
     }
-
+    getHumanReadableBytes(publicKey: Uint8Array): string {
+        let newId = '';
+        for (let i = 0; i < 4; i++) {
+            let longNUmber = new BigNumber(0);
+            longNUmber.decimalPlaces(0);
+            publicKey.slice(i * 8, (i + 1) * 8).forEach((val, index) => {
+                longNUmber = longNUmber.plus(new BigNumber((val * 256 ** index).toString(2), 2));
+            });
+            for (let j = 0; j < 14; j++) {
+                newId += String.fromCharCode(longNUmber.mod(26).plus('a'.charCodeAt(0)).toNumber());
+                longNUmber = longNUmber.div(26);
+            }
+        }
+        let lastNumber = new BigNumber(0);
+        lastNumber.decimalPlaces(0);
+        publicKey.slice(32, 35).forEach((val, index) => {
+            lastNumber = lastNumber.plus(new BigNumber((val * 256 ** index).toString(2), 2));
+        });
+        lastNumber = new BigNumber(lastNumber.toNumber() & 0x3FFFF);
+        for (let i = 0; i < 4; i++) {
+            newId += String.fromCharCode(lastNumber.mod(26).plus('a'.charCodeAt(0)).toNumber());
+            lastNumber = lastNumber.div(26);
+        }
+        return newId;
+    }
 
 
 
@@ -200,6 +224,7 @@ export class QubicHelper {
 
     private REQUEST_RESPONSE_HEADER_SIZE = 8;
     private TRANSACTION_SIZE = 144;
+    private IPO_TRANSACTION_SIZE = 144 + 8 /*price*/ + 2 /* quantity */ + 6 /* padding */;
     private SET_PROPOSAL_AND_BALLOT_REQUEST_SIZE = 592;
     private TRANSACTION_INPUT_SIZE_OFFSET = 0;
     private TRANSACTION_INPUT_SIZE_LENGTH = 0;
@@ -213,6 +238,73 @@ export class QubicHelper {
     private PROCESS_SPECIAL_COMMAND = 255;
 
 
+    public async createIpo(sourceSeed: string, contractIndex: number, price: number, quantity: number, tick: number): Promise<Uint8Array> {
+
+        return crypto.then(({ schnorrq, K12 }) => {
+            // sender
+            const sourcePrivateKey = this.privateKey(sourceSeed, 0, K12);
+            const sourcePublicKey = this.createPublicKey(sourcePrivateKey, schnorrq, K12);
+
+            const tx = new Uint8Array(this.IPO_TRANSACTION_SIZE).fill(0);
+            const txView = new DataView(tx.buffer);
+
+            // fill all with zero
+            for (let i = 0; i < this.IPO_TRANSACTION_SIZE; i++) {
+                tx[i] = 0;
+            }
+
+            // sourcePublicKey byte[] // 32
+            let offset = 0;
+            let i = 0;
+            for (i = 0; i < this.PUBLIC_KEY_LENGTH; i++) {
+                tx[i] = sourcePublicKey[i];
+            }
+            offset = i;
+
+            tx[offset] = contractIndex;
+            offset++;
+
+            for (i = 1; i < this.PUBLIC_KEY_LENGTH; i++) {
+                tx[offset + i] = 0;
+            }
+            offset += i-1;
+
+            txView.setBigInt64(offset, BigInt(0), true); // for ipo tx amoun is just 0
+            offset += 8;
+
+            txView.setUint32(offset, tick, true);
+            offset += 4;
+
+            txView.setUint16(offset, 1, true); // inputType for IPO is 1
+            offset += 2;
+
+            txView.setUint16(offset, 16, true); // inputSize for IPO is 16
+            offset += 2;
+
+            // add ipo specifix stuff
+            // price
+            txView.setBigInt64(offset, BigInt(price), true);
+            offset += 8;
+
+            // quantity
+            txView.setInt16(offset, quantity, true);
+            offset += 2;
+
+            // padding
+            offset += 6;
+
+            const digest = new Uint8Array(this.DIGEST_LENGTH);
+            const toSign = tx.slice(0, offset);
+
+            K12(toSign, digest, this.DIGEST_LENGTH);
+            const signedtx = schnorrq.sign(sourcePrivateKey, sourcePublicKey, digest);
+
+            tx.set(signedtx, offset);
+            offset += this.SIGNATURE_LENGTH;
+
+            return tx;
+        });
+    }
 
     public async createTransaction(sourceSeed: string, destPublicId: string, amount: number, tick: number): Promise<Uint8Array> {
 

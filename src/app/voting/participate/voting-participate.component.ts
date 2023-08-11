@@ -69,7 +69,6 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
     for (let i = 0; i < 676; i++) {
       this.votes[i] = 0;
     }
-
   }
   ngOnDestroy(): void {
     if (this.userServiceSubscription)
@@ -154,13 +153,11 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
     var comp = this.computorTree.subComputors?.find(f => f.completed && !f.published);
     if(comp){
       if(!comp.data || comp.publishing && (comp.publishStarted! + (2*1000) < Date.now())){
-        //console.log("EMPTY OR TIMEOUT", comp);
         comp.publishing = false;
         comp.publishStarted = undefined;
         comp.data = undefined;
         this.createPacket(comp);
       }else {
-        //console.log("SEND", comp, comp.data);
         comp.publishStarted = Date.now();
         comp.publishing = true;
         this.ws.send(JSON.stringify(
@@ -182,23 +179,24 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
 
     }else {
       this.isPublishing = false;
+      this._snackBar.open("Votes has been sent.", "close", {
+        duration: 5000,
+        panelClass: 'success'
+      });
     }
-    // // timeouts resends
-    // var timeoutComps = this.computorTree.subComputors?.filter(f => f.publishing && !f.published && (f.publishStarted! + (2*1000) < Date.now()));
-    // timeoutComps?.forEach(c => {
-    //   console.log("TIMEOUT", c);
-    //   c.publishing = false;
-    //   c.publishStarted = undefined;
-    //   c.data = undefined;
-    //   this.createPacket(c);
-    // });
-    // if(this.computorTree.subComputors?.find(f => f.publishing && !f.published)){
-    //   this.isPublishing = true;
-    // }else{
-    //   this.isPublishing = false;
-    // }
 
   }
+
+  reconnectPeer() {
+    this.disconnectPeer(); // disconnect
+    // reset current publishing
+    this.computorTree.subComputors?.filter(f => f.publishing).forEach((comp) => {
+      comp.data = undefined;
+      comp.publishing = false;
+      comp.publishStarted = undefined;
+    });
+  }
+
   cancelPublish(){
     clearInterval(this.publishInterval);
     this.disconnectPeer();
@@ -215,7 +213,6 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
         var computors = this.getSelectedComputors();
         if (computors?.length ?? 0 > 0) {
           new QubicHelper().createBallotRequests(protocol, operatorSeed, [comp.index!], this.votes.map(m => +m)).then(ballots => {
-            //console.log("PACKET CREATED", ballots);
             if(ballots && ballots.length > 0){
               comp.data = this.toBase64(ballots[0]);
             }
@@ -226,7 +223,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
       });
 
     }).catch(e => {
-      this._snackBar.open("We were not able to decrypt your seed. Do you use the correct private key?", "close", {
+      this._snackBar.open("We were not able to decrypt your seed. Did you use the correct private key??", "close", {
         duration: 10000,
         panelClass: "error"
       });
@@ -242,8 +239,14 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
       const jsonData = JSON.parse(event.data);
       if (jsonData.message === 'connect done') {
         this.onPeerConnect();
-      } else if (jsonData.message === 'recv data') {
-        //console.log("RECV", jsonData);
+      } else if (jsonData.message && jsonData.message.indexOf("ConnectionResetError") >= 0)
+      {
+        // when the peer closes the conection this error occures. if we are publishing we want to reconnect now
+        
+        this.reconnectPeer();
+
+      }
+      else if (jsonData.message === 'recv data') {
         const byteArray = Uint8Array.from(atob(jsonData.data), c => c.charCodeAt(0));
         if (byteArray[7] === 4) {
           const bytes = new Uint8Array([byteArray[17], byteArray[16]]);
@@ -254,7 +257,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
             comp.published = true;
             comp.publishing = false;
           }
-          //console.log("RX", bytes, value, comp);
+
         }
       }
     };
@@ -273,11 +276,15 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
     clearInterval(this.publishInterval);
     this.publishInterval = setInterval(() => {
       this.sendBallot();
-    }, 1000);
+    }, 500);
   }
 
   getDate() {
     return new Date();
+  }
+
+  getProposals() {
+    return this.proposals?.filter(f => f.status === 'Pending');
   }
 
   getTotalBalance(estimaed = false): number {
@@ -436,7 +443,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
     //   });
 
     // }).catch(e => {
-    //   this._snackBar.open("We were not able to decrypt your seed. Do you use the correct private key?", "close", {
+    //   this._snackBar.open("We were not able to decrypt your seed. Did you use the correct private key??", "close", {
     //     duration: 10000,
     //     panelClass: "error"
     //   });

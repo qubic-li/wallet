@@ -34,6 +34,9 @@ export interface Transaction {
   statusUpdate: Date;
   targetTick: number;
   isPending: boolean;
+  price?: number; // ipo bids
+  quantity?:number; // ipo bids
+  moneyFlow: boolean;
 }
 
 export interface BalanceResponse {
@@ -47,6 +50,8 @@ export interface BalanceResponse {
   transactions: Transaction[]
 }
 
+
+
 export interface BallotDto { 
   computorIndex?: number;
   computorId?: string | null;
@@ -55,6 +60,7 @@ export interface BallotDto {
 }
 
 export interface ProposalDto { 
+  status: string;
   url?: string | null;
   computorIndex?: number;
   shortCode?: string | null;
@@ -74,6 +80,9 @@ export interface ProposalDto {
   description?: string | null;
   options?: string | null;
   readonly hasVotes?: boolean;
+  published: Date | null;
+  publishedTick: number | null;
+  tickForPublish: number;
 }
 
 export interface ProposalCreateRequest { 
@@ -93,4 +102,24 @@ export interface ProposalCreateResponse {
   id: string;
   computorIndex: number;
   currentProtocol: number;
+}
+
+export interface ContractDto { 
+  id: string;
+  index: number;
+  name: string;
+  bidOverview: IpoBidOverview;
+}
+
+export interface IpoBid { 
+  publicKey: string;
+  computorId: string;
+  price: number;
+  positionIndex: number;
+}
+
+export interface IpoBidOverview { 
+  index: number;
+  tick: number;
+  bids: IpoBid[];
 }

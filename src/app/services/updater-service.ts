@@ -24,8 +24,10 @@ export class UpdaterService {
     this.getCurrentBalance();
     setInterval(() => {
       this.getCurrentTick();
+    }, 30000);
+    setInterval(() => {
       this.getCurrentBalance();
-    }, 10000);
+    }, 60000);
   }
 
   private getCurrentTick() {
@@ -40,9 +42,13 @@ export class UpdaterService {
       }
       this.tickLoading = false;
     }, errorResponse => {
-      this.processError(errorResponse);
+      this.processError(errorResponse, false);
       this.tickLoading = false;
     });
+  }
+
+  public loadCurrentBalance() {
+    this.getCurrentBalance();
   }
 
   private getCurrentBalance() {
@@ -58,17 +64,18 @@ export class UpdaterService {
         }
         this.balanceLoading = false;
       }, errorResponse => {
-        this.processError(errorResponse);
+        this.processError(errorResponse, false);
         this.balanceLoading = false;
       });
     }
   }
 
-  private processError(errObject: any) {
+  private processError(errObject: any, showToUser: boolean = true) {
     if(errObject.status == 401){
       this.api.reAuthenticate();
     }else if (errObject.statusText) {
-      this.errorStatus.next(errObject.statusText);
+      if(showToUser)
+        this.errorStatus.next(errObject.statusText);
     }
   }
 

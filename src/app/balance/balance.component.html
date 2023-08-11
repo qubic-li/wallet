@@ -36,68 +36,23 @@
                     {{ t("balanceComponent.transactions.noTransactions") }}
                 </div>
                 <div *ngFor="let transaction of getTransactions(seedFilterFormControl.value)" class="transaction-list">
-                    <div class="status-buttons">
-                        <span *ngIf="transaction.status == 'Pending' || transaction.status == 'Broadcasted'" class="loading-btn-wrapper"
-                            matTooltip="{{ t('balanceComponent.transactions.status.pending.tooltip') }}">
-                            <button class="loading-btn loading-btn--pending">
-                                <span class="loading-btn__text">
-                                </span>
-                            </button>
-                        </span>
-                        <span *ngIf="transaction.status == 'Confirmed' || transaction.status == 'Staged'" class="loading-btn-wrapper"
-                            matTooltip="{{ t('balanceComponent.transactions.status.confirmed.tooltip') }}">
-                            <button class="loading-btn loading-btn--confirmed">
-                                <span class="loading-btn__text">
-                                </span>
-                            </button>
-                            
-                        </span>
-                        <span *ngIf="transaction.status == 'Success'" class="loading-btn-wrapper"
-                            matTooltip="{{ t('balanceComponent.transactions.status.executed.tooltip') }}">
-                            <button class="loading-btn loading-btn--success">
-                                <span class="loading-btn__text">
-                                </span>
-                            </button>
-                            
-                        </span>
-                        <span *ngIf="transaction.status == 'Failed'" class="loading-btn-wrapper"
-                            matTooltip="{{ t('balanceComponent.transactions.status.dismissed.tooltip') }}">
-                            <button class="loading-btn loading-btn--fail">
-                                <span class="loading-btn__text">
-                                </span>
-                            </button>
-                        </span>
-                        <span *ngIf="transaction.status == 'Unknown'" class="loading-btn-wrapper"
-                            matTooltip="{{ t('balanceComponent.transactions.status.unknown.tooltip') }}">
-                            <button class="loading-btn loading-btn--unknown">
-                                <span class="loading-btn__text">
-                                    ?
-                                </span>
-                            </button>
-                        </span>
-                        <span *ngIf="transaction.status == 'Created'" class="loading-btn-wrapper"
-                            matTooltip="{{ t('balanceComponent.transactions.status.unknown.tooltip') }}">
-                            <button class="loading-btn loading-btn--unknown">
-                                <span class="loading-btn__text">
-                                    <mat-icon>new_releases</mat-icon>
-                                </span>
-                            </button>
-                        </span>
-                    </div>
+                    <qli-transfer-status [transaction]="transaction"></qli-transfer-status>
                     <div class="center">
-                        <div class="trans-amount currency-value">{{ transaction.amount | number: '1.0-0' }} {{ t("general.currency") }}</div>
-                        <div class="trans-date"> Tick: {{ transaction.targetTick | number: '1.0-0' }} </div>
+                        <div class="trans-amount currency-value"><a [href]="'https://app.qubic.li/network/explorer/tx/' + transaction.id" target="_blank" matTooltip="{{ t('balanceComponent.transactions.explorer.tooltip') }}">
+                            <mat-icon>manage_search</mat-icon>
+                        </a> 
+                        <span [class]="{noMoneyFlow: !transaction.isPending && !transaction.moneyFlow}">
+                        {{ transaction.amount | number: '1.0-0' }}</span>&nbsp;{{ t("general.currency") }} </div>
+                        <div class="trans-date"> Tick: <a [href]="'https://app.qubic.li/network/explorer/block/' + transaction.targetTick" target="_blank">{{ transaction.targetTick | number: '1.0-0' }}</a></div>
                     </div>
                     <div class="send-receive-indicator">
                         <button *ngIf="isOwnId(transaction.sourceId) && currentTick > transaction.targetTick && transaction.status !== 'Pending'" mat-icon-button matTooltip="{{ t('balanceComponent.repeatTransaction') }}" (click)="repeat(transaction)"><mat-icon>repeat</mat-icon></button>
                         <mat-icon class="send" matTooltip="{{ t('balanceComponent.transactions.send.tooltip') }}"
-                            *ngIf="isOwnId(transaction.sourceId)">arrow_downward</mat-icon>
-                        <mat-icon class="send" matTooltip="{{ t('balanceComponent.transactions.send.tooltip') }}"
-                            *ngIf="!isOwnId(transaction.sourceId)">empty</mat-icon>
+                            *ngIf="isOwnId(transaction.sourceId) && !isOwnId(transaction.destId)">arrow_downward</mat-icon>
                         <mat-icon class="receive" matTooltip="{{ t('balanceComponent.transactions.receive.tooltip') }}"
-                            *ngIf="isOwnId(transaction.destId)">arrow_upward</mat-icon>
-                            <mat-icon class="receive" matTooltip="{{ t('balanceComponent.transactions.receive.tooltip') }}"
-                            *ngIf="!isOwnId(transaction.destId)">empty</mat-icon>
+                            *ngIf="isOwnId(transaction.destId) && !isOwnId(transaction.sourceId)">arrow_upward</mat-icon>
+                        <mat-icon class="receive" matTooltip="{{ t('balanceComponent.transactions.exchange.tooltip') }}"
+                            *ngIf="isOwnId(transaction.sourceId) && isOwnId(transaction.destId)">swap_vert</mat-icon>
                     </div>
                     <div>
                         <div [class]="{copy: true, ownId: isOwnId(transaction.sourceId)}">

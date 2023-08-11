@@ -5,16 +5,17 @@
         "navigation": {
             "home": "Home",
             "payment": "Payment",
-            "balance": "Account Balance",
+            "balance": "Balance",
             "settings": "Settings",
-            "voting": "Voting"
+            "voting": "Voting",
+            "ipo": "IPO"
         },
         "version": "Version {{version}} - beta",
         "version.url": "qubic.li",
         "copy.tooltip": "Copy",
         "error": "Error",
         "close": "close",
-        "currency": "qus",
+        "currency": "QUBIC",
         "currentTick": "Current Tick: {{tick}}",
         "loading": "loading..."
     },
@@ -30,13 +31,13 @@
         "confirmationText": "Are you sure?"
     },
     "notifyComponent": {
-        "saveYourKey": "Please store your vault file in a safe place.",
+        "saveYourKey": "Please store your wallet file in a safe place.",
         "qubicLiSync": "Sync your settings with qubic.li"
     },
     "revealSeedComponent": {
-        "title": "Account Information",
-        "publicId": "Account ID",
-        "privateId": "Account Password",
+        "title": "Address Information",
+        "publicId": "Address ID",
+        "privateId": "55-char Seed",
         "buttons": {
             "close": "Close"
         }
@@ -48,12 +49,12 @@
         "buttons.close": "Close"
     },
     "seedEditComponent": {
-        "title.add": "Add Account",
-        "title.edit": "Edit Account",
-        "newSeedName": "Account-Name",
+        "title.add": "Add Address",
+        "title.edit": "Edit Address",
+        "newSeedName": "Address-Name",
         "form": {
             "alias": {
-                "placeholder": "Choose an own name for your account in order to better refer to it.",
+                "placeholder": "Choose an own name for your address in order to better refer to it.",
                 "error": {
                     "required": "Name required",
                     "min": "Name must have a minimum of 3 characters",
@@ -62,68 +63,68 @@
                 }
             },
             "seed": {
-                "placeholder": "Account password",
+                "placeholder": "55-char Seed",
                 "error": {
-                    "required": "An account password is required.",
-                    "min": "The account password must exactly consist of 55 lower case characters",
-                    "max": "The account password must exactly consist of 55 lower case characters",
+                    "required": "An 55-char seed is required.",
+                    "min": "The 55-char seed must exactly consist of 55 lower case characters",
+                    "max": "The 55-char seed must exactly consist of 55 lower case characters",
                     "regex": "Can only contain a-zA-Z0-9_-"
                 },
-                "generateSeed": "Randomly generate an account password."
+                "generateSeed": "Randomly generate an 55-char seed."
             },
             "error": {
                 "text": "Please check the form.",
                 "close": "close"
             }
         },
-        "publicIdMessage": "Your account id is:",
-        "privateKeyWarning": "Caution! Your vault file is not loaded. Please make sure you have it safely stored.",
+        "publicIdMessage": "Your address id is:",
+        "privateKeyWarning": "Caution! Your wallet file is not loaded. Please make sure you have it safely stored.",
         "buttons": {
             "cancel": "Cancel",
-            "create": "Create account",
-            "save": "Save account"
+            "create": "Create address",
+            "save": "Save address"
         }
     },
     "seedOverviewComponent": {
-        "addSeedButton": "Add account",
+        "addSeedButton": "Add Address",
         "importButton": "Import",
         "exportButton": "Export",
         "search.label": "Search",
         "table": {
-            "alias": "Account Name",
-            "publicId": "Account ID",
+            "alias": "Address Name",
+            "publicId": "Address ID",
             "balance": "Balance",
             "epochChanges": "Epoch Changes",
             "noData": "No data matching the filter \"{{q}}\"",
             "actions": {
                 "title": "Actions",
-                "revealSeed": "Reveal account password",
+                "revealSeed": "Reveal 55-char seed",
                 "makePayment": "Make a payment",
                 "receivePayment": "Generate a QR Code to receive a payment.",
-                "editSeed": "Edit account",
-                "deleteSeed": "Delete account"
+                "editSeed": "Edit address",
+                "deleteSeed": "Delete address"
             }
         },
         "hasPendingTransaction": "Transactions pending"
     },
     "unlockComponent": {
         "title": "Unlock wallet",
-        "title.new": "Create a Vault",
-        "welcomeMessage": "Welcome to the qubic.li Wallet.\nTo use this Wallet you must create a Vault file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
-        "reasonMessage": "To unlock your wallet your vault file is needed. This file is automatically deleted once this page is reloaded or closed.",
-        "choosePrivateKeyFile": "Choose vault file",
+        "title.new": "Create a Wallet",
+        "welcomeMessage": "Welcome to the qubic.li Wallet.\nTo use this Wallet you must create a wallet file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+        "reasonMessage": "To unlock your Wallet your wallet file is needed. This file is automatically deleted once this page is reloaded or closed.",
+        "choosePrivateKeyFile": "Choose wallet file",
         "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
         "form": {
-            "file.error.required": "Vault file required",
-            "password.error.required": "Vault password required",
+            "file.error.required": "Wallet file required",
+            "password.error.required": "Wallet password required",
             "password.error.min": "Your password must have a minimum of 8 characters."
         },
         "buttons": {
             "cancel": "Cancel",
-            "generateKey": "Create a new vault",
+            "generateKey": "Create a new wallet",
             "unlock": "Unlock wallet",
-            "existingUser": "I already have a Vault",
-            "newUser": "I want to create a new Vault",
+            "existingUser": "I already have a Wallet",
+            "newUser": "I want to create a new Wallet",
             "closeWallet": "Close Wallet"
         }
     },
@@ -134,19 +135,19 @@
     "lockComponent": {
         "title": "Close Wallet?",
         "forceDownload": {
-            "title": "Download vault file",
-            "reason": "When you lock your wallet your vault file is automatically deleted. Without this vault file no transactions can be made. Please be aware your vault file is safely stored. Export it again in case of any doubt...",
+            "title": "Download wallet file",
+            "reason": "When you lock your Wallet your wallet file is automatically deleted. Without this wallet file no transactions can be made. Please be aware your wallet file is safely stored. Export it again in case of any doubt...",
             "buttons": {
                 "allOk": "I have my Key, thanks"
             }
         },
-        "reason": "It is paramount to safely store your vault file. Please choose a strong password you won't forget and then click on \"save\".",
-        "warning": "I confirm that i have saved my vault file.",
+        "reason": "It is paramount to safely store your wallet file. Please choose a strong password you won't forget and then click on \"save\".",
+        "warning": "I confirm that I have saved my wallet file.",
         "password.placeholder": "Password",
         "passwor.required": "Password required",
         "password.min": "Password must have a minimum of 8 characters.",
         "buttons": {
-            "savePrivateKey": "Save vault file",
+            "savePrivateKey": "Save wallet file",
             "closeWallet": "Lock Wallet",
             "enableExport": "Export",
             "cancel": "Cancel"
@@ -154,20 +155,27 @@
     },
     "paymentComponent": {
         "title": "Send Qubic Units (qus)",
+        "messages": {
+            "pleaseUnlock": "Please unlock your Wallet first",
+            "storedForPropagation": "Your transaction ({{txid}}) has been stored for propagation",
+            "failedToSend": "Your transaction could not be sent. Please try again later.",
+            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+            "failedValidation": "We had validation errors. Please check the form."
+        },
         "form": {
             "sourceSeed": {
-                "label": "Account from which qus are to be sent",
+                "label": "Address from which qus are to be sent",
                 "error": {
-                    "required": "Sender account is required"
+                    "required": "Sender address is required"
                 }
             },
             "receiver": {
-                "placeholder": "Account ID of the receiver",
+                "placeholder": "Address ID of the receiver",
                 "hint": "60 uppercase characters",
-                "chooseOwnSeed": "Choose an own Account ID",
+                "chooseOwnSeed": "Choose an own Address ID",
                 "error": {
-                    "required": "Account ID is required",
-                    "length": "A Qubic account ID consists of 60 uppercase letters."
+                    "required": "Address ID is required",
+                    "length": "A Qubic address ID consists of 60 uppercase letters."
                 }
             },
             "amount": {
@@ -190,11 +198,11 @@
         "buttons": {
             "send": "Perform transaction",
             "reset": "Reset",
-            "loadPrivateKey": "Load vault file"
+            "loadPrivateKey": "Load wallet file"
         }
     },
     "balanceComponent": {
-        "title": "Account Balance",
+        "title": "Balance",
         "createSeedHint": "Please create first a Seed",
         "overview": {
             "title": "Overview",
@@ -207,6 +215,8 @@
             "verificationAlert": "Preview data could not be verified",
             "noTransactions": "No Transactions found",
             "send.tooltip": "Outgoing Transfer",
+            "exchange.tooltip": "Internal Transfer",
+            "explorer.tooltip": "Show Transfer in Explorer",
             "receive.tooltip": "Incoming Transfer",
             "status.pending.tooltip": "Pending",
             "status.executed.tooltip": "Executed",
@@ -262,8 +272,8 @@
             "buttons": {
                 "create": "Create Proposal",
                 "publish": "Connect and Publish Proposal",
-                "reset": "Rest Form",
-                "loadPrivateKey": "Load vault file",
+                "reset": "Reset Form",
+                "loadPrivateKey": "Load wallet file",
                 "finish": "Show Proposals"
             },
             "form": {
@@ -274,12 +284,18 @@
                 "title.label": "Proposal Title",
                 "title.placeholder": "Proposal Title",
                 "title.error.required": "Title is required",
+                "title.error.min": "Title must have at least 2 characters",
+                "title.error.max": "Title must have at maximum 100 characters",
                 "description.label": "Proposal Description",
                 "description.placeholder": "Proposal Description",
+                "description.error.min": "Description must have at least 2 characters",
+                "description.error.max": "Description must have at maximum 1000 characters",
                 "description.error.required": "Description is required",
                 "option.label": "Option {{id}}",
                 "option.placeholder": "Option {{id}}",
                 "option.error.required": "Option {{id}} is required",
+                "option.error.min": "Option must have at least 2 characters",
+                "option.error.max": "Option must have at maximum 50 characters",
                 "computorIp.label": "Computor IP Address",
                 "computorIp.placeholder": "Computor IP Address",
                 "computorIp.error.required": "Computor IP Address required"
@@ -288,6 +304,57 @@
             "publishStep.label": "Publish Proposal",
             "finishStep.label": "Done",
             "finishStep.success": "Your Proposal has been sent to your computor."
+        },
+        "status":{
+            "success": "Accepted by Quorum",
+            "failed": "Dismissed by Quorum",
+            "publishing": "Publish in progress",
+            "pending": "Voting is open",
+            "draft": "Draft",
+            "unknown": "Unknown status"
+        }
+    },
+    "ipoComponent": {
+        "messages": {
+            "unlock": "Please unlock your Wallet first",
+            "storedForPropagation": "Your IPO ({{id}}) has been stored for propagation",
+            "failedToSend": "Your IPO could not be sent. Pleas try again later.",
+            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+            "failedToValidate": "We had validation errors. Please check the form."
+        },
+        "title": "Qubic IPO",
+        "description": "The Qubic IPO is an auction for shares of smart contracts.",
+        "noIpos": "Currently no IPO's active",
+        "yourBids": "Your Bids",
+        "yourShares": "Your Shares",
+        "sharesFor": "Shares for",
+        "statusValid": "Status valid for tick {{tick}}",
+        "livPanelHint": "Check out current Results",
+        "buttons.place-bid": "Place Bid",
+        "buttons.refresh": "Refresh Status",
+        "bidStatus.hint": "The status shows only if your bid has been placed. NOT if it was successful.",
+        "bidStatus.pcs": "pcs",
+        "place-bid": {
+            "title": "Place a Bid",
+            "needBalance": "You need at least one seed with a positive balance.",
+            "noContract": "Contract not found. Please try again later.",
+            "noContract.gotoIpoLabel": "Show available Contract IPO's",
+            "buttons": {
+                "send": "Send Bid"
+            },
+            "form": {
+                "quantity": {
+                    "placeholder": "Quantity",
+                    "error.min": "Minimum 1",
+                    "error.required": "Quantity is required"
+                },
+                "price": {
+                    "placeholder": "Price (qus)",
+                    "error.min": "Minimum 1",
+                    "error.required": "Price is required",
+                    "max.tooltip": "Bid all available qus"
+                }
+            }
         }
     }
 }

@@ -315,12 +315,12 @@ div.copy {
   word-wrap: break-word;
 }
 
-
+div.copy,
 a:link,
 a:visited,
 a:active {
   text-decoration: none;
-  color: map-get($map: $mat-primary, $key: main);
+  color: map-get($map: $mat-accent, $key: darker);
 }
 
 .darkTheme {
@@ -493,7 +493,7 @@ h2 {
       // Different background color (also on hover)
       &,
       &:hover {
-        background: #b7c34a;
+        background: #C0C0C0;
       }
 
       // Use "after" pseudo to trigger new fade in animation, as "before" is already used on "--pending"
@@ -505,15 +505,15 @@ h2 {
         left: 50%;
 
         // Simulate checkmark icon
-        display: inline-block;
-        height: 25%;
-        width: 50%;
+        // display: inline-block;
+        // height: 25%;
+        // width: 50%;
 
-        border: 3px solid #fff;
-        border-top-width: 0;
-        border-right-width: 0;
+        // border: 3px solid #fff;
+        // border-top-width: 0;
+        // border-right-width: 0;
 
-        transform: translate(-50%, -75%) rotate(-45deg);
+        //transform: translate(-50%, -75%) rotate(-45deg);
 
         animation:
           loading-btn--fade-in .6s ease;
@@ -734,4 +734,7 @@ hr {
   /* Set the hr color */
   color: gray;  /* old IE */
   background-color: gray;
+}
+.icon-link {
+  
 }

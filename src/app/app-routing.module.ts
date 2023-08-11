@@ -7,6 +7,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { VotingComponent } from './voting/voting.component';
 import { VotingParticipateComponent } from './voting/participate/voting-participate.component';
 import { VotingCreateComponent } from './voting/create/voting-create.component';
+import { IpoComponent } from './ipo/ipo.component';
+import { PlaceBidComponent } from './ipo/place-bid/place-bid.component';
 
 const routes: Routes = [
   {
@@ -48,7 +50,15 @@ const routes: Routes = [
   {
     path     : 'settings',
     component: SettingsComponent
-  }
+  },
+  {
+    path     : 'ipo',
+    component: IpoComponent
+  },
+  {
+    path     : 'ipo/participate/:contractId',
+    component: PlaceBidComponent
+  },
 ];
 
 @NgModule({

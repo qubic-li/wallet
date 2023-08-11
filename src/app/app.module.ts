@@ -53,6 +53,12 @@ import { VotingComponent } from './voting/voting.component';
 import { VotingParticipateComponent } from './voting/participate/voting-participate.component';
 import { VotingCreateComponent } from './voting/create/voting-create.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import { VotingStatusComponent } from './voting/voting-status/voting-status.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { IpoComponent } from './ipo/ipo.component';
+import { PlaceBidComponent } from './ipo/place-bid/place-bid.component';
+import { TransferStatusComponent } from './core/transfer-status/transfer-status.component';
+
 
 
 /** Http interceptor providers in outside-in order */
@@ -83,7 +89,11 @@ export const httpInterceptorProviders = [
     ExportComponent,
     VotingComponent,
     VotingParticipateComponent,
-    VotingCreateComponent
+    VotingCreateComponent,
+    VotingStatusComponent,
+    IpoComponent,
+    PlaceBidComponent,
+    TransferStatusComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +122,8 @@ export const httpInterceptorProviders = [
     TranslocoRootModule,
     MatTabsModule,
     NgxFileDropModule,
-    MatStepperModule
+    MatStepperModule,
+    MatProgressSpinnerModule
   ],
 
   providers: [WalletService, AuthInterceptor, ApiService, UpdaterService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },

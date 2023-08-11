@@ -38,19 +38,20 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
   private isWsConnected = false;
   private dataPackageToSend: string | null = null;
   public isPublishing = false;
+  public isPublishedFormControl = new FormControl('')
 
 
   public proposalForm = this.fb.group({
     computorId: ['', [Validators.required]],
-    title: ["", [Validators.required]],
-    description: ["", [Validators.required]],
-    option1: ["", [Validators.required]],
-    option2: ["", [Validators.required]],
-    option3: [""],
-    option4: [""],
-    option5: [""],
-    option6: [""],
-    option7: [""]
+    title: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(100)]],
+    description: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(1000)]],
+    option1: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(50)]],
+    option2: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(50)]],
+    option3: ["",[Validators.minLength(2),Validators.maxLength(50)]],
+    option4: ["",[Validators.minLength(2),Validators.maxLength(50)]],
+    option5: ["",[Validators.minLength(2),Validators.maxLength(50)]],
+    option6: ["",[Validators.minLength(2),Validators.maxLength(50)]],
+    option7: ["",[Validators.minLength(2),Validators.maxLength(50)]]
   });
 
   public publishForm = this.fb.group({
@@ -72,6 +73,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
         this.init();
       }
     });
+    this.isPublishedFormControl.setErrors({ "required": true}); // fake state for last step
   }
   ngOnDestroy(): void {
     if (this.userServiceSubscription)
@@ -145,6 +147,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
           if (this.proposalToPublish) {
             this.api.submitProposalPublished(this.proposalToPublish.id).subscribe(s => {
               this.isPublished = true;
+              this.isPublishedFormControl.reset();
               this.stepper.next();
             });
           }
@@ -292,7 +295,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
         }, 5000);
       });
     }).catch(e => {
-      this._snackBar.open("We were not able to decrypt your seed. Do you use the correct private key?", "close", {
+      this._snackBar.open("We were not able to decrypt your seed. Did you use the correct private key??", "close", {
         duration: 10000,
         panelClass: "error"
       });

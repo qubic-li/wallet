@@ -7,7 +7,8 @@
             "payment": "Pago",
             "balance": "Saldo de cuenta",
             "settings": "Ajustes",
-            "voting": "Voting"
+            "voting": "Voting",
+            "ipo": "IPO"
         },
         "version": "Versión {{version}} - beta",
         "version.url": "qubic.li",
@@ -151,6 +152,13 @@
     },
     "paymentComponent": {
         "title": "Enviar Quo's",
+        "messages": {
+            "pleaseUnlock": "Please unlock your Wallet first",
+            "storedForPropagation": "Your transaction ({{txid}}) has been stored for propagation",
+            "failedToSend": "Your transaction could not be sent. Please try again later.",
+            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+            "failedValidation": "We had validation errors. Please check the form."
+        },
         "form": {
             "sourceSeed": {
                 "label": "Seed de origen",
@@ -204,6 +212,8 @@
             "verificationAlert": "No se pudieron verificar los datos de la vista previa",
             "noTransactions": "No Transactions found",
             "send.tooltip": "Outgoing Transfer",
+            "exchange.tooltip": "Internal Transfer",
+            "explorer.tooltip": "Show Transfer in Explorer",
             "receive.tooltip": "Incoming Transfer",
             "status.pending.tooltip": "Pending",
             "status.executed.tooltip": "Executed",
@@ -243,7 +253,7 @@
             "buttons": {
                 "create": "Create Proposal",
                 "publish": "Connect and Publish Proposal",
-                "reset": "Rest Form",
+                "reset": "Reset Form",
                 "loadPrivateKey": "Load vault file",
                 "finish": "Show Proposals"
             },
@@ -255,12 +265,18 @@
                 "title.label": "Proposal Title",
                 "title.placeholder": "Proposal Title",
                 "title.error.required": "Title is required",
+                "title.error.min": "Title must have at least 2 characters",
+                "title.error.max": "Title must have at maximum 100 characters",
                 "description.label": "Proposal Description",
                 "description.placeholder": "Proposal Description",
+                "description.error.min": "Description must have at least 2 characters",
+                "description.error.max": "Description must have at maximum 1000 characters",
                 "description.error.required": "Description is required",
                 "option.label": "Option {{id}}",
                 "option.placeholder": "Option {{id}}",
                 "option.error.required": "Option {{id}} is required",
+                "option.error.min": "Option must have at least 2 characters",
+                "option.error.max": "Option must have at maximum 50 characters",
                 "computorIp.label": "Computor IP Address",
                 "computorIp.placeholder": "Computor IP Address",
                 "computorIp.error.required": "Computor IP Address required"
@@ -269,6 +285,57 @@
             "publishStep.label": "Publish Proposal",
             "finishStep.label": "Done",
             "finishStep.success": "Your Proposal has been sent to your computor."
+        },
+        "status":{
+            "success": "Accepted by Quorum",
+            "failed": "Dismissed by Quorum",
+            "publishing": "Publish in progress",
+            "pending": "Voting is open",
+            "draft": "Draft",
+            "unknown": "Unknown status"
+        }
+    },
+    "ipoComponent": {
+        "messages": {
+            "unlock": "Please unlock your Wallet first",
+            "storedForPropagation": "Your IPO ({{id}}) has been stored for propagation",
+            "failedToSend": "Your IPO could not be sent. Pleas try again later.",
+            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+            "failedToValidate": "We had validation errors. Please check the form."
+        },
+        "title": "Qubic IPO",
+        "description": "The Qubic IPO is an auction for shares of smart contracts.",
+        "noIpos": "Currently no IPO's active",
+        "yourBids": "Your Bids",
+        "yourShares": "Your Shares",
+        "sharesFor": "Shares for",
+        "statusValid": "Status valid for tick {{tick}}",
+        "livPanelHint": "Check out current Results",
+        "buttons.place-bid": "Place Bid",
+        "buttons.refresh": "Refresh Status",
+        "bidStatus.hint": "The status shows only if your bid has been placed. NOT if it was successful.",
+        "bidStatus.pcs": "pcs",
+        "place-bid": {
+            "title": "Place a Bid",
+            "needBalance": "You need at least one seed with a positive balance.",
+            "noContract": "Contract not found. Please try again later.",
+            "noContract.gotoIpoLabel": "Show available Contract IPO's",
+            "buttons": {
+                "send": "Send Bid"
+            },
+            "form": {
+                "quantity": {
+                    "placeholder": "Quantity",
+                    "error.min": "Minimum 1",
+                    "error.required": "Quantity is required"
+                },
+                "price": {
+                    "placeholder": "Price (qus)",
+                    "error.min": "Minimum 1",
+                    "error.required": "Price is required",
+                    "max.tooltip": "Bid all available qus"
+                }
+            }
         }
     }
 }

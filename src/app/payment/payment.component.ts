@@ -9,7 +9,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../services/api.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { UpdaterService } from '../services/updater-service';
-import { Transaction } from '../services/api.model';
+import { CurrentTickResponse, Transaction } from '../services/api.model';
+import { TranslocoService } from '@ngneat/transloco';
+import { concatMap, of } from 'rxjs';
 
 @Component({
   selector: 'app-wallet',
@@ -45,7 +47,9 @@ export class PaymentComponent implements OnInit {
     tick: [0, [Validators.required]],
   });
 
-  constructor(private router: Router, private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
+  constructor(
+    private t: TranslocoService,
+    private router: Router, private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     if (state && state['template']) {
       this.txTemplate = state['template'];
@@ -57,7 +61,6 @@ export class PaymentComponent implements OnInit {
       this.currentTick = tick;
       this.transferForm.controls.tick.addValidators(Validators.min(tick));
       if (!this.tickOverwrite) {
-        this.transferForm.controls.tick.setValue(tick);
         this.transferForm.controls.tick.setValue(tick + 10);
       }
     })
@@ -121,7 +124,7 @@ export class PaymentComponent implements OnInit {
 
   onSubmit(): void {
     if (!this.walletService.privateKey) {
-      this._snackBar.open("Please unlock your Wallet first", "close", {
+      this._snackBar.open(this.t.translate('paymentComponent.messages.pleaseUnlock'), this.t.translate('general.close'), {
         duration: 5000,
         panelClass: "error"
       });
@@ -129,31 +132,46 @@ export class PaymentComponent implements OnInit {
     if (this.transferForm.valid) {
       this.walletService.revealSeed((<any>this.transferForm.controls.sourceId.value)).then(s => {
         let destinationId = this.selectedAccountId ? this.transferForm.controls.selectedDestinationId.value : this.transferForm.controls.destinationId.value;
-        new QubicHelper().createTransaction(s, destinationId!, this.transferForm.controls.amount.value!, this.transferForm.controls.tick.value!).then(tx => {
-          // hack to get uintarray to array for sending to api
-          this.api.submitTransaction({ SignedTransaction: this.walletService.arrayBufferToBase64(tx) }).subscribe(r => {
-            if (r && r.id) {
-              this._snackBar.open("Your transaction (" + r.id + ") has been stored for propagation", "close", {
-                duration: 3000,
+        of(this.transferForm.controls.tick.value!).pipe(
+          concatMap(data => {
+            if (!this.tickOverwrite) {
+              // this line is the one I have a problem with
+              return this.api.getCurrentTick();
+            } else {
+              // this line returns fine
+              return of(<CurrentTickResponse>{
+                tick: data - 10, // fake because we add it afterwards; todo: do that right!
               });
-              // this.init();
-              this.router.navigate(['/']);
             }
-          }, er => {
-            this._snackBar.open("Your transaction could not be sent. Pleas try again later.", "close", {
-              duration: 5000,
-              panelClass: "error"
+          })).subscribe(tick => {
+            console.log("TICK", tick);
+            new QubicHelper().createTransaction(s, destinationId!, this.transferForm.controls.amount.value!, tick.tick+10).then(tx => {
+              // hack to get uintarray to array for sending to api
+              this.api.submitTransaction({ SignedTransaction: this.walletService.arrayBufferToBase64(tx) }).subscribe(r => {
+                if (r && r.id) {
+                  this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: r.id }) , this.t.translate('general.close'), {
+                    duration: 10000,
+                  });
+                  // this.init();
+                  this.us.loadCurrentBalance();
+                  this.router.navigate(['/']);
+                }
+              }, er => {
+                this._snackBar.open(this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
+                  duration: 5000,
+                  panelClass: "error"
+                });
+              });
             });
           });
-        });
       }).catch(e => {
-        this._snackBar.open("We were not able to decrypt your seed. Do you use the correct private key?", "close", {
+        this._snackBar.open(this.t.translate('paymentComponent.messages.failedToDecrypt'), this.t.translate('general.close'), {
           duration: 10000,
           panelClass: "error"
         });
       });
     } else {
-      this._snackBar.open("We hat validation errors. Please check the form.", "close", {
+      this._snackBar.open(this.t.translate('paymentComponent.messages.failedValidation'), this.t.translate('general.close'), {
         duration: 5000,
         panelClass: "error"
       });
