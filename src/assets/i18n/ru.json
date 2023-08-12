@@ -15,7 +15,7 @@
     "copy.tooltip": "Копировать",
     "error": "Ошибка",
     "close": "Закрыть",
-    "currency": "qus",
+    "currency": "QUBIC",
     "currentTick": "Current Tick: {{tick}}",
     "loading": "loading..."
   },
