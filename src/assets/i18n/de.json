@@ -16,8 +16,18 @@
     "error": "Error",
     "close": "close",
     "currency": "qus",
-    "currentTick": "Aktueller Tick: {{tick}}",
-    "loading": "loading..."
+    "currentTick": "Tick: {{tick}}",
+    "loading": "loading...",
+    "buttons": {
+        "close": "Close",
+        "maximize": "Maximize"
+    },
+    "messages": {
+        "notConnected": "Not connected to the Qubic Network. Please Connect first.",
+        "refreshRequested": "Refresh has been requested",
+        "refreshFailed": "Refresh failed, please try again later",
+        "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}."
+    }
   },
   "payment": {
     "keyRequestReason": "Transaktionen werden mit dem Konto-Passwort abgesichert. Alle Konto-Passwörter sind verschlüsselt in einer Datei auf deinem Gerät, die wir Tresor nennen. Daher musst du deinen Tresor vorher mit deiner Kombination - dem Tresor-Passwort - entriegeln."
@@ -102,7 +112,8 @@
         "makePayment": "Zahlung starten",
         "receivePayment": "QR Code zum Empfang einer Zahlung generieren.",
         "editSeed": "Konto bearbeiten",
-        "deleteSeed": "Konto löschen"
+        "deleteSeed": "Konto löschen",
+        "refreshBalance": "Kontostand im Netzwerk abrufen"
       }
     },
     "hasPendingTransaction": "Offene Zahlungen"
@@ -227,6 +238,11 @@
     "repeatTransaction": "Zahlung wiederholen"
   },
   "settings": {
+    "general": {
+        "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
+        "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
+        "button.save": "Save Settings"
+    },
     "import": {
       "title": "Einstellungen importieren",
       "doneMessage": "Import erfolgreich",

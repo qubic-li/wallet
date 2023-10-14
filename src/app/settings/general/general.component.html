@@ -1,0 +1,19 @@
+<ng-container *transloco="let t">
+    <form [formGroup]="form" novalidate (ngSubmit)="onSubmit()">
+        <div class="form-container">
+            <mat-form-field class="full-width">
+                <mat-label>{{ t("settings.general.tickAddition.placeholder") }}</mat-label>
+                <input matInput type="number" [placeholder]="t('settings.general.tickAddition.placeholder')"
+                    formControlName="tickAddition">
+            </mat-form-field>
+            <mat-slide-toggle formControlName="useBridge">{{ t('settings.general.webBridge.placeholder')
+                }}</mat-slide-toggle>
+            <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+                <span>
+                    {{ t('settings.general.button.save') }}
+                </span>
+            </button>
+        </div>
+
+    </form>
+</ng-container>

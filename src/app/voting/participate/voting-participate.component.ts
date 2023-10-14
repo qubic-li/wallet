@@ -284,7 +284,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
   }
 
   getProposals() {
-    return this.proposals?.filter(f => f.status === 'Pending');
+    return this.proposals?.filter(f => f.status === 2 /* pending */);
   }
 
   getTotalBalance(estimaed = false): number {
@@ -295,7 +295,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
   }
 
   hasSeeds() {
-    return this.walletService.seeds.length > 0;
+    return this.walletService.getSeeds().length > 0;
   }
 
   onlyUnique(value: Transaction, index: any, array: Transaction[]) {
@@ -309,11 +309,11 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
   }
 
   isOwnId(publicId: string): boolean {
-    return this.walletService.seeds.find(f => f.publicId == publicId) !== undefined;
+    return this.walletService.getSeeds().find(f => f.publicId == publicId) !== undefined;
   }
 
   getSeedName(publicId: string): string {
-    var seed = this.walletService.seeds.find(f => f.publicId == publicId);
+    var seed = this.walletService.getSeeds().find(f => f.publicId == publicId);
     if (seed !== undefined)
       return '(' + seed.alias + ')';
     else

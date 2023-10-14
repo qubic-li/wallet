@@ -10,9 +10,16 @@ import { RevealSeedDialog } from './reveal-seed/reveal-seed.component';
 import { Router } from '@angular/router';
 import { QrReceiveDialog } from './qr-receive/qr-receive.component';
 import { ApiService } from '../services/api.service';
-import { BalanceResponse, Transaction } from '../services/api.model';
-import {MatSort} from '@angular/material/sort';
+import { BalanceResponse, NetworkBalance, Transaction } from '../services/api.model';
+import { MatSort } from '@angular/material/sort';
 import { UpdaterService } from '../services/updater-service';
+import { QubicService } from '../services/qubic.service';
+import { PublicKey } from 'src/lib/qubic/packages/PublicKey';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { QubicEntityResponse } from 'src/lib/qubic/packages/QubicEntityResponse';
+import { DecimalPipe  } from '@angular/common';
+
 
 @Component({
   selector: 'qli-main',
@@ -24,20 +31,34 @@ export class MainComponent implements AfterViewInit {
   displayedColumns: string[] = ['alias', 'publicId', 'balance', 'currentEstimatedAmount', 'actions'];
   dataSource!: MatTableDataSource<ISeed>;
   balances: BalanceResponse[] = [];
+  public transactions: Transaction[] = [];
 
   @ViewChild(MatTable)
-  table!: MatTable<ISeed> ;
+  table!: MatTable<ISeed>;
 
   @ViewChild(MatSort)
   sort!: MatSort;
 
 
-  constructor(public walletService: WalletService, public dialog: MatDialog, private router: Router, us: UpdaterService) {
+  constructor(
+      public walletService: WalletService, 
+      public dialog: MatDialog, 
+      private router: Router, 
+      private us: UpdaterService, 
+      private q: QubicService,
+      private _snackBar: MatSnackBar,
+      private t: TranslocoService,
+      private decimalPipe: DecimalPipe
+      ) {
     this.setDataSource();
     us.currentBalance.subscribe(b => {
       this.balances = b;
       this.setDataSource();
     })
+
+    us.internalTransactions.subscribe(txs => {
+      this.transactions = txs;
+    });
   }
   ngAfterViewInit(): void {
     this.setDataSource();
@@ -45,22 +66,31 @@ export class MainComponent implements AfterViewInit {
 
   setDataSource(): void {
     this.dataSource = new MatTableDataSource(this.walletService.getSeeds().map(m => {
-      m.balance = this.getBalance(m.publicId);
-      (<any>m).currentEstimatedAmount = this.getEpochChanges(m.publicId);
+      if (!this.walletService.getSettings().useBridge) {
+        if (!m.balanceTick || m.balanceTick === 0){
+          m.balance = this.getDeprecatedBalance(m.publicId);
+          (<any>m).currentEstimatedAmount = this.getEpochChanges(m.publicId);
+          m.lastUpdate = new Date();
+        }
+      }
       return m;
     }));
     this.dataSource.sort = this.sort;
   }
 
-  getBalance(publicId: string): number{
+  getDeprecatedBalance(publicId: string): number {
     var balanceEntry = this.balances.find(f => f.publicId === publicId);
     return balanceEntry?.currentEstimatedAmount ?? balanceEntry?.epochBaseAmount ?? 0;
   }
 
+  getBalance(publicId: string): number {
+    return Number(this.walletService.getSeed(publicId)?.balance ?? BigInt(0));
+  }
 
-  getEpochChanges(publicId: string): number{
+
+  getEpochChanges(publicId: string): number {
     var balanceEntry = this.balances.find(f => f.publicId === publicId);
-    return balanceEntry?.epochChanges ?? 0;
+    return this.getBalance(publicId) - (balanceEntry?.epochBaseAmount ?? 0); // balanceEntry?.epochChanges ?? 0;
   }
 
   refreshData() {
@@ -144,8 +174,49 @@ export class MainComponent implements AfterViewInit {
     })
   }
 
+  refreshBalance(publicId: string) {
+    if(this.walletService.getSettings().useBridge){
+      if(!this.q.isConnected.getValue()){
+        this._snackBar.open(this.t.translate('general.messages.notConnected'), this.t.translate('general.close'), {
+          duration: 10000,
+          panelClass: "error"
+        });
+      }else{
+        if(this.q.updateBalance(new PublicKey(publicId), (entityResponse: QubicEntityResponse): boolean => {
+          if(entityResponse.getEntity().getPublicKey().equals(new PublicKey(publicId))){
+            this._snackBar.open(this.t.translate('general.messages.balanceReceived', {publicId: publicId, balance: this.decimalPipe.transform(entityResponse.getEntity().getBalance(), '1.0-0')}) , this.t.translate('general.close'), {
+              duration: 10000,
+            });
+            return true;
+          }
+          return false;
+        })){
+          this._snackBar.open(this.t.translate('general.messages.refreshRequested') , this.t.translate('general.close'), {
+            duration: 5000,
+          });
+        }else{
+          this._snackBar.open(this.t.translate('general.messages.refreshFailed'), this.t.translate('general.close'), {
+            duration: 10000,
+            panelClass: "error"
+          });
+        }
+      }
+    }else{
+      this.us.forceUpdateNetworkBalance(publicId, (balances: NetworkBalance[]) => {
+        if(balances){
+          var entry = balances.find(f => f.publicId == publicId);
+          if(entry){
+            this._snackBar.open(this.t.translate('general.messages.balanceReceived', {publicId: publicId, balance: this.decimalPipe.transform(entry.amount, '1.0-0')}) , this.t.translate('general.close'), {
+              duration: 5000,
+            });
+          }
+        }
+      });
+    }
+  }
+
   hasPendingTransaction(publicId: string) {
-    return this.balances.find(f => f.transactions.find(t => (t.sourceId == publicId || t.destId == publicId) &&  t.isPending));
+    return this.transactions.find(t => (t.sourceId == publicId || t.destId == publicId) && t.isPending);
   }
 
 }

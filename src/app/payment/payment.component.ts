@@ -12,6 +12,11 @@ import { UpdaterService } from '../services/updater-service';
 import { CurrentTickResponse, Transaction } from '../services/api.model';
 import { TranslocoService } from '@ngneat/transloco';
 import { concatMap, of } from 'rxjs';
+import { QubicTransaction } from 'src/lib/qubic/packages/QubicTransaction';
+import { RequestResponseHeader } from 'src/lib/qubic/packages/RequestResponseHeader';
+import { QubicConnector } from 'src/lib/qubic/connector/QubicConnector';
+import { PackageBuilder } from 'src/lib/qubic/packages/PackageBuilder';
+import { QubicPackageType } from 'src/lib/qubic/packages/QubicPackageType';
 
 @Component({
   selector: 'app-wallet',
@@ -24,6 +29,7 @@ export class PaymentComponent implements OnInit {
   private selectedDestinationId: any;
   public maxAmount: number = 0;
   public currentTick = 0;
+  public isBroadcasting = false;
 
   @ViewChild('selectedDestinationId', {
     static: false
@@ -61,13 +67,13 @@ export class PaymentComponent implements OnInit {
       this.currentTick = tick;
       this.transferForm.controls.tick.addValidators(Validators.min(tick));
       if (!this.tickOverwrite) {
-        this.transferForm.controls.tick.setValue(tick + 10);
+        this.transferForm.controls.tick.setValue(tick + this.walletService.getSettings().tickAddition);
       }
     })
     this.transferForm.controls.sourceId.valueChanges.subscribe(s => {
       if (s) {
         // try to get max amount
-        this.getMaxAmount(s);
+        this.maxAmount = this.walletService.getSeed(s)?.balance ?? 0;
         if (this.transferForm.controls.selectedDestinationId.value == this.transferForm.controls.sourceId.value) {
           this.transferForm.controls.selectedDestinationId.setValue(null);
         }
@@ -102,16 +108,6 @@ export class PaymentComponent implements OnInit {
     this.transferForm.controls.destinationId.setValue(tx.destId);
   }
 
-  getMaxAmount(publicId: string) {
-    this.us.currentBalance.subscribe(s => {
-      if (s && s.length > 0 && s.find(f => f.publicId == publicId)) {
-        this.maxAmount = s.find(f => f.publicId == publicId)?.currentEstimatedAmount ?? s.find(f => f.publicId == publicId)?.epochBaseAmount ?? 0;
-      } else {
-        this.maxAmount = 0;
-      }
-    });
-  }
-
   setAmounToMax(addAmount: number = 0) {
     this.transferForm.controls.amount.setValue(this.maxAmount + addAmount);
   }
@@ -122,6 +118,44 @@ export class PaymentComponent implements OnInit {
     this.us.forceUpdateCurrentTick();
   }
 
+  private directPush(tx: QubicTransaction): void {
+    
+    // create header
+    const header = new RequestResponseHeader(QubicPackageType.BROADCAST_TRANSACTION, tx.getPackageSize());
+    const builder = new PackageBuilder(header.getSize());
+    builder.add(header);
+    builder.add(tx);
+    const data = builder.getData();
+
+    //return;
+    let transactionSent = false;
+    const qubicConnector = new QubicConnector();
+    qubicConnector.onReady = () => {
+      qubicConnector.connect(this.api.currentPeerList.getValue()[0].ipAddress);
+    }
+    qubicConnector.onPeerConnected = () =>{
+      // send transaction
+      if(qubicConnector.sendPackage(data)){
+        transactionSent = true;
+        this.us.addQubicTransaction(tx);
+        this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: "" }) , this.t.translate('general.close'), {
+          duration: 10000,
+        });
+        this.router.navigate(['/']);
+      }else{
+        this._snackBar.open(this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
+          duration: 5000,
+          panelClass: "error"
+        });
+      }
+      this.isBroadcasting = false;
+      qubicConnector.stop();
+    }
+    qubicConnector.onPackageReceived = d =>{
+    }
+    qubicConnector.start();
+  }
+
   onSubmit(): void {
     if (!this.walletService.privateKey) {
       this._snackBar.open(this.t.translate('paymentComponent.messages.pleaseUnlock'), this.t.translate('general.close'), {
@@ -130,45 +164,53 @@ export class PaymentComponent implements OnInit {
       });
     }
     if (this.transferForm.valid) {
+      this.isBroadcasting = true;
       this.walletService.revealSeed((<any>this.transferForm.controls.sourceId.value)).then(s => {
         let destinationId = this.selectedAccountId ? this.transferForm.controls.selectedDestinationId.value : this.transferForm.controls.destinationId.value;
         of(this.transferForm.controls.tick.value!).pipe(
           concatMap(data => {
             if (!this.tickOverwrite) {
-              // this line is the one I have a problem with
               return this.api.getCurrentTick();
             } else {
-              // this line returns fine
               return of(<CurrentTickResponse>{
-                tick: data - 10, // fake because we add it afterwards; todo: do that right!
+                tick: data - this.walletService.getSettings().tickAddition, // fake because we add it afterwards; todo: do that right!
               });
             }
           })).subscribe(tick => {
-            console.log("TICK", tick);
-            new QubicHelper().createTransaction(s, destinationId!, this.transferForm.controls.amount.value!, tick.tick+10).then(tx => {
-              // hack to get uintarray to array for sending to api
-              this.api.submitTransaction({ SignedTransaction: this.walletService.arrayBufferToBase64(tx) }).subscribe(r => {
-                if (r && r.id) {
-                  this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: r.id }) , this.t.translate('general.close'), {
-                    duration: 10000,
+            var qtx = new QubicTransaction();
+            qtx.setSourcePublicKey(this.transferForm.controls.sourceId.value!).setDestinationPublicKey(destinationId!).setAmount(this.transferForm.controls.amount.value!).setTick(tick.tick+this.walletService.getSettings().tickAddition).build(s).then(tx => {
+                if(this.walletService.getSettings().useBridge){
+                  this.directPush(qtx); // todo: refactor call tree
+                }else{
+                  // hack to get uintarray to array for sending to api
+                  // proxy the tx request throught qli
+                  this.api.submitTransaction({ SignedTransaction: this.walletService.arrayBufferToBase64(tx) }).subscribe(r => {
+                    if (r && r.id) {
+                      this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: r.id }) , this.t.translate('general.close'), {
+                        duration: 10000,
+                      });
+                      this.isBroadcasting = false;
+                      this.us.loadCurrentBalance();
+                      this.router.navigate(['/']);
+                    }
+                  }, er => {
+                    this._snackBar.open(this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
+                      duration: 5000,
+                      panelClass: "error"
+                    });
+                    this.isBroadcasting = false;
                   });
-                  // this.init();
-                  this.us.loadCurrentBalance();
-                  this.router.navigate(['/']);
                 }
-              }, er => {
-                this._snackBar.open(this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
-                  duration: 5000,
-                  panelClass: "error"
-                });
               });
-            });
           });
       }).catch(e => {
         this._snackBar.open(this.t.translate('paymentComponent.messages.failedToDecrypt'), this.t.translate('general.close'), {
           duration: 10000,
           panelClass: "error"
         });
+        this.isBroadcasting = false;
+      }).finally(() => {
+        
       });
     } else {
       this._snackBar.open(this.t.translate('paymentComponent.messages.failedValidation'), this.t.translate('general.close'), {

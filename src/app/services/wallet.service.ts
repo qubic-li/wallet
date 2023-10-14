@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { bytes32ToString } from 'src/lib/qubic/converter/converter';
 import { IConfig } from '../model/config';
 import { IDecodedSeed, ISeed } from '../model/seed';
@@ -9,14 +10,18 @@ import { ITx } from '../model/tx';
 })
 export class WalletService {
 
+  private runningConfiguration: IConfig;
+
   private configName = 'wallet-config';
   public privateKey: CryptoKey | null = null;
   public publicKey: CryptoKey | null = null;
-  public seeds: ISeed[] = [];
+  //public seeds: ISeed[] = [];
+  //public webBridges: string[] = [];
   public txs: ITx[] = [];
   public configError = false;
   public erroredCOnfig: string = '';
   public shouldExportKey = true;
+  public config: BehaviorSubject<IConfig>;
 
   private rsaAlg = {
     name: 'RSA-OAEP',
@@ -34,6 +39,14 @@ export class WalletService {
   };
 
   constructor() {
+    // create empty configuration
+    this.runningConfiguration = {
+      seeds: [],
+      webBridges: [],
+      tickAddition: 10,
+      useBridge: (<any>window).require
+    };
+    this.config = new BehaviorSubject(this.runningConfiguration);
     this.load();
   }
 
@@ -52,17 +65,27 @@ export class WalletService {
         this.erroredCOnfig = jsonString;
       }
     }
+    this.config.next(this.runningConfiguration);
   }
 
   private loadConfig(config: IConfig) {
 
-    if (config.publicKey)
-      crypto.subtle.importKey("jwk", config.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
+    this.runningConfiguration = config;
+
+    // backward compatibility
+    if(!this.runningConfiguration.tickAddition)
+      this.runningConfiguration.tickAddition = 20;
+
+    // convert json key to internal cryptokey
+    if (this.runningConfiguration.publicKey)
+      crypto.subtle.importKey("jwk", this.runningConfiguration.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
         this.publicKey = k
       );
-    if (config.seeds)
-      this.seeds = config.seeds;
 
+    if (!this.runningConfiguration.webBridges)
+      this.runningConfiguration.webBridges = ["https://1.b.qubic.li"];
+
+    // todo: load web bridges dynamically
   }
 
   public createNewKeys() {
@@ -75,8 +98,29 @@ export class WalletService {
     this.saveConfig(lock);
   }
 
+  public getWebBridges(): string[] {
+    return [...this.runningConfiguration.webBridges];
+  }
+
+  public getSettings(): IConfig {
+    return {
+      seeds: [...this.runningConfiguration.seeds],
+      webBridges: [...this.runningConfiguration.webBridges],
+      useBridge: this.runningConfiguration.useBridge,
+      tickAddition: this.runningConfiguration.tickAddition
+    };
+  }
+
+  public updateConfig(config: any): void {
+    if (config.tickAddition !== undefined)
+      this.runningConfiguration.tickAddition = config.tickAddition;
+    if (config.useBridge !== undefined)
+      this.runningConfiguration.useBridge = config.useBridge;
+    this.saveConfig(false);
+  }
+
   public getSeeds(): ISeed[] {
-    var seeds = [...this.seeds];
+    var seeds = [...this.runningConfiguration.seeds];
     return seeds.sort((a, b) => {
       const nameA = a.alias.toUpperCase(); // ignore upper and lowercase
       const nameB = b.alias.toUpperCase(); // ignore upper and lowercase
@@ -92,7 +136,7 @@ export class WalletService {
     });
   }
   public getSeed(publicId: string): ISeed | undefined {
-    return this.seeds.find(f => f.publicId === publicId);
+    return this.runningConfiguration.seeds.find(f => f.publicId === publicId);
   }
   public revealSeed(publicId: string): Promise<string> {
     const seed = this.getSeed(publicId);
@@ -103,8 +147,18 @@ export class WalletService {
   }
   public updateSeedAlias(publicId: string, alias: string) {
     let seed = this.getSeed(publicId);
-    if (seed){
+    if (seed) {
       seed.alias = alias;
+      this.saveConfig(false);
+    }
+  }
+
+  public updateBalace(publicId: string, balance: number, balanceTick: number) {
+    let seed = this.getSeed(publicId);
+    if (seed && (!seed.balanceTick || seed.balanceTick < balanceTick)) {
+      seed.balance = balance;
+      seed.balanceTick = balanceTick;
+      seed.lastUpdate = new Date();
       this.saveConfig(false);
     }
   }
@@ -139,14 +193,14 @@ export class WalletService {
         //publicKey: seed.publicKey,
         publicId: seed.publicId
       }
-      this.seeds.push(newSeed);
+      this.runningConfiguration.seeds.push(newSeed);
       this.save();
       return newSeed;
     });
   }
 
   deleteSeed(publicId: string) {
-    this.seeds = this.seeds.filter(f => f.publicId !== publicId);
+    this.runningConfiguration.seeds = this.runningConfiguration.seeds.filter(f => f.publicId !== publicId);
     this.save();
   }
 
@@ -169,19 +223,15 @@ export class WalletService {
 
   private saveConfig(lock: boolean) {
     if (lock) { // when locking we don't want that the public key is saved.
-      const config = {
-        seeds: this.seeds
-      };
-      localStorage.setItem(this.configName, JSON.stringify(config));
+      this.runningConfiguration.publicKey = undefined;
+      localStorage.setItem(this.configName, JSON.stringify(this.runningConfiguration));
     } else {
       crypto.subtle.exportKey('jwk', this.publicKey!).then(jwk => {
-        const config: IConfig = {
-          publicKey: jwk,
-          seeds: this.seeds
-        };
-        localStorage.setItem(this.configName, JSON.stringify(config));
+        this.runningConfiguration.publicKey = jwk;
+        localStorage.setItem(this.configName, JSON.stringify(this.runningConfiguration));
       });
     }
+    this.config.next(this.runningConfiguration);
   }
 
   public lock() {
@@ -280,11 +330,22 @@ export class WalletService {
   }
 
   public exportConfig(): boolean {
-    if (!this.seeds || this.seeds.length <= 0)
+    if (!this.runningConfiguration.seeds || this.runningConfiguration.seeds.length <= 0)
       return false;
 
     const exportConfig: IConfig = {
-      seeds: this.seeds
+      seeds: this.runningConfiguration.seeds.map(m => {
+        const exportSeed: ISeed = <ISeed>{};
+        Object.assign(exportSeed, m);
+        // remove balance
+        exportSeed.balance = 0;
+        exportSeed.balanceTick = 0;
+        exportSeed.lastUpdate = undefined;
+        return exportSeed;
+      }),
+      webBridges: this.runningConfiguration.webBridges,
+      useBridge: this.runningConfiguration.useBridge,
+      tickAddition: this.runningConfiguration.tickAddition
     };
 
     const data = new TextEncoder().encode(JSON.stringify(exportConfig));
@@ -310,7 +371,7 @@ export class WalletService {
 
   public clearConfig() {
     localStorage.removeItem(this.configName);
-    this.seeds = [];
+    this.runningConfiguration.seeds = [];
     this.publicKey = null;
   }
 

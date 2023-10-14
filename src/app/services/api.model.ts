@@ -27,11 +27,11 @@ export interface Transaction {
   amount: number;
   status: string;
   created: Date;
-  stored: Date;
-  staged: Date;
-  broadcasted: Date;
-  confirmed: Date;
-  statusUpdate: Date;
+  stored?: Date;
+  staged?: Date;
+  broadcasted?: Date;
+  confirmed?: Date;
+  statusUpdate?: Date;
   targetTick: number;
   isPending: boolean;
   price?: number; // ipo bids
@@ -50,6 +50,11 @@ export interface BalanceResponse {
   transactions: Transaction[]
 }
 
+export interface NetworkBalance {
+  publicId: string;
+  amount: number;
+  tick: number;
+}
 
 
 export interface BallotDto { 
@@ -60,7 +65,7 @@ export interface BallotDto {
 }
 
 export interface ProposalDto { 
-  status: string;
+  status: number;
   url?: string | null;
   computorIndex?: number;
   shortCode?: string | null;
@@ -122,4 +127,10 @@ export interface IpoBidOverview {
   index: number;
   tick: number;
   bids: IpoBid[];
+}
+
+export interface PeerDto { 
+  ipAddress: string;
+  currentTick: number;
+  lastChange: Date;
 }

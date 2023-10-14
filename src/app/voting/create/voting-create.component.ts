@@ -44,7 +44,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
   public proposalForm = this.fb.group({
     computorId: ['', [Validators.required]],
     title: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(100)]],
-    description: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(1000)]],
+    description: ["", [Validators.required,Validators.minLength(2)]],
     option1: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(50)]],
     option2: ["", [Validators.required,Validators.minLength(2), Validators.maxLength(50)]],
     option3: ["",[Validators.minLength(2),Validators.maxLength(50)]],
@@ -194,7 +194,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
   }
 
   hasSeeds() {
-    return this.walletService.seeds.length > 0;
+    return this.walletService.getSeeds().length > 0;
   }
 
   onlyUnique(value: Transaction, index: any, array: Transaction[]) {
@@ -208,11 +208,11 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
   }
 
   isOwnId(publicId: string): boolean {
-    return this.walletService.seeds.find(f => f.publicId == publicId) !== undefined;
+    return this.walletService.getSeeds().find(f => f.publicId == publicId) !== undefined;
   }
 
   getSeedName(publicId: string): string {
-    var seed = this.walletService.seeds.find(f => f.publicId == publicId);
+    var seed = this.walletService.getSeeds().find(f => f.publicId == publicId);
     if (seed !== undefined)
       return '(' + seed.alias + ')';
     else

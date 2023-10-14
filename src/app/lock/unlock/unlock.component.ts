@@ -30,7 +30,7 @@ export class UnLockComponent extends QubicDialogWrapper {
   constructor(renderer: Renderer2, themeService: ThemeService, public walletService: WalletService, private transloco: TranslocoService, private cdr: ChangeDetectorRef, private fb: FormBuilder, private dialog: MatDialog, private _snackBar: MatSnackBar, private injector: Injector) {
     super(renderer, themeService);
     this.dialogRef = injector.get(DialogRef, null)
-    this.newUser = this.walletService.seeds.length <= 0 && !this.walletService.publicKey;
+    this.newUser = this.walletService.getSeeds().length <= 0 && !this.walletService.publicKey;
   }
 
   isNewUser() {
@@ -59,7 +59,7 @@ export class UnLockComponent extends QubicDialogWrapper {
   }
 
   gengerateNew() {
-    if(this.walletService.seeds.length > 0 || this.walletService.publicKey){
+    if(this.walletService.getSeeds().length > 0 || this.walletService.publicKey){
       const confirmDialo = this.dialog.open(ConfirmDialog, { restoreFocus: false, data: {
         message: this.transloco.translate("unlockComponent.overwriteVault")
       } });

@@ -16,8 +16,18 @@
     "error": "Ошибка",
     "close": "Закрыть",
     "currency": "qus",
-    "currentTick": "Current Tick: {{tick}}",
-    "loading": "loading..."
+    "currentTick": "Tick: {{tick}}",
+    "loading": "loading...",
+    "buttons": {
+        "close": "Close",
+        "maximize": "Maximize"
+    },
+    "messages": {
+        "notConnected": "Not connected to the Qubic Network. Please Connect first.",
+        "refreshRequested": "Refresh has been requested",
+        "refreshFailed": "Refresh failed, please try again later",
+        "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}."
+    }
   },
   "payment": {
     "keyRequestReason": "Поскольку транзакции подписываются цифровым ключом, вам необходимо сначала загрузить свой ключ."
@@ -102,7 +112,8 @@
         "makePayment": "Произвести платеж",
         "receivePayment": "Сгенерировать QR-код для получения платежа",
         "editSeed": "Редактировать счет",
-        "deleteSeed": "Удалить аккаунт"
+        "deleteSeed": "Удалить аккаунт",
+        "refreshBalance": "Refresh Balance from Network"
       }
     },
     "hasPendingTransaction": "Transactions pending"
@@ -229,6 +240,11 @@
     "repeatTransaction": "Repeat Transaction"
   },
   "settings": {
+    "general": {
+      "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
+      "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
+      "button.save": "Save Settings"
+  },
     "import": {
       "title": "Import Settings",
       "doneMessage": "Import Successful",

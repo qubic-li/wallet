@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { WalletService } from '../services/wallet.service';
 import {MatDialog} from '@angular/material/dialog';
 import { LockConfirmDialog } from '../lock/confirm-lock/confirm-lock.component';
+import { QubicService } from '../services/qubic.service';
 
 
 @Component({
@@ -9,11 +10,32 @@ import { LockConfirmDialog } from '../lock/confirm-lock/confirm-lock.component';
   templateUrl: './notifys.component.html',
   styleUrls: ['./notifys.component.scss']
 })
-export class NotifysComponent {
-  constructor(public walletService: WalletService, public dialog: MatDialog){
+export class NotifysComponent implements OnInit {
 
+  public isNodeConnected = false;
+  public useBridge = false;
+
+  constructor(private cd: ChangeDetectorRef, public walletService: WalletService, public dialog: MatDialog, private q: QubicService){
+   
+  }
+  ngOnInit(): void {
+    this.q.isConnected.subscribe(s => {
+      this.isNodeConnected = s;
+      this.cd.detectChanges();
+    });
+    this.walletService.config.subscribe(s => {
+      this.useBridge = s.useBridge;
+      this.cd.detectChanges();
+    });
   }
   
+  connect(): void{
+    this.q.connect();
+  }
+  disconnect(): void{
+    this.q.disconnect();
+  }
+
   sync(): void {
     
   }

@@ -58,6 +58,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { IpoComponent } from './ipo/ipo.component';
 import { PlaceBidComponent } from './ipo/place-bid/place-bid.component';
 import { TransferStatusComponent } from './core/transfer-status/transfer-status.component';
+import { SettingsGeneralComponent } from './settings/general/general.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { QubicService } from './services/qubic.service';
+import { DecimalPipe } from '@angular/common';
+import { TokenService } from './services/token.service';
+import { VisibilityService } from './services/visibility.service';
 
 
 
@@ -93,7 +99,8 @@ export const httpInterceptorProviders = [
     VotingStatusComponent,
     IpoComponent,
     PlaceBidComponent,
-    TransferStatusComponent
+    TransferStatusComponent,
+    SettingsGeneralComponent
   ],
   imports: [
     BrowserModule,
@@ -123,10 +130,11 @@ export const httpInterceptorProviders = [
     MatTabsModule,
     NgxFileDropModule,
     MatStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSlideToggleModule
   ],
 
-  providers: [WalletService, AuthInterceptor, ApiService, UpdaterService, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+  providers: [VisibilityService, TokenService, WalletService, AuthInterceptor, ApiService, UpdaterService, QubicService, DecimalPipe, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
     httpInterceptorProviders
   ],
   bootstrap: [AppComponent]

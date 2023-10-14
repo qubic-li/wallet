@@ -33,7 +33,7 @@
             {{ t("seedEditComponent.form.seed.error.regex", {regex: "a-zA-Z0-9_-"})}}
           </mat-error>
         </mat-form-field>
-        <button *ngIf="!seed?.seed || seed.seed != ''" mat-icon-button color="primary"  [title]="t('seedEditComponent.form.seed.generateSeed')" type="button" (click)="generateSeed();">
+        <button *ngIf="!seed?.seed || seed.seed != ''" mat-icon-button [title]="t('seedEditComponent.form.seed.generateSeed')" type="button" (click)="generateSeed();">
           <mat-icon>shuffle</mat-icon>
         </button>
       </div>

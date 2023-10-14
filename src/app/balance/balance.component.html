@@ -38,11 +38,13 @@
                 <div *ngFor="let transaction of getTransactions(seedFilterFormControl.value)" class="transaction-list">
                     <qli-transfer-status [transaction]="transaction"></qli-transfer-status>
                     <div class="center">
-                        <div class="trans-amount currency-value"><a [href]="'https://app.qubic.li/network/explorer/tx/' + transaction.id" target="_blank" matTooltip="{{ t('balanceComponent.transactions.explorer.tooltip') }}">
-                            <mat-icon>manage_search</mat-icon>
-                        </a> 
-                        <span [class]="{noMoneyFlow: !transaction.isPending && !transaction.moneyFlow}">
-                        {{ transaction.amount | number: '1.0-0' }}</span>&nbsp;{{ t("general.currency") }} </div>
+                        <div class="trans-amount currency-value">
+                            <a *ngIf="transaction.id.substring(56) !== 'aaaa'" [href]="'https://app.qubic.li/network/explorer/tx/' + transaction.id" target="_blank" matTooltip="{{ t('balanceComponent.transactions.explorer.tooltip') }}">
+                                <mat-icon>manage_search</mat-icon>
+                            </a> 
+                            <span [class]="{noMoneyFlow: !transaction.isPending && !transaction.moneyFlow}">
+                            {{ transaction.amount | number: '1.0-0' }}</span>&nbsp;{{ t("general.currency") }}
+                        </div>
                         <div class="trans-date"> Tick: <a [href]="'https://app.qubic.li/network/explorer/block/' + transaction.targetTick" target="_blank">{{ transaction.targetTick | number: '1.0-0' }}</a></div>
                     </div>
                     <div class="send-receive-indicator">
@@ -60,13 +62,6 @@
                         </div>
                         <div [class]="{copy: true, ownId: isOwnId(transaction.destId)}">To: <span
                                 matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="transaction.destId">{{ transaction.destId }} {{ getSeedName(transaction.destId) }}</span></div>
-                    </div>
-                    <div>
-                        <span *ngIf="transaction.created" >Created: {{ transaction.created | date:'short' }}<br></span>
-                        <span *ngIf="transaction.broadcasted && !transaction.stored" >Broadcasted: {{ transaction.broadcasted | date:'short' }}<br></span>
-                        <span *ngIf="transaction.stored" >Stored: {{ transaction.stored | date:'short' }}<br></span>
-                        <span *ngIf="transaction.staged" >Staged: {{ transaction.staged | date:'short' }}<br></span>
-                        <span *ngIf="transaction.confirmed" >Confirmed: {{ transaction.confirmed | date:'short' }}</span>
                     </div>
                 </div>
             </mat-card-content>

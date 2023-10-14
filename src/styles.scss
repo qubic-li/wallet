@@ -344,18 +344,34 @@ a:hover {
   justify-content: space-between;
 }
 
-// stuff for mobile devices
-app-navigation.isMobile {
-  margin: 5px;
 
-  .desktopOnly {
-    display: none;
+
+// stuff for mobile devices
+
+
+@media screen and (max-width: 1199px) {
+  app-navigation.isMobile {
+    margin: 5px;
+  
+    .desktopOnly {
+      display: none;
+    }
+  }
+
+  app-navigation.isDesktop {
+    .desktopOnly {
+      display: none;
+    }
   }
 }
 
-app-navigation.isDesktop {
-  .mobileOnly {
-    display: none;
+@media screen and (min-width: 1200px) {
+  
+  
+  app-navigation.isDesktop {
+    .mobileOnly {
+      display: none;
+    }
   }
 }
 
@@ -737,4 +753,19 @@ hr {
 }
 .icon-link {
   
+}
+
+.mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
+  fill: black !important;
+}
+
+.window-drag{
+  -webkit-app-region: drag
+}
+.window-no-drag {
+  -webkit-app-region: no-drag
+}
+
+.windowBorder .container {
+  border: 1px solid gray;
 }

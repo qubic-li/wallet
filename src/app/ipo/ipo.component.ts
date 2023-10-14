@@ -59,11 +59,11 @@ export class IpoComponent implements OnInit, OnDestroy {
   // }
 
   isOwnId(publicId: string): boolean {
-    return this.walletService.seeds.find(f => f.publicId == publicId) !== undefined;
+    return this.walletService.getSeeds().find(f => f.publicId == publicId) !== undefined;
   }
 
   getSeedName(publicId: string): string {
-    var seed = this.walletService.seeds.find(f => f.publicId == publicId);
+    var seed = this.walletService.getSeeds().find(f => f.publicId == publicId);
     if(seed !== undefined)
       return '(' + seed.alias + ')';
     else

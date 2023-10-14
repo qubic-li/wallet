@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthResponse, BalanceResponse, ContractDto, CurrentTickResponse, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, SubmitTransactionRequest, SubmitTransactionResponse, Transaction } from './api.model';
+import { AuthResponse, BalanceResponse, ContractDto, CurrentTickResponse, NetworkBalance, PeerDto, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, SubmitTransactionRequest, SubmitTransactionResponse, Transaction } from './api.model';
 import { HttpClient, HttpHeaders, HttpParams,
   HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
  }       from '@angular/common/http';
@@ -7,24 +7,21 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { AuthInterceptor } from './auth-interceptor';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-
-  public token: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public currentProposals: BehaviorSubject<ProposalDto[]> = new BehaviorSubject<ProposalDto[]>([]);
   public currentIpoContracts: BehaviorSubject<ContractDto[]> = new BehaviorSubject<ContractDto[]>([]);
+  public currentPeerList: BehaviorSubject<PeerDto[]> = new BehaviorSubject<PeerDto[]>([]);
   public currentProtocol: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   private basePath = environment.apiUrl;
   private authenticationActive = false;
 
-  constructor(protected httpClient: HttpClient, private authInterceptor: AuthInterceptor) { 
-    const token = localStorage.getItem("token")
-    if(token)
-      this.setToken(token);
+  constructor(protected httpClient: HttpClient, private tokenSerice: TokenService, private authInterceptor: AuthInterceptor) { 
     this.reAuthenticate();
   }
 
@@ -32,6 +29,7 @@ export class ApiService {
     if(this.authenticationActive)
       return;
     
+
     this.authenticationActive = true;
     // temp Login für aktuelle verwendung mit public user
     // login to qubic.li
@@ -40,8 +38,7 @@ export class ApiService {
       password: 'guest13@Qubic.li'
     }).subscribe(r => {
       if(r && r.token){
-        this.setToken(r.token);
-        this.getProtocol().subscribe();
+        this.onAuthenticated(r.token);
       }
       this.authenticationActive = false;
     }, (e) => {
@@ -49,10 +46,14 @@ export class ApiService {
     });
   }
 
+  private onAuthenticated(token: string) {
+    this.setToken(token);
+    this.getProtocol().subscribe();
+    this.getPeerList().subscribe();
+  }
+
   private setToken(token: string) {
-    localStorage.setItem('token', token);
-    this.token.next(token);
-    this.authInterceptor.token.next(token);
+    this.tokenSerice.nextToken(token);
   }
 
   public login(authRequest: {username: string, password: string}) {
@@ -69,6 +70,20 @@ export class ApiService {
   public getCurrentBalance(publicIds: string[]) {
     let localVarPath = `/Wallet/CurrentBalance`;
     return this.httpClient.request<BalanceResponse[]>('post', `${this.basePath}${localVarPath}`,
+            {
+                context: new HttpContext(),
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: publicIds,
+                responseType: 'json'
+            }
+        );
+  }
+
+  public getNetworkBalances(publicIds: string[]) {
+    let localVarPath = `/Wallet/NetworkBalances`;
+    return this.httpClient.request<NetworkBalance[]>('post', `${this.basePath}${localVarPath}`,
             {
                 context: new HttpContext(),
                 headers: {
@@ -192,6 +207,22 @@ export class ApiService {
                 responseType: 'json'
             }
         );
+  }
+
+  public getPeerList() {
+    let localVarPath = `/Public/Peers`;
+    return this.httpClient.request<PeerDto[]>('get', `${this.basePath}${localVarPath}`,
+            {
+                context: new HttpContext(),
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                responseType: 'json'
+            }
+        ).pipe(map((p) => {
+          this.currentPeerList.next(p);
+          return p;
+        }));
   }
 
 }

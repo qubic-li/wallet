@@ -392,8 +392,8 @@ export class QubicHelper {
             proposal[2] = (size >> 16);
             offset += 3;
 
-            // byte protocol
-            proposal[offset] = protocol;
+            // byte type
+            proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
             offset++;
 
             // byte[3] dejavu (we let it empty)
@@ -401,7 +401,7 @@ export class QubicHelper {
             proposal[offset++] = Math.floor(Math.random() * 255);
             proposal[offset++] = Math.floor(Math.random() * 255);
 
-            // byte type
+            // byte type deprecated
             proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
             offset++;
 
@@ -502,8 +502,8 @@ export class QubicHelper {
                 proposal[2] = (size >> 16);
                 offset += 3;
 
-                // byte protocol
-                proposal[offset] = protocol;
+                // byte type
+                proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
                 offset++;
 
                 // byte[3] dejavu (we let it empty)
@@ -511,7 +511,7 @@ export class QubicHelper {
                 proposal[offset++] = Math.floor(Math.random() * 255);
                 proposal[offset++] = Math.floor(Math.random() * 255);
 
-                // byte type
+                // byte type (depcrecated)
                 proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
                 offset++;
 

@@ -1,29 +1,40 @@
 <ng-container *transloco="let t">
-  <div *ngIf="walletService.configError" class="open-wallet-screen">
-    <qli-config-error></qli-config-error>
-  </div>
-  <div *ngIf="!walletService.publicKey && !walletService.configError" class="open-wallet-screen">
-    <qli-unlock></qli-unlock>
-  </div>
-  <div class="container" [class.is-mobile]="mobileQuery.matches"
-    *ngIf="walletService.publicKey && !walletService.configError">
+  
+  
+  <div class="container" [class.is-mobile]="mobileQuery.matches">
 
-    <mat-toolbar class="toolbar">
-      <div class="left-icon-area">
-        <button mat-icon-button (click)="snav.toggle()">
+    
+
+    <mat-toolbar class="toolbar window-drag" (dblclick)="maximize()">
+      <div class="left-icon-area window-no-drag" >
+        <button mat-icon-button (click)="snav.toggle()" *ngIf="walletService.publicKey && !walletService.configError">
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-      <img src="/assets/img/qubic.li-icon-logo-right-white.png" class="logo" *ngIf="themService.isDarkTheme">
-      <img src="/assets/img/qubic.li-icon-logo-right.png" class="logo" *ngIf="!themService.isDarkTheme">
-      <div class="topIcons">
-        <div class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() }}</span></div>
-        <qli-notifys></qli-notifys>
-        <qli-lock></qli-lock>
+      <div>
+        <img src="assets/img/qubic.li-icon-logo-right-white.png" class="logo" *ngIf="themService.isDarkTheme">
+        <img src="assets/img/qubic.li-icon-logo-right.png" class="logo" *ngIf="!themService.isDarkTheme">
+      </div>
+      <div class="topIcons window-no-drag">
+        <div class="topIcons" *ngIf="walletService.publicKey && !walletService.configError">
+          <div class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
+              [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() | number: '1.0-0' }}</span></div>
+          <qli-notifys></qli-notifys>
+          <qli-lock></qli-lock>
+        </div>
+        <button *ngIf="showMinimize" (click)="minimize()"
+          mat-icon-button><mat-icon>minimize</mat-icon></button>
+        <button [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
+        <button [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
       </div>
     </mat-toolbar>
-
-    <mat-sidenav-container class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <div *ngIf="walletService.configError" class="open-wallet-screen">
+      <qli-config-error></qli-config-error>
+    </div>
+    <div *ngIf="!walletService.publicKey && !walletService.configError" class="open-wallet-screen">
+      <qli-unlock></qli-unlock>
+    </div>
+    <mat-sidenav-container *ngIf="walletService.publicKey && !walletService.configError" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
       <mat-sidenav class="navigation" #snav opened [mode]="mobileQuery.matches ? 'over' : 'side'"
         [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>

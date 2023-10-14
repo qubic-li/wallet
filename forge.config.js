@@ -1,5 +1,12 @@
 module.exports = {
-  packagerConfig: {},
+  packagerConfig: {
+    icon: 'reqs/qli'
+  },
+  pluginOptions: {
+    electronBuilder: {
+      nodeIntegration: true
+    }
+  },
   rebuildConfig: {},
   makers: [
     {
