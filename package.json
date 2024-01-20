@@ -7,6 +7,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "start-api-proxy": "node dev-proxy.js",
     "start-electron": "ng build --base-href ./ && electron .",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
@@ -57,12 +58,14 @@
     "@types/qrcode": "1.5.0",
     "electron": "^26.3.0",
     "electron-builder": "^24.6.4",
+    "express": "^4.18.2",
     "jasmine-core": "~5.1.1",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "request": "^2.88.2",
     "typescript": "5.1"
   },
   "build": {
