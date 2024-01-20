@@ -769,3 +769,20 @@ hr {
 .windowBorder .container {
   border: 1px solid gray;
 }
+.flex {
+  display: flex;
+}
+@keyframes blink {
+  0% {
+    color: red;
+  }
+  50% {
+    color: inherit;
+  }
+  100% {
+    color: red;
+  }
+}
+.danger {
+  animation: blink 1s infinite;
+}

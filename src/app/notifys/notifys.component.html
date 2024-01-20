@@ -1,6 +1,10 @@
 <ng-container *transloco="let t">
-    <button *ngIf="walletService.shouldExportKey && walletService.privateKey" mat-icon-button [matTooltip]="t('notifyComponent.saveYourKey')"
+    <button *ngIf="walletService.shouldExportKey && walletService.privateKey" class="danger" mat-icon-button [matTooltip]="t('notifyComponent.saveYourKey')"
         (click)="lock();">
+        <mat-icon>warning</mat-icon>
+    </button>
+    <button *ngIf="hasUnsavedSeeds()" class="danger" mat-icon-button [matTooltip]="t('notifyComponent.saveYourSettings')"
+        (click)="saveSettings()">
         <mat-icon>warning</mat-icon>
     </button>
     <button class="offline"  *ngIf="useBridge && !isNodeConnected" mat-icon-button [matTooltip]="t('notifyComponent.qubicOffline')" (click)="connect();">

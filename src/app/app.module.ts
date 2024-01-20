@@ -64,6 +64,7 @@ import { QubicService } from './services/qubic.service';
 import { DecimalPipe } from '@angular/common';
 import { TokenService } from './services/token.service';
 import { VisibilityService } from './services/visibility.service';
+import { AssetsDialog } from './main/assets/assets.component';
 
 
 
@@ -100,7 +101,8 @@ export const httpInterceptorProviders = [
     IpoComponent,
     PlaceBidComponent,
     TransferStatusComponent,
-    SettingsGeneralComponent
+    SettingsGeneralComponent,
+    AssetsDialog
   ],
   imports: [
     BrowserModule,

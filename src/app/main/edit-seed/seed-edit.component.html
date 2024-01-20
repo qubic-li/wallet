@@ -3,6 +3,7 @@
 <mat-dialog-content>
     <form [formGroup]="seedEditForm" novalidate (ngSubmit)="onSubmit()">
       <mat-form-field class="full-width">
+        <mat-label>{{ t("seedEditComponent.form.alias.placeholder") }}</mat-label>
         <input matInput  [placeholder]="t('seedEditComponent.form.alias.placeholder')" formControlName="alias" type="text">
         <mat-error *ngIf="seedEditForm.controls['alias'].hasError('required')">
           {{ t("seedEditComponent.form.alias.error.required")}}
@@ -17,8 +18,13 @@
           {{ t("seedEditComponent.form.alias.error.regex", {regex: "a-zA-Z0-9_-"})}}
         </mat-error>
       </mat-form-field>
+      <div class="flex" class="danger">
+        <mat-icon>warning</mat-icon> {{ t("seedEditComponent.seedWarning") }} <mat-icon>warning</mat-icon>
+      </div>
       <div class="seedInput" *ngIf="isNew">
+        
         <mat-form-field class="full-width">
+          <mat-label>{{ t("seedEditComponent.form.seed.placeholder") }}</mat-label>
           <input matInput [placeholder]="t('seedEditComponent.form.seed.placeholder')" formControlName="seed" type="text">
           <mat-error *ngIf="seedEditForm.controls['seed'].hasError('required')">
             {{ t("seedEditComponent.form.seed.error.required")}}

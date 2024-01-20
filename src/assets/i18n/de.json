@@ -15,7 +15,7 @@
     "copy.tooltip": "Kopieren",
     "error": "Error",
     "close": "close",
-    "currency": "QUBIC",
+    "currency": "qus",
     "currentTick": "Tick: {{tick}}",
     "loading": "loading...",
     "buttons": {
@@ -41,8 +41,11 @@
     "confirmationText": "Sind sie sicher?"
   },
   "notifyComponent": {
+    "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
     "saveYourKey": "Bitte sichere deine Tresor-Datei.",
-    "qubicLiSync": "Synchronisiere deine Einstellungen mit qubic.li"
+    "qubicLiSync": "Synchronisiere deine Einstellungen mit qubic.li",
+    "qubicOffline": "QUBIC network not connected",
+    "qubicOnline": "Connected to the QUBIC network"
   },
   "revealSeedComponent": {
     "title": "Kontoinformationen",
@@ -51,6 +54,13 @@
     "buttons": {
       "close": "Schließen"
     }
+  },
+  "assetsComponent": {
+      "title": "Assets of {{name}}",
+      "tick": "Valid for Tick {{tick}}",
+      "buttons": {
+          "close": "Close"
+      }
   },
   "qrReceiveComponent": {
     "title": "Zahlung empfangen",
@@ -62,6 +72,7 @@
     "title.add": "Konto hinzufügen",
     "title.edit": "Konto bearbeiten",
     "newSeedName": "Konto-Name",
+    "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
     "form": {
       "alias": {
         "placeholder": "Wähle einen beliebigen Namen für dein Konto, sodass du das Konto besser zuordnen kannst.",
@@ -109,6 +120,7 @@
       "actions": {
         "title": "Aktionen",
         "revealSeed": "Konto-Passwort anzeigen",
+        "assets": "Show Owned Assets",
         "makePayment": "Zahlung starten",
         "receivePayment": "QR Code zum Empfang einer Zahlung generieren.",
         "editSeed": "Konto bearbeiten",
@@ -149,7 +161,7 @@
       "title": "Tresor-Datei herunterladen",
       "reason": "Wenn du das Wallet sperrst, wird die Tresor-Datei gelöscht. Ohne diese Datei kannst du keine Transaktionen durchführen. Sei dir daher sicher, dass du deine Tresor-Datei gespeichert hast. Im Zweifel lieber noch mal exportieren...",
       "buttons": {
-        "allOk": "Ich habe meine Tresor-Datei, danke!"
+        "allOk": "Ich habe meine Unlock-Datei, danke!"
       }
     },
     "reason": "Es ist wichtig, dass du deine Tresor-Datei sicherst. Wähle bitte ein möglichst langes Passwort, dass du nicht vergisst, und drücke anschließend auf speichern.",

@@ -134,3 +134,10 @@ export interface PeerDto {
   currentTick: number;
   lastChange: Date;
 }
+export interface QubicAsset { 
+  publicId: string;
+  contractIndex: number;
+  contractName: string;
+  ownedAmount: number;
+  tick: number;
+}

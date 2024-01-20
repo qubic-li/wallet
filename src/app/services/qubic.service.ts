@@ -154,7 +154,7 @@ export class QubicService {
         if (this.currentTick.getValue() <= entityResponse.getTick()) {
             const pkey = this.publicIds.find(f => entityResponse.getEntity().getPublicKey().equals(f));
             if (pkey && pkey.getIdentityAsSring() !== undefined)
-                this.walletService.updateBalace(pkey.getIdentityAsSring()!, entityResponse.getEntity().getBalance(), entityResponse.getTick());
+                this.walletService.updateBalance(pkey.getIdentityAsSring()!, entityResponse.getEntity().getBalance(), entityResponse.getTick());
         }
         this.balanceCallbackQueue = this.balanceCallbackQueue.filter(m => m && !m(entityResponse));
     }

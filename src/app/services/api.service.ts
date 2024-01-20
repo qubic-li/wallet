@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthResponse, BalanceResponse, ContractDto, CurrentTickResponse, NetworkBalance, PeerDto, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, SubmitTransactionRequest, SubmitTransactionResponse, Transaction } from './api.model';
+import { AuthResponse, BalanceResponse, ContractDto, CurrentTickResponse, NetworkBalance, PeerDto, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, QubicAsset, SubmitTransactionRequest, SubmitTransactionResponse, Transaction } from './api.model';
 import { HttpClient, HttpHeaders, HttpParams,
   HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
  }       from '@angular/common/http';
@@ -84,6 +84,20 @@ export class ApiService {
   public getNetworkBalances(publicIds: string[]) {
     let localVarPath = `/Wallet/NetworkBalances`;
     return this.httpClient.request<NetworkBalance[]>('post', `${this.basePath}${localVarPath}`,
+            {
+                context: new HttpContext(),
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: publicIds,
+                responseType: 'json'
+            }
+        );
+  }
+
+  public getOwnedAssets(publicIds: string[]) {
+    let localVarPath = `/Wallet/Assets`;
+    return this.httpClient.request<QubicAsset[]>('post', `${this.basePath}${localVarPath}`,
             {
                 context: new HttpContext(),
                 headers: {

@@ -41,6 +41,7 @@
         "confirmationText": "Are you sure?"
     },
     "notifyComponent": {
+        "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
         "saveYourKey": "Please store your wallet file in a safe place.",
         "qubicLiSync": "Sync your settings with qubic.li",
         "qubicOffline": "QUBIC network not connected",
@@ -50,6 +51,13 @@
         "title": "Address Information",
         "publicId": "Address ID",
         "privateId": "55-char Seed",
+        "buttons": {
+            "close": "Close"
+        }
+    },
+    "assetsComponent": {
+        "title": "Assets of {{name}}",
+        "tick": "Valid for Tick {{tick}}",
         "buttons": {
             "close": "Close"
         }
@@ -64,6 +72,7 @@
         "title.add": "Add Address",
         "title.edit": "Edit Address",
         "newSeedName": "Address-Name",
+        "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
         "form": {
             "alias": {
                 "placeholder": "Choose an own name for your address in order to better refer to it.",
@@ -111,6 +120,7 @@
             "actions": {
                 "title": "Actions",
                 "revealSeed": "Reveal 55-char seed",
+                "assets": "Show Owned Assets",
                 "makePayment": "Make a payment",
                 "receivePayment": "Generate a QR Code to receive a payment.",
                 "editSeed": "Edit address",
@@ -151,7 +161,7 @@
             "title": "Download wallet file",
             "reason": "When you lock your Wallet your wallet file is automatically deleted. Without this wallet file no transactions can be made. Please be aware your wallet file is safely stored. Export it again in case of any doubt...",
             "buttons": {
-                "allOk": "I have my Key, thanks"
+                "allOk": "I have my unlock file, thanks"
             }
         },
         "reason": "It is paramount to safely store your wallet file. Please choose a strong password you won't forget and then click on \"save\".",

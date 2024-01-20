@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { QubicEntityResponse } from 'src/lib/qubic/packages/QubicEntityResponse';
 import { DecimalPipe  } from '@angular/common';
+import { AssetsDialog } from './assets/assets.component';
 
 
 @Component({
@@ -70,7 +71,7 @@ export class MainComponent implements AfterViewInit {
         if (!m.balanceTick || m.balanceTick === 0){
           m.balance = this.getDeprecatedBalance(m.publicId);
           (<any>m).currentEstimatedAmount = this.getEpochChanges(m.publicId);
-          m.lastUpdate = new Date();
+          m.lastUpdate = this.getDeprecatedLastUpdate(m.publicId);
         }
       }
       return m;
@@ -81,6 +82,11 @@ export class MainComponent implements AfterViewInit {
   getDeprecatedBalance(publicId: string): number {
     var balanceEntry = this.balances.find(f => f.publicId === publicId);
     return balanceEntry?.currentEstimatedAmount ?? balanceEntry?.epochBaseAmount ?? 0;
+  }
+
+  getDeprecatedLastUpdate(publicId: string): Date | undefined {
+    var balanceEntry = this.balances.find(f => f.publicId === publicId);
+    return balanceEntry ? new Date() : undefined;
   }
 
   getBalance(publicId: string): number {
@@ -94,8 +100,10 @@ export class MainComponent implements AfterViewInit {
   }
 
   refreshData() {
+    console.log("refreshData");
     this.setDataSource();
     this.table.renderRows();
+    this.us.forceLoadAssets();
   }
 
   applyFilter(event: Event) {
@@ -127,6 +135,7 @@ export class MainComponent implements AfterViewInit {
       });
       dialogRef.afterClosed().subscribe((r) => {
         this.setDataSource();
+        this.refreshData();
       });
     }
 
@@ -156,6 +165,10 @@ export class MainComponent implements AfterViewInit {
     });
   }
 
+  hasAssets(publicId: string): boolean {
+    return (this.walletService.getSeed(publicId)?.assets?.length ?? 0) > 0;
+  }
+
   reveal(publicId: string) {
     const confirmDialo = this.dialog.open(RevealSeedDialog, {
       restoreFocus: false, data: {
@@ -163,6 +176,14 @@ export class MainComponent implements AfterViewInit {
       }
     });
   }
+  assets(publicId: string) {
+    const confirmDialo = this.dialog.open(AssetsDialog, {
+      restoreFocus: false, data: {
+        publicId: publicId
+      }
+    });
+  }
+  
 
   delete(publicId: string) {
     const confirmDialo = this.dialog.open(ConfirmDialog, { restoreFocus: false });

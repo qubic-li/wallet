@@ -4,6 +4,7 @@ import { bytes32ToString } from 'src/lib/qubic/converter/converter';
 import { IConfig } from '../model/config';
 import { IDecodedSeed, ISeed } from '../model/seed';
 import { ITx } from '../model/tx';
+import { QubicAsset } from './api.model';
 
 @Injectable({
   providedIn: 'root'
@@ -153,7 +154,7 @@ export class WalletService {
     }
   }
 
-  public updateBalace(publicId: string, balance: number, balanceTick: number) {
+  public updateBalance(publicId: string, balance: number, balanceTick: number) {
     let seed = this.getSeed(publicId);
     if (seed && (!seed.balanceTick || seed.balanceTick < balanceTick)) {
       seed.balance = balance;
@@ -161,6 +162,31 @@ export class WalletService {
       seed.lastUpdate = new Date();
       this.saveConfig(false);
     }
+  }
+
+  public updateAssets(publicId: string, assets: QubicAsset[]) {
+    let seed = this.getSeed(publicId);
+    
+    if(!seed)
+      return;
+
+    if(!seed.assets)
+      seed.assets = [];
+
+    assets.forEach(a => {
+      const curentAsset = seed?.assets?.find(f => f.contractIndex == a.contractIndex);
+      if(!curentAsset){
+        seed?.assets?.push(a);
+      }
+      else if(curentAsset?.tick < a.tick){
+        curentAsset.ownedAmount = a.ownedAmount;
+      }
+    });
+
+    // remove lost assets
+    seed.assets = seed?.assets?.filter(f => assets.find(q => q.contractIndex == f.contractIndex));
+
+    this.saveConfig(false);
   }
 
   arrayBufferToBase64(buffer: ArrayBuffer) {
@@ -312,7 +338,7 @@ export class WalletService {
       this.deriveKey(pwKey).then((wrapKey: CryptoKey) => {
         crypto.subtle.wrapKey("jwk", this.privateKey!, wrapKey, this.aesAlg).then((jsonKey) => {
           const blob = new Blob([jsonKey], { type: 'application/octet-stream' });
-          this.downloadBlob("qubic.li-wallet.privatekey", blob);
+          this.downloadBlob("qubic.li-wallet.unlock", blob);
           this.shouldExportKey = false;
         });
       });
@@ -341,6 +367,7 @@ export class WalletService {
         exportSeed.balance = 0;
         exportSeed.balanceTick = 0;
         exportSeed.lastUpdate = undefined;
+        exportSeed.isExported = true;
         return exportSeed;
       }),
       webBridges: this.runningConfiguration.webBridges,
@@ -351,6 +378,12 @@ export class WalletService {
     const data = new TextEncoder().encode(JSON.stringify(exportConfig));
     const blob = new Blob([data], { type: 'application/octet-stream' });
     this.downloadBlob("qubic.li-wallet.config", blob);
+
+    // mark seeds as saved/exported
+    this.runningConfiguration.seeds.forEach(seed => {
+      seed.isExported = true;
+    });
+    this.saveConfig(false);
 
     return true;
   }

@@ -142,7 +142,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
         this.onPeerConnect();
       } else if (jsonData.message === 'recv data') {
         const byteArray = Uint8Array.from(atob(jsonData.data), c => c.charCodeAt(0));
-        if (byteArray[7] === 4) {
+        if (byteArray[3] === 4) {
           // save proposal
           if (this.proposalToPublish) {
             this.api.submitProposalPublished(this.proposalToPublish.id).subscribe(s => {

@@ -248,12 +248,13 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
       }
       else if (jsonData.message === 'recv data') {
         const byteArray = Uint8Array.from(atob(jsonData.data), c => c.charCodeAt(0));
-        if (byteArray[7] === 4) {
+        if (byteArray[3] === 4) {
           const bytes = new Uint8Array([byteArray[17], byteArray[16]]);
           const dataView = new DataView(bytes.buffer);
           const value = dataView.getUint16(0, false);
           const comp = this.computorTree.subComputors?.find(f => f.index == value);
           if (comp){
+            comp.completed = false;
             comp.published = true;
             comp.publishing = false;
           }
@@ -422,7 +423,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
     //     this.createPacket(comp);
     //   });
     // }
-    this.globalPublishTimeout = Date.now() + (this.getSelectedComputors()?.length!*5*1000);
+    this.globalPublishTimeout = Date.now() + (this.getSelectedComputors()?.length! * 10 * 1000);
     this.startInterval();
 
 

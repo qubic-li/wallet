@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { QubicTransaction } from 'src/lib/qubic/packages/QubicTransaction';
-import { BalanceResponse, NetworkBalance, Transaction } from './api.model';
+import { BalanceResponse, NetworkBalance, QubicAsset, Transaction } from './api.model';
 import { ApiService } from './api.service';
 import { WalletService } from './wallet.service';
 import { VisibilityService } from './visibility.service';
@@ -19,6 +19,7 @@ export class UpdaterService {
   private balanceLoading = false;
   private networkBalanceLoading = false;
   private isActive = true;
+  private lastAssetsLoaded: Date | undefined;
 
 
   constructor(private visibilityService: VisibilityService,  private api: ApiService, private walletService: WalletService) {
@@ -30,12 +31,14 @@ export class UpdaterService {
     this.getCurrentTick();
     this.getCurrentBalance();
     this.getNetworkBalances();
+    this.getAssets();
     setInterval(() => {
       this.getCurrentTick();
     }, 30000);
     setInterval(() => {
       this.getCurrentBalance();
       this.getNetworkBalances();
+      this.getAssets();
     }, 60000);
 
     this.visibilityService.isActive().subscribe(s => {
@@ -99,6 +102,11 @@ export class UpdaterService {
     return array.findIndex((f: Transaction) => f.id === value.id) == index;
   }
 
+  public forceLoadAssets() {
+    this.lastAssetsLoaded = undefined;
+    this.getAssets();
+  }
+
   public forceUpdateNetworkBalance(publicId: string, callbackFn: ((balances: NetworkBalance[]) => void) | undefined = undefined): void {
     this.getNetworkBalances([publicId], callbackFn);
   }
@@ -121,7 +129,7 @@ export class UpdaterService {
         if (r) {
           // update wallet
           r.forEach((entry) =>{
-            this.walletService.updateBalace(entry.publicId, entry.amount, entry.tick);
+            this.walletService.updateBalance(entry.publicId, entry.amount, entry.tick);
           });
           if(callbackFn)
             callbackFn(r);
@@ -134,6 +142,45 @@ export class UpdaterService {
     }
   }
 
+  // todo: put this in a helper class/file
+  private groupBy<T>(arr: T[], fn: (item: T) => any) {
+    return arr.reduce<Record<string, T[]>>((prev, curr) => {
+        const groupKey = fn(curr);
+        const group = prev[groupKey] || [];
+        group.push(curr);
+        return { ...prev, [groupKey]: group };
+    }, {});
+  }
+
+    /**
+   * load balances directly from network
+   * @returns 
+   */
+    private getAssets(publicIds: string[] | undefined = undefined, callbackFn: ((balances: QubicAsset[]) => void) | undefined = undefined): void {
+      if(!this.isActive || (this.lastAssetsLoaded && new Date().getTime() - this.lastAssetsLoaded.getTime() < (12 * 3600 * 1000))) // only update assets every 12h
+        return;
+
+      if(!publicIds)
+        publicIds = this.walletService.getSeeds().map(m => m.publicId);
+
+      if (this.walletService.getSeeds().length > 0) {
+        // todo: Use Websocket!
+        this.api.getOwnedAssets(publicIds).subscribe((r: QubicAsset[]) => {
+          if (r) {
+            // update wallet
+            const groupedAssets = this.groupBy(r, (a: QubicAsset) => a.publicId);
+            Object.keys(groupedAssets).forEach(k => {
+              this.walletService.updateAssets(k, groupedAssets[k]);
+            });
+            
+            if(callbackFn)
+              callbackFn(r);
+          }
+        }, errorResponse => {
+          this.processError(errorResponse, false);
+        });
+      }
+    }
 
   private processError(errObject: any, showToUser: boolean = true) {
     if(errObject.status == 401){
@@ -146,7 +193,7 @@ export class UpdaterService {
     }
   }
 
-  forceUpdateCurrentTick() {
+  public forceUpdateCurrentTick() {
     this.getCurrentTick();
   }
 

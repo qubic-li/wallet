@@ -396,14 +396,11 @@ export class QubicHelper {
             proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
             offset++;
 
-            // byte[3] dejavu (we let it empty)
+            // byte[4] dejavu (int)
             proposal[offset++] = Math.floor(Math.random() * 255);
             proposal[offset++] = Math.floor(Math.random() * 255);
             proposal[offset++] = Math.floor(Math.random() * 255);
-
-            // byte type deprecated
-            proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
-            offset++;
+            proposal[offset++] = Math.floor(Math.random() * 255);
 
             // ulong everIncreasingNonceAndCommandType // 8
             var timeStamp = this.getIncreasingNonceAndCommandType(this.SPECIAL_COMMAND_SET_PROPOSAL_AND_BALLOT_REQUEST);
@@ -446,6 +443,8 @@ export class QubicHelper {
 
             proposal.set(signatur, offset);
             offset += this.SIGNATURE_LENGTH;
+
+            console.log(proposal);
 
             return proposal;
         });
@@ -510,10 +509,7 @@ export class QubicHelper {
                 proposal[offset++] = Math.floor(Math.random() * 255);
                 proposal[offset++] = Math.floor(Math.random() * 255);
                 proposal[offset++] = Math.floor(Math.random() * 255);
-
-                // byte type (depcrecated)
-                proposal[offset] = this.PROCESS_SPECIAL_COMMAND;
-                offset++;
+                proposal[offset++] = Math.floor(Math.random() * 255);
 
                 // ulong everIncreasingNonceAndCommandType // 8
                 var timeStamp = this.getIncreasingNonceAndCommandType(this.SPECIAL_COMMAND_SET_PROPOSAL_AND_BALLOT_REQUEST);

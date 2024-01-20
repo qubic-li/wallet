@@ -1,0 +1,14 @@
+<ng-container *transloco="let t">
+<h2 mat-dialog-title>{{t("assetsComponent.title", {name: seed.alias})}}</h2>
+<mat-dialog-content>
+
+    <div *ngFor="let asset of seed.assets">
+        {{asset.ownedAmount}} {{ asset.contractName }} ({{t("assetsComponent.tick", { tick: asset.tick})}})
+    </div>
+
+     
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button  mat-dialog-close>{{t("assetsComponent.buttons.close")}}</button>
+</mat-dialog-actions>
+</ng-container>

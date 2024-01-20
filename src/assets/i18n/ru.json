@@ -15,7 +15,7 @@
     "copy.tooltip": "Копировать",
     "error": "Ошибка",
     "close": "Закрыть",
-    "currency": "QUBIC",
+    "currency": "qus",
     "currentTick": "Tick: {{tick}}",
     "loading": "loading...",
     "buttons": {
@@ -41,8 +41,11 @@
     "confirmationText": "Вы уверены?"
   },
   "notifyComponent": {
+    "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
     "saveYourKey": "Пожалуйста, сохраните ваш файл Vault в надежном месте",
-    "qubicLiSync": "Синхронизируйте свои настройки с qubic.li"
+    "qubicLiSync": "Синхронизируйте свои настройки с qubic.li",
+    "qubicOffline": "QUBIC network not connected",
+    "qubicOnline": "Connected to the QUBIC network"
   },
   "revealSeedComponent": {
     "title": "Информация о счете",
@@ -51,6 +54,13 @@
     "buttons": {
       "close": "Закрыть"
     }
+  },
+  "assetsComponent": {
+      "title": "Assets of {{name}}",
+      "tick": "Valid for Tick {{tick}}",
+      "buttons": {
+          "close": "Close"
+      }
   },
   "qrReceiveComponent": {
     "title": "Получить платеж",
@@ -62,6 +72,7 @@
     "title.add": "Добавить аккаунт",
     "title.edit": "Редактировать аккаунт",
     "newSeedName": "Имя счета",
+    "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
     "form": {
       "alias": {
         "placeholder": "Выберите имя для вашей учетной записи",
@@ -109,6 +120,7 @@
       "actions": {
         "title": "Действия",
         "revealSeed": "Раскрыть пароль счета",
+        "assets": "Show Owned Assets",
         "makePayment": "Произвести платеж",
         "receivePayment": "Сгенерировать QR-код для получения платежа",
         "editSeed": "Редактировать счет",

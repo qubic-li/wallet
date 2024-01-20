@@ -14,7 +14,7 @@
         "version.url": "qubic.li",
         "error": "Error",
         "close": "close",
-        "currency": "QUBIC",
+        "currency": "qus",
         "currentTick": "Tick: {{tick}}",
         "loading": "cargando...",
         "buttons": {
@@ -39,8 +39,11 @@
         }
     },
     "notifyComponent": {
+        "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
         "saveYourKey": "Debes guardar tu clave",
-        "qubicLiSync": "Sincroniza tus ID's con qubic.li"
+        "qubicLiSync": "Sincroniza tus ID's con qubic.li",
+        "qubicOffline": "QUBIC network not connected",
+        "qubicOnline": "Connected to the QUBIC network"
     },
     "revealSeedComponent": {
         "title": "Seed Revelada",
@@ -48,6 +51,13 @@
         "privateId": "ID Privada (Seed)",
         "buttons": {
             "close": "Cerrar"
+        }
+    },
+    "assetsComponent": {
+        "title": "Assets of {{name}}",
+        "tick": "Valid for Tick {{tick}}",
+        "buttons": {
+            "close": "Close"
         }
     },
     "qrReceiveComponent": {
@@ -60,6 +70,7 @@
         "title.add": "Añadir Seed",
         "title.edit": "Editar Seed",
         "newSeedName": "Seed",
+        "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
         "form": {
             "alias": {
                 "placeholer": "Alias - Asigna un nombre a tu ID",
@@ -107,6 +118,7 @@
             "actions": {
                 "title": "Acciones",
                 "revealSeed": "Mostrar Seed",
+                "assets": "Show Owned Assets",
                 "makePayment": "Hacer un pago",
                 "receivePayment": "Código QR para recibir un pago",
                 "editSeed": "Editar Seed",
@@ -144,10 +156,10 @@
     "lockComponent": {
         "title": "¿Cerrar Wallet?",
         "forceDownload": {
-            "title": "Descargar Clave",
+            "title": "Descargar Unlock-File",
             "reason": "Cuando cierres tu monedero borraremos tu clave privada de la caché. Sin su clave privada no podrá volver a abrir su monedero. No compartas tu clave privada con otros. Manténgala segura.",
             "buttons": {
-                "allOk": "Tengo mi clave, gracias"
+                "allOk": "Tengo mi Unlock-File, gracias"
             }
         },
         "reason": "Es muy importante que guardes tu clave privada. Sin esta clave no podrás volver a ver tus seeds. Por favor, elija una clave y descargue el archivo. Guárdelo de manera segura.",

@@ -15,7 +15,7 @@
         "copy.tooltip": "Copy",
         "error": "Error",
         "close": "sluiten",
-        "currency": "QUBIC",
+        "currency": "qus",
         "currentTick": "Tick: {{tick}}",
         "loading": "loading...",
         "buttons": {
@@ -41,8 +41,11 @@
         "confirmationText": "Weet u het zeker?"
     },
     "notifyComponent": {
+        "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
         "saveYourKey": "Bewaar uw kluisbestand op een veilige plaats.",
-        "qubicLiSync": "Synchroniseer uw instellingen met qubic.li"
+        "qubicLiSync": "Synchroniseer uw instellingen met qubic.li",
+        "qubicOffline": "QUBIC network not connected",
+        "qubicOnline": "Connected to the QUBIC network"
     },
     "revealSeedComponent": {
         "title": "Account Informatie",
@@ -50,6 +53,13 @@
         "privateId": "Account Wachtwoord",
         "buttons": {
             "close": "Sluiten"
+        }
+    },
+    "assetsComponent": {
+        "title": "Assets of {{name}}",
+        "tick": "Valid for Tick {{tick}}",
+        "buttons": {
+            "close": "Close"
         }
     },
     "qrReceiveComponent": {
@@ -62,6 +72,7 @@
         "title.add": "Account Toevoegen",
         "title.edit": "Account Aanpassen",
         "newSeedName": "Account-Naam",
+        "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
         "form": {
             "alias": {
                 "placeholder": "Kies een eigen naam voor uw account om deze sneller te kunnen herkennen.",
@@ -109,6 +120,7 @@
             "actions": {
                 "title": "Acties",
                 "revealSeed": "Onthul account wachtwoord",
+                "assets": "Show Owned Assets",
                 "makePayment": "Doe een betaling",
                 "receivePayment": "Genereer een QR Code om een betaling te ontvangen.",
                 "editSeed": "Account aanpassen",

@@ -12,6 +12,7 @@
       <br><br>
       <hr>
       <form [formGroup]="importForm" novalidate (ngSubmit)="onSubmit($event)">
+        <span *ngIf="file">{{ file.name }}</span>
         <input type="file" id="input-file-id" class="file-input" (change)="onFileSelected($event)">
         <label for="input-file-id" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link">{{
           t("unlockComponent.choosePrivateKeyFile")}}</label>
