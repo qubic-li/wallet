@@ -1,5 +1,5 @@
 export const environment = {
-    version: 2.6,
+    version: 3.0,
     production: true,
     apiUrl: 'https://api.qubic.li',
   };
