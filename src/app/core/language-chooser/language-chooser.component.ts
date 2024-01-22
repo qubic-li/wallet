@@ -10,10 +10,21 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class LanguageChooserComponent {
 
-  selected = 'en';
+  browserLanguage = navigator.language.split('-')[0]; 
+  supportedLanguages: string[] = ['de', 'en', 'es', 'nl', 'ru'];
+  selected: string;
 
   constructor(public translocoService: TranslocoService, public dialog: MatDialog){
-    this.selected = translocoService.getActiveLang();
+
+    if (this.supportedLanguages.includes(this.browserLanguage)) {
+      // Wenn ja, setze extractedLanguage als ausgewählte Sprache
+      this.selected = this.browserLanguage;
+    } else {
+      // Wenn nicht, setze 'en' als ausgewählte Sprache
+      this.selected = 'en';
+    }
+
+    this.translocoService.setActiveLang(this.selected);
   }
 
   changeLang(event:any ): void {
