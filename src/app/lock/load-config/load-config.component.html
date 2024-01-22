@@ -1,0 +1,15 @@
+<ng-container *transloco="let t">
+    <h2 mat-dialog-title>
+      <span *ngIf="keyDownload"> {{ t("loadConfigComponent.forceDownload.title")}}</span>
+      <span *ngIf="!keyDownload"> {{ t("loadConfigComponent.title")}}</span>
+      </h2>
+    <mat-dialog-content>
+
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button mat-raised-button  color="primary" mat-dialog-close *ngIf="keyDownload">  {{ t("loadConfigComponent.forceDownload.buttons.allOk")}}</button>
+      <button mat-raised-button  color="warn" (click)="closeWallet()" *ngIf="!keyDownload"> {{ t("loadConfigComponent.buttons.closeWallet")}}</button>
+      <button mat-raised-button *ngIf="walletService.privateKey" (click)="toggleShowSave()"> {{ t("loadConfigComponent.buttons.enableExport")}}</button>
+      <button mat-raised-button  mat-dialog-close *ngIf="!keyDownload"> {{ t("loadConfigComponent.buttons.cancel")}}</button>
+    </mat-dialog-actions>
+    </ng-container>

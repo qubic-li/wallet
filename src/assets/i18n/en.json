@@ -176,6 +176,27 @@
             "cancel": "Cancel"
         }
     },
+    "loadConfigComponent": {
+        "title": "Wizard",
+        "forceDownload": {
+            "title": "Download wallet file",
+            "reason": "When you lock your Wallet your wallet file is automatically deleted. Without this wallet file no transactions can be made. Please be aware your wallet file is safely stored. Export it again in case of any doubt...",
+            "buttons": {
+                "allOk": "I have my unlock file, thanks"
+            }
+        },
+        "reason": "It is paramount to safely store your wallet file. Please choose a strong password you won't forget and then click on \"save\".",
+        "warning": "I confirm that I have saved my wallet file.",
+        "password.placeholder": "Password",
+        "passwor.required": "Password required",
+        "password.min": "Password must have a minimum of 8 characters.",
+        "buttons": {
+            "savePrivateKey": "Save wallet file",
+            "closeWallet": "Lock Wallet",
+            "enableExport": "Export",
+            "cancel": "Cancel"
+        }
+    },
     "paymentComponent": {
         "title": "Send Qubic Units (qus)",
         "messages": {

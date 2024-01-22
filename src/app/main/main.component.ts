@@ -20,6 +20,7 @@ import { TranslocoService } from '@ngneat/transloco';
 import { QubicEntityResponse } from 'src/lib/qubic/packages/QubicEntityResponse';
 import { DecimalPipe  } from '@angular/common';
 import { AssetsDialog } from './assets/assets.component';
+import { LoadConfigDialog } from '../lock/load-config/load-config.component';
 
 
 @Component({
@@ -60,6 +61,11 @@ export class MainComponent implements AfterViewInit {
     us.internalTransactions.subscribe(txs => {
       this.transactions = txs;
     });
+
+    if (this.dataSource.data.length == 0) {
+       this.load();
+    } 
+    
   }
   ngAfterViewInit(): void {
     this.setDataSource();
@@ -77,6 +83,16 @@ export class MainComponent implements AfterViewInit {
       return m;
     }));
     this.dataSource.sort = this.sort;
+  }
+
+  load(): void {
+    const dialogRef = this.dialog.open(LoadConfigDialog, {restoreFocus: false});
+
+    // Manually restore focus to the menu trigger since the element that
+    // opens the dialog won't be in the DOM any more when the dialog closes.
+    dialogRef.afterClosed().subscribe(() => {
+      // do anything :)
+    });
   }
 
   getDeprecatedBalance(publicId: string): number {
@@ -238,6 +254,5 @@ export class MainComponent implements AfterViewInit {
 
   hasPendingTransaction(publicId: string) {
     return this.transactions.find(t => (t.sourceId == publicId || t.destId == publicId) && t.isPending);
-  }
-
+  }  
 }
