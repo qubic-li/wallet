@@ -137,7 +137,10 @@ export interface PeerDto {
 export interface QubicAsset { 
   publicId: string;
   contractIndex: number;
+  assetName: string;
   contractName: string;
   ownedAmount: number;
+  possessedAmount: number;
   tick: number;
 }
+

@@ -166,22 +166,11 @@ export class WalletService {
 
   public updateAssets(publicId: string, assets: QubicAsset[]) {
     let seed = this.getSeed(publicId);
-    
-    if(!seed)
+
+    if (!seed)
       return;
 
-    if(!seed.assets)
-      seed.assets = [];
-
-    assets.forEach(a => {
-      const curentAsset = seed?.assets?.find(f => f.contractIndex == a.contractIndex);
-      if(!curentAsset){
-        seed?.assets?.push(a);
-      }
-      else if(curentAsset?.tick < a.tick){
-        curentAsset.ownedAmount = a.ownedAmount;
-      }
-    });
+    seed.assets = assets;
 
     // remove lost assets
     seed.assets = seed?.assets?.filter(f => assets.find(q => q.contractIndex == f.contractIndex));

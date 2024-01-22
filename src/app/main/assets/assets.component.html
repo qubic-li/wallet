@@ -3,7 +3,7 @@
 <mat-dialog-content>
 
     <div *ngFor="let asset of seed.assets">
-        {{asset.ownedAmount}} {{ asset.contractName }} ({{t("assetsComponent.tick", { tick: asset.tick})}})
+        - {{asset.ownedAmount}}({{asset.possessedAmount}}) {{ asset.assetName }} ({{t("assetsComponent.tick", { tick: asset.tick})}})<br>
     </div>
 
      
