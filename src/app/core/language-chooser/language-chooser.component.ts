@@ -10,25 +10,33 @@ import { TranslocoService } from '@ngneat/transloco';
 })
 export class LanguageChooserComponent {
 
-  browserLanguage = navigator.language.split('-')[0]; 
-  supportedLanguages: string[] = ['de', 'en', 'es', 'nl', 'ru'];
+  browserLanguage = navigator.language.split('-')[0];
+  supportedLanguagesDictionary: { [key: string]: string } = {
+    'de': 'Deutsch',
+    'en': 'English',
+    'es': 'Español',
+    'nl': 'Nederlands',
+    'ru': 'Русский',
+    'fr': 'Français',
+    'pt': 'Português',
+  };
+
   selected: string;
 
-  constructor(public translocoService: TranslocoService, public dialog: MatDialog){
-
-    if (this.supportedLanguages.includes(this.browserLanguage)) {
-      // Wenn ja, setze extractedLanguage als ausgewählte Sprache
+  constructor(public translocoService: TranslocoService, public dialog: MatDialog) {
+    if (Object.keys(this.supportedLanguagesDictionary).includes(this.browserLanguage)) {
       this.selected = this.browserLanguage;
     } else {
-      // Wenn nicht, setze 'en' als ausgewählte Sprache
       this.selected = 'en';
     }
-
     this.translocoService.setActiveLang(this.selected);
   }
 
-  changeLang(event:any ): void {
-    this.translocoService.setActiveLang(event.value);
+  getSupportedLanguages(): string[] {
+    return Object.keys(this.supportedLanguagesDictionary);
   }
- 
+
+  changeLang(event: any): void {
+    this.translocoService.setActiveLang(event.value);
+  } 
 }
