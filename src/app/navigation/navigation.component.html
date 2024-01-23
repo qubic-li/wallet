@@ -1,13 +1,11 @@
 <ng-container *transloco="let t">
   
   
-  <div class="container" [class.is-mobile]="mobileQuery.matches">
-
-    
+  <div class="container" [class.is-mobile]="mobileQuery.matches">    
 
     <mat-toolbar class="toolbar window-drag" (dblclick)="maximize()">
       <div class="left-icon-area window-no-drag" >
-        <button mat-icon-button (click)="snav.toggle()" *ngIf="walletService.publicKey && !walletService.configError">
+        <button mat-icon-button (click)="snav.toggle()" *ngIf="walletService.isWalletReady && !walletService.configError">
           <mat-icon>menu</mat-icon>
         </button>
       </div>
@@ -16,7 +14,7 @@
         <img src="assets/img/qubic.li-icon-logo-right.png" class="logo" *ngIf="!themService.isDarkTheme">
       </div>
       <div class="topIcons window-no-drag">
-        <div class="topIcons" *ngIf="walletService.publicKey && !walletService.configError">
+        <div class="topIcons" *ngIf="walletService.isWalletReady && !walletService.configError">
           <div class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
               [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() | number: '1.0-0' }}</span></div>
           <qli-notifys></qli-notifys>
@@ -31,10 +29,10 @@
     <div *ngIf="walletService.configError" class="open-wallet-screen">
       <qli-config-error></qli-config-error>
     </div>
-    <div *ngIf="!walletService.publicKey && !walletService.configError" class="open-wallet-screen">
+    <div *ngIf="!walletService.isWalletReady && !walletService.configError" class="open-wallet-screen">
       <qli-unlock></qli-unlock>
     </div>
-    <mat-sidenav-container *ngIf="walletService.publicKey && !walletService.configError" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav-container *ngIf="walletService.isWalletReady && !walletService.configError" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
       <mat-sidenav class="navigation" #snav opened [mode]="mobileQuery.matches ? 'over' : 'side'"
         [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
         <mat-nav-list>

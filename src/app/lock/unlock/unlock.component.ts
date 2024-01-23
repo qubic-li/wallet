@@ -91,6 +91,7 @@ export class UnLockComponent extends QubicDialogWrapper {
       this.file.arrayBuffer().then(b => {
         this.walletService.unlock(b, (<any>this.importForm.controls.password.value)).then(r => {
           if (r) {
+            this.walletService.isWalletReady = true;
             this.dialogRef?.close();
           } else {
             this._snackBar.open("Import Failed", "close", {

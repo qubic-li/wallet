@@ -24,6 +24,8 @@ export class WalletService {
   public shouldExportKey = true;
   public config: BehaviorSubject<IConfig>;
 
+  public isWalletReady = false;
+
   private rsaAlg = {
     name: 'RSA-OAEP',
     modulusLength: 4096,
@@ -395,6 +397,7 @@ export class WalletService {
     localStorage.removeItem(this.configName);
     this.runningConfiguration.seeds = [];
     this.publicKey = null;
+    this.isWalletReady = false;
   }
 
   public resetConfig() {

@@ -39,11 +39,11 @@
       t("unlockComponent.buttons.generateKey")}}</button>
     <button *ngIf="!isNewUser()" mat-raised-button color="primary" (click)="unlock()">{{
       t("unlockComponent.buttons.unlock")}}</button>
-    <button *ngIf="!isNewUser() && walletService.publicKey" mat-raised-button color="accent" (click)="lock()">{{
+    <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="accent" (click)="lock()">{{
       t("unlockComponent.buttons.closeWallet")}}</button>
     <button *ngIf="isNewUser()" (click)="toggleNewUser(false)" mat-raised-button>{{
       t("unlockComponent.buttons.existingUser")}}</button>
-    <button *ngIf="!isNewUser() && !walletService.publicKey" (click)="toggleNewUser(true)" mat-raised-button>{{
+    <button *ngIf="!isNewUser() && !walletService.isWalletReady" (click)="toggleNewUser(true)" mat-raised-button>{{
       t("unlockComponent.buttons.newUser")}}</button>
   </mat-dialog-actions>
 </ng-container>
