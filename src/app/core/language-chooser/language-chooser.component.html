@@ -1,11 +1,12 @@
 <ng-container *transloco="let t">
+    <!-- <div *ngFor="let language of getSupportedLanguages()">
+        <p>{{ language }}: {{ supportedLanguagesDictionary[language] }}</p>
+      </div> -->
     <mat-form-field>
         <mat-select [(value)]="selected" (selectionChange)="changeLang($event)">
-            <mat-option value="de">Deutsch</mat-option>
-            <mat-option value="en">English</mat-option>
-            <mat-option value="es">Español</mat-option>
-            <mat-option value="nl">Nederlands</mat-option>
-            <mat-option value="ru">Русский</mat-option>
+            <mat-option *ngFor="let languageKey of getSupportedLanguages()" [value]="languageKey">
+                {{ supportedLanguagesDictionary[languageKey] }}
+            </mat-option>
         </mat-select>
     </mat-form-field>
 </ng-container>
