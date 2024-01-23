@@ -1,384 +1,388 @@
 {
-    "general": {
-        "title": "qubic.li - Wallet",
-        "comingSoon": "¡próximamente!",
-        "navigation": {
-            "home": "Home",
-            "payment": "Pago",
-            "balance": "Saldo de cuenta",
-            "settings": "Ajustes",
-            "voting": "Voting",
-            "ipo": "IPO"
-        },
-        "version": "Versión {{version}} - beta",
-        "version.url": "qubic.li",
-        "error": "Error",
-        "close": "close",
-        "currency": "qus",
-        "currentTick": "Tick: {{tick}}",
-        "loading": "cargando...",
-        "buttons": {
-            "close": "Close",
-            "maximize": "Maximize"
-        },
-        "messages": {
-            "notConnected": "Not connected to the Qubic Network. Please Connect first.",
-            "refreshRequested": "Refresh has been requested",
-            "refreshFailed": "Refresh failed, please try again later",
-            "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}."
-        }
+  "general": {
+    "title": "qubic.li - Wallet",
+    "comingSoon": "¡próximamente disponible!",
+    "navigation": {
+      "home": "Inicio",
+      "payment": "Pago",
+      "balance": "Saldo",
+      "settings": "Configuraciones",
+      "voting": "Votación",
+      "ipo": "IPO"
     },
-    "payment": {
-        "keyRequestReason": "Como las transacciones se firman digitalmente con su clave, primero tiene que cargar su clave."
+    "version": "Versión {{version}} - beta",
+    "version.url": "qubic.li",
+    "copy.tooltip": "Copiar",
+    "error": "Error",
+    "close": "cerrar",
+    "currency": "QUBIC",
+    "currentTick": "Tick: {{tick}}",
+    "loading": "cargando...",
+    "buttons": {
+      "close": "Cerrar",
+      "maximize": "Maximizar"
     },
-    "confirmDialog": {
-        "title": "Confirmar",
-        "buttons": {
-            "cancel": "Cancelar",
-            "confirm": "Sí, confirmo"
-        }
-    },
-    "notifyComponent": {
-        "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
-        "saveYourKey": "Debes guardar tu clave",
-        "qubicLiSync": "Sincroniza tus ID's con qubic.li",
-        "qubicOffline": "QUBIC network not connected",
-        "qubicOnline": "Connected to the QUBIC network"
-    },
-    "revealSeedComponent": {
-        "title": "Seed Revelada",
-        "publicId": "ID Pública",
-        "privateId": "ID Privada (Seed)",
-        "buttons": {
-            "close": "Cerrar"
-        }
-    },
-    "assetsComponent": {
-        "title": "Assets of {{name}}",
-        "tick": "Valid for Tick {{tick}}",
-        "buttons": {
-            "close": "Close"
-        }
-    },
-    "qrReceiveComponent": {
-        "title": "Pago recibido",
-        "downloadLink": "Descargar",
-        "hint": "Escanee/Envíe este código QR para recibir un pago por {{publicId}}.",
-        "buttons.close": "Cerrar"
-    },
-    "seedEditComponent": {
-        "title.add": "Añadir Seed",
-        "title.edit": "Editar Seed",
-        "newSeedName": "Seed",
-        "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
-        "form": {
-            "alias": {
-                "placeholer": "Alias - Asigna un nombre a tu ID",
-                "error": {
-                    "required": "Alias necesario",
-                    "min": "El alias debe tener un mínimo de 3 caracteres",
-                    "max": "El alias debe tener un máximo de 50 caracteres",
-                    "regex": "Sólo puede contener {{regex}}"
-                }
-            },
-            "seed": {
-                "placeholer": "Seed",
-                "error": {
-                    "required": "Seed necesaria",
-                    "min": "El alias debe tener un mínimo de 3 caracteres",
-                    "max": "El alias debe tener un máximo de 50 caracteres",
-                    "regex": "Sólo puede contener a-zA-Z0-9_-"
-                },
-                "generateSeed": "Generar Seed"
-            },
-            "error": {
-                "text": "Por favor revise el formulario.",
-                "close": "cerca"
-            }
-        },
-        "publicIdMessage": "Su ID público es",
-        "privateKeyWarning": " Su clave privada no está cargada. Asegúrese de hacerlo.",
-        "buttons": {
-            "cancel": "Cancelar",
-            "create": "Crear Seed",
-            "Save": "Guardar Seed"
-        }
-    },
-    "seedOverviewComponent": {
-        "addSeedButton": "Añadir Seed",
-        "importButton": "Importar",
-        "exportButton": "Exportar",
-        "search.label": "Busca",
-        "table": {
-            "alias": "Alias",
-            "publicId": "Id Pública",
-            "balance": "Saldo",
-            "epochChanges": "Epoch Changes",
-            "noData": "No data matching the filter \"{{q}}\"",
-            "actions": {
-                "title": "Acciones",
-                "revealSeed": "Mostrar Seed",
-                "assets": "Show Owned Assets",
-                "makePayment": "Hacer un pago",
-                "receivePayment": "Código QR para recibir un pago",
-                "editSeed": "Editar Seed",
-                "deleteSeed": "Borrar Seed",
-                "refreshBalance": "Refresh Balance from Network"
-            }
-        },
-        "hasPendingTransaction": "Transactions pending"
-    },
-    "unlockComponent": {
-        "title": "Desbloquear wallet",
-        "title.new": "Create a Vault",
-        "reasonMessage": " Para desbloquear tu wallet necesitamos una clave privada. Tu clave privada se utilizará mientras tu navegador esté abierto o hasta que decidas\"Lock Wallet\".",
-        "welcomeMessage": "Welcome to the qubic.li Wallet.\nTo use this Wallet you must create a Vault file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
-        "choosePrivateKeyFile": "Seleccione el archivo de clave privada",
-        "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
-        "form": {
-            "file.error.required": "Archivo necesario",
-            "password.error.required": "Contraseña necesaria",
-            "password.error.min": " La contraseña debe tener un mínimo de 8 caracteres"
-        },
-        "buttons": {
-            "cancel": "Cancelar",
-            "generateKey": "Crear clave nueva",
-            "unlock": "Importar y desbloquear wallet",
-            "existingUser": "I already have a Vault",
-            "newUser": "I want to create a new Vault",
-            "closeWallet": "Close Wallet"
-        }
-    },
-    "lockIconComponent": {
-        "lock": "Bloquear Wallet",
-        "unlock": "Desbloquear  Wallet"
-    },
-    "lockComponent": {
-        "title": "¿Cerrar Wallet?",
-        "forceDownload": {
-            "title": "Descargar Unlock-File",
-            "reason": "Cuando cierres tu monedero borraremos tu clave privada de la caché. Sin su clave privada no podrá volver a abrir su monedero. No compartas tu clave privada con otros. Manténgala segura.",
-            "buttons": {
-                "allOk": "Tengo mi Unlock-File, gracias"
-            }
-        },
-        "reason": "Es muy importante que guardes tu clave privada. Sin esta clave no podrás volver a ver tus seeds. Por favor, elija una clave y descargue el archivo. Guárdelo de manera segura.",
-        "warning": "Confirmo que he guardado mi clave privada.",
-        "passwor.required": "Contraseña necesaria",
-        "password.min": "La contraseña debe tener un mínimo de 8 caracteres",
-        "buttons": {
-            "savePrivateKey": "Guardar clave Privada",
-            "closeWallet": "Wallet Segura",
-            "enableExport": "Habilitar exportación",
-            "cancel": "Cancelar"
-        }
-    },
-    "paymentComponent": {
-        "title": "Enviar Quo's",
-        "messages": {
-            "pleaseUnlock": "Please unlock your Wallet first",
-            "storedForPropagation": "Your transaction ({{txid}}) has been stored for propagation",
-            "failedToSend": "Your transaction could not be sent. Please try again later.",
-            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
-            "failedValidation": "We had validation errors. Please check the form."
-        },
-        "form": {
-            "sourceSeed": {
-                "label": "Seed de origen",
-                "error": {
-                    "required": "Se requiere la Seed de origen"
-                }
-            },
-            "receiver": {
-                "placeholder": "ID pública de destino",
-                "hint": "semilla pública de 60 mayúsculas",
-                "chooseOwnSeed": "Choose an own Account ID",
-                "error": {
-                    "required": "ID de destino necesaria",
-                    "length": "La ID de destino debe tener 60 letras mayúsculas"
-                }
-            },
-            "amount": {
-                "placeholder": "Cantidad",
-                "max.tooltip": "Set to maximum available amount on this Seed",
-                "error": {
-                    "required": "Cantidad necesaria",
-                    "min": "La cantidad debe tener un mínimo de 1"
-                }
-            },
-            "tick": {
-                "placeholder": "Tick de ejecución",
-                "max.tooltip": "Set to maximum available amount on this Seed",
-                "customize.tooltip": "Toggle to set custom Execution Tick",
-                "error": {
-                    "required": "Tick necesario",
-                    "min": "Tick debe tener un mínimo de {{currentTick}}"
-                }
-            }
-        },
-        "buttons": {
-            "send": "Enviar Quo's",
-            "reset": "Reset",
-            "loadPrivateKey": "Cargar clave privada"
-        }
-    },
-    "balanceComponent": {
-        "title": "Account Balance",
-        "overview": {
-            "title": "Overview",
-            "totalWalletValue": "Total Wallet Value",
-            "estimatedWalletValue": "Estimated Wallet Value",
-            "baseDate": "per"
-        },
-        "transactions": {
-            "title": "Transactions in current Epoch",
-            "verificationAlert": "No se pudieron verificar los datos de la vista previa",
-            "noTransactions": "No Transactions found",
-            "send.tooltip": "Outgoing Transfer",
-            "exchange.tooltip": "Internal Transfer",
-            "explorer.tooltip": "Show Transfer in Explorer",
-            "receive.tooltip": "Incoming Transfer",
-            "status.pending.tooltip": "Pending",
-            "status.executed.tooltip": "Executed",
-            "status.dismissed.tooltip": "Dismissed",
-            "status.unknown.tooltip": "Unknown",
-            "status.confirmed.tooltip": "Staged",
-            "filter.seed.label": "Filter by Seed"
-        }
-    },
-    "settings": {
-        "general": {
-            "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
-            "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
-            "button.save": "Save Settings"
-        },
-        "import": {
-            "title": "Import Settings",
-            "doneMessage": "Import Successful",
-            "dropMessage": "Drop your config to import here",
-            "buttons.import": "Import Config",
-            "seedsMessage": "You are about to import {{amount}} seeds.",
-            "goHomeLink": "Show imported Seeds"
-        },
-        "export": {
-            "title": "Export Settings",
-            "hint": "Press the below button to download your current config. It contains your encrypted seeds. You also should have saved your private key.",
-            "buttons.export": "Export/Save Config"
-        }
-    },
-    "votingComponent": {
-        "title": "Qubic Computor Voting",
-        "description": "The Qubic computor voting is used to reach a consensus on topics to be decided regarding the entire network. This can include accepting smart contracts or making other protocol decisions. Only computors are allowed to participate.",
-        "proposals": {
-            "editButton": "Edit",
-            "createButton": "Create Proposal",
-            "voteButton": "Vote",
-            "title": "{{amount}} Current Proposals",
-            "noComputorHint": "You don't have registered any Computor. If you want to propose anything, you need to have at least one Computor Seed.",
-            "votingResult": "Voting Result",
-            "noVotes": "no votes",
-            "from": "From:",
-            "url": "Propsal URL:"
-        },
-        "participate": {
-            "title": "Participate",
-            "cancelButton": "Cancel",
-            "sendVotesButton": "Send Votes",
-            "notConfirmedMessage": "This Proposal is not yet confirmed by the Qubic Network. Please wait to vote.",
-            "noComputorsText": "You do not have Computors or your Computors already have created a proposal.",
-            "computorsSelected": "Computors selected"
-        },
-        "create": {
-            "title": "Create Proposal",
-            "cancelButton": "Cancel",
-            "sendVotesButton": "Send Proposal",
-            "alreadyPublished": "This Computor has already a published Proposal. Only one is allowed per Epoch",
-            "buttons": {
-                "create": "Create Proposal",
-                "publish": "Connect and Publish Proposal",
-                "reset": "Reset Form",
-                "loadPrivateKey": "Load vault file",
-                "finish": "Show Proposals"
-            },
-            "form": {
-                "operatorSeed.label": "Operator Seed",
-                "operatorSeed.error.required": "Operator is required",
-                "sourceSeed.label": "Computor to use for proposal",
-                "sourceSeed.error.required": "Computor is required",
-                "title.label": "Proposal Title",
-                "title.placeholder": "Proposal Title",
-                "title.error.required": "Title is required",
-                "title.error.min": "Title must have at least 2 characters",
-                "title.error.max": "Title must have at maximum 100 characters",
-                "description.label": "Proposal Description",
-                "description.placeholder": "Proposal Description",
-                "description.error.min": "Description must have at least 2 characters",
-                "description.error.max": "Description must have at maximum 1000 characters",
-                "description.error.required": "Description is required",
-                "option.label": "Option {{id}}",
-                "option.placeholder": "Option {{id}}",
-                "option.error.required": "Option {{id}} is required",
-                "option.error.min": "Option must have at least 2 characters",
-                "option.error.max": "Option must have at maximum 50 characters",
-                "computorIp.label": "Computor IP Address",
-                "computorIp.placeholder": "Computor IP Address",
-                "computorIp.error.required": "Computor IP Address required"
-            },
-            "proposalStep.label": "Create Proposal",
-            "publishStep.label": "Publish Proposal",
-            "finishStep.label": "Done",
-            "finishStep.success": "Your Proposal has been sent to your computor."
-        },
-        "status":{
-            "success": "Accepted by Quorum",
-            "failed": "Dismissed by Quorum",
-            "publishing": "Publish in progress",
-            "pending": "Voting is open",
-            "draft": "Draft",
-            "unknown": "Unknown status"
-        }
-    },
-    "ipoComponent": {
-        "messages": {
-            "unlock": "Please unlock your Wallet first",
-            "storedForPropagation": "Your IPO ({{id}}) has been stored for propagation",
-            "failedToSend": "Your IPO could not be sent. Pleas try again later.",
-            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
-            "failedToValidate": "We had validation errors. Please check the form."
-        },
-        "title": "Qubic IPO",
-        "description": "The Qubic IPO is an auction for shares of smart contracts.",
-        "noIpos": "Currently no IPO's active",
-        "yourBids": "Your Bids",
-        "yourShares": "Your Shares",
-        "sharesFor": "Shares for",
-        "statusValid": "Status valid for tick {{tick}}",
-        "livPanelHint": "Check out current Results",
-        "buttons.place-bid": "Place Bid",
-        "buttons.refresh": "Refresh Status",
-        "bidStatus.hint": "The status shows only if your bid has been placed. NOT if it was successful.",
-        "bidStatus.pcs": "pcs",
-        "place-bid": {
-            "title": "Place a Bid",
-            "needBalance": "You need at least one seed with a positive balance.",
-            "noContract": "Contract not found. Please try again later.",
-            "noContract.gotoIpoLabel": "Show available Contract IPO's",
-            "buttons": {
-                "send": "Send Bid"
-            },
-            "form": {
-                "quantity": {
-                    "placeholder": "Quantity",
-                    "error.min": "Minimum 1",
-                    "error.required": "Quantity is required"
-                },
-                "price": {
-                    "placeholder": "Price (qus)",
-                    "error.min": "Minimum 1",
-                    "error.required": "Price is required",
-                    "max.tooltip": "Bid all available qus"
-                }
-            }
-        }
+    "messages": {
+      "notConnected": "No conectado a la red Qubic. Por favor, conéctese.",
+      "refreshRequested": "Actualización solicitada",
+      "refreshFailed": "Falló la actualización, por favor intente más tarde",
+      "balanceReceived": "La red indica un saldo de {{balance}} QUBIC para {{publicId}}."
     }
+  },
+  "payment": {
+    "keyRequestReason": "Como las transacciones son firmadas digitalmente con su clave, debe cargarla previamente."
+  },
+  "confirmDialog": {
+    "title": "Confirmar",
+    "buttons": {
+      "cancel": "Cancelar",
+      "confirm": "Sí, confirmo"
+    },
+    "confirmationText": "¿Está seguro?"
+  },
+  "notifyComponent": {
+    "saveYourSettings": "Por favor, exporte/descargue sus configuraciones. Sus configuraciones contienen las Seed cifradas necesarias para restaurar el Wallet.",
+    "saveYourKey": "Por favor, guarde su archivo Wallet en un lugar seguro.",
+    "qubicLiSync": "Sincronice sus configuraciones con qubic.li",
+    "qubicOffline": "Red QUBIC no conectada",
+    "qubicOnline": "Conectado a la red QUBIC"
+  },
+  "revealSeedComponent": {
+    "title": "Información de la dirección",
+    "publicId": "ID de la dirección",
+    "privateId": "Seed de 55 caracteres",
+    "buttons": {
+      "close": "Cerrar"
+    }
+  },
+  "assetsComponent": {
+    "title": "Activos de {{name}}",
+    "tick": "Válido para el Tick {{tick}}",
+    "buttons": {
+      "close": "Cerrar"
+    }
+  },
+  "qrReceiveComponent": {
+    "title": "Recibir un pago",
+    "downloadLink": "Descargar",
+    "hint": "Escanee/envíe este Código QR para recibir un pago para {{publicId}}.",
+    "buttons.close": "Cerrar"
+  },
+  "seedEditComponent": {
+    "title.add": "Agregar una dirección",
+    "title.edit": "Editar una dirección",
+    "newSeedName": "Nombre-Dirección",
+    "seedWarning": "¡Estos 55 caracteres son su clave privada Qubic (Seed)! ¡Guárdela en algún lugar!",
+    "form": {
+      "alias": {
+        "placeholder": "Elija un nombre único para su dirección para referirse a ella más fácilmente.",
+        "error": {
+          "required": "Nombre requerido",
+          "min": "El nombre debe tener al menos 3 caracteres",
+          "max": "El nombre no debe exceder los 50 caracteres",
+          "regex": "Solo puede contener {{regex}}"
+        }
+      },
+      "seed": {
+        "placeholder": "Seed de 55 caracteres",
+        "error": {
+          "required": "Se requiere una Seed de 55 caracteres.",
+          "min": "La Seed de 55 caracteres debe estar compuesta exactamente de 55 caracteres en minúsculas",
+          "max": "La Seed de 55 caracteres debe estar compuesta exactamente de 55 caracteres en minúsculas",
+          "regex": "Solo puede contener a-zA-Z0-9_-"
+        },
+        "generateSeed": "Generar aleatoriamente una Seed de 55 caracteres."
+      },
+      "error": {
+        "text": "Por favor, verifique el formulario.",
+        "close": "cerrar"
+      }
+    },
+    "publicIdMessage": "Su ID de dirección es:",
+    "privateKeyWarning": "¡Atención! Su archivo Wallet no está cargado. Asegúrese de haberlo guardado de manera segura.",
+    "buttons": {
+      "cancel": "Cancelar",
+      "create": "Crear una dirección",
+      "save": "Guardar la dirección"
+    }
+  },
+  "seedOverviewComponent": {
+    "addSeedButton": "Agregar una dirección",
+    "importButton": "Importar",
+    "exportButton": "Exportar",
+    "search.label": "Buscar",
+    "table": {
+      "alias": "Nombre de dirección",
+      "publicId": "ID de dirección",
+      "balance": "Saldo",
+      "epochChanges": "Cambios de Epoch",
+      "noData": "Ningún dato corresponde al filtro \"{{q}}\"",
+      "actions": {
+        "title": "Acciones",
+        "revealSeed": "Revelar la Seed de 55 caracteres",
+        "assets": "Mostrar activos poseídos",
+        "makePayment": "Realizar un pago",
+        "receivePayment": "Generar un Código QR para recibir un pago",
+        "editSeed": "Editar la dirección",
+        "deleteSeed": "Eliminar la dirección",
+        "refreshBalance": "Actualizar el saldo desde la red"
+      }
+    },
+    "hasPendingTransaction": "Transacciones pendientes"
+  },
+  "unlockComponent": {
+    "title": "Desbloquear el Wallet",
+    "title.new": "Crear un Wallet",
+    "welcomeMessage": "Bienvenido al Wallet qubic.li.\nPara usar este Wallet, debe crear un archivo Wallet. Contendrá su clave pública/privada que luego se usará para cifrar/descifrar sus datos.",
+    "reasonMessage": "Para desbloquear su Wallet, es necesario su archivo Wallet. Este archivo se elimina automáticamente una vez que esta página se recarga o se cierra.",
+    "choosePrivateKeyFile": "Elegir el archivo Wallet",
+    "overwriteVault": "Parece que ya hay datos guardados en este navegador. ¿Realmente desea sobrescribirlos?",
+    "form": {
+      "file.error.required": "Archivo Wallet requerido",
+      "password.error.required": "Contraseña del Wallet requerida",
+      "password.error.min": "Su contraseña debe tener al menos 8 caracteres."
+    },
+    "buttons": {
+      "cancel": "Cancelar",
+      "generateKey": "Crear un nuevo Wallet",
+      "unlock": "Desbloquear el Wallet",
+      "existingUser": "Ya tengo un Wallet",
+      "newUser": "Quiero crear un nuevo Wallet",
+      "closeWallet": "Cerrar el Wallet"
+    }
+  },
+  "lockIconComponent": {
+    "lock": "Bloquear el Wallet",
+    "unlock": "Desbloquear el Wallet"
+  },
+  "lockComponent": {
+    "title": "¿Cerrar el Wallet?",
+    "forceDownload": {
+      "title": "Descargar el archivo Wallet",
+      "reason": "Cuando bloquea su Wallet, su archivo Wallet se elimina automáticamente. Sin este archivo Wallet, no se pueden realizar transacciones. Asegúrese de que su archivo Wallet esté guardado de manera segura. Expórtelo de nuevo en caso de duda...",
+      "buttons": {
+        "allOk": "Tengo mi archivo de desbloqueo, gracias"
+      }
+    },
+    "reason": "Es esencial almacenar su archivo Wallet de manera segura. Por favor, elija una contraseña fuerte que no olvidará, y luego haga clic en \"guardar\".",
+    "warning": "Confirmo haber guardado mi archivo Wallet.",
+    "password.placeholder": "Contraseña",
+    "password.required": "Contraseña requerida",
+    "password.min": "La contraseña debe tener al menos 8 caracteres.",
+    "buttons": {
+      "savePrivateKey": "Guardar el archivo Wallet",
+      "closeWallet": "Bloquear el Wallet",
+      "enableExport": "Exportar",
+      "cancel": "Cancelar"
+    }
+  },
+  "paymentComponent": {
+    "title": "Enviar unidades Qubic (qus)",
+    "messages": {
+      "pleaseUnlock": "Por favor, desbloquee su Wallet primero",
+      "storedForPropagation": "Su transacción ({{txid}}) ha sido registrada para propagación",
+      "failedToSend": "Su transacción no pudo ser enviada. Por favor, intente más tarde.",
+      "failedToDecrypt": "No pudimos descifrar su Seed. ¿Utilizó la clave privada correcta?",
+      "failedValidation": "Hemos encontrado errores de validación. Por favor, verifique el formulario."
+    },
+    "form": {
+      "sourceSeed": {
+        "label": "Dirección desde la que se enviarán los qus",
+        "error": {
+          "required": "Se requiere la dirección del remitente"
+        }
+      },
+      "receiver": {
+        "placeholder": "ID de la dirección del destinatario",
+        "hint": "60 caracteres en mayúsculas",
+        "chooseOwnSeed": "Elegir su propio ID de dirección",
+        "error": {
+          "required": "Se requiere el ID de la dirección",
+          "length": "Un ID de dirección Qubic consta de 60 letras mayúsculas."
+        }
+      },
+      "amount": {
+        "placeholder": "Cantidad en unidades Qubic (qus)",
+        "max.tooltip": "Establecer al monto máximo disponible para esta Seed",
+        "error": {
+          "required": "Se requiere la cantidad",
+          "min": "La cantidad debe ser al menos de 1"
+        }
+      },
+      "tick": {
+        "placeholder": "Tick de ejecución",
+        "customize.tooltip": "Alternar para establecer un Tick de ejecución personalizado",
+        "error": {
+          "required": "Se requiere el Tick",
+          "min": "El Tick debe ser al menos de {{currentTick}}"
+        }
+      }
+    },
+    "buttons": {
+      "send": "Realizar la transacción",
+      "reset": "Restablecer",
+      "loadPrivateKey": "Cargar el archivo Wallet"
+    }
+  },
+  "balanceComponent": {
+    "title": "Saldo",
+    "createSeedHint": "Por favor, primero cree una Seed",
+    "overview": {
+      "title": "Visión general",
+      "totalWalletValue": "Valor fijo del Wallet",
+      "estimatedWalletValue": "Valor estimado del Wallet",
+      "baseDate": "al"
+    },
+    "transactions": {
+      "title": "Transacciones de la época actual",
+      "verificationAlert": "Los datos del resumen no pudieron ser verificados",
+      "noTransactions": "No se encontraron transacciones",
+      "send.tooltip": "Transferencia saliente",
+      "exchange.tooltip": "Transferencia interna",
+      "explorer.tooltip": "Mostrar la transferencia en el Explorador",
+      "receive.tooltip": "Transferencia entrante",
+      "status.pending.tooltip": "Pendiente",
+      "status.executed.tooltip": "Ejecutado",
+      "status.dismissed.tooltip": "Rechazado",
+      "status.unknown.tooltip": "Desconocido",
+      "status.confirmed.tooltip": "Registrado",
+      "filter.seed.label": "Filtrar por Seed"
+    },
+    "repeatTransaction": "Repetir la transacción"
+  },
+  "settings": {
+    "general": {
+      "tickAddition.placeholder": "Número de Ticks añadidos al tick actual para enviar una nueva transacción",
+      "webBridge.placeholder": "Activar el Web Bridge (Conexión directa a la red QUBIC)",
+      "button.save": "Guardar configuraciones"
+    },
+    "import": {
+      "title": "Importar configuraciones",
+      "doneMessage": "Importación exitosa",
+      "dropMessage": "Suelte su configuración aquí para importarla",
+      "buttons.import": "Importar la configuración",
+      "seedsMessage": "Está a punto de importar {{amount}} Seed.",
+      "goHomeLink": "Mostrar las Seeds importadas"
+    },
+    "export": {
+      "title": "Exportar configuraciones",
+      "hint": "Presione el botón de abajo para descargar su configuración actual. Contiene sus Seeds cifradas. También debería haber guardado su clave privada.",
+      "buttons.export": "Exportar/Guardar la configuración"
+    }
+  },
+  "votingComponent": {
+    "title": "Voto Computor Qubic",
+    "description": "El voto computor Qubic se utiliza para alcanzar un consenso sobre temas a decidir en toda la red. Esto puede incluir la aceptación de contratos inteligentes o la toma de decisiones protocolarias. Solo los computors están autorizados a participar.",
+    "proposals": {
+      "editButton": "Editar",
+      "createButton": "Crear una propuesta",
+      "voteButton": "Votar",
+      "title": "{{amount}} Propuestas actuales",
+      "noComputorHint": "No has registrado ningún Computor. Si deseas proponer algo, debes tener al menos una Seed Computor.",
+      "votingResult": "Resultado de la votación",
+      "noVotes": "ningún voto",
+      "from": "De:",
+      "url": "URL de la propuesta:"
+    },
+    "participate": {
+      "title": "Participar",
+      "cancelButton": "Cancelar",
+      "sendVotesButton": "Enviar votos",
+      "notConfirmedMessage": "Esta propuesta aún no está confirmada por la red Qubic. Por favor, espera para votar.",
+      "noComputorsText": "No tienes Computors o tus Computors ya han creado una propuesta.",
+      "computorsSelected": "Computors seleccionados"
+    },
+    "create": {
+      "title": "Crear una propuesta",
+      "cancelButton": "Cancelar",
+      "sendVotesButton": "Enviar la propuesta",
+      "alreadyPublished": "Este Computor ya ha publicado una propuesta. Solo se permite una por época",
+      "buttons": {
+        "create": "Crear una propuesta",
+        "publish": "Conectar y publicar la propuesta",
+        "reset": "Reiniciar el formulario",
+        "loadPrivateKey": "Cargar el archivo Wallet",
+        "finish": "Ver las propuestas"
+      },
+      "form": {
+        "operatorSeed.label": "Seed del operador",
+        "operatorSeed.error.required": "Se requiere el operador",
+        "sourceSeed.label": "Computor a utilizar para la propuesta",
+        "sourceSeed.error.required": "Se requiere el computor",
+        "title.label": "Título de la propuesta",
+        "title.placeholder": "Título de la propuesta",
+        "title.error.required": "Se requiere el título",
+        "title.error.min": "El título debe tener al menos 2 caracteres",
+        "title.error.max": "El título no debe exceder los 100 caracteres",
+        "description.label": "Descripción de la propuesta",
+        "description.placeholder": "Descripción de la propuesta",
+        "description.error.min": "La descripción debe tener al menos 2 caracteres",
+        "description.error.max": "La descripción no debe exceder los 1000 caracteres",
+        "description.error.required": "Se requiere la descripción",
+        "option.label": "Opción {{id}}",
+        "option.placeholder": "Opción {{id}}",
+        "option.error.required": "Se requiere la opción {{id}}",
+        "option.error.min": "La opción debe tener al menos 2 caracteres",
+        "option.error.max": "La opción no debe exceder los 50 caracteres",
+        "computorIp.label": "Dirección IP del computor",
+        "computorIp.placeholder": "Dirección IP del computor",
+        "computorIp.error.required": "Se requiere la dirección IP del computor"
+      },
+      "proposalStep.label": "Crear una propuesta",
+      "publishStep.label": "Publicar la propuesta",
+      "finishStep.label": "Terminado",
+      "finishStep.success": "Tu propuesta ha sido enviada a tu computor."
+    },
+    "status": {
+      "success": "Aceptado por el quorum",
+      "failed": "Rechazado por el quorum",
+      "publishing": "Publicación en curso",
+      "pending": "Votación abierta",
+      "draft": "Borrador",
+      "unknown": "Estado desconocido"
+    }
+  },
+  "ipoComponent": {
+    "messages": {
+      "unlock": "Por favor, desbloquea tu Wallet primero",
+      "storedForPropagation": "Tu IPO ({{id}}) ha sido registrada para propagación",
+      "failedToSend": "Tu IPO no pudo ser enviada. Por favor, intenta de nuevo más tarde.",
+      "failedToDecrypt": "No pudimos descifrar tu Seed. ¿Has utilizado la clave privada correcta?",
+      "failedToValidate": "Hemos encontrado errores de validación. Por favor, verifica el formulario."
+    },
+    "title": "Qubic IPO",
+    "description": "El IPO Qubic es una subasta para partes de contratos inteligentes.",
+    "noIpos": "Actualmente no hay IPOs activas",
+    "yourBids": "Tus Ofertas",
+    "yourShares": "Tus Acciones",
+    "sharesFor": "Acciones para",
+    "statusValid": "Estado válido para el tick {{tick}}",
+    "livPanelHint": "Consulta los Resultados Actuales",
+    "buttons.place-bid": "Hacer una Oferta",
+    "buttons.refresh": "Actualizar el Estado",
+    "bidStatus.hint": "El estado solo se muestra si tu oferta ha sido colocada. NO si ha sido exitosa.",
+    "bidStatus.pcs": "pcs",
+    "place-bid": {
+      "title": "Hacer una Oferta",
+      "needBalance": "Necesitas al menos una Seed con saldo positivo.",
+      "noContract": "Contrato no encontrado. Por favor, intenta de nuevo más tarde.",
+      "noContract.gotoIpoLabel": "Ver IPOs de Contratos disponibles",
+      "buttons": {
+        "send": "Enviar la Oferta"
+      },
+      "form": {
+        "quantity": {
+          "placeholder": "Cantidad",
+          "error.min": "Mínimo 1",
+          "error.required": "Se requiere la cantidad"
+        },
+        "price": {
+          "placeholder": "Precio (qus)",
+          "error.min": "Mínimo 1",
+          "error.required": "Se requiere el precio",
+          "max.tooltip": "Ofrecer todos los qus disponibles"
+        }
+      }
+    }
+  }
 }
