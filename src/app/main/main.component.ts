@@ -86,7 +86,7 @@ export class MainComponent implements AfterViewInit {
   }
 
   load(): void {
-    const dialogRef = this.dialog.open(LoadConfigDialog, {restoreFocus: false});
+    const dialogRef = this.dialog.open(LoadConfigDialog, { disableClose: true, });
 
     // Manually restore focus to the menu trigger since the element that
     // opens the dialog won't be in the DOM any more when the dialog closes.

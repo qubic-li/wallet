@@ -368,7 +368,7 @@ export class WalletService {
 
     const data = new TextEncoder().encode(JSON.stringify(exportConfig));
     const blob = new Blob([data], { type: 'application/octet-stream' });
-    this.downloadBlob("qubic.li-wallet.config", blob);
+    this.downloadBlob("qubic.li-list-publicKeys.config", blob);
 
     // mark seeds as saved/exported
     this.runningConfiguration.seeds.forEach(seed => {
