@@ -32,6 +32,7 @@ import {MatSortModule} from '@angular/material/sort'
 import { ConfigErrorComponent } from './lock/config-error/config-error.component';
 import { NotifysComponent } from './notifys/notifys.component';
 import { ConfirmDialog } from './core/confirm-dialog/confirm-dialog.component';
+import { OkDialog } from './core/ok-dialog/ok-dialog.component';
 import { RevealSeedDialog } from './main/reveal-seed/reveal-seed.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -87,6 +88,7 @@ export const httpInterceptorProviders = [
     ConfigErrorComponent,
     NotifysComponent,
     ConfirmDialog,
+    OkDialog,
     LoadConfigDialog,
     RevealSeedDialog,
     SettingsComponent,

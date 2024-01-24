@@ -405,5 +405,12 @@
                 }
             }
         }
+    },
+    "okDialog": {
+      "title": "Note",
+      "button": "Yes, I confirm.",
+      "messages": {
+        "tresorText": "Have you downloaded your vault file now? Please choose this vault file in the next step to open the wallet!"
+      }
     }
 }

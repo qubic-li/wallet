@@ -383,5 +383,12 @@
                 }
             }
         }
+    },
+    "okDialog": {
+      "title": "Hinweis",
+      "button": "Ja, ich bestätige.",
+      "messages": {
+        "tresorText": "Sie haben jetzt ihre Tresor-Datei heruntergeladen? Bitte wählen Sie im nächsten Schritt, diese Tersor-Datei aus, um das Wallet zu öffnen!"
+      }
     }
 }

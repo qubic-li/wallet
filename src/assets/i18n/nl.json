@@ -382,5 +382,12 @@
                 }
             }
         }
+    },
+    "okDialog": {
+      "title": "Opmerking",
+      "button": "Ja, ik bevestig.",
+      "messages": {
+        "tresorText": "Heeft u nu uw kluisbestand gedownload? Kies dit kluisbestand in de volgende stap om de portemonnee te openen!"
+      }
     }
 }

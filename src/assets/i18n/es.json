@@ -384,5 +384,12 @@
         }
       }
     }
+  },
+  "okDialog": {
+    "title": "Nota",
+    "button": "Sí, confirmo.",
+    "messages": {
+      "tresorText": "¿Ha descargado su archivo de bóveda ahora? Por favor, elija este archivo de bóveda en el siguiente paso para abrir la billetera."
+    }
   }
 }

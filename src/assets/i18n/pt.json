@@ -384,5 +384,12 @@
         }
       }
     }
+  },
+  "okDialog": {
+    "title": "Nota",
+    "button": "Sim, eu confirmo.",
+    "messages": {
+      "tresorText": "Você baixou agora seu arquivo de cofre? Por favor, escolha este arquivo de cofre na próxima etapa para abrir a carteira!"
+    }
   }
 }

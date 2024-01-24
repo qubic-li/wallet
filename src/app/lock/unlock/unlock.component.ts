@@ -44,6 +44,7 @@ export class UnLockComponent extends QubicDialogWrapper {
   startCreateProcess() {
     this.walletService.clearConfig();
     this.walletService.createNewKeys();
+    this.toggleNewUser(false);
     const lockRef = this.dialog.open(LockConfirmDialog, {
       restoreFocus: false, data: {
         command: "keyDownload"
