@@ -80,10 +80,12 @@ export class WalletService {
       this.runningConfiguration.tickAddition = 20;
 
     // convert json key to internal cryptokey
-    if (this.runningConfiguration.publicKey)
+    if (this.runningConfiguration.publicKey){
       crypto.subtle.importKey("jwk", this.runningConfiguration.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
         this.publicKey = k
-      );
+        );
+        this.isWalletReady = true;
+      }
 
     if (!this.runningConfiguration.webBridges)
       this.runningConfiguration.webBridges = ["https://1.b.qubic.li"];

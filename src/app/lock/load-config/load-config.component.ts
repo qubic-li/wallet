@@ -46,6 +46,7 @@ export class LoadConfigDialog extends QubicDialogWrapper{
           });
         }else {
           this.importDone = true;
+          window.location.reload();
         }
       }
     })  
