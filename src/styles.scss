@@ -129,7 +129,7 @@ body {
   --text-primary-color: #{$light-primary-text};
   --text-primary-lighter-color: #{$dark-primary-text};
   --text-primary-darker-color: #{$light-primary-text};
-}   
+}
 $mat-primary: (
   main: #272660,
   lighter: #41B9EA,
@@ -150,7 +150,7 @@ body {
   --text-accent-color: #{$light-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
   --text-accent-darker-color: #{$light-primary-text};
-}   
+}
 
 $mat-accent: (
   main: #398fbe,
@@ -173,7 +173,7 @@ body {
   --text-warn-color: #{$light-primary-text};
   --text-warn-lighter-color: #{$dark-primary-text};
   --text-warn-darker-color: #{$light-primary-text};
-}   
+}
 $mat-warn: (
   main: #ff0000,
   lighter: #ffb3b3,
@@ -219,8 +219,8 @@ $altTheme: (
 // Specific component overrides, pieces that are not in line with the general theming
 
 // Handle buttons appropriately, with respect to line-height
-.mat-raised-button, 
-.mat-stroked-button, 
+.mat-raised-button,
+.mat-stroked-button,
 .mat-flat-button {
   padding: 0 1.15em;
   margin: 0 .65em;
@@ -235,7 +235,7 @@ $altTheme: (
 
 .material-icons {
   font-size: 24px;
-  font-family: 'Material Icons', 'Material Icons';  
+  font-family: 'Material Icons', 'Material Icons';
 
   .mat-badge-content {
     font-family: Consolas, Courier, sans-serif;
@@ -352,7 +352,7 @@ a:hover {
 @media screen and (max-width: 1199px) {
   app-navigation.isMobile {
     margin: 5px;
-  
+
     .desktopOnly {
       display: none;
     }
@@ -366,8 +366,8 @@ a:hover {
 }
 
 @media screen and (min-width: 1200px) {
-  
-  
+
+
   app-navigation.isDesktop {
     .mobileOnly {
       display: none;
@@ -612,7 +612,7 @@ h2 {
 
 
 
-    // Text has to be positioned absolute in order prevent line-breaks or trimming of text when morphing button to circle.  
+    // Text has to be positioned absolute in order prevent line-breaks or trimming of text when morphing button to circle.
     &__text {
       position: absolute;
       top: 50%;
@@ -752,7 +752,7 @@ hr {
   background-color: gray;
 }
 .icon-link {
-  
+
 }
 
 .mat-mdc-select-panel{

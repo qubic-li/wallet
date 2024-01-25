@@ -66,6 +66,7 @@ import { TokenService } from './services/token.service';
 import { VisibilityService } from './services/visibility.service';
 import { AssetsDialog } from './main/assets/assets.component';
 import {MatMenuModule} from "@angular/material/menu";
+import { AssetsComponent } from './assets/assets.component';
 
 
 
@@ -103,7 +104,8 @@ export const httpInterceptorProviders = [
     PlaceBidComponent,
     TransferStatusComponent,
     SettingsGeneralComponent,
-    AssetsDialog
+    AssetsDialog,
+    AssetsComponent
   ],
   imports: [
     BrowserModule,

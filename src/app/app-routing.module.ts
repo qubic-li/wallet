@@ -9,6 +9,7 @@ import { VotingParticipateComponent } from './voting/participate/voting-particip
 import { VotingCreateComponent } from './voting/create/voting-create.component';
 import { IpoComponent } from './ipo/ipo.component';
 import { PlaceBidComponent } from './ipo/place-bid/place-bid.component';
+import { AssetsComponent } from './assets/assets.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,10 @@ const routes: Routes = [
   {
     path     : 'ipo/participate/:contractId',
     component: PlaceBidComponent
+  },
+  {
+    path     : 'assets',
+    component: AssetsComponent
   },
 ];
 
