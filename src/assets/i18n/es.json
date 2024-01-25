@@ -391,5 +391,16 @@
     "messages": {
       "tresorText": "¿Ha descargado su archivo de bóveda ahora? Por favor, elija este archivo de bóveda en el siguiente paso para abrir la billetera."
     }
+  },
+  "loadConfigComponent": {
+    "title": "Importar cuentas",      
+    "buttons": {
+      "import": "Importar",
+      "cancel": "Cancelar"
+    },
+    "messages": {
+      "import": "Si ya tiene un archivo .config que contiene sus claves públicas, selecciónelo ahora e impórtelo.",
+      "noImport": "Si aún no tiene un archivo .config, cree una cuenta en la próxima sección."
+    }
   }
 }

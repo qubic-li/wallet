@@ -391,5 +391,16 @@
     "messages": {
       "tresorText": "Avez-vous maintenant téléchargé votre fichier de coffre-fort ? Veuillez choisir ce fichier de coffre-fort à l'étape suivante pour ouvrir le portefeuille !"
     }
+  },
+  "loadConfigComponent": {
+    "title": "Importer des comptes",      
+    "buttons": {
+      "import": "Importer",
+      "cancel": "Annuler"
+    },
+    "messages": {
+      "import": "Si vous avez déjà un fichier .config contenant vos clés publiques, sélectionnez-le maintenant et importez-le.",
+      "noImport": "Si vous n'avez pas encore de fichier .config, créez un compte dans la section suivante."
+    }
   }
 }

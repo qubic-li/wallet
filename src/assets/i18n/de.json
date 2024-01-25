@@ -390,5 +390,16 @@
       "messages": {
         "tresorText": "Sie haben jetzt ihre Tresor-Datei heruntergeladen? Bitte wählen Sie im nächsten Schritt, diese Tersor-Datei aus, um das Wallet zu öffnen!"
       }
+    },
+    "loadConfigComponent": {
+      "title": "Konten importieren",      
+      "buttons": {
+        "import": "Importieren",
+        "cancel": "Ohne Konten beginnen"
+      },
+      "messages": {
+        "import": "Wenn Sie bereits eine .config Datei beseitzen, die Ihre PublicKeys enthält, sollten Sie diese jetzt auswählen und importieren. ",
+        "noImport": "Wenn Sie noch keine .config Datei besitzen, legen Sie im nächsten Bereich ein Konto an."
+      }
     }
 }

@@ -23,7 +23,7 @@ export class LoadConfigDialog extends QubicDialogWrapper{
   
   public fileError: string = "";
   public configToImport: IConfig | undefined;
-  public isMobile = false;
+  public isMobile = true;
   public importDone = false;
 
 

@@ -391,5 +391,16 @@
     "messages": {
       "tresorText": "Você baixou agora seu arquivo de cofre? Por favor, escolha este arquivo de cofre na próxima etapa para abrir a carteira!"
     }
+  },
+  "loadConfigComponent": {
+    "title": "Importar contas",      
+    "buttons": {
+      "import": "Importar",
+      "cancel": "Cancelar"
+    },
+    "messages": {
+      "import": "Se você já tem um arquivo .config contendo suas chaves públicas, selecione-o agora e importe-o.",
+      "noImport": "Se você ainda não tem um arquivo .config, crie uma conta na próxima seção."
+    }
   }
 }

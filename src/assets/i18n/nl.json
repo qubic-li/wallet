@@ -389,5 +389,16 @@
       "messages": {
         "tresorText": "Heeft u nu uw kluisbestand gedownload? Kies dit kluisbestand in de volgende stap om de portemonnee te openen!"
       }
+    },
+    "loadConfigComponent": {
+        "title": "Accounts importeren",      
+        "buttons": {
+          "import": "Importeren",
+          "cancel": "Annuleren"
+        },
+        "messages": {
+          "import": "Als u al een .config-bestand heeft met uw openbare sleutels, selecteert u dit nu en importeert u het.",
+          "noImport": "Als u nog geen .config-bestand heeft, maakt u een account aan in het volgende gedeelte."
+        }
     }
 }
