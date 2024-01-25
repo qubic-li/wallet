@@ -21,7 +21,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { WalletService } from './services/wallet.service';
 import { LockComponent } from './lock/lock.component';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { LockConfirmDialog } from './lock/confirm-lock/confirm-lock.component';
 import { UnLockComponent } from './lock/unlock/unlock.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
