@@ -8,7 +8,8 @@
       "balance": "Solde",
       "settings": "Paramètres",
       "voting": "Vote",
-      "ipo": "IPO"
+      "ipo": "IPO",
+      "assets": "Assets"
     },
     "version": "Version {{version}} - bêta",
     "version.url": "qubic.li",
