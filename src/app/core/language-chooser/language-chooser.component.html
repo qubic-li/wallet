@@ -4,22 +4,12 @@
       <span class="material-icons">language</span>
     </button>
     <mat-menu #langMenu="matMenu">
-      <button mat-menu-item *ngFor="let languageKey of getSupportedLanguages()" (click)="changeLang({value: languageKey})">
+      <button mat-menu-item *ngFor="let languageKey of getSupportedLanguages()"
+              [class.active-lang]="isActiveLang(languageKey)"
+              (click)="changeLang({value: languageKey})">
         {{ supportedLanguagesDictionary[languageKey] }}
       </button>
     </mat-menu>
   </div>
 </ng-container>
 
-<ng-container *transloco="let t">
-  <!-- <div *ngFor="let language of getSupportedLanguages()">
-      <p>{{ language }}: {{ supportedLanguagesDictionary[language] }}</p>
-    </div> -->
-  <mat-form-field>
-    <mat-select [(value)]="selected" (selectionChange)="changeLang($event)">
-      <mat-option *ngFor="let languageKey of getSupportedLanguages()" [value]="languageKey">
-        {{ supportedLanguagesDictionary[languageKey] }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</ng-container>

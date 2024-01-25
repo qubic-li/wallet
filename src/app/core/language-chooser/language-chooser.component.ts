@@ -38,5 +38,9 @@ export class LanguageChooserComponent {
 
   changeLang(event: any): void {
     this.translocoService.setActiveLang(event.value);
-  } 
+  }
+
+  isActiveLang(languageKey: string) {
+    return this.translocoService.getActiveLang() === languageKey;
+  }
 }
