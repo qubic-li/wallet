@@ -403,5 +403,16 @@
       "import": "Se você já tem um arquivo .config contendo suas chaves públicas, selecione-o agora e importe-o.",
       "noImport": "Se você ainda não tem um arquivo .config, crie uma conta na próxima seção."
     }
+  },
+  "exportConfigComponent": {
+    "title": "Exportar contas",
+    "buttons": {
+        "export": "Exportar",
+        "cancel": "Cancelar"
+    },
+    "messages": {
+      "export": "Você modificou seu inventário de contas. Certifique-se de baixar sua configuração atual para poder importá-la posteriormente.",
+      "info": "Ele contém suas seeds criptografadas."
+    }
   }
 }

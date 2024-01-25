@@ -403,5 +403,16 @@
           "import": "If you already have a .config file containing your Public Keys, select it now and import it.",
           "noImport": "If you do not yet have a .config file, create an account in the next section."
         }
+    },
+    "exportConfigComponent": {
+        "title": "Export Accounts",
+        "buttons": {
+            "export": "Export",
+            "cancel": "Cancel"
+        },
+        "messages": {
+            "export": "You have modified your account inventory. Be sure to download your current configuration so you can import it later.",
+            "info": "It contains your encrypted seeds."
+        }
     }
 }

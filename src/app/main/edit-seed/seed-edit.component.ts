@@ -28,7 +28,7 @@ export class SeedEditDialog extends QubicDialogWrapper {
   isNew = true;
   seed: IDecodedSeed = (<IDecodedSeed>{});
 
-  constructor(renderer: Renderer2, themeService: ThemeService, @Inject(MAT_DIALOG_DATA) public data: any, public walletService: WalletService, dialog: Dialog, private fb: FormBuilder, private dialogRef: DialogRef, private _snackBar: MatSnackBar, private transloco: TranslocoService) {
+  constructor(renderer: Renderer2, themeService: ThemeService, @Inject(MAT_DIALOG_DATA) public data: any, public walletService: WalletService, dialog: Dialog, private fb: FormBuilder, public dialogRef: DialogRef, private _snackBar: MatSnackBar, private transloco: TranslocoService) {
     super(renderer, themeService);
 
     if (data.publicId) {
@@ -80,6 +80,7 @@ export class SeedEditDialog extends QubicDialogWrapper {
       });
     }
   }
+
 
   generateIds(seed: string): void {
     new QubicHelper().createPublicId(seed).then((response: { publicKey: Uint8Array, publicId: string }) => {

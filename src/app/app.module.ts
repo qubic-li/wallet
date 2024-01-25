@@ -24,6 +24,7 @@ import { LockComponent } from './lock/lock.component';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { LockConfirmDialog } from './lock/confirm-lock/confirm-lock.component';
 import { LoadConfigDialog } from './lock/load-config/load-config.component';
+import { ExportConfigDialog } from './lock/export-config/export-config.component';
 import { UnLockComponent } from './lock/unlock/unlock.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SeedEditDialog } from './main/edit-seed/seed-edit.component';
@@ -92,6 +93,7 @@ export const httpInterceptorProviders = [
     ConfirmDialog,
     OkDialog,
     LoadConfigDialog,
+    ExportConfigDialog,
     RevealSeedDialog,
     SettingsComponent,
     BalanceComponent,

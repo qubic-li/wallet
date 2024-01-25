@@ -18,9 +18,10 @@ import { PublicKey } from 'src/lib/qubic/packages/PublicKey';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { QubicEntityResponse } from 'src/lib/qubic/packages/QubicEntityResponse';
-import { DecimalPipe  } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
 import { AssetsDialog } from './assets/assets.component';
 import { LoadConfigDialog } from '../lock/load-config/load-config.component';
+import { ExportConfigDialog } from '../lock/export-config/export-config.component';
 
 
 @Component({
@@ -43,15 +44,15 @@ export class MainComponent implements AfterViewInit {
 
 
   constructor(
-      public walletService: WalletService, 
-      public dialog: MatDialog, 
-      private router: Router, 
-      private us: UpdaterService, 
-      private q: QubicService,
-      private _snackBar: MatSnackBar,
-      private t: TranslocoService,
-      private decimalPipe: DecimalPipe
-      ) {
+    public walletService: WalletService,
+    public dialog: MatDialog,
+    private router: Router,
+    private us: UpdaterService,
+    private q: QubicService,
+    private _snackBar: MatSnackBar,
+    private t: TranslocoService,
+    private decimalPipe: DecimalPipe
+  ) {
     this.setDataSource();
     us.currentBalance.subscribe(b => {
       this.balances = b;
@@ -63,9 +64,9 @@ export class MainComponent implements AfterViewInit {
     });
 
     if (this.dataSource.data.length == 0) {
-       this.load();
-    } 
-    
+      this.load();
+    }
+
   }
   ngAfterViewInit(): void {
     this.setDataSource();
@@ -74,7 +75,7 @@ export class MainComponent implements AfterViewInit {
   setDataSource(): void {
     this.dataSource = new MatTableDataSource(this.walletService.getSeeds().map(m => {
       if (!this.walletService.getSettings().useBridge) {
-        if (!m.balanceTick || m.balanceTick === 0){
+        if (!m.balanceTick || m.balanceTick === 0) {
           m.balance = this.getDeprecatedBalance(m.publicId);
           (<any>m).currentEstimatedAmount = this.getEpochChanges(m.publicId);
           m.lastUpdate = this.getDeprecatedLastUpdate(m.publicId);
@@ -137,9 +138,12 @@ export class MainComponent implements AfterViewInit {
               seed: null
             }
           });
-          dialogRef.afterClosed().subscribe((r) => {
+          dialogRef.afterClosed().subscribe(result => {
             // do anything :)
             this.refreshData();
+            if (result) {
+              this.openExportDialog();
+            }
           });
         }
       });
@@ -149,12 +153,14 @@ export class MainComponent implements AfterViewInit {
           seed: null
         }
       });
-      dialogRef.afterClosed().subscribe((r) => {
+      dialogRef.afterClosed().subscribe(result => {
         this.setDataSource();
         this.refreshData();
-      });
+        if (result) {
+          this.openExportDialog();
+        }
+      })
     }
-
   }
 
   payment(publicId: string) {
@@ -170,6 +176,18 @@ export class MainComponent implements AfterViewInit {
       restoreFocus: false, data: {
         publicId: publicId
       }
+    });
+    confirmDialo.afterClosed().subscribe(result => {
+      if (result) {
+        this.openExportDialog();
+      }
+    })
+  }
+
+  openExportDialog() {
+    const dialogRef = this.dialog.open(ExportConfigDialog, { disableClose: true, });
+    dialogRef.afterClosed().subscribe(() => {
+      // do anything :)
     });
   }
 
@@ -199,7 +217,7 @@ export class MainComponent implements AfterViewInit {
       }
     });
   }
-  
+
 
   delete(publicId: string) {
     const confirmDialo = this.dialog.open(ConfirmDialog, { restoreFocus: false });
@@ -207,43 +225,44 @@ export class MainComponent implements AfterViewInit {
       if (result) {
         this.walletService.deleteSeed(publicId);
         this.refreshData();
+        this.openExportDialog();
       }
     })
   }
 
   refreshBalance(publicId: string) {
-    if(this.walletService.getSettings().useBridge){
-      if(!this.q.isConnected.getValue()){
+    if (this.walletService.getSettings().useBridge) {
+      if (!this.q.isConnected.getValue()) {
         this._snackBar.open(this.t.translate('general.messages.notConnected'), this.t.translate('general.close'), {
           duration: 10000,
           panelClass: "error"
         });
-      }else{
-        if(this.q.updateBalance(new PublicKey(publicId), (entityResponse: QubicEntityResponse): boolean => {
-          if(entityResponse.getEntity().getPublicKey().equals(new PublicKey(publicId))){
-            this._snackBar.open(this.t.translate('general.messages.balanceReceived', {publicId: publicId, balance: this.decimalPipe.transform(entityResponse.getEntity().getBalance(), '1.0-0')}) , this.t.translate('general.close'), {
+      } else {
+        if (this.q.updateBalance(new PublicKey(publicId), (entityResponse: QubicEntityResponse): boolean => {
+          if (entityResponse.getEntity().getPublicKey().equals(new PublicKey(publicId))) {
+            this._snackBar.open(this.t.translate('general.messages.balanceReceived', { publicId: publicId, balance: this.decimalPipe.transform(entityResponse.getEntity().getBalance(), '1.0-0') }), this.t.translate('general.close'), {
               duration: 10000,
             });
             return true;
           }
           return false;
-        })){
-          this._snackBar.open(this.t.translate('general.messages.refreshRequested') , this.t.translate('general.close'), {
+        })) {
+          this._snackBar.open(this.t.translate('general.messages.refreshRequested'), this.t.translate('general.close'), {
             duration: 5000,
           });
-        }else{
+        } else {
           this._snackBar.open(this.t.translate('general.messages.refreshFailed'), this.t.translate('general.close'), {
             duration: 10000,
             panelClass: "error"
           });
         }
       }
-    }else{
+    } else {
       this.us.forceUpdateNetworkBalance(publicId, (balances: NetworkBalance[]) => {
-        if(balances){
+        if (balances) {
           var entry = balances.find(f => f.publicId == publicId);
-          if(entry){
-            this._snackBar.open(this.t.translate('general.messages.balanceReceived', {publicId: publicId, balance: this.decimalPipe.transform(entry.amount, '1.0-0')}) , this.t.translate('general.close'), {
+          if (entry) {
+            this._snackBar.open(this.t.translate('general.messages.balanceReceived', { publicId: publicId, balance: this.decimalPipe.transform(entry.amount, '1.0-0') }), this.t.translate('general.close'), {
               duration: 5000,
             });
           }
@@ -254,5 +273,5 @@ export class MainComponent implements AfterViewInit {
 
   hasPendingTransaction(publicId: string) {
     return this.transactions.find(t => (t.sourceId == publicId || t.destId == publicId) && t.isPending);
-  }  
+  }
 }

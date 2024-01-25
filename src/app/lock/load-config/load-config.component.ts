@@ -6,8 +6,6 @@ import { TranslocoService } from '@ngneat/transloco';
 import { QubicDialogWrapper } from 'src/app/core/dialog-wrapper/dialog-wrapper';
 import { ThemeService } from 'src/app/services/theme.service';
 import { WalletService } from 'src/app/services/wallet.service';
-
-
 import { IConfig } from '../../model/config';
 import { NgxFileDropEntry } from 'ngx-file-drop';
 import { MatSnackBar } from '@angular/material/snack-bar';

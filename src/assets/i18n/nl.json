@@ -401,5 +401,16 @@
           "import": "Als u al een .config-bestand heeft met uw openbare sleutels, selecteert u dit nu en importeert u het.",
           "noImport": "Als u nog geen .config-bestand heeft, maakt u een account aan in het volgende gedeelte."
         }
+    },
+    "exportConfigComponent": {
+        "title": "Accounts exporteren",
+        "buttons": {
+            "export": "Exporteren",
+            "cancel": "Annuleren"
+        },
+        "messages": {
+            "export": "Je hebt je accountvoorraad gewijzigd. Zorg ervoor dat je je huidige configuratie downloadt, zodat je deze later kunt importeren.",
+            "info": "Het bevat je versleutelde seeds."
+        }
     }
 }

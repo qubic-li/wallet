@@ -402,5 +402,16 @@
         "import": "Wenn Sie bereits eine .config Datei beseitzen, die Ihre PublicKeys enthält, sollten Sie diese jetzt auswählen und importieren. ",
         "noImport": "Wenn Sie noch keine .config Datei besitzen, legen Sie im nächsten Bereich ein Konto an."
       }
+    },
+    "exportConfigComponent": {
+      "title": "Konten exportieren",      
+      "buttons": {
+        "export": "Exportieren",
+        "cancel": "Abbrechen"
+      },
+      "messages": {
+        "export": "Du hast deinen Kontenbestand geändert. Lade unbedingt deine aktuelle Konfiguration herunterzuladen, damit du sie später wieder importieren kannst.",
+        "info":"Es enthält deine verschlüsselten Seeds."
+      }
     }
 }
