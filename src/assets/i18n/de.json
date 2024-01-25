@@ -258,7 +258,7 @@
     "import": {
       "title": "Einstellungen importieren",
       "doneMessage": "Import erfolgreich",
-      "dropMessage": "Datei hier her ziehen",
+      "dropMessage": "Datei hineinziehen oder auswählen ",
       "buttons.import": "Starte Import",
       "seedsMessage": "Du wirst {{amount}} Accounts importieren.",
       "goHomeLink": "Zeige importierte Seeds"
