@@ -65,6 +65,7 @@ import { DecimalPipe } from '@angular/common';
 import { TokenService } from './services/token.service';
 import { VisibilityService } from './services/visibility.service';
 import { AssetsDialog } from './main/assets/assets.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 
 
@@ -133,7 +134,8 @@ export const httpInterceptorProviders = [
     NgxFileDropModule,
     MatStepperModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatMenuModule
   ],
 
   providers: [VisibilityService, TokenService, WalletService, AuthInterceptor, ApiService, UpdaterService, QubicService, DecimalPipe, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
