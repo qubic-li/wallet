@@ -21,7 +21,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { WalletService } from './services/wallet.service';
 import { LockComponent } from './lock/lock.component';
-import { MatDialog, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
+import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { LockConfirmDialog } from './lock/confirm-lock/confirm-lock.component';
 import { UnLockComponent } from './lock/unlock/unlock.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -65,6 +65,8 @@ import { DecimalPipe } from '@angular/common';
 import { TokenService } from './services/token.service';
 import { VisibilityService } from './services/visibility.service';
 import { AssetsDialog } from './main/assets/assets.component';
+import {MatMenuModule} from "@angular/material/menu";
+import { AssetsComponent } from './assets/assets.component';
 
 
 
@@ -102,7 +104,8 @@ export const httpInterceptorProviders = [
     PlaceBidComponent,
     TransferStatusComponent,
     SettingsGeneralComponent,
-    AssetsDialog
+    AssetsDialog,
+    AssetsComponent
   ],
   imports: [
     BrowserModule,
@@ -133,7 +136,8 @@ export const httpInterceptorProviders = [
     NgxFileDropModule,
     MatStepperModule,
     MatProgressSpinnerModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatMenuModule
   ],
 
   providers: [VisibilityService, TokenService, WalletService, AuthInterceptor, ApiService, UpdaterService, QubicService, DecimalPipe, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },

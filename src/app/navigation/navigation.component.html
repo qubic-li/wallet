@@ -1,11 +1,11 @@
 <ng-container *transloco="let t">
-  
-  
+
+
   <div class="container" [class.is-mobile]="mobileQuery.matches">
 
-    
 
-    <mat-toolbar class="toolbar window-drag" (dblclick)="maximize()">
+
+    <!--mat-toolbar class="toolbar window-drag" (dblclick)="maximize()">
       <div class="left-icon-area window-no-drag" >
         <button mat-icon-button (click)="snav.toggle()" *ngIf="walletService.publicKey && !walletService.configError">
           <mat-icon>menu</mat-icon>
@@ -27,7 +27,7 @@
         <button [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
         <button [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
       </div>
-    </mat-toolbar>
+    </mat-toolbar-->
     <div *ngIf="walletService.configError" class="open-wallet-screen">
       <qli-config-error></qli-config-error>
     </div>
@@ -44,6 +44,8 @@
             (click)="checkMobileToggle()"><mat-icon>payments</mat-icon>{{t("general.navigation.payment")}}</a>
           <a mat-list-item routerLink="balance"
             (click)="checkMobileToggle()"><mat-icon>account_balance</mat-icon>{{t("general.navigation.balance")}}</a>
+          <a mat-list-item routerLink="assets"
+             (click)="checkMobileToggle()"><mat-icon>pie_chart</mat-icon>{{t("general.navigation.assets")}}</a>
           <a mat-list-item routerLink="voting"
             (click)="checkMobileToggle()"><mat-icon>how_to_vote</mat-icon>{{t("general.navigation.voting")}}</a>
           <a mat-list-item routerLink="ipo"
