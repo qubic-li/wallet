@@ -1,9 +1,9 @@
 {
-  "name": "qubic-li-wallet",
+  "name": "qubic-wallet",
   "version": "2.0.2",
   "main": "app.js",
-  "author": "qubic.li",
-  "description": "Qubic.li - Wallet - Send Qu's around the globe.",
+  "author": "qubic",
+  "description": "Qubic - Wallet - Send Qu's around the globe.",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",

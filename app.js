@@ -92,7 +92,7 @@ const net = require("net")
 
       mainWindow.loadURL(
         url.format({
-          pathname: path.join(__dirname, `/dist/qubic-li-wallet/index.html`),
+          pathname: path.join(__dirname, `/dist/qubic-wallet/index.html`),
           protocol: "file:",
           slashes: true
         })

@@ -7,7 +7,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "qubic-li-wallet": {
+    "qubic-wallet": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/qubic-li-wallet",
+            "outputPath": "dist/qubic-wallet",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "qubic-li-wallet:build:production"
+              "browserTarget": "qubic-wallet:build:production"
             },
             "development": {
-              "browserTarget": "qubic-li-wallet:build:development"
+              "browserTarget": "qubic-wallet:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "qubic-li-wallet:build"
+            "browserTarget": "qubic-wallet:build"
           }
         },
         "test": {

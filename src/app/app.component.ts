@@ -12,7 +12,7 @@ import { QubicService } from './services/qubic.service';
 })
 export class AppComponent {
   mobileQuery!: MediaQueryList;
-  title = 'qubic-li-wallet';
+  title = 'qubic-wallet';
 
   private deviceInfo!: DeviceInfo;
   public isMobile = false;

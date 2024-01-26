@@ -1,6 +1,6 @@
 {
     "general": {
-        "title": "qubic.li - Wallet",
+        "title": "Qubic - Wallet",
         "comingSoon": "coming soon!",
         "navigation": {
             "home": "Home",
@@ -133,7 +133,7 @@
     "unlockComponent": {
         "title": "Wallet vrijgeven",
         "title.new": "Maak een kluisbestand aan",
-        "welcomeMessage": "Welkom bij de qubic.li Wallet.� Om deze Wallet te gebruiken moet u een kluisbestand aanmaken. Deze zal uw publieke/prive sleutel bevatten die daarna wordt gebruikt om uw gegevens te versleutelen/decoderen.",
+        "welcomeMessage": "Welkom bij de qubic Wallet.� Om deze Wallet te gebruiken moet u een kluisbestand aanmaken. Deze zal uw publieke/prive sleutel bevatten die daarna wordt gebruikt om uw gegevens te versleutelen/decoderen.",
         "reasonMessage": "Om uw portemonnee te ontgrendelen is uw kluisbestand nodig. Dit bestand wordt automatisch verwijderd zodra deze pagina opnieuw wordt geladen of gesloten.",
         "choosePrivateKeyFile": "Kies een kluisbestand",
         "overwriteVault": "Het lijkt erop dat er al gegevens zijn opgeslagen in deze Browser. Wilt u deze echt overschrijven?",

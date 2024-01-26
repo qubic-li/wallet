@@ -331,7 +331,7 @@ export class WalletService {
       this.deriveKey(pwKey).then((wrapKey: CryptoKey) => {
         crypto.subtle.wrapKey("jwk", this.privateKey!, wrapKey, this.aesAlg).then((jsonKey) => {
           const blob = new Blob([jsonKey], { type: 'application/octet-stream' });
-          this.downloadBlob("qubic.li-wallet.unlock", blob);
+          this.downloadBlob("qubic-wallet.unlock", blob);
           this.shouldExportKey = false;
         });
       });
@@ -370,7 +370,7 @@ export class WalletService {
 
     const data = new TextEncoder().encode(JSON.stringify(exportConfig));
     const blob = new Blob([data], { type: 'application/octet-stream' });
-    this.downloadBlob("qubic.li-list-publicKeys.config", blob);
+    this.downloadBlob("qubic-config-addresses.config", blob);
 
     // mark seeds as saved/exported
     this.runningConfiguration.seeds.forEach(seed => {

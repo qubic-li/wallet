@@ -3,10 +3,10 @@
 
 @import 'vars';
 
-@font-face {
-  font-family: 'PPTelegraf';
-  src: url('/src/assets/fonts/PPTelegraf-Regular.ttf') format('truetype');
-}
+// @font-face {
+//   font-family: 'PPTelegraf';
+//   src: url('/src/assets/fonts/PPTelegraf-Regular.ttf') format('truetype');
+// }
 
 
 //**********************************
@@ -252,10 +252,6 @@ $altTheme: (
 .material-icons {
   font-size: 24px;
   font-family: 'Material Icons', 'Material Icons';
-
-  .mat-badge-content {
-    // font-family: Consolas, Courier, sans-serif;
-  }
 }
 
 
@@ -321,9 +317,6 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
   justify-content: flex-start;
 }
 
-.currency-value {
-  // font-family: Consolas, Courier, sans-serif;
-}
 
 div.copy {
   cursor: pointer;
@@ -769,9 +762,6 @@ hr {
   /* Set the hr color */
   color: gray;  /* old IE */
   background-color: gray;
-}
-.icon-link {
-
 }
 
 .mat-mdc-select-panel{
