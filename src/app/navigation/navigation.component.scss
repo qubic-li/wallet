@@ -1,4 +1,6 @@
 .container {
+  max-width: 1920px;
+  margin: 0 auto; 
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -6,6 +8,10 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.mat-drawer{
+  border-right-color: #1bdef5
 }
 
 
