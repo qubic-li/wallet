@@ -7,8 +7,8 @@
         </button>
       </div>
       <div>
-        <img src="assets/img/qubic.li-icon-logo-right-white.png" class="logo" *ngIf="themService.isDarkTheme">
-        <img src="assets/img/qubic.li-icon-logo-right.png" class="logo" *ngIf="!themService.isDarkTheme">
+        <img src="assets/logos/LogoFull_white.svg" class="logo" *ngIf="themService.isDarkTheme">
+        <img src="assets/logos/LogoFull_dark.svg" class="logo" *ngIf="!themService.isDarkTheme">
       </div>
       <div class="topIcons window-no-drag">
         <div class="topIcons" *ngIf="walletService.isWalletReady && !walletService.configError">
