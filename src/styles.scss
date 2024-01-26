@@ -3,15 +3,22 @@
 
 @import 'vars';
 
-// Foreground Elements
+@font-face {
+  font-family: 'PPTelegraf';
+  src: url('/src/assets/fonts/PPTelegraf-Regular.ttf') format('truetype');
+}
 
+
+//**********************************
 // Light Theme Text
+//**********************************
 $dark-text: #000000;
 $dark-primary-text: rgba($dark-text, 0.87);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
 $dark-disabled-text: rgba($dark-primary-text, 0.38);
 $dark-dividers: rgba($dark-primary-text, 0.12);
 $dark-focused: rgba($dark-primary-text, 0.12);
+$dark-link: #1bdef5;
 
 $mat-light-theme-foreground: (
   base:              black,
@@ -30,38 +37,12 @@ $mat-light-theme-foreground: (
   slider-min:        $dark-primary-text,
   slider-off:        rgba($dark-text, 0.26),
   slider-off-active: $dark-disabled-text,
-);
-
-// Dark Theme text
-$light-text: #ffffff;
-$light-primary-text: $light-text;
-$light-accent-text: rgba($light-primary-text, 0.7);
-$light-disabled-text: rgba($light-primary-text, 0.5);
-$light-dividers: rgba($light-primary-text, 0.12);
-$light-focused: rgba($light-primary-text, 0.12);
-
-$mat-dark-theme-foreground: (
-  base:              $light-text,
-  divider:           $light-dividers,
-  dividers:          $light-dividers,
-  disabled:          $light-disabled-text,
-  disabled-button:   rgba($light-text, 0.3),
-  disabled-text:     $light-disabled-text,
-  elevation:         black,
-  hint-text:         $light-disabled-text,
-  secondary-text:    $light-accent-text,
-  accent-text:       $light-accent-text,
-  icon:              $light-text,
-  icons:             $light-text,
-  text:              $light-text,
-  slider-min:        $light-text,
-  slider-off:        rgba($light-text, 0.3),
-  slider-off-active: rgba($light-text, 0.3),
+  link-color:        $dark-link, 
 );
 
 // Background config
 // Light bg
-$light-background:    #fafafa;
+$light-background:    #ffffff;
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  darken($light-background, 10%);
 $light-bg-darker-20:  darken($light-background, 20%);
@@ -88,6 +69,41 @@ $mat-light-theme-background: (
   unselected-chip:          $light-bg-darker-10,
   disabled-list-option:     $light-bg-darker-10,
 );
+
+
+
+//**********************************
+// Dark Theme text
+//**********************************
+$light-text: #ffffff;
+$light-primary-text: $light-text;
+$light-accent-text: rgba($light-primary-text, 0.7);
+$light-disabled-text: rgba($light-primary-text, 0.5);
+$light-dividers: rgba($light-primary-text, 0.12);
+$light-focused: rgba($light-primary-text, 0.12);
+$light-link: #1bdef5;
+
+$mat-dark-theme-foreground: (
+  base:              $light-text,
+  divider:           $light-dividers,
+  dividers:          $light-dividers,
+  disabled:          $light-disabled-text,
+  disabled-button:   rgba($light-text, 0.3),
+  disabled-text:     $light-disabled-text,
+  elevation:         black,
+  hint-text:         $light-disabled-text,
+  secondary-text:    $light-accent-text,
+  accent-text:       $light-accent-text,
+  icon:              $light-text,
+  icons:             $light-text,
+  text:              $light-text,
+  slider-min:        $light-text,
+  slider-off:        rgba($light-text, 0.3),
+  slider-off-active: rgba($light-text, 0.3),  
+  link-color:       $light-link, 
+);
+
+
 
 // Dark bg
 $dark-background:     #2c2c2c;
@@ -238,7 +254,7 @@ $altTheme: (
   font-family: 'Material Icons', 'Material Icons';  
 
   .mat-badge-content {
-    font-family: Consolas, Courier, sans-serif;
+    // font-family: Consolas, Courier, sans-serif;
   }
 }
 
@@ -253,21 +269,23 @@ $altTheme: (
 // ### THEM FIXES ### //
 
 
-
-
 html,
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
+  
+  font-size:1.0em;
 }
+
 
 body {
   margin: 0;
-  font-family: Consolas, Courier, sans-serif;
+  // font-family: Consolas, Courier, sans-serif;
 }
-table, div, span, button {
-  font-family: Consolas, Courier, sans-serif;
+table, div, span, button, th, td, tr {
+   font-family: 'PPTelegraf';
 }
-
 
 .mdc-list-item__primary-text {
   display: flex;
@@ -304,13 +322,13 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 }
 
 .currency-value {
-  font-family: Consolas, Courier, sans-serif;
+  // font-family: Consolas, Courier, sans-serif;
 }
 
 div.copy {
   cursor: pointer;
   color: map-get($map: $mat-primary, $key: main);
-  font-family: Consolas, Courier, sans-serif;
+  // font-family: Consolas, Courier, sans-serif;
   width: 100%;
   word-wrap: break-word;
 }
@@ -320,7 +338,8 @@ a:link,
 a:visited,
 a:active {
   text-decoration: none;
-  color: map-get($map: $mat-accent, $key: darker);
+  // color: map-get($map: $mat-accent, $key: darker);
+  color: $dark-link;
 }
 
 .darkTheme {
@@ -790,3 +809,28 @@ hr {
 .danger {
   animation: blink 1s infinite;
 }
+
+/*New Design*/
+
+mat-sidenav-content{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+  height: 95%; 
+}
+
+.important {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  font-size: 1.3em;
+}
+
+
+
+
