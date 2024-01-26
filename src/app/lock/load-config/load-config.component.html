@@ -13,11 +13,13 @@
         <div *ngIf="configToImport" class="flex-center">
           {{ t("settings.import.seedsMessage", { amount: configToImport.seeds.length}) }}               
         </div>
+        <div *ngIf="!configToImport" class="flex-center">
+          {{ t("loadConfigComponent.messages.noImport") }}                 
+        </div>
         <div *ngIf="fileError">
           {{ fileError }}
         </div>
-      </div>
-      <span>{{ t("loadConfigComponent.messages.noImport") }}</span>        
+      </div>     
     </div>
     </mat-dialog-content>
     <mat-dialog-actions>
