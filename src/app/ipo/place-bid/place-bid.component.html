@@ -92,10 +92,10 @@
                     </div>
                 </mat-card-content>
                 <mat-card-actions class="padding">
-                    <button mat-raised-button color="primary" type="submit"
+                    <button mat-raised-button color="accent" type="submit"
                         [disabled]="!ipoForm.valid || !walletService.privateKey">{{
                         t("ipoComponent.place-bid.buttons.send") }}</button>
-                    <button mat-raised-button color="accent" type="button" (click)="ipoForm.reset()">{{
+                    <button mat-raised-button color="primary" type="button" (click)="ipoForm.reset()">{{
                         t("paymentComponent.buttons.reset") }}</button>
                     <div *ngIf="!walletService.privateKey">
                         <button mat-raised-button color="warn" type="button" (click)="loadKey()">{{

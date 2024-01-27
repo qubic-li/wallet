@@ -92,7 +92,7 @@
                 {{getSelectedComputorCount()}} {{ t("votingComponent.participate.computorsSelected") }}
                 <hr>
                 <div>
-                    <button mat-raised-button *ngIf="walletService.privateKey" color="primary" [disabled]="isPublishing"
+                    <button mat-raised-button *ngIf="walletService.privateKey" color="accent" [disabled]="isPublishing"
                         [disabled]="!publishForm.valid || getSelectedComputorCount() <= 0" (click)="sendVotes()">
                         <mat-icon>how_to_vote</mat-icon>
                         <span *ngIf="!isPublishing">

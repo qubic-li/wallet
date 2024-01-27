@@ -47,9 +47,9 @@
         t("unlockComponent.buttons.cancel")}}</button>
       <button *ngIf="isNewUser()" mat-raised-button color="accent" (click)="gengerateNew()">{{
         t("unlockComponent.buttons.generateKey")}}</button>
-      <button *ngIf="!isNewUser()" mat-raised-button color="primary" (click)="unlock()">{{
+      <button *ngIf="!isNewUser()" mat-raised-button color="accent" (click)="unlock()">{{
         t("unlockComponent.buttons.unlock")}}</button>
-      <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="accent" (click)="lock()">{{
+      <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="primary" (click)="lock()">{{
         t("unlockComponent.buttons.closeWallet")}}</button>
       <button *ngIf="isNewUser()" (click)="toggleNewUser(false)" mat-raised-button>{{
         t("unlockComponent.buttons.existingUser")}}</button>

@@ -28,14 +28,13 @@
             {{ t("lockComponent.password.min")}}
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary">{{ t("lockComponent.buttons.savePrivateKey") }}</button>
+        <br><button mat-raised-button color="accent">{{ t("lockComponent.buttons.savePrivateKey") }}</button>
       </form>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button  color="primary" mat-dialog-close *ngIf="keyDownload">  {{ t("lockComponent.forceDownload.buttons.allOk")}}</button>
-  <button mat-raised-button  color="warn" (click)="closeWallet()" *ngIf="!keyDownload"> {{ t("lockComponent.buttons.closeWallet")}}</button>
-  <button mat-raised-button *ngIf="walletService.privateKey" (click)="toggleShowSave()"> {{ t("lockComponent.buttons.enableExport")}}</button>
+  <button mat-raised-button  color="accent" mat-dialog-close *ngIf="keyDownload">  {{ t("lockComponent.forceDownload.buttons.allOk")}}</button>
+  <button mat-raised-button  color="primary" (click)="closeWallet()" *ngIf="!keyDownload"> {{ t("lockComponent.buttons.closeWallet")}}</button>
   <button mat-raised-button  mat-dialog-close *ngIf="!keyDownload"> {{ t("lockComponent.buttons.cancel")}}</button>
 </mat-dialog-actions>
 </ng-container>

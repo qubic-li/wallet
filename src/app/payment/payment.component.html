@@ -115,7 +115,7 @@
                 </div>
             </mat-card-content>
             <mat-card-actions class="padding">
-                <button *ngIf="walletService.privateKey" mat-raised-button color="primary" type="submit"
+                <button *ngIf="walletService.privateKey" mat-raised-button color="accent" type="submit"
                     [disabled]="!transferForm.valid || !walletService.privateKey || isBroadcasting">
                     <span  *ngIf="!isBroadcasting">
                         {{ t("paymentComponent.buttons.send") }}
