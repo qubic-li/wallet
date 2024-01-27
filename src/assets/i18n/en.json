@@ -77,18 +77,18 @@
       "send": "Send"
     },
     "form": {
-      "info": "Formulaire d'envoi d'Assets",
-      "fees": "Frais d'envoi fixes : 1 000 000 Qubic",
-      "select": "Sélectionner l'Asset",
-      "select.error": "La sélection de l'Asset est requise",
-      "placeholder": "ID de l'adresse du destinataire",
-      "placeholder.error": "Une Seed de 55 caractères est requis.",
-      "amount": "Montant à envoyer",
-      "amount.error": "Le montant est requis",
-      "amount.value.error": "Le montant doit être supérieur à 0",
-      "amount.max.error": "Le montant ne peut pas dépasser la quantité détenue",
+      "info": "Send Assets form",
+      "fees": "Fixed sending fees: 1,000,000 Qubic",
+      "select": "Select Asset",
+      "select.error": "Asset selection is required",
+      "placeholder": "Address ID of the receiver",
+      "placeholder.error": "An 55-char seed is required.",
+      "amount": "Amount to send",
+      "amount.error": "Amount is required",
+      "amount.value.error": "The amount must be greater than 0",
+      "amount.max.error": "The amount cannot exceed the quantity held",
       "tick": "Tick",
-      "tick.error": "Le Tick est requise"
+      "tick.error": "Tick is required"
     },
     "noAssets": "No assets available"
   },
@@ -366,7 +366,7 @@
       "finishStep.label": "Done",
       "finishStep.success": "Your Proposal has been sent to your computor."
     },
-    "status":{
+    "status": {
       "success": "Accepted by Quorum",
       "failed": "Dismissed by Quorum",
       "publishing": "Publish in progress",
@@ -417,7 +417,6 @@
         }
       }
     }
-
   },
   "okDialog": {
     "title": "Notice",

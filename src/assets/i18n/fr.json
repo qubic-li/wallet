@@ -87,8 +87,8 @@
       "amount.error": "Le montant est requis",
       "amount.value.error": "Le montant doit être supérieur à 0",
       "amount.max.error": "Le montant ne peut pas dépasser la quantité détenue",
-      "tick": "Cocher",
-      "tick.error": "La coche est requise"
+      "tick": "Tick",
+      "tick.error": "Le Tick est requis"
     },
     "noAssets": "Aucun asset disponible"
   },
