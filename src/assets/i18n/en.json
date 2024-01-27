@@ -73,7 +73,7 @@
         "title.add": "Add Address",
         "title.edit": "Edit Address",
         "newSeedName": "Address-Name",
-        "seedWarning": "<b>IMPORTANT! This 55-Chars are your Qubic Private Key (Seed)! Save/store this seed at secure location.<br>You may lose your funds if you do not have your seed(s) in backup!<br>More info on this topic:</b> <a href=\"https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups\" target=\"_blank\">https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups</a> ",
+        "seedWarning": "<b>IMPORTANT!<br> This 55-Chars are your Qubic Private Key (Seed)!<br>Save/store this seed at secure location.<br>You may lose your funds if you do not have your seed(s) in backup!<br><br>More info on this topic:</b><br> <a href=\"https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups\" target=\"_blank\">https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups</a> ",
         "form": {
             "alias": {
                 "placeholder": "Choose an own name for your address in order to better refer to it.",
@@ -384,6 +384,36 @@
                     "max.tooltip": "Bid all available qus"
                 }
             }
+        }
+        
+    },    
+    "okDialog": {
+        "title": "Notice",
+        "button": "Yes, I confirm.",
+        "messages": {
+            "tresorText": "Have you downloaded your Tresor file now? Please select this Tresor file in the next step to open the wallet!"
+        }
+    },
+    "loadConfigComponent": {
+        "title": "Import Accounts",
+        "buttons": {
+            "import": "Import",
+            "cancel": "Start Without Accounts"
+        },
+        "messages": {
+            "import": "If you already have a .config file containing your PublicKeys, you should select and import it now.",
+            "noImport": "If you do not yet have a .config file, create an account in the next section."
+        }
+    },
+    "exportConfigComponent": {
+        "title": "Export Accounts",
+        "buttons": {
+            "export": "Export",
+            "cancel": "Cancel"
+        },
+        "messages": {
+            "export": "You have modified your account inventory. Be sure to download your current configuration so you can import it later.",
+            "info": "It contains your encrypted seeds."
         }
     }
 }
