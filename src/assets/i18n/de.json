@@ -142,7 +142,8 @@
     "form": {
       "file.error.required": "Tresor-Datei wird benötigt",
       "password.error.required": "Tresor-Passwort wird benötigt",
-      "password.error.min": "Dein Passwort muss mindestens 8 Zeichen lang sein."
+      "password.error.min": "Dein Passwort muss mindestens 8 Zeichen lang sein.",
+      "password.error.wrong": "Dein Passwort ist falsch."
     },
     "buttons": {
       "cancel": "Abbrechen",
@@ -253,6 +254,7 @@
   },
   "settings": {
     "general": {
+        "title": "Web Bridge",
         "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
         "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
         "button.save": "Save Settings"

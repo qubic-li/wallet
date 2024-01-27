@@ -838,12 +838,17 @@ mat-sidenav-content{
   display: flex;
   align-items: center;
   column-gap: 10px;
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 .text-right{
   text-align: right;
 }
+
+.text-center{
+  text-align: center;
+}
+
 
 button{
   width: 200px;
@@ -874,7 +879,7 @@ button{
   border-top-color: #fff;
   border-radius: 5%;
 
-  max-width: 50%; 
+  max-width: 40%; 
   height: auto; 
   margin: 50px 0px 50px 0px;
 }
@@ -887,6 +892,17 @@ button{
 
 .title{
  text-align: center;
+}
+
+.small-card{
+  width: 380px;
+}
+
+.mat-mdc-card {
+  // background-color: $light-bg-darker-5 !important;
+  border-color: $light-bg-darker-30 !important;
+  box-shadow: $light-bg-darker-30 !important;
+  --mdc-elevated-card-container-elevation:  0px 2px 1px -1px rgba(0, 0, 0, 0.5), 0px 1px 1px 0px rgba(0, 0, 0, 0.5), 0px 1px 3px 0px rgba(0, 0, 0, 0.5) !important;
 }
 
 

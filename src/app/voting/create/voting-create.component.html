@@ -202,7 +202,7 @@
                                 </div>
                             </div>
                             <div>
-                                <button mat-raised-button color="primary" type="submit"
+                                <button mat-raised-button color="accent" type="submit"
                                     [disabled]="!proposalForm.valid">{{
                                     t("votingComponent.create.buttons.create") }}</button>
                                 <button mat-raised-button (click)="stepper.reset()" type="button">{{
@@ -260,7 +260,7 @@
                                     <button *ngIf="!walletService.privateKey" mat-raised-button color="accent"
                                         type="button" (click)="loadKey()">{{
                                         t("votingComponent.create.buttons.loadPrivateKey") }}</button>
-                                    <button *ngIf="walletService.privateKey" mat-raised-button color="primary"
+                                    <button *ngIf="walletService.privateKey" mat-raised-button color="accent"
                                         type="submit" [disabled]="!proposalForm.valid">{{
                                         t("votingComponent.create.buttons.publish") }}</button>
                                     <button mat-raised-button (click)="stepper.reset()">Reset</button>
@@ -271,7 +271,7 @@
                     <mat-step label="{{ t('votingComponent.create.finishStep.label') }}">
                         <p>{{ t('votingComponent.create.finishStep.success') }}</p>
                         <div>
-                            <button mat-raised-button color="primary" [routerLink]="['/voting']" type="button">{{
+                            <button mat-raised-button color="accent" [routerLink]="['/voting']" type="button">{{
                                 t("votingComponent.create.buttons.finish") }}</button>
                         </div>
                     </mat-step>

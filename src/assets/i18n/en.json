@@ -171,7 +171,8 @@
     "form": {
       "file.error.required": "Wallet unlock file required",
       "password.error.required": "Wallet password required",
-      "password.error.min": "Your password must have a minimum of 8 characters."
+      "password.error.min": "Your password must have a minimum of 8 characters.",
+      "password.error.wrong": "Your password is incorrect."
     },
     "buttons": {
       "cancel": "Cancel",
@@ -283,6 +284,7 @@
   },
   "settings": {
     "general": {
+      "title": "Web Bridge",
       "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
       "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
       "button.save": "Save Settings"
@@ -364,7 +366,7 @@
       "finishStep.label": "Done",
       "finishStep.success": "Your Proposal has been sent to your computor."
     },
-    "status": {
+    "status":{
       "success": "Accepted by Quorum",
       "failed": "Dismissed by Quorum",
       "publishing": "Publish in progress",
@@ -415,6 +417,7 @@
         }
       }
     }
+
   },
   "okDialog": {
     "title": "Notice",
