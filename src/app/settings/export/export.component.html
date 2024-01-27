@@ -29,9 +29,11 @@
         <h2>{{ t("settings.export.title") }}</h2>
         <mat-card class="proposal-card word-break small-card">
             <mat-card-content>
-            <div class="flex-center export">
-                {{ t("settings.export.hint") }}
-                <button mat-raised-button color="accent" (click)="export()">{{ t("settings.export.buttons.export")
+                <div class="flex-center export">
+                 {{ t("settings.export.hint") }}
+                 <br>
+                 <br>
+                <button mat-raised-button color="primary" (click)="export()">{{ t("settings.export.buttons.export")
                     }}</button>
             </div>
             </mat-card-content>
