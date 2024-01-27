@@ -42,18 +42,20 @@
       <hr>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button *ngIf="dialogRef" mat-raised-button mat-dialog-close>{{
-        t("unlockComponent.buttons.cancel")}}</button>
-      <button *ngIf="isNewUser()" mat-raised-button color="accent" (click)="gengerateNew()">{{
-        t("unlockComponent.buttons.generateKey")}}</button>
-      <button *ngIf="!isNewUser()" mat-raised-button color="accent" (click)="unlock()">{{
-        t("unlockComponent.buttons.unlock")}}</button>
-      <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="primary" (click)="lock()">{{
-        t("unlockComponent.buttons.closeWallet")}}</button>
-      <button *ngIf="isNewUser()" (click)="toggleNewUser(false)" mat-raised-button>{{
-        t("unlockComponent.buttons.existingUser")}}</button>
-      <button *ngIf="!isNewUser() && !walletService.isWalletReady" (click)="toggleNewUser(true)" mat-raised-button>{{
-        t("unlockComponent.buttons.newUser")}}</button>
-    </mat-dialog-actions>
+      <div class="text-center">
+        <button *ngIf="dialogRef" mat-raised-button mat-dialog-close>{{
+          t("unlockComponent.buttons.cancel")}}</button>
+        <button *ngIf="isNewUser()" mat-raised-button color="accent" (click)="gengerateNew()">{{
+          t("unlockComponent.buttons.generateKey")}}</button>
+        <button *ngIf="!isNewUser()" mat-raised-button color="accent" (click)="unlock()">{{
+          t("unlockComponent.buttons.unlock")}}</button>
+        <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="primary" (click)="lock()">{{
+          t("unlockComponent.buttons.closeWallet")}}</button>
+        <button *ngIf="isNewUser()" (click)="toggleNewUser(false)" mat-raised-button>{{
+          t("unlockComponent.buttons.existingUser")}}</button>
+        <button *ngIf="!isNewUser() && !walletService.isWalletReady" (click)="toggleNewUser(true)" mat-raised-button>{{
+          t("unlockComponent.buttons.newUser")}}</button>
+      </div>
+      </mat-dialog-actions>
     </div>
 </ng-container>
