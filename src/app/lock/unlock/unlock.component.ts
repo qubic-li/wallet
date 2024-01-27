@@ -33,6 +33,7 @@ export class UnLockComponent extends QubicDialogWrapper {
     this.newUser = this.walletService.getSeeds().length <= 0 && !this.walletService.publicKey;
   }
 
+
   isNewUser() {
     return this.newUser;
   }

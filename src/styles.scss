@@ -861,5 +861,32 @@ button{
   color: text;
 }
 
+.start_container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  text-align: center;
+}
+
+.logo-title{
+  border: 1px solid rgba(255, 255, 255, .33);
+  border-top-color: #fff;
+  border-radius: 5%;
+
+  max-width: 50%; 
+  height: auto; 
+  margin: 50px 0px 50px 0px;
+}
+
+@media (max-width: 900px) {
+  .logo-title{
+    max-width: 20%; 
+  }
+}
+
+.title{
+ text-align: center;
+}
 
 

@@ -7,8 +7,8 @@
         </button>
       </div>
       <div>
-        <img src="assets/logos/LogoFull_white.svg" class="logo" *ngIf="themService.isDarkTheme">
-        <img src="assets/logos/LogoFull_dark.svg" class="logo" *ngIf="!themService.isDarkTheme">
+        <img src="assets/logos/LogoFull_white.svg" class="logo" *ngIf="themeService.isDarkTheme">
+        <img src="assets/logos/LogoFull_dark.svg" class="logo" *ngIf="!themeService.isDarkTheme">
       </div>
       <div class="topIcons window-no-drag">       
         <qli-notifys></qli-notifys>                     
@@ -53,7 +53,7 @@
 
           <div class="version">
             <br>
-            <a href="#" (click)="themService.toggleTheme()">Theme Switch</a>
+            <a href="#" (click)="themeService.toggleTheme()">Theme Switch</a>
             <br><br>
             {{t("general.version", { version: version})}}<br>
             <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}</a><br>

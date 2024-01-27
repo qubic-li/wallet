@@ -41,7 +41,7 @@ export class NavigationComponent implements OnInit {
 
   constructor(private cd: ChangeDetectorRef, public us: UpdaterService,
     private transloco: TranslocoService, private _snackBar: MatSnackBar,
-    public themService: ThemeService, private breakpointObserver: BreakpointObserver,
+    public themeService: ThemeService, private breakpointObserver: BreakpointObserver,
     public walletService: WalletService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) {
 
   }
