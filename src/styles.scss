@@ -341,7 +341,7 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 div.copy {
   cursor: pointer;
   color: map-get($map: $mat-primary, $key: main);
-  // font-family: Consolas, Courier, sans-serif;
+  font-family: Consolas, Courier, sans-serif;
   width: 100%;
   word-wrap: break-word;
 }
