@@ -316,7 +316,7 @@ table, div, span, button, th, td, tr {
 
 mat-dialog-actions.mat-mdc-dialog-actions {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -847,10 +847,11 @@ mat-sidenav-content{
 
 button{
   width: 200px;
+  margin: 4px;
 }
 
 .cdk-overlay-pane {
-  max-width: 650px;
+  max-width: 750px;
 }
 
 .language-icon{
@@ -859,7 +860,6 @@ button{
   right: 10px; 
   color: text;
 }
-
 
 
 
