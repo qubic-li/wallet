@@ -1,5 +1,7 @@
 <ng-container *transloco="let t">
-  <h1>{{ t("assetsComponent.title") }}</h1>
+  <div *ngIf="assets.length > 0">
+    <h2>{{ "Alias de la Seed: " + seedAlias }}</h2>
+  </div>
   <mat-card class="asset-card">
     <div *ngIf="assets.length > 0">
 
@@ -69,6 +71,7 @@
     <div *ngIf="assets.length <= 0">
       {{ t("assetsComponent.noAssets") }}
     </div>
+    <div *ngIf="assets.length > 0">
     <mat-card-actions class="padding">
       <button mat-raised-button type="button" (click)="refreshData()">{{ t("assetsComponent.buttons.refresh") }}
       </button>
@@ -76,19 +79,20 @@
               (click)="openSendForm()">{{ t("assetsComponent.buttons.send") }}
       </button>
     </mat-card-actions>
+    </div>
   </mat-card>
 
   <ng-container *ngIf="showSendForm">
     <mat-card class="sendAssets-card">
       <mat-card-content>
         <h2>{{ t("assetsComponent.form.info") }}</h2>
-        <div class="transaction-fee"> {{ t("assetsComponent.form.fees") }} </div>
+        <div class="transaction-fee"> {{ t("assetsComponent.form.fees") }}</div>
 
         <form [formGroup]="sendForm" (ngSubmit)="onSubmitSendForm()">
           <div class="row">
             <div class="col">
               <mat-form-field appearance="fill" class="full-width">
-                <mat-label>{{ t("assetsComponent.form.select") }} </mat-label>
+                <mat-label>{{ t("assetsComponent.form.select") }}</mat-label>
                 <mat-select formControlName="assetSelect">
                   <mat-option *ngFor="let asset of assets" [value]="asset">
                     {{ asset.assetName }} ({{ asset.ownedAmount }})
@@ -103,10 +107,10 @@
           <div class="row">
             <div class="col">
               <mat-form-field class="full-width">
-                <mat-label>{{ t("assetsComponent.form.placeholder")}}</mat-label>
+                <mat-label>{{ t("assetsComponent.form.placeholder") }}</mat-label>
                 <input matInput formControlName="destinationAddress">
                 <mat-error *ngIf="sendForm.controls['destinationAddress'].hasError('required')">
-                  {{ t("assetsComponent.form.placeholder.error")}}
+                  {{ t("assetsComponent.form.placeholder.error") }}
                 </mat-error>
               </mat-form-field>
             </div>
@@ -139,15 +143,16 @@
           </div>
 
           <mat-card-actions class="padding">
-            <button mat-raised-button color="primary" type="submit" [disabled]="!sendForm.valid || balanceTooLow">
-              Envoyer
+            <button mat-raised-button color="accent" color="primary" type="submit"
+                    [disabled]="!sendForm.valid || balanceTooLow">
+              {{ t("assetsComponent.form.buttons.send") }}
             </button>
-            <button mat-raised-button color="accent" type="button" (click)="cancelSendForm()">
-              Annuler
+            <button mat-raised-button type="button" (click)="cancelSendForm()">
+              {{ t("assetsComponent.form.buttons.cancel") }}
             </button>
           </mat-card-actions>
           <div *ngIf="balanceTooLow" class="error-message">
-            Balance insuffisante.
+            {{ t("assetsComponent.form.buttons.error.balance") }}
           </div>
 
         </form>

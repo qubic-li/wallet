@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {QubicAsset} from "../services/api.model";
 import {ApiService} from "../services/api.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {WalletService} from "../services/wallet.service";
+import {ISeed} from "../model/seed";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-assets',
@@ -10,15 +13,18 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 
 export class AssetsComponent implements OnInit {
+
   displayedColumns: string[] = ['publicId', 'contractIndex', 'assetName', 'contractName', 'ownedAmount', 'possessedAmount', 'tick', 'reportingNodes'];
   public assets: QubicAsset[] = [];
+  public seedAlias: string = '';
 
   sendForm: FormGroup;
   showSendForm: boolean = false;
   balanceTooLow: boolean = false; // logic
 
 
-  constructor(private apiService: ApiService) {
+  constructor(private apiService: ApiService, private walletService: WalletService) {
+
     this.sendForm = new FormGroup({
       destinationAddress: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
@@ -26,7 +32,6 @@ export class AssetsComponent implements OnInit {
       assetSelect: new FormControl('', Validators.required),
     });
 
-    // Sécuriser les souscriptions avec des vérifications
     const amountControl = this.sendForm.get('amount');
     const assetSelectControl = this.sendForm.get('assetSelect');
 
@@ -63,24 +68,26 @@ export class AssetsComponent implements OnInit {
 
   ngOnInit() {
     this.loadAssets();
+    console.log("Hello: " + this.assets);
   }
 
   refreshData(): void {
      this.loadAssets();
   }
 
-  protected loadAssets(): void {
-    // TODO replace
-    const publicIds = ['id1', 'id2'];
+  loadAssets() {
 
-    this.apiService.getOwnedAssetsM(publicIds).subscribe(
-      (assets: QubicAsset[]) => {
+    const publicIds = this.walletService.getSeeds().map(seed => seed.publicId);
+    this.apiService.getOwnedAssets(publicIds).subscribe({
+      next: (assets: QubicAsset[]) => {
         this.assets = assets;
+        const associatedSeed = this.walletService.getSeed(publicIds[0]);
+        this.seedAlias = associatedSeed ? associatedSeed.alias : '';
       },
-      error => {
+      error: (error) => {
         console.error('Error when loading assets', error);
       }
-    );
+    });
   }
 
   openSendForm(): void {
@@ -102,6 +109,5 @@ export class AssetsComponent implements OnInit {
     this.showSendForm = false;
     this.sendForm.reset();
   }
-
 
 }

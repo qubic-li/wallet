@@ -88,7 +88,12 @@
       "amount.value.error": "Le montant doit être supérieur à 0",
       "amount.max.error": "Le montant ne peut pas dépasser la quantité détenue",
       "tick": "Tick",
-      "tick.error": "Le Tick est requis"
+      "tick.error": "Le Tick est requis",
+      "buttons": {
+        "send": "Envoyer",
+        "cancel": "Annuler",
+        "error.balance": "Balance insuffisante, vous devez avoir un minimum de 1,000,000 Qubic"
+      }
     },
     "noAssets": "Aucun asset disponible"
   },
