@@ -38,7 +38,8 @@ export class ExportComponent {
             panelClass: "error"
           });
         }else {
-          this.importDone = true;
+          this.importDone = true;          
+          window.location.reload();
         }
       }
     })
