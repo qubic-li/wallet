@@ -12,7 +12,7 @@
             "assets": "Assets"
         },
         "version": "Version {{version}} - beta",
-        "version.url": "qubic.li",
+        "version.url": "wallet.qubic.li",
         "copy.tooltip": "Copy",
         "error": "Error",
         "close": "close",
@@ -43,7 +43,7 @@
     },
     "notifyComponent": {
         "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
-        "saveYourKey": "Please store your wallet file in a safe place.",
+        "saveYourKey": "Please store your wallet unlock file in a safe place.",
         "qubicLiSync": "Sync your settings with qubic.li",
         "qubicOffline": "QUBIC network not connected",
         "qubicOnline": "Connected to the QUBIC network"
@@ -73,7 +73,7 @@
         "title.add": "Add Address",
         "title.edit": "Edit Address",
         "newSeedName": "Address-Name",
-        "seedWarning": "This 55-Chars are your Qubic Private Key (Seed)! Save it anywhere!",
+        "seedWarning": "IMPORTANT! This 55-Chars are your Qubic Private Key (Seed)! Save/store this seed at secure location. You may lose your funds if you do not have your seed(s) in backup! More info on this topic: 						https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups/ ",
         "form": {
             "alias": {
                 "placeholder": "Choose an own name for your address in order to better refer to it.",
@@ -134,12 +134,12 @@
     "unlockComponent": {
         "title": "Unlock wallet",
         "title.new": "Create a Wallet",
-        "welcomeMessage": "Welcome to the qubic.li Wallet.\nTo use this Wallet you must create a wallet file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
-        "reasonMessage": "To unlock your Wallet your wallet file is needed. This file is automatically deleted once this page is reloaded or closed.",
-        "choosePrivateKeyFile": "Choose wallet file",
+        "welcomeMessage": "Welcome to the Qubic Wallet.\nTo use this Wallet you must create a wallet unlock file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+        "reasonMessage": "To unlock your Wallet your wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
+        "choosePrivateKeyFile": "Choose wallet unlock file",
         "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
         "form": {
-            "file.error.required": "Wallet file required",
+            "file.error.required": "Wallet unlock file required",
             "password.error.required": "Wallet password required",
             "password.error.min": "Your password must have a minimum of 8 characters."
         },
@@ -159,19 +159,19 @@
     "lockComponent": {
         "title": "Close Wallet?",
         "forceDownload": {
-            "title": "Download wallet file",
-            "reason": "When you lock your Wallet your wallet file is automatically deleted. Without this wallet file no transactions can be made. Please be aware your wallet file is safely stored. Export it again in case of any doubt...",
+            "title": "Download wallet unlock file",
+            "reason": "When you lock your Wallet your wallet unlock file is automatically deleted. Without this wallet file no transactions can be made. Please be aware your wallet file is safely stored. Export it again in case of any doubt...",
             "buttons": {
                 "allOk": "I have my unlock file, thanks"
             }
         },
-        "reason": "It is paramount to safely store your wallet file. Please choose a strong password you won't forget and then click on \"save\".",
-        "warning": "I confirm that I have saved my wallet file.",
+        "reason": "It is paramount to safely store your wallet unlock file. Please choose a strong password you won't forget and then click on \"save\".",
+        "warning": "I confirm that I have saved my wallet unlock file.",
         "password.placeholder": "Password",
         "passwor.required": "Password required",
         "password.min": "Password must have a minimum of 8 characters.",
         "buttons": {
-            "savePrivateKey": "Save wallet file",
+            "savePrivateKey": "Save wallet unlock file",
             "closeWallet": "Lock Wallet",
             "enableExport": "Export",
             "cancel": "Cancel"
@@ -183,7 +183,7 @@
             "pleaseUnlock": "Please unlock your Wallet first",
             "storedForPropagation": "Your transaction ({{txid}}) has been stored for propagation",
             "failedToSend": "Your transaction could not be sent. Please try again later.",
-            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct unlock file (private key)??",
             "failedValidation": "We had validation errors. Please check the form."
         },
         "form": {
@@ -222,7 +222,7 @@
         "buttons": {
             "send": "Perform transaction",
             "reset": "Reset",
-            "loadPrivateKey": "Load wallet file"
+            "loadPrivateKey": "Load wallet unlock file file"
         }
     },
     "balanceComponent": {
@@ -260,15 +260,15 @@
         "import": {
             "title": "Import Settings",
             "doneMessage": "Import Successful",
-            "dropMessage": "Drop your config to import here",
-            "buttons.import": "Import Config",
+            "dropMessage": "Drop your address config file to import here",
+            "buttons.import": "Import address config file",
             "seedsMessage": "You are about to import {{amount}} seeds.",
             "goHomeLink": "Show imported Seeds"
         },
         "export": {
             "title": "Export Settings",
-            "hint": "Press the below button to download your current config. It contains your encrypted seeds. You also should have saved your private key.",
-            "buttons.export": "Export/Save Config"
+            "hint": "Press the below button to download your current address config file. It contains your encrypted seeds. You also should have saved your unlock file (private key).",
+            "buttons.export": "Export/Save Config File"
         }
     },
     "votingComponent": {
@@ -302,7 +302,7 @@
                 "create": "Create Proposal",
                 "publish": "Connect and Publish Proposal",
                 "reset": "Reset Form",
-                "loadPrivateKey": "Load wallet file",
+                "loadPrivateKey": "Load wallet unlock file",
                 "finish": "Show Proposals"
             },
             "form": {
@@ -348,7 +348,7 @@
             "unlock": "Please unlock your Wallet first",
             "storedForPropagation": "Your IPO ({{id}}) has been stored for propagation",
             "failedToSend": "Your IPO could not be sent. Pleas try again later.",
-            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+            "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct unlock file (private key)??",
             "failedToValidate": "We had validation errors. Please check the form."
         },
         "title": "Qubic IPO",
@@ -384,35 +384,6 @@
                     "max.tooltip": "Bid all available qus"
                 }
             }
-        }
-    },
-    "okDialog": {
-      "title": "Note",
-      "button": "Yes, I confirm.",
-      "messages": {
-        "tresorText": "Have you downloaded your vault file now? Please choose this vault file in the next step to open the wallet!"
-      }
-    },
-    "loadConfigComponent": {
-        "title": "Import Accounts",      
-        "buttons": {
-          "import": "Import",
-          "cancel": "Cancel"
-        },
-        "messages": {
-          "import": "If you already have a .config file containing your Public Keys, select it now and import it.",
-          "noImport": "If you do not yet have a .config file, create an account in the next section."
-        }
-    },
-    "exportConfigComponent": {
-        "title": "Export Accounts",
-        "buttons": {
-            "export": "Export",
-            "cancel": "Cancel"
-        },
-        "messages": {
-            "export": "You have modified your account inventory. Be sure to download your current configuration so you can import it later.",
-            "info": "It contains your encrypted seeds."
         }
     }
 }
