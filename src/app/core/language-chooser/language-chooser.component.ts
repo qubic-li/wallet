@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { TranslocoService } from '@ngneat/transloco';
-
 
 @Component({
   selector: 'qli-language-chooser',
   templateUrl: './language-chooser.component.html',
   styleUrls: ['./language-chooser.component.scss']
 })
-export class LanguageChooserComponent {
+export class LanguageChooserComponent implements OnInit {
 
   browserLanguage = navigator.language.split('-')[0];
   supportedLanguagesDictionary: { [key: string]: string } = {
@@ -21,14 +20,19 @@ export class LanguageChooserComponent {
     'pt': 'Português',
   };
 
-  selected: string;
+  public selected: string = "en"; 
 
   constructor(public translocoService: TranslocoService, public dialog: MatDialog) {
+    // Hier im Konstruktor keine Operationen durchführen
+  }
+
+  ngOnInit(): void {
     if (Object.keys(this.supportedLanguagesDictionary).includes(this.browserLanguage)) {
       this.selected = this.browserLanguage;
     } else {
       this.selected = 'en';
     }
+    // Den Transloco-Service im ngOnInit initialisieren
     this.translocoService.setActiveLang(this.selected);
   }
 

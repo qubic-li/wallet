@@ -10,17 +10,18 @@
         <img src="assets/logos/LogoFull_white.svg" class="logo" *ngIf="themService.isDarkTheme">
         <img src="assets/logos/LogoFull_dark.svg" class="logo" *ngIf="!themService.isDarkTheme">
       </div>
-      <div class="topIcons window-no-drag">
+      <div class="topIcons window-no-drag">       
+        <qli-notifys></qli-notifys>                     
         <div class="topIcons" *ngIf="walletService.isWalletReady && !walletService.configError">
-          <div class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
-              [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() | number: '1.0-0' }}</span></div>
-          <qli-notifys></qli-notifys>
+          <div *ngIf="!mobileQuery.matches"class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
+            [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() | number: '1.0-0' }}</span>
+          </div>
           <qli-lock></qli-lock>
         </div>
-        <button *ngIf="showMinimize" (click)="minimize()"
-          mat-icon-button><mat-icon>minimize</mat-icon></button>
+        <qli-language-chooser></qli-language-chooser>
+        <button *ngIf="showMinimize" (click)="minimize()" mat-icon-button><mat-icon>minimize</mat-icon></button>
         <button [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
-        <button [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>
+        <button [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>   
       </div>
     </mat-toolbar>
     <div *ngIf="walletService.configError" class="open-wallet-screen">
@@ -51,7 +52,6 @@
         <div>
 
           <div class="version">
-            <qli-language-chooser></qli-language-chooser>
             <br>
             <a href="#" (click)="themService.toggleTheme()">Theme Switch</a>
             <br><br>
@@ -65,7 +65,6 @@
 
       <mat-sidenav-content>
         <router-outlet></router-outlet>  
-        <qli-language-chooser></qli-language-chooser>
       </mat-sidenav-content>
     </mat-sidenav-container>
 
