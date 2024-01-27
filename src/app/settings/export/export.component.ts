@@ -17,11 +17,11 @@ export class ExportComponent {
 
   public fileError: string = "";
   public configToImport: IConfig | undefined;
-  public isMobile = false;
+  public isMobile = true;
   public importDone = false;
 
   constructor (private walletService: WalletService, public dialog: MatDialog,  private _snackBar: MatSnackBar, private transloco: TranslocoService, private deviceService: DeviceDetectorService){
-    this.isMobile = deviceService.isMobile();
+
   }
 
   

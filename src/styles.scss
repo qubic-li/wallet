@@ -889,4 +889,15 @@ button{
  text-align: center;
 }
 
+.small-card{
+  width: 380px;
+}
+
+.mat-mdc-card {
+  // background-color: $light-bg-darker-5 !important;
+  border-color: $light-bg-darker-30 !important;
+  box-shadow: $light-bg-darker-30 !important;
+  --mdc-elevated-card-container-elevation:  0px 2px 1px -1px rgba(0, 0, 0, 0.5), 0px 1px 1px 0px rgba(0, 0, 0, 0.5), 0px 1px 3px 0px rgba(0, 0, 0, 0.5) !important;
+}
+
 

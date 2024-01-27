@@ -1,13 +1,13 @@
-<ng-container *transloco="let t">    
+<ng-container *transloco="let t">
+  <div class="content_container">
     <h1>{{ t("general.navigation.settings") }}</h1>
-    <div class="content_container">
-    <mat-tab-group dynamicHeight="true">
-        <mat-tab label="General">
-            <app-settings-general></app-settings-general>
-        </mat-tab>
-        <mat-tab label="Im-/Export">
-            <app-export></app-export>
-        </mat-tab>
-    </mat-tab-group>
-    </div>
+    <app-export></app-export>
+    <br>    
+    <h2>{{ t("settings.general.title") }}</h2>
+    <mat-card class="proposal-card word-break small-card">
+      <mat-card-content>
+        <app-settings-general></app-settings-general>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </ng-container>
