@@ -108,6 +108,7 @@
     }
   },
   "seedOverviewComponent": {
+    "title": "Konten",
     "addSeedButton": "Konto hinzufügen",
     "importButton": "Import",
     "exportButton": "Export",

@@ -1,5 +1,6 @@
-<ng-container *transloco="let t">
-
+<ng-container *transloco="let t">    
+    <h1>{{ t("general.navigation.settings") }}</h1>
+    <div class="content_container">
     <mat-tab-group dynamicHeight="true">
         <mat-tab label="General">
             <app-settings-general></app-settings-general>
@@ -8,4 +9,5 @@
             <app-export></app-export>
         </mat-tab>
     </mat-tab-group>
+    </div>
 </ng-container>

@@ -1,22 +1,17 @@
 <ng-container *transloco="let t">
   <div class="content_container">
-    <div>
-      <button
-        mat-raised-button
-        aria-label="Add Seed"
-        title="Add Seed"
-        (click)="addSeed()"
-      >
-        <mat-icon>add_circle</mat-icon>
-        {{ t("seedOverviewComponent.addSeedButton") }}
-      </button>
-    </div>
+    <h1>{{ t("seedOverviewComponent.title") }}</h1>
 
     <mat-form-field>
       <mat-label>{{ t("seedOverviewComponent.search.label") }}</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input />
     </mat-form-field>
-
+    <div>
+      <button mat-raised-button aria-label="Add Seed" title="Add Seed" (click)="addSeed()">
+        <mat-icon>add_circle</mat-icon>
+        {{ t("seedOverviewComponent.addSeedButton") }}
+      </button>
+    </div>
     <div class="mobileOnly seedList">
       <mat-card class="proposal-card word-break" *ngFor="let seed of dataSource.filteredData">
         <mat-card-content>

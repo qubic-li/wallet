@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-
+    <div class="content_container">
     <h1>{{ t("paymentComponent.title") }}</h1>
 
     <form [formGroup]="transferForm" novalidate (ngSubmit)="onSubmit()">
@@ -132,4 +132,5 @@
             </mat-card-actions>
         </mat-card>
     </form>
+    </div>
 </ng-container>
