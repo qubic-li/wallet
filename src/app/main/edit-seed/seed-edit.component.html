@@ -43,7 +43,7 @@
           <mat-icon>shuffle</mat-icon>
         </button>
       </div>
-      <div *ngIf="getPublicId()" class="puglicIdView">
+      <div *ngIf="getPublicId()" class="puglicIdView word-break">
         <strong>{{ t("seedEditComponent.publicIdMessage")}}</strong><br>
         <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="getPublicId()">{{getPublicId()}}</div>
         <div *ngIf="!walletService.privateKey" class="keywarning">
