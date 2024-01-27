@@ -73,7 +73,7 @@
         "title.add": "Add Address",
         "title.edit": "Edit Address",
         "newSeedName": "Address-Name",
-        "seedWarning": "IMPORTANT! This 55-Chars are your Qubic Private Key (Seed)! Save/store this seed at secure location. You may lose your funds if you do not have your seed(s) in backup! More info on this topic: 						https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups/ ",
+        "seedWarning": "<b>IMPORTANT! This 55-Chars are your Qubic Private Key (Seed)! Save/store this seed at secure location.<br>You may lose your funds if you do not have your seed(s) in backup!<br>More info on this topic:</b> <a href=\"https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups\" target=\"_blank\">https://unchained.com/blog/how-to-store-bitcoin-seed-phrase-backups</a> ",
         "form": {
             "alias": {
                 "placeholder": "Choose an own name for your address in order to better refer to it.",

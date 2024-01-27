@@ -19,7 +19,7 @@
         </mat-error>
       </mat-form-field>
       <div class="flex" class="danger">
-        <mat-icon>warning</mat-icon> {{ t("seedEditComponent.seedWarning") }} <mat-icon>warning</mat-icon>
+        <mat-icon>warning</mat-icon><div [innerHTML]="t('seedEditComponent.seedWarning')"></div>  <mat-icon>warning</mat-icon>
       </div>
       <div class="seedInput" *ngIf="isNew">
         
