@@ -391,28 +391,28 @@
         "title": "Notice",
         "button": "Yes, I confirm.",
         "messages": {
-            "tresorText": "Have you downloaded your Tresor file now? Please select this Tresor file in the next step to open the wallet!"
+            "tresorText": "Have you downloaded your wallet unlock file now? Please select this wallet unlock file in the next step to open the wallet!"
         }
     },
     "loadConfigComponent": {
-        "title": "Import Accounts",
+        "title": "Import Addresses",
         "buttons": {
             "import": "Import",
-            "cancel": "Start Without Accounts"
+            "cancel": "Start Without Addresses"
         },
         "messages": {
-            "import": "If you already have a .config file containing your PublicKeys, you should select and import it now.",
-            "noImport": "If you do not yet have a .config file, create an account in the next section."
+            "import": "If you already have a wallet addres config file containing your PublicKeys, you should select and import it now.",
+            "noImport": "If you do not yet have a wallet address config file, create an account in the next section."
         }
     },
     "exportConfigComponent": {
-        "title": "Export Accounts",
+        "title": "Export wallet address config",
         "buttons": {
             "export": "Export",
             "cancel": "Cancel"
         },
         "messages": {
-            "export": "You have modified your account inventory. Be sure to download your current configuration so you can import it later.",
+            "export": "You have modified your account inventory. Be sure to download your current wallet address config so you can import it later.",
             "info": "It contains your encrypted seeds."
         }
     }
