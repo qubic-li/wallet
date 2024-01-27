@@ -5,9 +5,6 @@ form {
     flex-direction: column;
     flex-wrap: wrap;
     row-gap: 15px;
-    mat-form-field {
-        min-width:350px;
-    }
 }
 .file-input {
     display: none;

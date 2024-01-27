@@ -1,4 +1,6 @@
 <ng-container *transloco="let t">
+  
+  <div class="content_container">
   <h2 mat-dialog-title *ngIf="!isNewUser()">{{ t("unlockComponent.title")}}</h2>
   <h2 mat-dialog-title *ngIf="isNewUser()">{{ t("unlockComponent.title.new")}}</h2>
   <mat-dialog-content>
@@ -46,4 +48,5 @@
     <button *ngIf="!isNewUser() && !walletService.isWalletReady" (click)="toggleNewUser(true)" mat-raised-button>{{
       t("unlockComponent.buttons.newUser")}}</button>
   </mat-dialog-actions>
+  </div>
 </ng-container>
