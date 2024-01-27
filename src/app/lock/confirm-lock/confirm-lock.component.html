@@ -1,5 +1,6 @@
 <ng-container *transloco="let t">
   <div class="start_container">
+    <form [formGroup]="exportForm" novalidate (ngSubmit)="onSubmit()">
 <h2 mat-dialog-title>
   <span *ngIf="keyDownload"> {{ t("lockComponent.forceDownload.title")}}</span>
   <span *ngIf="!keyDownload"> {{ t("lockComponent.title")}}</span>
@@ -17,7 +18,6 @@
       <hr>      
       <mat-icon>warning</mat-icon> {{ t("lockComponent.warning")}}
       <hr>
-      <form [formGroup]="exportForm" novalidate (ngSubmit)="onSubmit()">
         <mat-form-field class="full-width">
           <input matInput placeholder="{{ t('lockComponent.password.placeholder') }}" formControlName="password" type="password">          
         </mat-form-field>        
@@ -27,16 +27,16 @@
         <mat-error *ngIf="exportForm.controls['password'].hasError('minlength')">
           {{ t("lockComponent.password.min")}}
         </mat-error>
-      </form>
-    </div>
-</mat-dialog-content>
-<mat-dialog-actions>
-  <div class="text-center">
-    <button mat-raised-button color="primary">{{ t("lockComponent.buttons.savePrivateKey") }}</button>
-    <button mat-raised-button  color="accent" mat-dialog-close *ngIf="keyDownload">  {{ t("lockComponent.forceDownload.buttons.allOk")}}</button>
-    <button mat-raised-button  color="primary" (click)="closeWallet()" *ngIf="!keyDownload"> {{ t("lockComponent.buttons.closeWallet")}}</button>
-    <button mat-raised-button  mat-dialog-close *ngIf="!keyDownload"> {{ t("lockComponent.buttons.cancel")}}</button>
-  </div>
-  </mat-dialog-actions>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <div class="text-center">
+        <button mat-raised-button color="primary">{{ t("lockComponent.buttons.savePrivateKey") }}</button>
+        <button mat-raised-button  color="accent" mat-dialog-close *ngIf="keyDownload">  {{ t("lockComponent.forceDownload.buttons.allOk")}}</button>
+        <button mat-raised-button  color="primary" (click)="closeWallet()" *ngIf="!keyDownload"> {{ t("lockComponent.buttons.closeWallet")}}</button>
+        <button mat-raised-button  mat-dialog-close *ngIf="!keyDownload"> {{ t("lockComponent.buttons.cancel")}}</button>
+      </div>
+    </mat-dialog-actions>
+  </form>
 </div>
 </ng-container>
