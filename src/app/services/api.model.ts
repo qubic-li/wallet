@@ -57,14 +57,14 @@ export interface NetworkBalance {
 }
 
 
-export interface BallotDto { 
+export interface BallotDto {
   computorIndex?: number;
   computorId?: string | null;
   shortCode?: string | null;
   vote?: number;
 }
 
-export interface ProposalDto { 
+export interface ProposalDto {
   status: number;
   url?: string | null;
   computorIndex?: number;
@@ -90,7 +90,7 @@ export interface ProposalDto {
   tickForPublish: number;
 }
 
-export interface ProposalCreateRequest { 
+export interface ProposalCreateRequest {
   computorId: string | null;
   title: string | null;
   description: string | null;
@@ -102,39 +102,39 @@ export interface ProposalCreateRequest {
   option6?: string | null;
   option7?: string | null;
 }
-export interface ProposalCreateResponse { 
+export interface ProposalCreateResponse {
   url: string;
   id: string;
   computorIndex: number;
   currentProtocol: number;
 }
 
-export interface ContractDto { 
+export interface ContractDto {
   id: string;
   index: number;
   name: string;
   bidOverview: IpoBidOverview;
 }
 
-export interface IpoBid { 
+export interface IpoBid {
   publicKey: string;
   computorId: string;
   price: number;
   positionIndex: number;
 }
 
-export interface IpoBidOverview { 
+export interface IpoBidOverview {
   index: number;
   tick: number;
   bids: IpoBid[];
 }
 
-export interface PeerDto { 
+export interface PeerDto {
   ipAddress: string;
   currentTick: number;
   lastChange: Date;
 }
-export interface QubicAsset { 
+export interface QubicAsset {
   publicId: string;
   contractIndex: number;
   assetName: string;
@@ -142,5 +142,6 @@ export interface QubicAsset {
   ownedAmount: number;
   possessedAmount: number;
   tick: number;
+  reportingNodes: string[]; // New field to report source node
 }
 

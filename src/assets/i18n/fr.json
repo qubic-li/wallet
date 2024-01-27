@@ -57,11 +57,40 @@
     }
   },
   "assetsComponent": {
-    "title": "Actifs de {{name}}",
-    "tick": "Valide pour le Tick {{tick}}",
+    "title": "Assets de {{name}}",
+    "overview": {
+      "title": "Vue d'ensemble des Assets"
+    },
+    "table": {
+      "publicId": "ID Public",
+      "contractIndex": "Index du Contrat",
+      "assetName": "Nom de l'Asset",
+      "contractName": "Nom du Contrat",
+      "ownedAmount": "Quantité Possédée",
+      "possessedAmount": "Quantité en Possession",
+      "tick": "Valide pour le Tick {{tick}}",
+      "reportingNodes": "Nœuds Rapporteurs"
+    },
     "buttons": {
-      "close": "Fermer"
-    }
+      "close": "Fermer",
+      "refresh": "Rafraichir",
+      "send": "Envoyer"
+    },
+    "form": {
+      "info": "Formulaire d'envoi d'Assets",
+      "fees": "Frais d'envoi fixes : 1 000 000 Qubic",
+      "select": "Sélectionner l'Asset",
+      "select.error": "La sélection de l'asset est requise",
+      "placeholder": "ID de l'adresse du destinataire",
+      "placeholder.error": "Un seed de 55 caractères est requis.",
+      "amount": "Montant à envoyer",
+      "amount.error": "Le montant est requis",
+      "amount.value.error": "Le montant doit être supérieur à 0",
+      "amount.max.error": "Le montant ne peut pas dépasser la quantité détenue",
+      "tick": "Cocher",
+      "tick.error": "La coche est requise"
+    },
+    "noAssets": "Aucun asset disponible"
   },
   "qrReceiveComponent": {
     "title": "Recevoir un paiement",
@@ -394,7 +423,7 @@
     }
   },
   "loadConfigComponent": {
-    "title": "Importer des comptes",      
+    "title": "Importer des comptes",
     "buttons": {
       "import": "Importer",
       "cancel": "Annuler"

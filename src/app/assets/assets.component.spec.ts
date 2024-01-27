@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AssetsComponent } from './assets.component';
+import {size} from "@ngneat/transloco";
 
 describe('AssetsComponent', () => {
   let component: AssetsComponent;
@@ -19,3 +20,4 @@ describe('AssetsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

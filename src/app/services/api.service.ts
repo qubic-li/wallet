@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AuthResponse, BalanceResponse, ContractDto, CurrentTickResponse, NetworkBalance, PeerDto, ProposalCreateRequest, ProposalCreateResponse, ProposalDto, QubicAsset, SubmitTransactionRequest, SubmitTransactionResponse, Transaction } from './api.model';
 import { HttpClient, HttpHeaders, HttpParams,
-  HttpResponse, HttpEvent, HttpParameterCodec, HttpContext 
+  HttpResponse, HttpEvent, HttpParameterCodec, HttpContext
  }       from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { AuthInterceptor } from './auth-interceptor';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs';
+import {map, Observable, of} from 'rxjs';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -21,14 +21,14 @@ export class ApiService {
   private basePath = environment.apiUrl;
   private authenticationActive = false;
 
-  constructor(protected httpClient: HttpClient, private tokenSerice: TokenService, private authInterceptor: AuthInterceptor) { 
+  constructor(protected httpClient: HttpClient, private tokenSerice: TokenService, private authInterceptor: AuthInterceptor) {
     this.reAuthenticate();
   }
 
   public reAuthenticate() {
     if(this.authenticationActive)
       return;
-    
+
 
     this.authenticationActive = true;
     // temp Login für aktuelle verwendung mit public user
@@ -107,6 +107,39 @@ export class ApiService {
                 responseType: 'json'
             }
         );
+  }
+  public getOwnedAssetsM(publicIds: string[]): Observable<QubicAsset[]> {
+    // Données fictives reçues de votre équipe
+    const mockData: QubicAsset[] = [
+      {
+        publicId: "XADDMQQCBZLTDDGKZMANEANHCKHDTMUIHZDQUCOYSGDYMLKYVGFUIUKHTUXH",
+        contractIndex: 1,
+        assetName: "QX",
+        contractName: "QX",
+        ownedAmount: 10,
+        possessedAmount: 10,
+        tick: 12188262,
+        "reportingNodes": [
+          "91.210.226.53",
+          "212.41.28.55"
+        ]
+      },
+      {
+        publicId: "XADDMQQCBZLTDDGKZMANEANHCKHDTMUIHZDQUCOYSGDYMLKYVGFUIUKHTUXH",
+        contractIndex: 1,
+        assetName: "QTRY",
+        contractName: "QTRY",
+        ownedAmount: 42,
+        possessedAmount: 42,
+        tick: 12188262,
+        "reportingNodes": [
+          "91.210.226.53",
+          "212.41.28.55"
+        ]
+      }
+    ];
+
+    return of(mockData); // Retourner les données fictives sous forme d'Observable
   }
 
   public getCurrentIpoBids(publicIds: string[]) {
