@@ -142,7 +142,8 @@
         "form": {
             "file.error.required": "Wallet unlock file required",
             "password.error.required": "Wallet password required",
-            "password.error.min": "Your password must have a minimum of 8 characters."
+            "password.error.min": "Your password must have a minimum of 8 characters.",            
+            "password.error.wrong": "Your password is incorrect."
         },
         "buttons": {
             "cancel": "Cancel",

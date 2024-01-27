@@ -20,6 +20,7 @@ export class UnLockComponent extends QubicDialogWrapper {
 
   public file: File | null = null;
   public newUser = false;
+  public pwdWrong = false;
 
   importForm = this.fb.group({
     password: [null, [Validators.required, Validators.minLength(8)]],
@@ -33,6 +34,10 @@ export class UnLockComponent extends QubicDialogWrapper {
     this.newUser = this.walletService.getSeeds().length <= 0 && !this.walletService.publicKey;
   }
 
+  onPasswordChange() {
+    this.pwdWrong = false; 
+  }
+  
 
   isNewUser() {
     return this.newUser;
@@ -90,9 +95,11 @@ export class UnLockComponent extends QubicDialogWrapper {
 
   unlock() {
     if (this.importForm.valid && this.importForm.controls.password.value && this.file) {
-      this.file.arrayBuffer().then(b => {
+      this.file.arrayBuffer().then(b => {        
+        this.pwdWrong = true;
         this.walletService.unlock(b, (<any>this.importForm.controls.password.value)).then(r => {
           if (r) {
+            this.pwdWrong = false;
             this.walletService.isWalletReady = true;
             this.dialogRef?.close();
           } else {
