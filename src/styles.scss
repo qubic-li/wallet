@@ -3,10 +3,29 @@
 
 @import 'vars';
 
-// @font-face {
-//   font-family: 'PPTelegraf';
-//   src: url('/src/assets/fonts/PPTelegraf-Regular.ttf') format('truetype');
-// }
+
+//http://localhost:4200/src/assets/fonts/PPTelegraf-Regular.ttf 
+//http://localhost:4200/src/img/qubic.li-slogan-white.png
+@font-face {
+  font-family: 'PPTelegraf-Bold';
+  src: url('/assets/fonts/PPTelegraf-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'PPTelegraf-Light';
+  src: url('/assets/fonts/PPTelegraf-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'PPTelegraf-Medium';
+  src: url('/assets/fonts/PPTelegraf-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'PPTelegraf-Regular';
+  src: url('/assets/fonts/PPTelegraf-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'PPTelegraf-SemiBold';
+  src: url('/assets/fonts/PPTelegraf-SemiBold.ttf') format('truetype');
+}
 
 
 //**********************************
@@ -270,7 +289,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  
+  font-family: 'PPTelegraf-Regular';
   font-size:1.0em;
 }
 
@@ -278,10 +297,10 @@ body {
 body {
   margin: 0;  
   padding: 0;
-  // font-family: Consolas, Courier, sans-serif;
+  font-family: 'PPTelegraf-Regular';
 }
 table, div, span, button, th, td, tr {
-   font-family: 'PPTelegraf';
+   font-family: 'PPTelegraf-Regular';
 }
 
 .mdc-list-item__primary-text {
