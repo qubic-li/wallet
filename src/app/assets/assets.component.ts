@@ -232,8 +232,6 @@ export class AssetsComponent implements OnInit {
 
     await tx.build(signSeed);
 
-    console.log("TX", tx);
-
     const publishResult = await this.transactionService.publishTransaction(tx);
 
     if (publishResult && publishResult.success) {
