@@ -110,6 +110,7 @@ export class ApiService {
   }
 
 
+
   public getCurrentIpoBids(publicIds: string[]) {
     let localVarPath = `/Wallet/CurrentIpoBids`;
     return this.httpClient.request<Transaction[]>('post', `${this.basePath}${localVarPath}`,

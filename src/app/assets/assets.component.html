@@ -134,9 +134,17 @@
             <div class="col">
               <mat-form-field appearance="fill" class="full-width">
                 <mat-label>{{ t("assetsComponent.form.tick") }}</mat-label>
-                <input matInput type="number" formControlName="tick">
+                <input matInput type="number" formControlName="tick" [readonly]="!tickOverwrite">
+                <button matSuffix mat-icon-button
+                        matTooltip="{{ t('assetsComponent.form.tick.tooltip') }}"
+                        (click)="handleTickEdit()" type="button" [class]="{tickOverwrite: tickOverwrite}">
+                  <mat-icon>tune</mat-icon>
+                </button>
                 <mat-error *ngIf="sendForm.controls['tick'].hasError('required')">
                   {{ t("assetsComponent.form.tick.error") }}
+                </mat-error>
+                <mat-error *ngIf="sendForm.controls['tick'].hasError('min')">
+                  {{ t("assetsComponent.form.tick.min", {currentTick: currentTick}) }}
                 </mat-error>
               </mat-form-field>
             </div>
