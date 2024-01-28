@@ -70,6 +70,7 @@ import { VisibilityService } from './services/visibility.service';
 import { AssetsDialog } from './main/assets/assets.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { AssetsComponent } from './assets/assets.component';
+import { TransactionService } from './services/transaction.service';
 
 
 
@@ -146,8 +147,18 @@ export const httpInterceptorProviders = [
     MatMenuModule
   ],
 
-  providers: [VisibilityService, TokenService, WalletService, AuthInterceptor, ApiService, UpdaterService, QubicService, DecimalPipe, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
-    httpInterceptorProviders
+  providers: [
+      VisibilityService,
+      TokenService,
+      WalletService,
+      AuthInterceptor,
+      ApiService,
+      UpdaterService,
+      QubicService,
+      DecimalPipe,
+      { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
+      httpInterceptorProviders,
+      TransactionService
   ],
   bootstrap: [AppComponent]
 })

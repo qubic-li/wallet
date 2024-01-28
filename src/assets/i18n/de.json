@@ -27,7 +27,8 @@
         "notConnected": "Not connected to the Qubic Network. Please Connect first.",
         "refreshRequested": "Refresh has been requested",
         "refreshFailed": "Refresh failed, please try again later",
-        "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}."
+        "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}.",
+        "timeoutTryAgain": "We run into a timeout. Please try again."
     }
   },
   "payment": {

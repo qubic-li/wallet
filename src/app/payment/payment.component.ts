@@ -17,6 +17,7 @@ import { RequestResponseHeader } from 'qubic-ts-library/dist/qubic-communication
 import { QubicConnector } from 'qubic-ts-library/dist/QubicConnector';
 import { QubicPackageBuilder } from 'qubic-ts-library/dist/QubicPackageBuilder';
 import { QubicPackageType } from 'qubic-ts-library/dist/qubic-communication/QubicPackageType';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-wallet',
@@ -55,6 +56,7 @@ export class PaymentComponent implements OnInit {
 
   constructor(
     private t: TranslocoService,
+    private transactionService: TransactionService,
     private router: Router, private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     if (state && state['template']) {
@@ -118,45 +120,7 @@ export class PaymentComponent implements OnInit {
     this.us.forceUpdateCurrentTick();
   }
 
-  private directPush(tx: QubicTransaction): void {
-    
-    // create header
-    const header = new RequestResponseHeader(QubicPackageType.BROADCAST_TRANSACTION, tx.getPackageSize());
-    const builder = new QubicPackageBuilder(header.getSize());
-    builder.add(header);
-    builder.add(tx);
-    const data = builder.getData();
-
-    //return;
-    let transactionSent = false;
-    const qubicConnector = new QubicConnector(this.walletService.getRandomWebBridgeUrl());
-    qubicConnector.onReady = () => {
-      qubicConnector.connect(this.api.currentPeerList.getValue()[0].ipAddress);
-    }
-    qubicConnector.onPeerConnected = () =>{
-      // send transaction
-      if(qubicConnector.sendPackage(data)){
-        transactionSent = true;
-        this.us.addQubicTransaction(tx);
-        this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: "" }) , this.t.translate('general.close'), {
-          duration: 10000,
-        });
-        this.router.navigate(['/']);
-      }else{
-        this._snackBar.open(this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
-          duration: 5000,
-          panelClass: "error"
-        });
-      }
-      this.isBroadcasting = false;
-      qubicConnector.stop();
-    }
-    qubicConnector.onPackageReceived = d =>{
-    }
-    qubicConnector.start();
-  }
-
-  onSubmit(): void {
+  async onSubmit() {
     if (!this.walletService.privateKey) {
       this._snackBar.open(this.t.translate('paymentComponent.messages.pleaseUnlock'), this.t.translate('general.close'), {
         duration: 5000,
@@ -176,32 +140,27 @@ export class PaymentComponent implements OnInit {
                 tick: data - this.walletService.getSettings().tickAddition, // fake because we add it afterwards; todo: do that right!
               });
             }
-          })).subscribe(tick => {
+          })).subscribe(async tick => {
             var qtx = new QubicTransaction();
-            qtx.setSourcePublicKey(this.transferForm.controls.sourceId.value!).setDestinationPublicKey(destinationId!).setAmount(this.transferForm.controls.amount.value!).setTick(tick.tick+this.walletService.getSettings().tickAddition).build(s).then(tx => {
-                if(this.walletService.getSettings().useBridge){
-                  this.directPush(qtx); // todo: refactor call tree
-                }else{
-                  // hack to get uintarray to array for sending to api
-                  // proxy the tx request throught qli
-                  this.api.submitTransaction({ SignedTransaction: this.walletService.arrayBufferToBase64(tx) }).subscribe(r => {
-                    if (r && r.id) {
-                      this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: r.id }) , this.t.translate('general.close'), {
-                        duration: 10000,
-                      });
-                      this.isBroadcasting = false;
-                      this.us.loadCurrentBalance();
-                      this.router.navigate(['/']);
-                    }
-                  }, er => {
-                    this._snackBar.open(this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
-                      duration: 5000,
-                      panelClass: "error"
-                    });
-                    this.isBroadcasting = false;
-                  });
-                }
+            await qtx.setSourcePublicKey(this.transferForm.controls.sourceId.value!).setDestinationPublicKey(destinationId!).setAmount(this.transferForm.controls.amount.value!).setTick(tick.tick+this.walletService.getSettings().tickAddition).build(s);
+            
+            var publishResult = await this.transactionService.publishTransaction(qtx);
+
+            if(publishResult && publishResult.success){
+              this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: "" }) , this.t.translate('general.close'), {
+                duration: 10000,
               });
+              this.isBroadcasting = false;
+              this.router.navigate(['/']);
+            }
+            else
+            {
+              this._snackBar.open(publishResult.message ?? this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
+                duration: 10000,
+                panelClass: "error"
+              });
+              this.isBroadcasting = false;
+            }
           });
       }).catch(e => {
         this._snackBar.open(this.t.translate('paymentComponent.messages.failedToDecrypt'), this.t.translate('general.close'), {

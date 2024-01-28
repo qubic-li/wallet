@@ -27,7 +27,8 @@
       "notConnected": "No conectado a la red Qubic. Por favor, conéctese.",
       "refreshRequested": "Actualización solicitada",
       "refreshFailed": "Falló la actualización, por favor intente más tarde",
-      "balanceReceived": "La red indica un saldo de {{balance}} QUBIC para {{publicId}}."
+      "balanceReceived": "La red indica un saldo de {{balance}} QUBIC para {{publicId}}.",
+      "timeoutTryAgain": "We run into a timeout. Please try again."
     }
   },
   "payment": {
