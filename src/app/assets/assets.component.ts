@@ -21,7 +21,7 @@ export class AssetsComponent implements OnInit {
 
   displayedColumns: string[] = ['publicId', 'contractIndex', 'assetName', 'contractName', 'ownedAmount', 'possessedAmount', 'tick', 'reportingNodes'];
   public assets: QubicAsset[] = [];
-  public seedAlias: string = '';
+  
 
   sendForm: FormGroup;
   showSendForm: boolean = false;
@@ -76,22 +76,35 @@ export class AssetsComponent implements OnInit {
   }
 
   refreshData(): void {
-     this.loadAssets();
+     this.loadAssets(true);
   }
 
-  loadAssets() {
+  loadAssets(force: boolean = false) {
 
     const publicIds = this.walletService.getSeeds().map(seed => seed.publicId);
-    this.apiService.getOwnedAssets(publicIds).subscribe({
-      next: (assets: QubicAsset[]) => {
-        this.assets = assets;
-        const associatedSeed = this.walletService.getSeed(publicIds[0]);
-        this.seedAlias = associatedSeed ? associatedSeed.alias : '';
-      },
-      error: (error) => {
-        console.error('Error when loading assets', error);
-      }
-    });
+
+    this.assets = force ? [] : this.walletService.getSeeds().flatMap(m => m.assets).filter(f => f).map(m => <QubicAsset>m);
+
+    console.log("ASSETS", this.assets);
+
+
+    // todo: if we load assets they should be stored in walletservice => use central function to load assets
+
+    // only load assets from API if they were not already loaded before or it is empty
+    if(this.assets.length <= 0){
+      this.apiService.getOwnedAssets(publicIds).subscribe({
+        next: (assets: QubicAsset[]) => {
+          this.assets = assets;
+        },
+        error: (error) => {
+          console.error('Error when loading assets', error);
+        }
+      });
+    }
+  }
+
+  getSeedAlias(publicId: string) {
+    return this.walletService.getSeed(publicId)?.alias;
   }
 
   openSendForm(): void {
