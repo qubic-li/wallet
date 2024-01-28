@@ -184,8 +184,8 @@ export class MainComponent implements AfterViewInit {
     })
   }
 
-  openExportDialog() {
-    const dialogRef = this.dialog.open(ExportConfigDialog, { disableClose: true, });
+  openExportDialog(disableClose = true) {
+    const dialogRef = this.dialog.open(ExportConfigDialog, { disableClose: disableClose, });
     dialogRef.afterClosed().subscribe(() => {
       // do anything :)
     });

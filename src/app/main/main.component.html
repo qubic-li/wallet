@@ -6,10 +6,18 @@
       <input matInput (keyup)="applyFilter($event)" #input />
     </mat-form-field>
     <div>
-      <button color="accent" mat-raised-button aria-label="Add Seed" title="Add Seed" (click)="addSeed()">
+      <button color="accent" mat-raised-button aria-label="Add Addresse" title="Add Addresse" (click)="addSeed()">
         <mat-icon>add_circle</mat-icon>
         {{ t("seedOverviewComponent.addSeedButton") }}
       </button>
+      <!-- <button mat-raised-button aria-label="Export Addresses" title="Export Addresses" (click)="openExportDialog(false)">
+        <mat-icon>download_file</mat-icon>
+        {{ t("seedOverviewComponent.exportButton") }}
+      </button>
+      <button mat-raised-button aria-label="Import Addresses" title="Import Addresses" (click)="openExportDialog(false)">
+        <mat-icon>upload_file</mat-icon>
+        {{ t("seedOverviewComponent.importButton") }}
+      </button> -->
     </div>
     <div class="mobileOnly seedList">
       <div class="mobileSeedItem" *ngFor="let seed of dataSource.filteredData">
