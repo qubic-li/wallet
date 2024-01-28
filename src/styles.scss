@@ -289,18 +289,22 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'PPTelegraf-Regular';
-  font-size:1.0em;
+  font-family: Consolas, Courier, sans-serif;
+  font-size:1em;
 }
 
 
 body {
   margin: 0;  
   padding: 0;
-  font-family: 'PPTelegraf-Regular';
+  font-family: Consolas, Courier, sans-serif;
 }
 table, div, span, button, th, td, tr {
-   font-family: 'PPTelegraf-Regular';
+  font-family: Consolas, Courier, sans-serif;
+}
+
+.mat-mdc-row, .mdc-data-table__content {
+  font-size: 1em !important;
 }
 
 .mdc-list-item__primary-text {
