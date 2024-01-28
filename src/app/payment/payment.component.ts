@@ -4,7 +4,7 @@ import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { UnLockComponent } from '../lock/unlock/unlock.component';
 import { WalletService } from '../services/wallet.service';
-import { QubicHelper } from 'src/lib/qubic/qubicHelper';
+import { QubicHelper } from 'qubic-ts-library/dist//qubicHelper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../services/api.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
@@ -12,11 +12,11 @@ import { UpdaterService } from '../services/updater-service';
 import { CurrentTickResponse, Transaction } from '../services/api.model';
 import { TranslocoService } from '@ngneat/transloco';
 import { concatMap, of } from 'rxjs';
-import { QubicTransaction } from 'src/lib/qubic/packages/QubicTransaction';
-import { RequestResponseHeader } from 'src/lib/qubic/packages/RequestResponseHeader';
-import { QubicConnector } from 'src/lib/qubic/connector/QubicConnector';
-import { PackageBuilder } from 'src/lib/qubic/packages/PackageBuilder';
-import { QubicPackageType } from 'src/lib/qubic/packages/QubicPackageType';
+import { QubicTransaction } from 'qubic-ts-library/dist/qubic-types/QubicTransaction';
+import { RequestResponseHeader } from 'qubic-ts-library/dist/qubic-communication/RequestResponseHeader';
+import { QubicConnector } from 'qubic-ts-library/dist/QubicConnector';
+import { QubicPackageBuilder } from 'qubic-ts-library/dist/QubicPackageBuilder';
+import { QubicPackageType } from 'qubic-ts-library/dist/qubic-communication/QubicPackageType';
 
 @Component({
   selector: 'app-wallet',
@@ -122,14 +122,14 @@ export class PaymentComponent implements OnInit {
     
     // create header
     const header = new RequestResponseHeader(QubicPackageType.BROADCAST_TRANSACTION, tx.getPackageSize());
-    const builder = new PackageBuilder(header.getSize());
+    const builder = new QubicPackageBuilder(header.getSize());
     builder.add(header);
     builder.add(tx);
     const data = builder.getData();
 
     //return;
     let transactionSent = false;
-    const qubicConnector = new QubicConnector();
+    const qubicConnector = new QubicConnector(this.walletService.getRandomWebBridgeUrl());
     qubicConnector.onReady = () => {
       qubicConnector.connect(this.api.currentPeerList.getValue()[0].ipAddress);
     }

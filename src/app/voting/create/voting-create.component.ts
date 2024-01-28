@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 import { UnLockComponent } from 'src/app/lock/unlock/unlock.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatStepper } from '@angular/material/stepper';
-import { QubicHelper } from 'src/lib/qubic/qubicHelper';
+import { QubicHelper } from 'qubic-ts-library/dist//qubicHelper';
 
 @Component({
   selector: 'app-voting-create',
@@ -34,7 +34,7 @@ export class VotingCreateComponent implements OnInit, OnDestroy {
   public proposalToPublish: ProposalCreateResponse | undefined;
   private selectedComputorId: string | null = null;
   public isPublished = false;
-  private ws = new WebSocket('wss://1.b.qubic.li/');
+  private ws = new WebSocket('wss://webbridge.qubic.li/');
   private isWsConnected = false;
   private dataPackageToSend: string | null = null;
   public isPublishing = false;

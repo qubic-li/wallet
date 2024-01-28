@@ -4,7 +4,7 @@ import { MatCheckbox, MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { UnLockComponent } from '../lock/unlock/unlock.component';
 import { WalletService } from '../services/wallet.service';
-import { QubicHelper } from 'src/lib/qubic/qubicHelper';
+import { QubicHelper } from 'qubic-ts-library/dist//qubicHelper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../services/api.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';

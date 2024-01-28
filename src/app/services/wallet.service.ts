@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { bytes32ToString } from 'src/lib/qubic/converter/converter';
+import { bytes32ToString } from 'qubic-ts-library/dist//converter/converter';
 import { IConfig } from '../model/config';
 import { IDecodedSeed, ISeed } from '../model/seed';
 import { ITx } from '../model/tx';
@@ -87,8 +87,15 @@ export class WalletService {
         this.isWalletReady = true;
       }
 
+    const tempFixedBridgeAddress = "wss://webbridge.qubic.li";
+
     if (!this.runningConfiguration.webBridges)
-      this.runningConfiguration.webBridges = ["https://1.b.qubic.li"];
+      this.runningConfiguration.webBridges = [];  
+
+    // remove legacy entries
+    this.runningConfiguration.webBridges =  this.runningConfiguration.webBridges.filter( f => f !== "https://1.b.qubic.li")
+    if(this.runningConfiguration.webBridges.length <= 0)
+      this.runningConfiguration.webBridges.push(tempFixedBridgeAddress);
 
     // todo: load web bridges dynamically
   }
@@ -105,6 +112,10 @@ export class WalletService {
 
   public getWebBridges(): string[] {
     return [...this.runningConfiguration.webBridges];
+  }
+
+  public getRandomWebBridgeUrl(): string {
+    return this.runningConfiguration.webBridges[Math.floor(Math.random() * this.runningConfiguration.webBridges.length)];
   }
 
   public getSettings(): IConfig {

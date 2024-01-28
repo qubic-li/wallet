@@ -9,7 +9,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UpdaterService } from '../../services/updater-service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { QubicHelper } from 'src/lib/qubic/qubicHelper';
+import { QubicHelper } from 'qubic-ts-library/dist//qubicHelper';
 import { UnLockComponent } from 'src/app/lock/unlock/unlock.component';
 
 export interface ComputorSelected {
@@ -50,7 +50,7 @@ export class VotingParticipateComponent implements OnInit, OnDestroy {
   private publishInterval:any;
   private globalPublishTimeout: number | undefined;
 
-  private ws = new WebSocket('wss://1.b.qubic.li/');
+  private ws = new WebSocket('wss://webbridge.qubic.li/');
   private isWsConnected = false;
   private peerConnected = false;
   public isPublishing = false;

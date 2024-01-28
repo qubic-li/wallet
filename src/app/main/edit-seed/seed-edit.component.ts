@@ -4,7 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { WalletService } from 'src/app/services/wallet.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDecodedSeed, ISeed } from 'src/app/model/seed';
-import { QubicHelper } from 'src/lib/qubic/qubicHelper';
+import { QubicHelper } from 'qubic-ts-library/dist//qubicHelper';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UnLockComponent } from 'src/app/lock/unlock/unlock.component';
 import { TranslocoService } from '@ngneat/transloco';
@@ -83,7 +83,7 @@ export class SeedEditDialog extends QubicDialogWrapper {
 
 
   generateIds(seed: string): void {
-    new QubicHelper().createPublicId(seed).then((response: { publicKey: Uint8Array, publicId: string }) => {
+    new QubicHelper().createIdPackage(seed).then((response: { publicKey: Uint8Array, publicId: string }) => {
       this.seedEditForm.controls.publicId.setValue(response.publicId);
       this.seed.publicId = response.publicId;
       //this.seed.publicKey = response.publicKey;

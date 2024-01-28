@@ -14,10 +14,10 @@ import { BalanceResponse, NetworkBalance, Transaction } from '../services/api.mo
 import { MatSort } from '@angular/material/sort';
 import { UpdaterService } from '../services/updater-service';
 import { QubicService } from '../services/qubic.service';
-import { PublicKey } from 'src/lib/qubic/packages/PublicKey';
+import { PublicKey } from 'qubic-ts-library/dist/qubic-types/PublicKey';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { QubicEntityResponse } from 'src/lib/qubic/packages/QubicEntityResponse';
+import { QubicEntityResponse } from 'qubic-ts-library/dist/qubic-communication/QubicEntityResponse';
 import { DecimalPipe } from '@angular/common';
 import { AssetsDialog } from './assets/assets.component';
 import { LoadConfigDialog } from '../lock/load-config/load-config.component';

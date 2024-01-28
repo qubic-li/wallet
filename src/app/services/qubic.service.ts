@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HashMap } from '@ngneat/transloco';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { QubicConnector } from 'src/lib/qubic/connector/QubicConnector';
-import { PackageBuilder } from 'src/lib/qubic/packages/PackageBuilder';
-import { PublicKey } from 'src/lib/qubic/packages/PublicKey';
-import { QubicEntity } from 'src/lib/qubic/packages/QubicEntity';
-import { QubicEntityRequest } from 'src/lib/qubic/packages/QubicEntityRequest';
-import { QubicEntityResponse } from 'src/lib/qubic/packages/QubicEntityResponse';
-import { QubicPackageType } from 'src/lib/qubic/packages/QubicPackageType';
-import { QubicTickInfo } from 'src/lib/qubic/packages/QubicTickInfo';
-import { RequestResponseHeader } from 'src/lib/qubic/packages/RequestResponseHeader';
+import { QubicConnector } from 'qubic-ts-library/dist/QubicConnector';
+import { QubicPackageBuilder } from 'qubic-ts-library/dist/QubicPackageBuilder';
+import { PublicKey } from 'qubic-ts-library/dist/qubic-types/PublicKey';
+import { QubicEntity } from 'qubic-ts-library/dist/qubic-types/QubicEntity';
+import { QubicEntityRequest } from 'qubic-ts-library/dist/qubic-communication/QubicEntityRequest';
+import { QubicEntityResponse } from 'qubic-ts-library/dist/qubic-communication/QubicEntityResponse';
+import { QubicPackageType } from 'qubic-ts-library/dist/qubic-communication/QubicPackageType';
+import { QubicTickInfo } from 'qubic-ts-library/dist/qubic-types/QubicTickInfo';
+import { RequestResponseHeader } from 'qubic-ts-library/dist/qubic-communication/RequestResponseHeader';
 import { BalanceResponse, PeerDto, Transaction } from './api.model';
 import { ApiService } from './api.service';
 import { UpdaterService } from './updater-service';
@@ -26,7 +26,7 @@ export class QubicService {
 
     private tickInfoRefrshInterval = 2000;
     private entityRefreshInterval = 30000;
-    private qon: QubicConnector = new QubicConnector();
+    private qon: QubicConnector = new QubicConnector(this.walletService.getRandomWebBridgeUrl());
     private peerList: PeerDto[] = [];
     private currentTickInterval: any;
     private entityInterval: any;
@@ -80,7 +80,7 @@ export class QubicService {
     }
 
     private init(): void {
-        this.qon.onPackageReceived = p => {
+        this.qon.onPackageReceived = (p) => {
             if (p.header.getType() == QubicPackageType.RESPOND_CURRENT_TICK_INFO) {
                 const tickInfo = new QubicTickInfo().parse(p.payLoad);
                 if (tickInfo && this.currentTick.getValue() < tickInfo.getTick()) {
@@ -140,7 +140,7 @@ export class QubicService {
         if (this.isConnected)
             this.qon.stop();
         if (this.desiredConnected) {
-            this.qon = new QubicConnector();
+            this.qon = new QubicConnector(this.walletService.getRandomWebBridgeUrl());
             this.init();
         }
     }
@@ -179,7 +179,7 @@ export class QubicService {
             return false;
         const header = new RequestResponseHeader(QubicPackageType.REQUEST_ENTITY, pkey.getPackageSize())
         header.randomizeDejaVu();
-        const builder = new PackageBuilder(header.getSize());
+        const builder = new QubicPackageBuilder(header.getSize());
         builder.add(header);
         builder.add(new QubicEntityRequest(pkey));
         const data = builder.getData();
