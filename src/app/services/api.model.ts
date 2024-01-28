@@ -143,5 +143,6 @@ export interface QubicAsset {
   possessedAmount: number;
   tick: number;
   reportingNodes: string[]; // New field to report source node
+  issuerIdentity: string;
 }
 

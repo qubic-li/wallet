@@ -215,7 +215,7 @@ export class AssetsComponent implements OnInit {
     const signSeed = await this.walletService.revealSeed(sourcePublicKey); // must be the seed to sign the transaction
 
     const assetTransfer = new QubicTransferAssetPayload()
-      .setIssuer(QubicDefinitions.EMPTY_ADDRESS)
+      .setIssuer(sourceAsset.issuerIdentity)
       .setPossessor(sourcePublicKey)
       .setnewOwner(targetAddress)
       .setAssetName(assetName)
@@ -236,7 +236,7 @@ export class AssetsComponent implements OnInit {
 
     if (publishResult && publishResult.success) {
       this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', { tick: tx.tick }), this.t.translate('general.close'), {
-        duration: 10000,
+        duration: 0,
       });
       this.showSendForm = false;
     }
