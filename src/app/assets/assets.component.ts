@@ -118,7 +118,6 @@ export class AssetsComponent implements OnInit {
     if (currentTickValue < this.currentTick) {
       this.sendForm.controls['tick'].setValue(this.currentTick + this.walletService.getSettings().tickAddition);
     }
-    // Activer ou désactiver la surcharge du tick
     this.tickOverwrite = !this.tickOverwrite;
   }
 
