@@ -102,6 +102,19 @@ export class TransactionService {
             };
         }
 
+        if(!(await qtx.sourcePublicKey.verifyIdentity())){
+            return {
+                success: false,
+                message: "Invalid Source Address"
+            };
+        }
+
+        if(!(await qtx.destinationPublicKey.verifyIdentity())){
+            return {
+                success: false,
+                message: "Invalid Destination Address"
+            };
+        }
 
         // if we are using bridged mode, the transaction is sent directly to the network and is not prxied through qli backend
         if (this.walletService.getSettings().useBridge) {

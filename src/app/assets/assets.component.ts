@@ -1,16 +1,22 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {QubicAsset} from "../services/api.model";
-import {ApiService} from "../services/api.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component, Inject, OnInit } from '@angular/core';
+import { QubicAsset } from "../services/api.model";
+import { ApiService } from "../services/api.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { WalletService } from '../services/wallet.service';
 import { QubicTransferAssetPayload } from 'qubic-ts-library/dist/qubic-types/transacion-payloads/QubicTransferAssetPayload';
 import { QubicTransaction } from 'qubic-ts-library/dist/qubic-types/QubicTransaction';
 import { QubicDefinitions } from 'qubic-ts-library/dist/QubicDefinitions';
 import { DynamicPayload } from 'qubic-ts-library/dist/qubic-types/DynamicPayload';
 import { lastValueFrom } from 'rxjs';
-import {ISeed} from "../model/seed";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {UpdaterService} from "../services/updater-service";
+import { ISeed } from "../model/seed";
+import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import { UpdaterService } from "../services/updater-service";
+import { UnLockComponent } from '../lock/unlock/unlock.component';
+import { TransactionService } from '../services/transaction.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
+import { QubicHelper } from 'qubic-ts-library/dist/qubicHelper';
+import { PublicKey } from 'qubic-ts-library/dist/qubic-types/PublicKey';
 
 @Component({
   selector: 'app-assets',
@@ -26,11 +32,20 @@ export class AssetsComponent implements OnInit {
   public tickOverwrite = false;
 
   sendForm: FormGroup;
+  isAssetsLoading: boolean = false;
+  isSending: boolean = false;
   showSendForm: boolean = false;
   balanceTooLow: boolean = false; // logic
 
 
-  constructor(private apiService: ApiService, private walletService: WalletService, private updaterService: UpdaterService) {
+  constructor(
+    private apiService: ApiService,
+    public walletService: WalletService,
+    public transactionService: TransactionService,
+    private updaterService: UpdaterService,
+    private t: TranslocoService,
+    private _snackBar: MatSnackBar,
+    private dialog: MatDialog) {
     this.sendForm = new FormGroup({
       destinationAddress: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
@@ -38,14 +53,17 @@ export class AssetsComponent implements OnInit {
       assetSelect: new FormControl('', Validators.required),
     });
 
-    const amountControl = this.sendForm.get('amount');
+    // const amountControl = this.sendForm.get('amount');
     const assetSelectControl = this.sendForm.get('assetSelect');
 
-    if (amountControl) {
-      amountControl.valueChanges.subscribe(() => {
-        this.updateAmountValidator();
-      });
-    }
+    // todo: check, this causes a max stack call loop
+    // why is this needed?
+
+    // if (amountControl) {
+    //   amountControl.valueChanges.subscribe(() => {
+    //     // this.updateAmountValidator();
+    //   });
+    // }
 
     if (assetSelectControl) {
       assetSelectControl.valueChanges.subscribe(() => {
@@ -64,7 +82,7 @@ export class AssetsComponent implements OnInit {
 
       amountControl.setValidators([
         Validators.required,
-        Validators.min(0),
+        Validators.min(1),
         Validators.max(maxAmount)
       ]);
 
@@ -86,30 +104,22 @@ export class AssetsComponent implements OnInit {
 
 
   refreshData(): void {
-     this.loadAssets(true);
+    this.loadAssets(true);
   }
 
   loadAssets(force: boolean = false) {
+    this.assets = this.walletService.getSeeds().flatMap(m => m.assets).filter(f => f).map(m => <QubicAsset>m);
 
-    const publicIds = this.walletService.getSeeds().map(seed => seed.publicId);
-
-    this.assets = force ? [] : this.walletService.getSeeds().flatMap(m => m.assets).filter(f => f).map(m => <QubicAsset>m);
-
-    console.log("ASSETS", this.assets);
-
-
-    // todo: if we load assets they should be stored in walletservice => use central function to load assets
-
-    // only load assets from API if they were not already loaded before or it is empty
-    if(this.assets.length <= 0){
-      this.apiService.getOwnedAssets(publicIds).subscribe({
-        next: (assets: QubicAsset[]) => {
-          this.assets = assets;
-        },
-        error: (error) => {
-          console.error('Error when loading assets', error);
-        }
+    if (force || this.assets.length <= 0) {
+      this.isAssetsLoading = true;
+      this.updaterService.forceLoadAssets((r) => {
+        this.isAssetsLoading = false;
+        this.assets = r;
       });
+      // timeout because of unpropper handling in forceLoadAssets :()
+      window.setTimeout(() => {
+        this.isAssetsLoading = false;
+      }, 5000);
     }
   }
 
@@ -138,9 +148,19 @@ export class AssetsComponent implements OnInit {
     }
   }
 
-  onSubmitSendForm(): void {
+  async onSubmitSendForm() {
     if (this.sendForm.valid) {
       // logic
+      this.isSending = true;
+      try {
+        await this.sendAsset();
+      } catch (er) {
+        console.error(er);
+      }
+      finally {
+        this.isSending = false;
+      }
+
     }
   }
 
@@ -158,39 +178,79 @@ export class AssetsComponent implements OnInit {
     // todo: create central transaction service to send transactions!!!!
 
     // sample send asset function
+    const assetSelectControl = this.sendForm.get('assetSelect');
+    const amountControl = this.sendForm.get('amount');
+    const destinationAddressControl = this.sendForm.get('destinationAddress');
 
-    const sourcePublicKey = ""; // must be the sender/owner of th easset
-    const assetName = ""; // must be the name of the asset to be transfered
-    const numberOfUnits = 0; // must be the number of units to be transfered
-    const currentTick = await lastValueFrom(this.apiService.getCurrentTick());
+    if (!assetSelectControl || !amountControl || !destinationAddressControl) {
+      // todo: error handling
+      return;
+    }
 
+    const sourceAsset = <QubicAsset>assetSelectControl.value;
+
+    const sourcePublicKey = sourceAsset.publicId; // must be the sender/owner of th easset
+    const assetName = sourceAsset.assetName; // must be the name of the asset to be transfered
+    const numberOfUnits = amountControl.value; // must be the number of units to be transfered
+    const targetAddress = new PublicKey(destinationAddressControl.value);
+
+    // verify target address
+    if(!(await targetAddress.verifyIdentity())){
+      this._snackBar.open("INVALID RECEIVER ADDRESSS", this.t.translate('general.close'), {
+        duration: 10000,
+        panelClass: "error"
+      });
+      return;
+    }
+
+    let targetTick = this.sendForm.get("tick")?.value ?? 0;;
     // todo: think about if we want to let the user set a custom target tick
-    const targetTick = currentTick.tick + this.walletService.getSettings().tickAddition; // set tick to send tx
+
+    if (!this.tickOverwrite || targetTick == 0) {
+      const currentTick = await lastValueFrom(this.apiService.getCurrentTick());
+      targetTick = currentTick.tick + this.walletService.getSettings().tickAddition; // set tick to send tx
+    }
 
     // load the seed from wallet service
     const signSeed = await this.walletService.revealSeed(sourcePublicKey); // must be the seed to sign the transaction
 
     const assetTransfer = new QubicTransferAssetPayload()
-    .setIssuer(sourcePublicKey)
-    .setPossessor(sourcePublicKey)
-    .setnewOwner(sourcePublicKey)
-    .setAssetName(assetName)
-    .setNumberOfUnits(numberOfUnits);
+      .setIssuer(QubicDefinitions.EMPTY_ADDRESS)
+      .setPossessor(sourcePublicKey)
+      .setnewOwner(targetAddress)
+      .setAssetName(assetName)
+      .setNumberOfUnits(numberOfUnits);
 
 
-  // build and sign tx
-  const tx = new QubicTransaction().setSourcePublicKey(sourcePublicKey)
-    .setDestinationPublicKey(QubicDefinitions.QX_ADDRESS) // a transfer should go the QX SC
-    .setAmount(QubicDefinitions.QX_TRANSFER_ASSET_FEE)
-    .setTick(targetTick) // just a fake tick
-    .setInputType(QubicDefinitions.QX_TRANSFER_ASSET_INPUT_TYPE)
-    .setPayload(assetTransfer);
+    // build and sign tx
+    const tx = new QubicTransaction().setSourcePublicKey(sourcePublicKey)
+      .setDestinationPublicKey(QubicDefinitions.QX_ADDRESS) // a transfer should go the QX SC
+      .setAmount(QubicDefinitions.QX_TRANSFER_ASSET_FEE)
+      .setTick(targetTick) // just a fake tick
+      .setInputType(QubicDefinitions.QX_TRANSFER_ASSET_INPUT_TYPE)
+      .setPayload(assetTransfer);
 
-  await tx.build(signSeed);
+    await tx.build(signSeed);
 
+    console.log("TX", tx);
 
-    // send transaction to network
-    // todo: here will be the call to the new transaction service. which will submit the transaction to the network
+    const publishResult = await this.transactionService.publishTransaction(tx);
 
+    if (publishResult && publishResult.success) {
+      this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', { tick: tx.tick }), this.t.translate('general.close'), {
+        duration: 10000,
+      });
+      this.showSendForm = false;
+    }
+    else {
+      this._snackBar.open(publishResult.message ?? this.t.translate('paymentComponent.messages.failedToSend'), this.t.translate('general.close'), {
+        duration: 10000,
+        panelClass: "error"
+      });
+    }
+  }
+
+  loadKey() {
+    const dialogRef = this.dialog.open(UnLockComponent, { restoreFocus: false });
   }
 }

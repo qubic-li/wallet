@@ -58,11 +58,48 @@
     }
   },
   "assetsComponent": {
-    "title": "Ativos de {{name}}",
-    "tick": "Válido para o Tick {{tick}}",
+    "title": "Your Assets",
+    "openAssets": "Goto Asset Management",
+    "overview": {
+      "title": "Asset Overview"
+    },
+    "table": {
+      "publicId": "Public ID",
+      "contractIndex": "Contract Index",
+      "assetName": "Asset Name",
+      "contractName": "Contract Name",
+      "ownedAmount": "Owned Amount",
+      "possessedAmount": "Possessed Amount",
+      "tick": "Valid for Tick {{tick}}",
+      "reportingNodes": "Reporting Nodes"
+    },
     "buttons": {
-      "close": "Fechar"
-    }
+      "close": "Close",
+      "refresh": "Refresh",
+      "send": "Transfer Assets"
+    },
+    "form": {
+      "info": "Send Assets form",
+      "fees": "Fixed sending fees: 1,000,000 Qubic",
+      "select": "Select Asset",
+      "select.error": "Asset selection is required",
+      "placeholder": "Address ID of the receiver",
+      "placeholder.error": "An 55-char seed is required.",
+      "amount": "Amount to send",
+      "amount.error": "Amount is required",
+      "amount.value.error": "The amount must be greater than 0",
+      "amount.max.error": "The amount cannot exceed the quantity held",
+      "tick": "Tick",
+      "tick.error": "Tick is required",
+      "tick.tooltip": "Tick is required",
+      "tick.min": "Tick must be a minimum of {{currentTick}}",
+      "buttons": {
+        "send": "Send",
+        "cancel": "Cancel",
+        "error.balance": "Insufficient balance, minimum balance is 1,000,000 Qubic"
+      }
+    },
+    "noAssets": "No assets available"
   },
   "qrReceiveComponent": {
     "title": "Receber um Pagamento",
@@ -182,7 +219,7 @@
     "title": "Enviar unidades Qubic (qus)",
     "messages": {
       "pleaseUnlock": "Por favor, desbloqueie sua Wallet primeiro",
-      "storedForPropagation": "Sua transação ({{txid}}) foi registrada para propagação",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Sua transação não pôde ser enviada. Por favor, tente novamente mais tarde.",
       "failedToDecrypt": "Não conseguimos descriptografar sua Seed. Você usou a chave privada correta?",
       "failedValidation": "Enfrentamos erros de validação. Por favor, verifique o formulário."
@@ -347,7 +384,7 @@
   "ipoComponent": {
     "messages": {
       "unlock": "Por favor, desbloqueie sua Wallet primeiro",
-      "storedForPropagation": "Seu IPO ({{id}}) foi registrado para propagação",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Seu IPO não pôde ser enviado. Por favor, tente novamente mais tarde.",
       "failedToDecrypt": "Não conseguimos descriptografar sua Seed. Você usou a chave privada correta?",
       "failedToValidate": "Enfrentamos erros de validação. Por favor, verifique o formulário."

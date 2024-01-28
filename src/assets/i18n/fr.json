@@ -59,6 +59,7 @@
   },
   "assetsComponent": {
     "title": "Assets de {{name}}",
+    "openAssets": "Goto Asset Management",
     "overview": {
       "title": "Vue d'ensemble des Assets"
     },
@@ -218,7 +219,7 @@
     "title": "Envoyer des unités Qubic (qus)",
     "messages": {
       "pleaseUnlock": "Veuillez d'abord déverrouiller votre Wallet",
-      "storedForPropagation": "Votre transaction ({{txid}}) a été enregistrée pour propagation",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Votre transaction n'a pas pu être envoyée. Veuillez réessayer plus tard.",
       "failedToDecrypt": "Nous n'avons pas pu déchiffrer votre Seed. Avez-vous utilisé la bonne clé privée ??",
       "failedValidation": "Nous avons eu des erreurs de validation. Veuillez vérifier le formulaire."
@@ -383,7 +384,7 @@
   "ipoComponent": {
     "messages": {
       "unlock": "Veuillez déverrouiller votre Wallet d'abord",
-      "storedForPropagation": "Votre IPO ({{id}}) a été enregistrée pour propagation",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Votre IPO n'a pas pu être envoyée. Veuillez réessayer ultérieurement.",
       "failedToDecrypt": "Nous n'avons pas pu déchiffrer votre Seed. Avez-vous utilisé la clé privée correcte ?",
       "failedToValidate": "Nous avons rencontré des erreurs de validation. Veuillez vérifier le formulaire."

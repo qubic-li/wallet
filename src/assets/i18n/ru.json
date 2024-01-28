@@ -58,11 +58,48 @@
     }
   },
   "assetsComponent": {
-      "title": "Assets of {{name}}",
+    "title": "Your Assets",
+    "openAssets": "Goto Asset Management",
+    "overview": {
+      "title": "Asset Overview"
+    },
+    "table": {
+      "publicId": "Public ID",
+      "contractIndex": "Contract Index",
+      "assetName": "Asset Name",
+      "contractName": "Contract Name",
+      "ownedAmount": "Owned Amount",
+      "possessedAmount": "Possessed Amount",
       "tick": "Valid for Tick {{tick}}",
+      "reportingNodes": "Reporting Nodes"
+    },
+    "buttons": {
+      "close": "Close",
+      "refresh": "Refresh",
+      "send": "Transfer Assets"
+    },
+    "form": {
+      "info": "Send Assets form",
+      "fees": "Fixed sending fees: 1,000,000 Qubic",
+      "select": "Select Asset",
+      "select.error": "Asset selection is required",
+      "placeholder": "Address ID of the receiver",
+      "placeholder.error": "An 55-char seed is required.",
+      "amount": "Amount to send",
+      "amount.error": "Amount is required",
+      "amount.value.error": "The amount must be greater than 0",
+      "amount.max.error": "The amount cannot exceed the quantity held",
+      "tick": "Tick",
+      "tick.error": "Tick is required",
+      "tick.tooltip": "Tick is required",
+      "tick.min": "Tick must be a minimum of {{currentTick}}",
       "buttons": {
-          "close": "Close"
+        "send": "Send",
+        "cancel": "Cancel",
+        "error.balance": "Insufficient balance, minimum balance is 1,000,000 Qubic"
       }
+    },
+    "noAssets": "No assets available"
   },
   "qrReceiveComponent": {
     "title": "Получить платеж",
@@ -182,7 +219,7 @@
     "title": "Отправить Qubic Units (qus)",
     "messages": {
       "pleaseUnlock": "Please unlock your Wallet first",
-      "storedForPropagation": "Your transaction ({{txid}}) has been stored for propagation",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Your transaction could not be sent. Please try again later.",
       "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
       "failedValidation": "We had validation errors. Please check the form."
@@ -348,7 +385,7 @@
     "ipoComponent": {
       "messages": {
         "unlock": "Please unlock your Wallet first",
-        "storedForPropagation": "Your IPO ({{id}}) has been stored for propagation",
+        "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
         "failedToSend": "Your IPO could not be sent. Pleas try again later.",
         "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
         "failedToValidate": "We had validation errors. Please check the form."

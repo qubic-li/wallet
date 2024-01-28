@@ -102,9 +102,9 @@ export class UpdaterService {
     return array.findIndex((f: Transaction) => f.id === value.id) == index;
   }
 
-  public forceLoadAssets() {
+  public forceLoadAssets(allbackFn: ((assets: QubicAsset[]) => void) | undefined = undefined) {
     this.lastAssetsLoaded = undefined;
-    this.getAssets();
+    this.getAssets(undefined, allbackFn);
   }
 
   public forceUpdateNetworkBalance(publicId: string, callbackFn: ((balances: NetworkBalance[]) => void) | undefined = undefined): void {

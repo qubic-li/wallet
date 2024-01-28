@@ -3,8 +3,10 @@
 <mat-dialog-content>
 
     <div *ngFor="let asset of seed.assets">
-        - {{asset.ownedAmount}}({{asset.possessedAmount}}) {{ asset.assetName }} ({{t("assetsComponent.tick", { tick: asset.tick})}})<br>
+        {{asset.ownedAmount}}({{asset.possessedAmount}}) {{ asset.assetName }}<br>
     </div>
+    <br>
+    <a [routerLink]="['/assets']" mat-dialog-close>{{t("assetsComponent.openAssets")}}</a>
 
      
 </mat-dialog-content>

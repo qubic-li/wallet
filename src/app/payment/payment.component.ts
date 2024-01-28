@@ -57,7 +57,8 @@ export class PaymentComponent implements OnInit {
   constructor(
     private t: TranslocoService,
     private transactionService: TransactionService,
-    private router: Router, private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
+    private router: Router, private us: UpdaterService, private fb: FormBuilder, private route: ActivatedRoute, private changeDetectorRef: ChangeDetectorRef, private api: ApiService, 
+    private _snackBar: MatSnackBar, public walletService: WalletService, private dialog: MatDialog) {
     const state = this.router.getCurrentNavigation()?.extras.state;
     if (state && state['template']) {
       this.txTemplate = state['template'];
@@ -147,7 +148,7 @@ export class PaymentComponent implements OnInit {
             var publishResult = await this.transactionService.publishTransaction(qtx);
 
             if(publishResult && publishResult.success){
-              this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {txid: "" }) , this.t.translate('general.close'), {
+              this._snackBar.open(this.t.translate('paymentComponent.messages.storedForPropagation', {tick: qtx.tick }) , this.t.translate('general.close'), {
                 duration: 10000,
               });
               this.isBroadcasting = false;

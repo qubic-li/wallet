@@ -58,7 +58,8 @@
     }
   },
   "assetsComponent": {
-    "title": "Assets of {{name}}",
+    "title": "Your Assets",
+    "openAssets": "Goto Asset Management",
     "overview": {
       "title": "Asset Overview"
     },
@@ -75,7 +76,7 @@
     "buttons": {
       "close": "Close",
       "refresh": "Refresh",
-      "send": "Send"
+      "send": "Transfer Assets"
     },
     "form": {
       "info": "Send Assets form",
@@ -220,7 +221,7 @@
     "title": "Send Qubic Units (qus)",
     "messages": {
       "pleaseUnlock": "Please unlock your Wallet first",
-      "storedForPropagation": "Your transaction ({{txid}}) has been stored for propagation",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Your transaction could not be sent. Please try again later.",
       "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct unlock file (private key)??",
       "failedValidation": "We had validation errors. Please check the form."
@@ -386,7 +387,7 @@
   "ipoComponent": {
     "messages": {
       "unlock": "Please unlock your Wallet first",
-      "storedForPropagation": "Your IPO ({{id}}) has been stored for propagation",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
       "failedToSend": "Your IPO could not be sent. Pleas try again later.",
       "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct unlock file (private key)??",
       "failedToValidate": "We had validation errors. Please check the form."

@@ -7923,10 +7923,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
   integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
-qubic-ts-library@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.yarnpkg.com/qubic-ts-library/-/qubic-ts-library-0.0.5.tgz#bbf7aa40b385ec37e052ad1b3edcd290e463e9a9"
-  integrity sha512-hXMkNcRzeh9rk6E8gFpt0cpeqNwMR00XA2cNyaNNopqgfk5Eqlg1u3C7aAwg9DKBetg58n+jg2bsIL7yjdew/g==
+qubic-ts-library@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/qubic-ts-library/-/qubic-ts-library-0.0.6.tgz#18f206820a5b11f12b84d7f96b1f708b47f91123"
+  integrity sha512-VIDUWK4b35We8K8pCHvC0iT1FM6dj8H0qFDYXVpUEUkBNDUEcD9pHWqjLE9TJP0gg3l5AdPteLuQqJy2ZZzH8g==
   dependencies:
     bignumber.js "^9.1.2"
     net "^1.0.2"
