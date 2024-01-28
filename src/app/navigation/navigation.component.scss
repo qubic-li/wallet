@@ -45,12 +45,20 @@ mat-sidenav-content{
 }
 
 .topIcons {
+  flex:1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.left-icon-area {
+  flex:1;
   display: flex;
   align-items: center;
 }
-.left-icon-area {
-  display: flex;
-  align-items: center;
+
+.header_logo {
+  flex:1;
+  text-align: center;
 }
 
 .logo {

@@ -6,22 +6,20 @@
           <mat-icon>menu</mat-icon>
         </button>
       </div>
-      <div>
+      <div class="header_logo">
         <img src="assets/logos/LogoFull_white.svg" class="logo" *ngIf="themeService.isDarkTheme">
         <img src="assets/logos/LogoFull_dark.svg" class="logo" *ngIf="!themeService.isDarkTheme">
       </div>
       <div class="topIcons window-no-drag">       
-        <qli-notifys></qli-notifys>                     
-        <div class="topIcons" *ngIf="walletService.isWalletReady && !walletService.configError">
-          <div *ngIf="!mobileQuery.matches"class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
+        <div *ngIf="walletService.isWalletReady && !walletService.configError && !mobileQuery.matches" class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
             [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() | number: '1.0-0' }}</span>
-          </div>
-          <qli-lock></qli-lock>
         </div>
+        <qli-notifys></qli-notifys>                     
+        <qli-lock *ngIf="walletService.isWalletReady && !walletService.configError"></qli-lock>
         <qli-language-chooser></qli-language-chooser>
         <button *ngIf="showMinimize" (click)="minimize()" mat-icon-button><mat-icon>minimize</mat-icon></button>
-        <button [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
-        <button [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>   
+        <button *ngIf="!mobileQuery.matches" [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
+        <button *ngIf="!mobileQuery.matches" [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>   
       </div>
     </mat-toolbar>
     <div *ngIf="walletService.configError" class="open-wallet-screen">
