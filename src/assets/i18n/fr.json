@@ -89,6 +89,8 @@
       "amount.max.error": "Le montant ne peut pas dépasser la quantité détenue",
       "tick": "Tick",
       "tick.error": "Le Tick est requis",
+      "tick.tooltip": "Le Tick est requis",
+      "tick.min": "Tick minimum doit être de {{currentTick}}",
       "buttons": {
         "send": "Envoyer",
         "cancel": "Annuler",

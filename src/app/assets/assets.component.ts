@@ -10,6 +10,7 @@ import { DynamicPayload } from 'qubic-ts-library/dist/qubic-types/DynamicPayload
 import { lastValueFrom } from 'rxjs';
 import {ISeed} from "../model/seed";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {UpdaterService} from "../services/updater-service";
 
 @Component({
   selector: 'app-assets',
@@ -21,14 +22,15 @@ export class AssetsComponent implements OnInit {
 
   displayedColumns: string[] = ['publicId', 'contractIndex', 'assetName', 'contractName', 'ownedAmount', 'possessedAmount', 'tick', 'reportingNodes'];
   public assets: QubicAsset[] = [];
-  
+  public currentTick = 0;
+  public tickOverwrite = false;
 
   sendForm: FormGroup;
   showSendForm: boolean = false;
   balanceTooLow: boolean = false; // logic
 
 
-  constructor(private apiService: ApiService, private walletService: WalletService) {
+  constructor(private apiService: ApiService, private walletService: WalletService, private updaterService: UpdaterService) {
     this.sendForm = new FormGroup({
       destinationAddress: new FormControl('', Validators.required),
       amount: new FormControl('', Validators.required),
@@ -72,8 +74,16 @@ export class AssetsComponent implements OnInit {
 
   ngOnInit() {
     this.loadAssets();
-    console.log("Hello: " + this.assets);
+
+    this.updaterService.currentTick.subscribe(tick => {
+      this.currentTick = tick;
+      this.sendForm.controls['tick'].addValidators(Validators.min(tick));
+      if (!this.tickOverwrite) {
+        this.sendForm.controls['tick'].setValue(tick + this.walletService.getSettings().tickAddition);
+      }
+    })
   }
+
 
   refreshData(): void {
      this.loadAssets(true);
@@ -103,12 +113,25 @@ export class AssetsComponent implements OnInit {
     }
   }
 
+  handleTickEdit(): void {
+    const currentTickValue = this.sendForm.controls['tick'].value;
+    if (currentTickValue < this.currentTick) {
+      this.sendForm.controls['tick'].setValue(this.currentTick + this.walletService.getSettings().tickAddition);
+    }
+    // Activer ou désactiver la surcharge du tick
+    this.tickOverwrite = !this.tickOverwrite;
+  }
+
   getSeedAlias(publicId: string) {
     return this.walletService.getSeed(publicId)?.alias;
   }
 
   openSendForm(): void {
     this.showSendForm = true;
+
+    this.tickOverwrite = false;
+    this.sendForm.controls['tick'].setValue(this.currentTick + this.walletService.getSettings().tickAddition);
+
     const assetSelectControl = this.sendForm.get('assetSelect');
     if (assetSelectControl && this.assets.length > 0) {
       assetSelectControl.setValue(this.assets[0]);
@@ -124,6 +147,7 @@ export class AssetsComponent implements OnInit {
 
   cancelSendForm(): void {
     this.showSendForm = false;
+    this.tickOverwrite = false;
     this.sendForm.reset();
   }
 
@@ -132,7 +156,7 @@ export class AssetsComponent implements OnInit {
     // todo: form/input validation
 
 
-    // todo: create central transaction service to send transactions!!!! 
+    // todo: create central transaction service to send transactions!!!!
 
     // sample send asset function
 
@@ -141,7 +165,7 @@ export class AssetsComponent implements OnInit {
     const numberOfUnits = 0; // must be the number of units to be transfered
     const currentTick = await lastValueFrom(this.apiService.getCurrentTick());
 
-    // todo: think about if we want to let the user set a custom target tick 
+    // todo: think about if we want to let the user set a custom target tick
     const targetTick = currentTick.tick + this.walletService.getSettings().tickAddition; // set tick to send tx
 
     // load the seed from wallet service
