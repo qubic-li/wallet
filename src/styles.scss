@@ -4,32 +4,8 @@
 @import 'vars';
 
 
-//http://localhost:4200/src/assets/fonts/PPTelegraf-Regular.ttf 
-//http://localhost:4200/src/img/qubic.li-slogan-white.png
-@font-face {
-  font-family: 'PPTelegraf-Bold';
-  src: url('/assets/fonts/PPTelegraf-Bold.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'PPTelegraf-Light';
-  src: url('/assets/fonts/PPTelegraf-Light.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'PPTelegraf-Medium';
-  src: url('/assets/fonts/PPTelegraf-Medium.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'PPTelegraf-Regular';
-  src: url('/assets/fonts/PPTelegraf-Regular.ttf') format('truetype');
-}
-@font-face {
-  font-family: 'PPTelegraf-SemiBold';
-  src: url('/assets/fonts/PPTelegraf-SemiBold.ttf') format('truetype');
-}
-
-
 //**********************************
-// Light Theme Text
+// Dark Theme Text
 //**********************************
 $dark-text: #000000;
 $dark-primary-text: rgba($dark-text, 0.87);
@@ -92,7 +68,7 @@ $mat-light-theme-background: (
 
 
 //**********************************
-// Dark Theme text
+// Light Theme text
 //**********************************
 $light-text: #ffffff;
 $light-primary-text: $light-text;
@@ -100,7 +76,7 @@ $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
 $light-dividers: rgba($light-primary-text, 0.12);
 $light-focused: rgba($light-primary-text, 0.12);
-$light-link: #1bdef5;
+$light-link: #1b64f5;
 
 $mat-dark-theme-foreground: (
   base:              $light-text,
@@ -121,8 +97,6 @@ $mat-dark-theme-foreground: (
   slider-off-active: rgba($light-text, 0.3),  
   link-color:       $light-link, 
 );
-
-
 
 // Dark bg
 $dark-background:     #2c2c2c;
@@ -167,7 +141,7 @@ body {
 }
 $mat-primary: (
   main: #272660,
-  lighter: #41B9EA,
+  lighter: #1b64f5,
   darker: #171744,
   200: #272660, // For slide toggle,
   contrast : (
@@ -179,7 +153,7 @@ $mat-primary: (
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 body {
-  --accent-color: #398fbe;
+  --accent-color: #1b64f5;
   --accent-lighter-color: #c4ddec;
   --accent-darker-color: #2472a7;
   --text-accent-color: #{$light-primary-text};
@@ -341,10 +315,9 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
   justify-content: flex-start;
 }
 
-
 div.copy {
   cursor: pointer;
-  color: map-get($map: $mat-primary, $key: main);
+  color: $light-link;
   font-family: Consolas, Courier, sans-serif;
   width: 100%;
   word-wrap: break-word;
@@ -356,7 +329,7 @@ a:visited,
 a:active {
   text-decoration: none;
   // color: map-get($map: $mat-accent, $key: darker);
-  color: $dark-link;
+  color: $light-link;
 }
 
 .darkTheme {
@@ -365,7 +338,7 @@ a:active {
   a:link,
   a:visited,
   a:active {
-    color: map-get($map: $mat-primary, $key: lighter);
+    color: $dark-link;
   }
 }
 
