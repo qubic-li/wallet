@@ -809,6 +809,9 @@ hr {
 .flex {
   display: flex;
 }
+.flex-wrap {
+  flex-wrap: wrap;
+}
 @keyframes blink {
   0% {
     color: red;

@@ -8,13 +8,16 @@
         margin-bottom: 0px;;
     }
 }
+.mobileSeedItem {
+    padding-bottom: 10px;
+    border-bottom: 1px solid gray;
+}
 .mobileActionLine {
     display: flex;
     flex-wrap: wrap;
 }
 .epochChanges {
     display: flex;
-    justify-content: right;
     align-items: center;
 }
 .down, .up{
