@@ -108,39 +108,7 @@ export class ApiService {
             }
         );
   }
-  public getOwnedAssetsM(publicIds: string[]): Observable<QubicAsset[]> {
-    // Données fictives reçues de votre équipe
-    const mockData: QubicAsset[] = [
-      {
-        publicId: "XADDMQQCBZLTDDGKZMANEANHCKHDTMUIHZDQUCOYSGDYMLKYVGFUIUKHTUXH",
-        contractIndex: 1,
-        assetName: "QX",
-        contractName: "QX",
-        ownedAmount: 10,
-        possessedAmount: 10,
-        tick: 12188262,
-        "reportingNodes": [
-          "91.210.226.53",
-          "212.41.28.55"
-        ]
-      },
-      {
-        publicId: "XADDMQQCBZLTDDGKZMANEANHCKHDTMUIHZDQUCOYSGDYMLKYVGFUIUKHTUXH",
-        contractIndex: 1,
-        assetName: "QTRY",
-        contractName: "QTRY",
-        ownedAmount: 42,
-        possessedAmount: 42,
-        tick: 12188262,
-        "reportingNodes": [
-          "91.210.226.53",
-          "212.41.28.55"
-        ]
-      }
-    ];
 
-    return of(mockData); // Retourner les données fictives sous forme d'Observable
-  }
 
   public getCurrentIpoBids(publicIds: string[]) {
     let localVarPath = `/Wallet/CurrentIpoBids`;
