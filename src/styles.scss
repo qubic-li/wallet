@@ -220,6 +220,8 @@ $altTheme: (
 .darkTheme {
   @include mat.all-component-themes($altTheme);
 
+  background-color: #000000;
+
   .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: map-get($map: $mat-primary, $key: lighter );
   }
