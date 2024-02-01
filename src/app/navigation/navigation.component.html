@@ -8,7 +8,7 @@
       </div>
       <div class="header_logo">
         <img src="assets/logos/qubic_wallet_dark.svg" class="logo" *ngIf="themeService.isDarkTheme">
-        <img src="assets/logos/LogoFull_dark.svg" class="logo" *ngIf="!themeService.isDarkTheme">
+        <img src="assets/logos/qubic_wallet_light.svg" class="logo" *ngIf="!themeService.isDarkTheme">
       </div>
       <div class="topIcons window-no-drag">       
         <div *ngIf="walletService.isWalletReady && !walletService.configError && !mobileQuery.matches" class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span

@@ -3,17 +3,14 @@
 
 @import 'vars';
 
-
-//**********************************
-// Dark Theme Text
-//**********************************
+// Light Theme Text
 $dark-text: #000000;
 $dark-primary-text: rgba($dark-text, 0.87);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
 $dark-disabled-text: rgba($dark-primary-text, 0.38);
 $dark-dividers: rgba($dark-primary-text, 0.12);
 $dark-focused: rgba($dark-primary-text, 0.12);
-$dark-link: #1bdef5;
+$dark-link: #1b64f5;
 
 $mat-light-theme-foreground: (
   base:              black,
@@ -38,14 +35,15 @@ $mat-light-theme-foreground: (
 // Background config
 // Light bg
 $light-background:    #ffffff;
+$light-bg-darker-2:   darken($light-background, 2%);
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  darken($light-background, 10%);
 $light-bg-darker-20:  darken($light-background, 20%);
 $light-bg-darker-30:  darken($light-background, 30%);
 $light-bg-lighter-5:  lighten($light-background, 5%);
-$dark-bg-tooltip:     lighten(#2c2c2c, 20%);
-$dark-bg-alpha-4:     rgba(#2c2c2c, 0.04);
-$dark-bg-alpha-12:    rgba(#2c2c2c, 0.12);
+$dark-bg-tooltip:     lighten(#151e27, 20%);
+$dark-bg-alpha-4:     rgba(#151e27, 0.04);
+$dark-bg-alpha-12:    rgba(#151e27, 0.12);
 
 $mat-light-theme-background: (
   background:               $light-background,
@@ -67,16 +65,14 @@ $mat-light-theme-background: (
 
 
 
-//**********************************
-// Light Theme text
-//**********************************
-$light-text: #ffffff;
+// Dark Theme text
+$light-text: #61f0fe;
 $light-primary-text: $light-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
 $light-dividers: rgba($light-primary-text, 0.12);
 $light-focused: rgba($light-primary-text, 0.12);
-$light-link: #1b64f5;
+$light-link: #1bdef5;
 
 $mat-dark-theme-foreground: (
   base:              $light-text,
@@ -94,18 +90,19 @@ $mat-dark-theme-foreground: (
   text:              $light-text,
   slider-min:        $light-text,
   slider-off:        rgba($light-text, 0.3),
-  slider-off-active: rgba($light-text, 0.3),  
+  slider-off-active: rgba($light-text, 0.3),
   link-color:       $light-link, 
 );
 
 // Dark bg
-$dark-background:     #2c2c2c;
+$dark-background:     #151e27;
+$dark-bg-lighter-2:   lighten($dark-background, 2%);
 $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
 $dark-bg-lighter-20:  lighten($dark-background, 20%);
 $dark-bg-lighter-30:  lighten($dark-background, 30%);
-$light-bg-alpha-4:    rgba(#fafafa, 0.04);
-$light-bg-alpha-12:   rgba(#fafafa, 0.12);
+$light-bg-alpha-4:    rgba(#ffffff, 0.04);
+$light-bg-alpha-12:   rgba(#ffffff, 0.12);
 
 // Background palette for dark themes.
 $mat-dark-theme-background: (
@@ -162,10 +159,10 @@ body {
 }
 
 $mat-accent: (
-  main: #398fbe,
+  main: $light-link,
   lighter: #c4ddec,
   darker: #2472a7,
-  200: #398fbe, // For slide toggle,
+  200: $light-link, // For slide toggle,
   contrast : (
     main: $light-primary-text,
     lighter: $dark-primary-text,
@@ -226,6 +223,10 @@ $altTheme: (
   .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
     color: map-get($map: $mat-primary, $key: lighter );
   }
+
+  .mat-mdc-card {
+    background-color: $dark-bg-lighter-2 !important;
+  }
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -266,7 +267,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: Consolas, Courier, sans-serif;
+  font-family: 'Space Grotesk', Courier, sans-serif;
   font-size:1em;
 }
 
@@ -274,10 +275,10 @@ body {
 body {
   margin: 0;  
   padding: 0;
-  font-family: Consolas, Courier, sans-serif;
+  font-family: 'Space Grotesk', Courier, sans-serif;
 }
 table, div, span, button, th, td, tr {
-  font-family: Consolas, Courier, sans-serif;
+  font-family: 'Space Grotesk', Courier, sans-serif;
 }
 
 .mat-mdc-row, .mdc-data-table__content {
@@ -320,8 +321,8 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 
 div.copy {
   cursor: pointer;
-  color: $light-link;
-  font-family: Consolas, Courier, sans-serif;
+  color: $dark-text;
+  font-family: "Space Mono", Courier, sans-serif;
   width: 100%;
   word-wrap: break-word;
 }
@@ -331,8 +332,8 @@ a:link,
 a:visited,
 a:active {
   text-decoration: none;
-  // color: map-get($map: $mat-accent, $key: darker);
-  color: $light-link;
+  //color: map-get($map: $mat-accent, $key: darker);
+   color: $dark-text;
 }
 
 .darkTheme {
@@ -340,8 +341,9 @@ a:active {
   div.copy,
   a:link,
   a:visited,
+  
   a:active {
-    color: $dark-link;
+    color: $light-link;
   }
 }
 
@@ -803,19 +805,17 @@ hr {
   animation: blink 1s infinite;
 }
 
-/*New Design*/
+// /*New Design*/
 
-mat-sidenav-content{
-  padding-left: 10px;
-  padding-right: 10px;
-}
+// mat-sidenav-content{
+//   padding-left: 10px;
+//   padding-right: 10px;
+// }
 
-.sidenav-container {
-  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
-  flex: 1;
-  height: 95%; 
-}
+// .sidenav-container {
+//   flex: 1;
+//   height: 95%; 
+// }
 
 .important {
   display: flex;
@@ -842,13 +842,6 @@ button{
   max-width: 750px;
 }
 
-.language-icon{
-  position: fixed; 
-  top: 10px; 
-  right: 10px; 
-  color: text;
-}
-
 .start_container {
   padding: 10px;
   display: flex;
@@ -861,7 +854,6 @@ button{
   border: 1px solid rgba(255, 255, 255, .33);
   border-top-color: #fff;
   border-radius: 5%;
-
   max-width: 40%; 
   height: auto; 
   margin: 50px 0px 50px 0px;
@@ -877,12 +869,10 @@ button{
  text-align: center;
 }
 
-.small-card{
-  width: 380px;
-}
+
 
 .mat-mdc-card {
-  // background-color: $light-bg-darker-5 !important;
+  background-color: $light-bg-darker-2!important;
   border-color: $light-bg-darker-30 !important;
   box-shadow: $light-bg-darker-30 !important;
   --mdc-elevated-card-container-elevation:  0px 2px 1px -1px rgba(0, 0, 0, 0.5), 0px 1px 1px 0px rgba(0, 0, 0, 0.5), 0px 1px 3px 0px rgba(0, 0, 0, 0.5) !important;
