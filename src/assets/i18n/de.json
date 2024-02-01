@@ -132,6 +132,16 @@
         },
         "generateSeed": "Ein zufälliges Konto-Passwort erzeugen."
       },
+      "watchOnlyAddress": {
+        "title":"Watch-Only-Address",
+        "placeholder": "60-char public-key",
+        "error": {
+          "required": "An 60-char public-key is required.",
+          "min": "The 60-char public-key must exactly consist of 60 upper case characters",
+          "max": "The 60-char public-key must exactly consist of 55 upper case characters",
+          "regex": "Can only contain A-Z"
+        }
+      },
       "error": {
         "text": "Bitte überprüfe das Formular.",
         "close": "schließen"

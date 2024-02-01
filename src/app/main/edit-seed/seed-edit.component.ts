@@ -23,6 +23,7 @@ export class SeedEditDialog extends QubicDialogWrapper {
     alias: ["Seed " + (this.walletService.getSeeds().length + 1), [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
     seed: ['', [Validators.required, Validators.minLength(55), Validators.maxLength(55), Validators.pattern('[a-z]*')]],
     publicId: ['', [Validators.required, Validators.minLength(60), Validators.maxLength(60), Validators.pattern('[A-Z]*')]],
+    isWatchOnlyAddress: [false],
   });
 
   isNew = true;
@@ -59,8 +60,11 @@ export class SeedEditDialog extends QubicDialogWrapper {
   }
 
   onSubmit(): void {
-    this.saveSeed();
-
+    if (this.seedEditForm.controls.isWatchOnlyAddress.value) {
+      this.saveOnlyPublicKey();
+    } else {
+      this.saveSeed();
+    }
   }
 
   async saveSeed() {
@@ -70,6 +74,24 @@ export class SeedEditDialog extends QubicDialogWrapper {
       } else {
         this.seed.alias = this.seedEditForm.controls.alias.value!;
         this.generateIds(this.seedEditForm.controls.seed.value!);
+        await this.walletService.addSeed(this.seed);
+      }
+      this.dialogRef.close();
+    } else {
+      this._snackBar.open(this.transloco.translate("seedEditComponent.form.error.text"), this.transloco.translate("seedEditComponent.form.error.close"), {
+        duration: 5000,
+        panelClass: "error"
+      });
+    }
+  }
+
+  async saveOnlyPublicKey() {
+    if (this.seedEditForm.controls.alias.valid && this.seedEditForm.controls.publicId.valid) {
+      if (!this.isNew) {
+        this.walletService.updateSeedAlias(this.seed.publicId, this.seedEditForm.controls.alias.value!)
+      } else {
+        this.seed.alias = this.seedEditForm.controls.alias.value!;
+        this.seed.publicId = this.seedEditForm.controls.publicId.value!;
         await this.walletService.addSeed(this.seed);
       }
       this.dialogRef.close();
