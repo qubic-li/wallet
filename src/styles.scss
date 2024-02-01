@@ -281,6 +281,13 @@ table, div, span, button, th, td, tr {
   font-family: 'Space Grotesk', Courier, sans-serif;
 }
 
+table{  
+  border-radius: 12px;
+  background-color: var(--mat-table-background-color) !important;
+  padding:2px;
+}
+
+
 .mat-mdc-row, .mdc-data-table__content {
   font-size: 1em !important;
 }
@@ -869,13 +876,22 @@ button{
  text-align: center;
 }
 
+.mdc-data-table__table {
+border-spacing: revert-layer !important;
+}
+
+.mat-mdc-text-field-wrapper{  
+  border-radius: 8px !important;
+}
+
 
 
 .mat-mdc-card {
-  background-color: $light-bg-darker-2!important;
+  background-color: $light-bg-darker-2 !important;
   border-color: $light-bg-darker-30 !important;
   box-shadow: $light-bg-darker-30 !important;
   --mdc-elevated-card-container-elevation:  0px 2px 1px -1px rgba(0, 0, 0, 0.5), 0px 1px 1px 0px rgba(0, 0, 0, 0.5), 0px 1px 3px 0px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 12px !important;
 }
 
 // analog bootstrap
