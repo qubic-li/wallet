@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -39,7 +39,7 @@ export class NavigationComponent implements OnInit {
 
   private _mobileQueryListener!: () => void;
 
-  constructor(private cd: ChangeDetectorRef, public us: UpdaterService,
+  constructor(private renderer: Renderer2, private cd: ChangeDetectorRef, public us: UpdaterService,
     private transloco: TranslocoService, private _snackBar: MatSnackBar,
     public themeService: ThemeService, private breakpointObserver: BreakpointObserver,
     public walletService: WalletService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) {
@@ -50,6 +50,9 @@ export class NavigationComponent implements OnInit {
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.version = environment.version;
+
+    
+    this.renderer.addClass(document.body, this.themeService.isDarkTheme ? 'darkTheme' : 'light');
 
     // if ((<any>window).require) {
     //   this.showMinimize = true;
