@@ -726,9 +726,9 @@ h2 {
 }
 
 @keyframes highlight {
-  0%   {background-color: none;}
-  50%  {background-color: $highlightColor;}
-  100% {background-color: none;}
+  0%   {color: none;}
+  50%  { font-weight: bold;}
+  100% {color: none;}
 }
 
 .alignRight, .alignRight .mat-sort-header-container, .alignRight .mat-sort-header-content, .alignRight .mdc-data-table__cell{
