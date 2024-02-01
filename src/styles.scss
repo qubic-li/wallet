@@ -66,7 +66,7 @@ $mat-light-theme-background: (
 
 
 // Dark Theme text
-$light-text: #61f0fe;
+$light-text: #e0f0f1;
 $light-primary-text: $light-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
@@ -159,7 +159,7 @@ body {
 }
 
 $mat-accent: (
-  main: $light-link,
+  main: $dark-bg-tooltip,
   lighter: #c4ddec,
   darker: #2472a7,
   200: $light-link, // For slide toggle,
@@ -340,7 +340,7 @@ a:visited,
 a:active {
   text-decoration: none;
   //color: map-get($map: $mat-accent, $key: darker);
-   color: $dark-text;
+  color: $dark-link;
 }
 
 .darkTheme {
