@@ -180,6 +180,11 @@
             }
         }
     },
+    "dashboard":{
+      "title": "Dashboard",
+      "balance": "Wallet balance",
+      "currency": "Qu"
+    },
     "unlockComponent": {
         "title": "Wallet vrijgeven",
         "title.new": "Maak een kluisbestand aan",

@@ -181,6 +181,11 @@
     },
     "hasPendingTransaction": "Transactions pending"
   },
+  "dashboard":{
+    "title": "Dashboard",
+    "balance": "Wallet balance",
+    "currency": "Qu"
+  },
   "unlockComponent": {
     "title": "Разблокировать кошелек",
     "title.new": "Создать файл Vault",

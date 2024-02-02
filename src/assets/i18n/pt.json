@@ -181,6 +181,11 @@
     },
     "hasPendingTransaction": "Transações pendentes"
   },
+  "dashboard":{
+    "title": "Dashboard",
+    "balance": "Wallet balance",
+    "currency": "Qu"
+  },
   "unlockComponent": {
     "title": "Desbloquear a Wallet",
     "title.new": "Criar uma Wallet",

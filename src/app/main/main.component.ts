@@ -36,7 +36,7 @@ export class MainComponent implements AfterViewInit {
   dataSource!: MatTableDataSource<ISeed>;
   balances: BalanceResponse[] = [];
   public transactions: Transaction[] = [];
-  isTable: boolean = true;
+  isTable: boolean = false;
 
   @ViewChild(MatTable)
   table!: MatTable<ISeed>;

@@ -181,6 +181,11 @@
     },
     "hasPendingTransaction": "Offene Zahlungen"
   },
+  "dashboard":{
+    "title": "Dashboard",
+    "balance": "Wallet balance",
+    "currency": "Qu"
+  },
   "unlockComponent": {
     "title": "Wallet öffnen",
     "title.new": "Vault erstellen",
