@@ -29,7 +29,7 @@ export class SeedEditDialog extends QubicDialogWrapper {
   isNew = true;
   seed: IDecodedSeed = (<IDecodedSeed>{});
 
-  constructor(renderer: Renderer2, themeService: ThemeService, @Inject(MAT_DIALOG_DATA) public data: any, public walletService: WalletService, dialog: Dialog, private fb: FormBuilder, private dialogRef: DialogRef, private _snackBar: MatSnackBar, private transloco: TranslocoService) {
+  constructor(renderer: Renderer2, themeService: ThemeService, @Inject(MAT_DIALOG_DATA) public data: any, public walletService: WalletService, private dialog: Dialog, private fb: FormBuilder, private dialogRef: DialogRef, private _snackBar: MatSnackBar, private transloco: TranslocoService) {
     super(renderer, themeService);
 
     if (data.publicId) {
@@ -131,6 +131,13 @@ export class SeedEditDialog extends QubicDialogWrapper {
 
   copyPublicId() {
     navigator.clipboard.writeText(this.seedEditForm.controls.publicId.value!);
+  }
+
+  loadKey() {
+    this.dialogRef.close();
+    window.setTimeout(() => {
+      this.dialog.open(UnLockComponent);  
+    }, 500);
   }
 
 }

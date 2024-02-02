@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { bytes32ToString } from 'qubic-ts-library/dist//converter/converter';
-import { IConfig } from '../model/config';
+import { IConfig, IEncryptedVaultFile, IVaultFile } from '../model/config';
 import { IDecodedSeed, ISeed } from '../model/seed';
 import { ITx } from '../model/tx';
 import { QubicAsset } from './api.model';
@@ -71,30 +71,29 @@ export class WalletService {
     this.config.next(this.runningConfiguration);
   }
 
-  private loadConfig(config: IConfig) {
+  private async loadConfig(config: IConfig) {
 
     this.runningConfiguration = config;
 
     // backward compatibility
-    if(!this.runningConfiguration.tickAddition)
+    if (!this.runningConfiguration.tickAddition)
       this.runningConfiguration.tickAddition = 20;
 
     // convert json key to internal cryptokey
-    if (this.runningConfiguration.publicKey){
-      crypto.subtle.importKey("jwk", this.runningConfiguration.publicKey, this.rsaAlg, true, ['encrypt']).then(k =>
-        this.publicKey = k
-        );
-        this.isWalletReady = true;
-      }
+    if (this.runningConfiguration.publicKey) {
+      const k = await crypto.subtle.importKey("jwk", this.runningConfiguration.publicKey, this.rsaAlg, true, ['encrypt']);
+      this.publicKey = k
+      this.isWalletReady = true;
+    }
 
     const tempFixedBridgeAddress = "wss://webbridge.qubic.li";
 
     if (!this.runningConfiguration.webBridges)
-      this.runningConfiguration.webBridges = [];  
+      this.runningConfiguration.webBridges = [];
 
     // remove legacy entries
-    this.runningConfiguration.webBridges =  this.runningConfiguration.webBridges.filter( f => f !== "https://1.b.qubic.li")
-    if(this.runningConfiguration.webBridges.length <= 0)
+    this.runningConfiguration.webBridges = this.runningConfiguration.webBridges.filter(f => f !== "https://1.b.qubic.li")
+    if (this.runningConfiguration.webBridges.length <= 0)
       this.runningConfiguration.webBridges.push(tempFixedBridgeAddress);
 
     // todo: load web bridges dynamically
@@ -106,8 +105,8 @@ export class WalletService {
     });
   }
 
-  private save(lock: boolean = false): void {
-    this.saveConfig(lock);
+  private async save(lock: boolean = false): Promise<void> {
+    await this.saveConfig(lock);
   }
 
   public getWebBridges(): string[] {
@@ -127,16 +126,16 @@ export class WalletService {
     };
   }
 
-  public updateConfig(config: any): void {
+  public async updateConfig(config: any): Promise<void> {
     if (config.tickAddition !== undefined)
       this.runningConfiguration.tickAddition = config.tickAddition;
     if (config.useBridge !== undefined)
       this.runningConfiguration.useBridge = config.useBridge;
-    this.saveConfig(false);
+    await this.saveConfig(false);
   }
 
   public getSeeds(): ISeed[] {
-    var seeds = [...this.runningConfiguration.seeds];
+    const seeds = [...this.runningConfiguration.seeds];
     return seeds.sort((a, b) => {
       const nameA = a.alias.toUpperCase(); // ignore upper and lowercase
       const nameB = b.alias.toUpperCase(); // ignore upper and lowercase
@@ -161,25 +160,25 @@ export class WalletService {
     });
 
   }
-  public updateSeedAlias(publicId: string, alias: string) {
+  public async updateSeedAlias(publicId: string, alias: string) {
     let seed = this.getSeed(publicId);
     if (seed) {
       seed.alias = alias;
-      this.saveConfig(false);
+      await this.saveConfig(false);
     }
   }
 
-  public updateBalance(publicId: string, balance: number, balanceTick: number) {
+  public async updateBalance(publicId: string, balance: number, balanceTick: number) {
     let seed = this.getSeed(publicId);
     if (seed && (!seed.balanceTick || seed.balanceTick < balanceTick)) {
       seed.balance = balance;
       seed.balanceTick = balanceTick;
       seed.lastUpdate = new Date();
-      this.saveConfig(false);
+      await this.saveConfig(false);
     }
   }
 
-  public updateAssets(publicId: string, assets: QubicAsset[]) {
+  public async updateAssets(publicId: string, assets: QubicAsset[]) {
     let seed = this.getSeed(publicId);
 
     if (!seed)
@@ -190,26 +189,24 @@ export class WalletService {
     // remove lost assets
     seed.assets = seed?.assets?.filter(f => assets.find(q => q.contractIndex == f.contractIndex));
 
-    this.saveConfig(false);
+    await this.saveConfig(false);
   }
 
   arrayBufferToBase64(buffer: ArrayBuffer) {
-    var binary = '';
-    var bytes = new Uint8Array(buffer);
-    var len = bytes.byteLength;
-    for (var i = 0; i < len; i++) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
       binary += String.fromCharCode(bytes[i]);
     }
     return btoa(binary);
   }
 
-
-
   base64ToArrayBuffer(base64: string) {
-    var binary_string = atob(base64);
-    var len = binary_string.length;
-    var bytes = new Uint8Array(len);
-    for (var i = 0; i < len; i++) {
+    const binary_string = atob(base64);
+    const len = binary_string.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
       bytes[i] = binary_string.charCodeAt(i);
     }
     return bytes.buffer;
@@ -220,7 +217,6 @@ export class WalletService {
       const newSeed = <ISeed>{
         encryptedSeed: btoa(String.fromCharCode(...new Uint8Array(encryptedSeed))),
         alias: seed.alias,
-        //publicKey: seed.publicKey,
         publicId: seed.publicId
       }
       this.runningConfiguration.seeds.push(newSeed);
@@ -251,15 +247,15 @@ export class WalletService {
     });
   }
 
-  private saveConfig(lock: boolean) {
+  private async saveConfig(lock: boolean) {
     if (lock) { // when locking we don't want that the public key is saved.
       this.runningConfiguration.publicKey = undefined;
       localStorage.setItem(this.configName, JSON.stringify(this.runningConfiguration));
     } else {
-      crypto.subtle.exportKey('jwk', this.publicKey!).then(jwk => {
-        this.runningConfiguration.publicKey = jwk;
-        localStorage.setItem(this.configName, JSON.stringify(this.runningConfiguration));
-      });
+      const jwk = await crypto.subtle.exportKey('jwk', this.publicKey!);
+      this.runningConfiguration.publicKey = jwk;
+      localStorage.setItem(this.configName, JSON.stringify(this.runningConfiguration));
+
     }
     this.config.next(this.runningConfiguration);
   }
@@ -276,8 +272,75 @@ export class WalletService {
       this.privateKey = privateKey;
   }
 
+  public async importVault(binaryVaultFile: ArrayBuffer /* encrypted vault file */, password: string): Promise<boolean> {
+    if (!this.isVaultFile(binaryVaultFile))
+      return Promise.reject("INVALID VAULT FILE");
+
+    // unlock
+    await this.unlockVault(binaryVaultFile, password);
+
+    const vault = this.convertBinaryVault(binaryVaultFile, password);
+
+    // import configuration
+    await this.importConfig((await vault).configuration);
+
+    return Promise.resolve(true);
+  }
+
+
+  /**
+   * converts the binary vault file to the internal vault file format (uploaded by the user)
+   * @param binaryVaultFile 
+   * @param password 
+   * @returns 
+   */
+  private async convertBinaryVault(binaryVaultFile: ArrayBuffer /* encrypted vault file */, password: string): Promise<IVaultFile> {
+    try {
+      const enc = new TextDecoder("utf-8");
+      const encryptedVaultFile = JSON.parse(enc.decode(binaryVaultFile)) as IEncryptedVaultFile;
+      const decryptedVaultFile = await this.decryptVault(encryptedVaultFile, password);
+
+      return decryptedVaultFile;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
+   * unlocks the wallet from a vault file
+   * 
+   * @param binaryVaultFile 
+   * @param password 
+   * @returns 
+   */
+  public async unlockVault(binaryVaultFile: ArrayBuffer /* encrypted vault file */, password: string): Promise<boolean> {
+
+    if (!this.isVaultFile(binaryVaultFile))
+      return Promise.reject("INVALID VAULT FILE");
+
+    try {
+      const decryptedVaultFile = await this.convertBinaryVault(binaryVaultFile, password);
+      const privKey = this.base64ToArrayBuffer(decryptedVaultFile.privateKey);
+
+      return this.importEncryptedPrivateKey(privKey, password).then(({ privateKey, publicKey }) => {
+        this.shouldExportKey = false;
+        this.setKeys(publicKey, privateKey);
+        this.save();
+        return true;
+      });
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  /**
+   * OBSOLETE legacy
+   * @param data 
+   * @param password 
+   * @returns 
+   */
   public async unlock(data: ArrayBuffer, password: string): Promise<boolean> {
-    return this.import(data, password).then(({ privateKey, publicKey }) => {
+    return this.importEncryptedPrivateKey(data, password).then(({ privateKey, publicKey }) => {
       this.shouldExportKey = false;
       this.setKeys(publicKey, privateKey);
       this.save();
@@ -292,7 +355,7 @@ export class WalletService {
     return crypto.subtle.importKey("jwk", jwkPrivate, this.rsaAlg, true, ["encrypt"]);
   }
 
-  async import(wrappedKey: ArrayBuffer, password: string): Promise<{ privateKey: CryptoKey, publicKey: CryptoKey }> {
+  async importEncryptedPrivateKey(wrappedKey: ArrayBuffer, password: string): Promise<{ privateKey: CryptoKey, publicKey: CryptoKey }> {
     return this.importKey(password).then((pwKey: CryptoKey) => {
       return this.deriveKey(pwKey).then((wrapKey: CryptoKey) => {
         return crypto.subtle.unwrapKey("jwk", wrappedKey, wrapKey, this.aesAlg, this.rsaAlg, true, ["decrypt"]).then(privateKey => {
@@ -334,41 +397,165 @@ export class WalletService {
     )
   }
 
+  private bytesToString(bytes: Uint8Array): string {
+    return new TextDecoder().decode(bytes);
+  }
+
+  private stringToBytes(str: string): Uint8Array {
+    return new TextEncoder().encode(str);
+  }
+
+  private bytesToBase64(arr: Uint8Array): string {
+    return btoa(Array.from(arr, (b) => String.fromCharCode(b)).join(""));
+  }
+
+  private base64ToBytes(base64: string): Uint8Array {
+    return Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
+  }
+
+  private async getVaultFileKey(password: string, salt: any) {
+    const passwordBytes = this.stringToBytes(password);
+
+    const initialKey = await crypto.subtle.importKey(
+      "raw",
+      passwordBytes,
+      { name: "PBKDF2" },
+      false,
+      ["deriveKey"]
+    );
+    return crypto.subtle.deriveKey(
+      { name: "PBKDF2", salt, iterations: 100000, hash: "SHA-256" },
+      initialKey,
+      { name: "AES-GCM", length: 256 },
+      false,
+      ["encrypt", "decrypt"]
+    );
+  }
+
+  private async encryptVault(vaultFile: IVaultFile, password: string): Promise<IEncryptedVaultFile> {
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const key = await this.getVaultFileKey(password, salt);
+
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const contentBytes = this.stringToBytes(JSON.stringify(vaultFile));
+
+    const cipher = new Uint8Array(
+      await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, contentBytes)
+    );
+
+    return {
+      salt: this.bytesToBase64(salt),
+      iv: this.bytesToBase64(iv),
+      cipher: this.bytesToBase64(cipher),
+    };
+  }
+
+  private async decryptVault(encryptedData: IEncryptedVaultFile, password: string): Promise<IVaultFile> {
+    const salt = this.base64ToBytes(encryptedData.salt);
+
+    const key = await this.getVaultFileKey(password, salt);
+
+    const iv = this.base64ToBytes(encryptedData.iv);
+
+    const cipher = this.base64ToBytes(encryptedData.cipher);
+
+    const contentBytes = new Uint8Array(
+      await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, cipher)
+    );
+    const decryptedVault = this.bytesToString(contentBytes);
+    return JSON.parse(decryptedVault);
+  }
+
+  /**
+   * checks if the provided file is of the new vault file format or not
+   */
+  public isVaultFile(binaryFile: ArrayBuffer): boolean {
+    try {
+      const enc = new TextDecoder("utf-8");
+      const jsonData = enc.decode(binaryFile);
+      const vaultFile = JSON.parse(jsonData) as IEncryptedVaultFile;
+      return vaultFile !== undefined && vaultFile.cipher !== undefined && vaultFile.iv !== undefined && vaultFile.salt !== undefined;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  public async exportVault(password: string) {
+    if (!this.privateKey || !this.runningConfiguration.publicKey)
+      return Promise.resolve();
+
+    const jsonKey = await this.createJsonKey(password);
+    if (jsonKey === null) {
+      console.error("KEY NULL");
+      return Promise.resolve();
+    }
+
+    const vaultFile: IVaultFile = {
+      privateKey: this.arrayBufferToBase64(jsonKey),
+      publicKey: this.runningConfiguration.publicKey!,
+      configuration: this.prepareConfigExport()
+    };
+
+    const encryptedVaultFile = await this.encryptVault(vaultFile, password);
+
+    const fileData = new TextEncoder().encode(JSON.stringify(encryptedVaultFile))
+    const blob = new Blob([fileData], { type: 'application/octet-stream' });
+    this.downloadBlob("qubic-wallet.vault", blob);
+    this.shouldExportKey = false;
+
+    await this.markSeedsAsSaved();
+
+  }
+
+  private async createJsonKey(password: string): Promise<ArrayBuffer | null> {
+    if (!this.privateKey)
+      return Promise.resolve<ArrayBuffer | null>(null);
+
+    const pwKey = await this.importKey(password);
+    const wrapKey = await this.deriveKey(pwKey);
+    const jsonKey = await crypto.subtle.wrapKey("jwk", this.privateKey!, wrapKey, this.aesAlg);
+
+    return jsonKey;
+  }
+
+  /**
+   * OBSOLETE!!! don't use this anymore!
+   * @param password 
+   * @returns 
+   */
   public async exportKey(password: string) {
     if (!this.privateKey)
       return Promise.resolve();
 
-    return this.importKey(password).then((pwKey: CryptoKey) => {
-      this.deriveKey(pwKey).then((wrapKey: CryptoKey) => {
-        crypto.subtle.wrapKey("jwk", this.privateKey!, wrapKey, this.aesAlg).then((jsonKey) => {
-          const blob = new Blob([jsonKey], { type: 'application/octet-stream' });
-          this.downloadBlob("qubic-wallet.unlock", blob);
-          this.shouldExportKey = false;
-        });
-      });
-    });
+    const jsonKey = await this.createJsonKey(password);
+
+    if (jsonKey === null) {
+      console.error("KEY NULL");
+      return Promise.resolve();
+    }
+
+    const blob = new Blob([jsonKey], { type: 'application/octet-stream' });
+    this.downloadBlob("qubic-wallet.vault", blob);
+    this.shouldExportKey = false;
+
   }
 
-  public importConfig(config: IConfig): boolean {
+  public async importConfig(config: IConfig): Promise<boolean> {
     if (!config || config.seeds.length <= 0)
       return false;
 
-    this.loadConfig(config);
-    this.saveConfig(false);
+    await this.loadConfig(config);
+    await this.saveConfig(false);
 
     return true;
   }
 
-  public exportConfig(): boolean {
-    if (!this.runningConfiguration.seeds || this.runningConfiguration.seeds.length <= 0)
-      return false;
-
+  private prepareConfigExport(): IConfig {
     const exportConfig: IConfig = {
       seeds: this.runningConfiguration.seeds.map(m => {
         const exportSeed: ISeed = <ISeed>{};
         Object.assign(exportSeed, m);
-        // remove balance
-        exportSeed.balance = 0;
+        // reset states balance
         exportSeed.balanceTick = 0;
         exportSeed.lastUpdate = undefined;
         exportSeed.isExported = true;
@@ -378,16 +565,29 @@ export class WalletService {
       useBridge: this.runningConfiguration.useBridge,
       tickAddition: this.runningConfiguration.tickAddition
     };
+    return exportConfig;
+  }
+
+  private async markSeedsAsSaved() {
+    // mark seeds as saved/exported
+    this.runningConfiguration.seeds.forEach(seed => {
+      seed.isExported = true;
+    });
+    await this.saveConfig(false);
+  }
+
+  // OBSOLETE: LEGACY!!!
+  public async exportConfig(): Promise<boolean> {
+    if (!this.runningConfiguration.seeds || this.runningConfiguration.seeds.length <= 0)
+      return false;
+
+    const exportConfig = this.prepareConfigExport();
 
     const data = new TextEncoder().encode(JSON.stringify(exportConfig));
     const blob = new Blob([data], { type: 'application/octet-stream' });
     this.downloadBlob("qubic-config-addresses.config", blob);
 
-    // mark seeds as saved/exported
-    this.runningConfiguration.seeds.forEach(seed => {
-      seed.isExported = true;
-    });
-    this.saveConfig(false);
+    await this.markSeedsAsSaved();
 
     return true;
   }

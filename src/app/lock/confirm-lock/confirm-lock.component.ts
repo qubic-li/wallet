@@ -40,25 +40,38 @@ export class LockConfirmDialog extends QubicDialogWrapper {
     this.chdet.detectChanges();
   }
 
-  onSubmit(): void {
+  async exportVault(showConfirmation = true, closeDialog = true) {
     if (this.exportForm.valid && this.exportForm.controls.password.value) {
-      this.walletService.exportKey(this.exportForm.controls.password.value).then(r => {
-      });
-      this.dialogRef.close();
+      
+      await this.walletService.exportVault(this.exportForm.controls.password.value);
 
-      const dialogRef = this.dialog.open(OkDialog, {
-        data: { 
-          title: this.transloco.translate("okDialog.title"), 
-          message: this.transloco.translate("okDialog.messages.tresorText"), 
-          button: this.transloco.translate("okDialog.button") 
-        },
-      });
+      if(closeDialog)
+        this.dialogRef.close();
+
+      if(showConfirmation && !this.showSave){
+        const dialogRef = this.dialog.open(OkDialog, {
+          data: { 
+            title: this.transloco.translate("okDialog.title"), 
+            message: this.transloco.translate("okDialog.messages.tresorText"), 
+            button: this.transloco.translate("okDialog.button") 
+          },
+        });
+      }
     }
+  }
+
+  onSubmit(): void {
+   this.exportVault();
   }
 
   closeWallet() {
     this.walletService.isWalletReady = false;
     this.walletService.lock();
     this.dialogRef.close();
+  }
+
+  async saveAndCloseWallet() {
+    await this.exportVault(false, false);
+    this.closeWallet();
   }
 }

@@ -7,7 +7,7 @@
     <div *ngIf="accountBalances.length > 0">
         <div *ngIf="hasComputors()">
             <button [routerLink]="['/voting/create']" mat-raised-button color="accent">
-                {{ t("votingComponent.proposals.createButton") }}accent
+                {{ t("votingComponent.proposals.createButton") }}
             </button>
         </div>
         <div *ngIf="!hasComputors()">

@@ -215,7 +215,7 @@
         "reason": "Het is van het grootste belang om uw kluisbestand veilig op te slaan. Kies een sterk wachtwoord dat u niet zult vergeten en klik dan op \"save\".",
         "warning": "Ik bevestig dat ik mijn kluisbestand heb opgeslagen.",
         "password.placeholder": "Wachtwoord",
-        "passwor.required": "Wachtwoord verplicht",
+        "password.required": "Wachtwoord verplicht",
         "password.min": "Het wachtwoord moet minimaal 8 tekens bevatten.",
         "buttons": {
             "savePrivateKey": "Save kluisbestand",

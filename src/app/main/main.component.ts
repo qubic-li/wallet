@@ -128,7 +128,7 @@ export class MainComponent implements AfterViewInit {
   }
 
   addSeed() {
-    if (!this.walletService.isWalletReady) {
+    if (!this.walletService.privateKey) {
       const dialogRef = this.dialog.open(UnLockComponent, { restoreFocus: false });
       dialogRef.afterClosed().subscribe((r) => {
         if (this.walletService.privateKey) {

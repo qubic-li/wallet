@@ -34,3 +34,14 @@ form {
     display:flex;
     justify-content: center;
 }
+.dialog-container {
+    min-width: 350px;
+}
+.load-key-container {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    button {
+        min-width: 90%;
+    }
+}

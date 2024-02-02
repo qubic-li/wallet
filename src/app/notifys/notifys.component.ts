@@ -5,6 +5,8 @@ import { LockConfirmDialog } from '../lock/confirm-lock/confirm-lock.component';
 import { QubicService } from '../services/qubic.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { ExportComponent } from '../settings/export/export.component';
+import { ExportConfigDialog } from '../lock/export-config/export-config.component';
 
 
 @Component({
@@ -47,12 +49,7 @@ export class NotifysComponent implements OnInit {
   }
 
   saveSettings(): void {
-    if(!this.walletService.exportConfig()){
-      this._snackBar.open(this.transloco.translate("settings.export.noData"), this.transloco.translate("general.close") , {
-        duration: 0,
-        panelClass: "error"
-      });
-    }
+    this.dialog.open(ExportConfigDialog);
   }
 
   lock(): void {

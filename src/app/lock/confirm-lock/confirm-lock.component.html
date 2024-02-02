@@ -15,8 +15,10 @@
     </span>
     <div *ngIf="walletService.shouldExportKey || showSave || keyDownload">
       <br>
-      <hr>      
-      <mat-icon>warning</mat-icon> {{ t("lockComponent.warning")}}
+      <hr>
+      <div class="flex flex-center">
+        <mat-icon>warning</mat-icon> {{ t("lockComponent.warning")}}
+      </div>      
       <hr>
         <mat-form-field class="full-width">
           <input matInput placeholder="{{ t('lockComponent.password.placeholder') }}" formControlName="password" type="password">          
@@ -31,10 +33,11 @@
     </mat-dialog-content>
     <mat-dialog-actions>
       <div class="text-center">
-        <button mat-raised-button color="primary">{{ t("lockComponent.buttons.savePrivateKey") }}</button>
-        <button mat-raised-button  color="accent" mat-dialog-close *ngIf="keyDownload">  {{ t("lockComponent.forceDownload.buttons.allOk")}}</button>
-        <button mat-raised-button  color="primary" (click)="closeWallet()" *ngIf="!keyDownload"> {{ t("lockComponent.buttons.closeWallet")}}</button>
-        <button mat-raised-button  mat-dialog-close *ngIf="!keyDownload"> {{ t("lockComponent.buttons.cancel")}}</button>
+        <button mat-raised-button *ngIf="!showSave" color="primary" (click)="showSave = true">{{ t("lockComponent.buttons.enableExport") }}</button>
+        <button mat-raised-button color="accent" mat-dialog-close *ngIf="keyDownload">  {{ t("lockComponent.forceDownload.buttons.allOk")}}</button>
+        <button mat-raised-button type="button" color="primary" (click)="saveAndCloseWallet()" [disabled]="!exportForm.valid" *ngIf="!keyDownload && showSave"> {{ t("lockComponent.buttons.exportAndCloseWallet")}}</button>
+        <button mat-raised-button color="primary" (click)="closeWallet()" *ngIf="!keyDownload && !showSave"> {{ t("lockComponent.buttons.closeWallet")}}</button>
+        <button mat-raised-button mat-dialog-close *ngIf="!keyDownload"> {{ t("lockComponent.buttons.cancel")}}</button>
       </div>
     </mat-dialog-actions>
   </form>

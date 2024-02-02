@@ -186,6 +186,7 @@
     "welcomeMessage": "Welcome to the Qubic Wallet.\nTo use this Wallet you must create a wallet unlock file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
     "reasonMessage": "To unlock your Wallet your wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
     "choosePrivateKeyFile": "Choose wallet unlock file",
+    "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
     "form": {
       "file.error.required": "Wallet unlock file required",
@@ -196,6 +197,7 @@
     "buttons": {
       "cancel": "Cancel",
       "generateKey": "Create a new wallet",
+      "importAndUnlock": "Import Vault and Unlock",
       "unlock": "Unlock wallet",
       "existingUser": "I already have a Wallet",
       "newUser": "I want to create a new Wallet",
@@ -218,12 +220,13 @@
     "reason": "It is paramount to safely store your wallet unlock file. Please choose a strong password you won't forget and then click on \"save\".",
     "warning": "I confirm that I have saved my wallet unlock file.",
     "password.placeholder": "Password",
-    "passwor.required": "Password required",
+    "password.required": "Password required",
     "password.min": "Password must have a minimum of 8 characters.",
     "buttons": {
-      "savePrivateKey": "Save wallet unlock file",
+      "savePrivateKey": "Save Vault file",
       "closeWallet": "Lock Wallet",
-      "enableExport": "Export",
+      "exportAndCloseWallet": "Export Vault file and Lock Wallet",
+      "enableExport": "Export Vault File",
       "cancel": "Cancel"
     }
   },
@@ -456,14 +459,16 @@
     }
   },
   "exportConfigComponent": {
-    "title": "Export wallet address config",
+    "title": "Export Vault File",
     "buttons": {
       "export": "Export",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "unlock": "Unlock Vault"
     },
     "messages": {
-      "export": "You have modified your account inventory. Be sure to download your current wallet address config so you can import it later.",
-      "info": "It contains your encrypted seeds."
+      "unlockInfo": "Please unlock your Vault to be able to export another Vault file",
+      "export": "You have modified your account inventory. Be sure to download your current vault file so you can import it later.",
+      "info": "It contains your account inventory, settings and encrypted seeds. The Vault file will be protected by the provided password."
     }
   }
 }

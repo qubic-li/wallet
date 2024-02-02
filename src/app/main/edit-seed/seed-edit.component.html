@@ -1,6 +1,7 @@
-<div *transloco="let t">
+<div class="dialog-container" *transloco="let t">
 <h2 mat-dialog-title><span *ngIf="isNew">{{ t("seedEditComponent.title.add") }}</span><span *ngIf="!isNew">{{ t("seedEditComponent.title.edit") }}</span></h2>
 <mat-dialog-content>
+  <div *ngIf="walletService.privateKey">
     <form [formGroup]="seedEditForm" novalidate (ngSubmit)="onSubmit()">
       <mat-form-field class="full-width">
         <mat-label>{{ t("seedEditComponent.form.alias.placeholder") }}</mat-label>
@@ -72,14 +73,14 @@
         </div>
       </div>      
     </form>
-    
-    
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
   <div class="text-center">
   <button mat-raised-button  mat-dialog-close> {{ t("seedEditComponent.buttons.cancel")}}</button>
-  <button mat-raised-button *ngIf="!getPublicId()" color="accent" (click)="onSubmit()"><span *ngIf="isNew">{{ t("seedEditComponent.buttons.create")}}</span><span *ngIf="!isNew">{{ t("seedEditComponent.buttons.save")}}</span></button>
-  <button mat-raised-button *ngIf="getPublicId()" [mat-dialog-close]="true" color="accent" (click)="onSubmit()"><span *ngIf="isNew">{{ t("seedEditComponent.buttons.create")}}</span><span *ngIf="!isNew">{{ t("seedEditComponent.buttons.save")}}</span></button>
+  
+  <button mat-raised-button *ngIf="walletService.privateKey && !getPublicId()" color="accent" (click)="onSubmit()"><span *ngIf="isNew">{{ t("seedEditComponent.buttons.create")}}</span><span *ngIf="!isNew">{{ t("seedEditComponent.buttons.save")}}</span></button>
+  <button mat-raised-button *ngIf="walletService.privateKey && getPublicId()" [mat-dialog-close]="true" color="accent" (click)="onSubmit()"><span *ngIf="isNew">{{ t("seedEditComponent.buttons.create")}}</span><span *ngIf="!isNew">{{ t("seedEditComponent.buttons.save")}}</span></button>
   </div>
 </mat-dialog-actions>
 </div>

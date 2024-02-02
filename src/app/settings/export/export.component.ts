@@ -21,10 +21,7 @@ export class ExportComponent {
   public importDone = false;
 
   constructor (private walletService: WalletService, public dialog: MatDialog,  private _snackBar: MatSnackBar, private transloco: TranslocoService, private deviceService: DeviceDetectorService){
-
   }
-
-  
 
   public import() {
     if(!this.configToImport)

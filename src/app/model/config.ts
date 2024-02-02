@@ -7,3 +7,18 @@ export interface IConfig {
     useBridge: boolean;
     tickAddition: number;
 }
+
+/**
+ * interface for the vault file definition
+ */
+export interface IVaultFile {
+    privateKey: string; /* base64 */
+    publicKey: JsonWebKey;
+    configuration: IConfig
+}
+
+export interface IEncryptedVaultFile {
+    salt: string;
+    iv: string;
+    cipher: string;
+}
