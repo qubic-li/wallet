@@ -185,11 +185,11 @@
     "title.new": "Create a Wallet",
     "welcomeMessage": "Welcome to the Qubic Wallet.\nTo use this Wallet you must create a wallet unlock file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
     "reasonMessage": "To unlock your Wallet your wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
-    "choosePrivateKeyFile": "Choose wallet unlock file",
+    "choosePrivateKeyFile": "Choose Vault or Wallet Unlock file",
     "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
     "form": {
-      "file.error.required": "Wallet unlock file required",
+      "file.error.required": "Vault/Wallet unlock file required",
       "password.error.required": "Wallet password required",
       "password.error.min": "Your password must have a minimum of 8 characters.",
       "password.error.wrong": "Your password is incorrect."

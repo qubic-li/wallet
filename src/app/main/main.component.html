@@ -178,10 +178,10 @@
       (click)="receive(publicId)">
       <mat-icon>qr_code_2</mat-icon>
     </button>
-    <button mat-icon-button [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId)">
+    <button mat-icon-button *ngIf="walletService.privateKey" [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId)">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button [title]="t('seedOverviewComponent.table.actions.deleteSeed')" (click)="delete(publicId)">
+    <button mat-icon-button *ngIf="walletService.privateKey" [title]="t('seedOverviewComponent.table.actions.deleteSeed')" (click)="delete(publicId)">
       <mat-icon>delete</mat-icon>
     </button>
   </ng-template>
