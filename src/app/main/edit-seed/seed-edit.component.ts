@@ -55,8 +55,8 @@ export class SeedEditDialog extends QubicDialogWrapper {
     }
   }
 
-  getPublicId(): string {
-    return this.seed?.publicId ?? this.seedEditForm.controls.publicId.value ?? '';
+  getPublicId(): string {    
+    return this.seedEditForm.controls.alias.valid && this.seedEditForm.controls.publicId.value ? this.seed?.publicId : '';
   }
 
   onSubmit(): void {
