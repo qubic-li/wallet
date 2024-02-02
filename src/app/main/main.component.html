@@ -10,6 +10,8 @@
         <mat-icon>add_circle</mat-icon>
         {{ t("seedOverviewComponent.addSeedButton") }}
       </button>
+      <mat-slide-toggle (change)="toggleChanged($event)" [checked]="isTable">Toggle: {{ isTable ? 'On' : 'Off' }} | {{ t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
+      <!-- <div>&nbsp;</div> -->
       <!-- <button mat-raised-button aria-label="Export Addresses" title="Export Addresses" (click)="openExportDialog(false)">
         <mat-icon>download_file</mat-icon>
         {{ t("seedOverviewComponent.exportButton") }}
@@ -19,7 +21,38 @@
         {{ t("seedOverviewComponent.importButton") }}
       </button> -->
     </div>
-    <div class="mobileOnly seedList">
+
+    <!-- card version /-->
+    <div *ngIf="!isTable">
+      <div class="flex flex-wrap word-break" >
+        <span *ngFor="let address of dataSource.filteredData; let i = index">           
+          <div class="col-10 col-sm-12">
+            <mat-card class="proposal-card">
+              <mat-card-content>
+                {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
+                <h3>
+                <span *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number : "1.0-0"}}</span>
+                  {{ t("general.currency") }}
+                </h3>
+                <div>
+                  $$$$$$$$
+                </div>
+                <br>
+                <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="address.publicId">
+                  {{ address.publicId }}
+                </div>
+                <div class=" text-center">
+                  <ng-container class="mobileActionLine" *ngTemplateOutlet="actions; context: address"></ng-container>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>    
+        </span> 
+      </div>  
+    </div>
+
+    <!-- table version-->
+    <div *ngIf="isTable" class="mobileOnly seedList">
       <div class="mobileSeedItem" *ngFor="let seed of dataSource.filteredData">
         <h3>
           {{ seed.alias }} - <span *ngIf="!seed.lastUpdate">?</span>
@@ -47,7 +80,7 @@
       </div>
     </div>
 
-    <table mat-table [dataSource]="dataSource" matSortActive="alias" matSortDirection="asc"
+    <table *ngIf="isTable" mat-table [dataSource]="dataSource" matSortActive="alias" matSortDirection="asc"
       class="mat-elevation-z8 desktopOnly currency-value" matSort>
       <ng-container matColumnDef="alias">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
