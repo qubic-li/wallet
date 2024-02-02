@@ -157,6 +157,7 @@
   },
   "seedOverviewComponent": {
     "title": "Konten",
+    "isTable":"Tabelle anzeigen",
     "addSeedButton": "Konto hinzufügen",
     "importButton": "Import",
     "exportButton": "Export",

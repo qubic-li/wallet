@@ -9,8 +9,8 @@
       <button color="accent" mat-raised-button aria-label="Add Addresse" title="Add Addresse" (click)="addSeed()">
         <mat-icon>add_circle</mat-icon>
         {{ t("seedOverviewComponent.addSeedButton") }}
-      </button>
-      <mat-slide-toggle (change)="toggleChanged($event)" [checked]="isTable">Toggle: {{ isTable ? 'On' : 'Off' }} | {{ t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
+      </button>&nbsp;
+      <mat-slide-toggle (change)="toggleChanged($event)" [checked]="isTable">{{ t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
       <!-- <div>&nbsp;</div> -->
       <!-- <button mat-raised-button aria-label="Export Addresses" title="Export Addresses" (click)="openExportDialog(false)">
         <mat-icon>download_file</mat-icon>

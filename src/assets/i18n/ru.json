@@ -156,6 +156,8 @@
     }
   },
   "seedOverviewComponent": {
+    "title": "Addresses",
+    "isTable":"Show table",
     "addSeedButton": "Добавить счет",
     "importButton": "Импортировать",
     "exportButton": "Экспорт",

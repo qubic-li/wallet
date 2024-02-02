@@ -156,6 +156,8 @@
     }
   },
   "seedOverviewComponent": {
+    "title": "Addresses",
+    "isTable":"Show table",
     "addSeedButton": "Agregar una dirección",
     "importButton": "Importar",
     "exportButton": "Exportar",
