@@ -22,6 +22,7 @@ import { DecimalPipe } from '@angular/common';
 import { AssetsDialog } from './assets/assets.component';
 import { LoadConfigDialog } from '../lock/load-config/load-config.component';
 import { ExportConfigDialog } from '../lock/export-config/export-config.component';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 
 @Component({
@@ -35,13 +36,13 @@ export class MainComponent implements AfterViewInit {
   dataSource!: MatTableDataSource<ISeed>;
   balances: BalanceResponse[] = [];
   public transactions: Transaction[] = [];
+  isTable: boolean = true;
 
   @ViewChild(MatTable)
   table!: MatTable<ISeed>;
 
   @ViewChild(MatSort)
   sort!: MatSort;
-
 
   constructor(
     public walletService: WalletService,
@@ -51,8 +52,9 @@ export class MainComponent implements AfterViewInit {
     private q: QubicService,
     private _snackBar: MatSnackBar,
     private t: TranslocoService,
-    private decimalPipe: DecimalPipe
+    private decimalPipe: DecimalPipe,
   ) {
+
     this.setDataSource();
     us.currentBalance.subscribe(b => {
       this.balances = b;
@@ -85,6 +87,12 @@ export class MainComponent implements AfterViewInit {
     }));
     this.dataSource.sort = this.sort;
   }
+
+  toggleChanged(event: MatSlideToggleChange) {
+    this.isTable = event.checked;
+    // Hier können Sie weitere Aktionen ausführen, basierend auf dem Zustand des Toggles
+  }
+  
 
   load(): void {
     const dialogRef = this.dialog.open(LoadConfigDialog, { disableClose: true, });

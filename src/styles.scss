@@ -884,8 +884,6 @@ border-spacing: revert-layer !important;
   border-radius: 8px !important;
 }
 
-
-
 .mat-mdc-card {
   background-color: $light-bg-darker-2 !important;
   border-color: $light-bg-darker-30 !important;
@@ -894,27 +892,30 @@ border-spacing: revert-layer !important;
   border-radius: 12px !important;
 }
 
+.proposal-card{
+  margin-bottom:20px;
+}
+
 // analog bootstrap
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin: -10px; 
 }
 
 /* Stile für verschiedene Spaltenbreiten */
-.col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
-.col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }
-.col-3 { flex: 0 0 25%; max-width: 25%; }
-.col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
-.col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; }
-.col-6 { flex: 0 0 50%; max-width: 50%; }
-.col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; }
-.col-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
-.col-9 { flex: 0 0 75%; max-width: 75%; }
-.col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; }
-.col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; }
-.col-12 { flex: 0 0 100%; max-width: 100%; }
+.col-1 { flex: 0 0 8.333333%; max-width: 8.333333%; margin: 0px -80px 0px 0px;}
+.col-2 { flex: 0 0 16.666667%; max-width: 16.666667%; margin: 0px -80px 0px 0px;}
+.col-3 { flex: 0 0 25%; max-width: 25%; margin: 0px -80px 0px 0px;}
+.col-4 { flex: 0 0 33.333333%; max-width: 33.333333%; margin: 0px -80px 0px 0px;}
+.col-5 { flex: 0 0 41.666667%; max-width: 41.666667%; margin: 0px -80px 0px 0px;}
+.col-6 { flex: 0 0 50%; max-width: 50%; margin: 0px -80px 0px 0px;}
+.col-7 { flex: 0 0 58.333333%; max-width: 58.333333%; margin:0px -80px 0px 0px;}
+.col-8 { flex: 0 0 66.666667%; max-width: 66.666667%;margin:0px -80px 0px 0px;}
+.col-9 { flex: 0 0 75%; max-width: 75%; margin: 0px -80px 0px 0px;}
+.col-10 { flex: 0 0 83.333333%; max-width: 83.333333%; margin: 0px -80px 0px 0px;}
+.col-11 { flex: 0 0 91.666667%; max-width: 91.666667%; margin: 0px -80px 0px 0px;}
+.col-12 { flex: 0 0 100%; max-width: 100%; margin: 0px -80px 0px 0px;}
 
 /* Mobile Geräte */
 @media (max-width: 896px) {
