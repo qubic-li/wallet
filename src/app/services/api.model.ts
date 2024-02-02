@@ -56,6 +56,12 @@ export interface NetworkBalance {
   tick: number;
 }
 
+export interface MarketInformation {
+  supply: number;
+  price: number;
+  capitalization: number;
+  currency: string
+}
 
 export interface BallotDto {
   computorIndex?: number;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { QubicTransaction } from 'qubic-ts-library/dist/qubic-types/QubicTransaction';
-import { BalanceResponse, NetworkBalance, QubicAsset, Transaction } from './api.model';
+import { BalanceResponse, MarketInformation, NetworkBalance, QubicAsset, Transaction } from './api.model';
 import { ApiService } from './api.service';
 import { WalletService } from './wallet.service';
 import { VisibilityService } from './visibility.service';
@@ -13,39 +13,49 @@ export class UpdaterService {
 
   public currentTick: BehaviorSubject<number> = new BehaviorSubject(0);
   public currentBalance: BehaviorSubject<BalanceResponse[]> = new BehaviorSubject<BalanceResponse[]>([]);
+  public currentPrice: BehaviorSubject<MarketInformation> = new BehaviorSubject<MarketInformation>({ supply: 0, price: 0, capitalization: 0, currency: 'USD' });
   public internalTransactions: BehaviorSubject<Transaction[]> = new BehaviorSubject<Transaction[]>([]); // used to store internal tx
   public errorStatus: BehaviorSubject<string> = new BehaviorSubject<string>("");
   private tickLoading = false;
   private balanceLoading = false;
+  private currentPriceLoading = false;
   private networkBalanceLoading = false;
   private isActive = true;
   private lastAssetsLoaded: Date | undefined;
 
 
-  constructor(private visibilityService: VisibilityService,  private api: ApiService, private walletService: WalletService) {
+
+  constructor(private visibilityService: VisibilityService, private api: ApiService, private walletService: WalletService) {
     this.init();
   }
 
-  
+
   private init(): void {
     this.getCurrentTick();
     this.getCurrentBalance();
     this.getNetworkBalances();
     this.getAssets();
+    this.getCurrentPrice();
+    // every 30 seconds
     setInterval(() => {
       this.getCurrentTick();
     }, 30000);
+    // every minute
     setInterval(() => {
       this.getCurrentBalance();
       this.getNetworkBalances();
       this.getAssets();
     }, 60000);
+    // every hour
+    setInterval(() => {
+      this.getCurrentPrice();
+    }, 60000 * 60);
 
     this.visibilityService.isActive().subscribe(s => {
-      if(!this.isActive && s){
+      if (!this.isActive && s) {
         this.isActive = s;
         this.forceUpdateCurrentTick();
-      }else{
+      } else {
         this.isActive = s;
       }
     });
@@ -53,7 +63,7 @@ export class UpdaterService {
   }
 
   private getCurrentTick() {
-    if(this.tickLoading || !this.isActive)
+    if (this.tickLoading || !this.isActive)
       return;
 
     this.tickLoading = true;
@@ -73,13 +83,13 @@ export class UpdaterService {
     this.getCurrentBalance();
   }
 
-  
+
   /**
    * should load the current balances for the accounts
    * @returns 
    */
   private getCurrentBalance() {
-    if(this.balanceLoading || !this.isActive)
+    if (this.balanceLoading || !this.isActive)
       return;
 
     this.balanceLoading = true;
@@ -88,7 +98,7 @@ export class UpdaterService {
       this.api.getCurrentBalance(this.walletService.getSeeds().map(m => m.publicId)).subscribe(r => {
         if (r) {
           this.currentBalance.next(r);
-          this.addTransactions(r.flatMap((b) => b.transactions).filter(this.onlyUniqueTx).sort((a,b) =>  { return b.targetTick - a.targetTick}))
+          this.addTransactions(r.flatMap((b) => b.transactions).filter(this.onlyUniqueTx).sort((a, b) => { return b.targetTick - a.targetTick }))
         }
         this.balanceLoading = false;
       }, errorResponse => {
@@ -98,7 +108,7 @@ export class UpdaterService {
     }
   }
 
-  private onlyUniqueTx(value: Transaction, index:any, array:Transaction[]) {
+  private onlyUniqueTx(value: Transaction, index: any, array: Transaction[]) {
     return array.findIndex((f: Transaction) => f.id === value.id) == index;
   }
 
@@ -116,10 +126,10 @@ export class UpdaterService {
    * @returns 
    */
   private getNetworkBalances(publicIds: string[] | undefined = undefined, callbackFn: ((balances: NetworkBalance[]) => void) | undefined = undefined): void {
-    if(this.networkBalanceLoading || !this.isActive)
+    if (this.networkBalanceLoading || !this.isActive)
       return;
 
-    if(!publicIds)
+    if (!publicIds)
       publicIds = this.walletService.getSeeds().map(m => m.publicId);
 
     this.networkBalanceLoading = true;
@@ -128,10 +138,10 @@ export class UpdaterService {
       this.api.getNetworkBalances(publicIds).subscribe(r => {
         if (r) {
           // update wallet
-          r.forEach((entry) =>{
+          r.forEach((entry) => {
             this.walletService.updateBalance(entry.publicId, entry.amount, entry.tick);
           });
-          if(callbackFn)
+          if (callbackFn)
             callbackFn(r);
         }
         this.networkBalanceLoading = false;
@@ -145,50 +155,78 @@ export class UpdaterService {
   // todo: put this in a helper class/file
   private groupBy<T>(arr: T[], fn: (item: T) => any) {
     return arr.reduce<Record<string, T[]>>((prev, curr) => {
-        const groupKey = fn(curr);
-        const group = prev[groupKey] || [];
-        group.push(curr);
-        return { ...prev, [groupKey]: group };
+      const groupKey = fn(curr);
+      const group = prev[groupKey] || [];
+      group.push(curr);
+      return { ...prev, [groupKey]: group };
     }, {});
   }
 
-    /**
-   * load balances directly from network
-   * @returns 
-   */
-    private getAssets(publicIds: string[] | undefined = undefined, callbackFn: ((balances: QubicAsset[]) => void) | undefined = undefined): void {
-      if(!this.isActive || (this.lastAssetsLoaded && new Date().getTime() - this.lastAssetsLoaded.getTime() < (12 * 3600 * 1000))) // only update assets every 12h
-        return;
+  /**
+ * load balances directly from network
+ * @returns 
+ */
+  private getAssets(publicIds: string[] | undefined = undefined, callbackFn: ((balances: QubicAsset[]) => void) | undefined = undefined): void {
+    if (!this.isActive || (this.lastAssetsLoaded && new Date().getTime() - this.lastAssetsLoaded.getTime() < (12 * 3600 * 1000))) // only update assets every 12h
+      return;
 
-      if(!publicIds)
-        publicIds = this.walletService.getSeeds().map(m => m.publicId);
+    if (!publicIds)
+      publicIds = this.walletService.getSeeds().map(m => m.publicId);
 
-      if (this.walletService.getSeeds().length > 0) {
-        // todo: Use Websocket!
-        this.api.getOwnedAssets(publicIds).subscribe((r: QubicAsset[]) => {
-          if (r) {
-            // update wallet
-            const groupedAssets = this.groupBy(r, (a: QubicAsset) => a.publicId);
-            Object.keys(groupedAssets).forEach(k => {
-              this.walletService.updateAssets(k, groupedAssets[k]);
-            });
-            
-            if(callbackFn)
-              callbackFn(r);
-          }
-        }, errorResponse => {
-          this.processError(errorResponse, false);
-        });
-      }
+    if (this.walletService.getSeeds().length > 0) {
+      // todo: Use Websocket!
+      this.api.getOwnedAssets(publicIds).subscribe((r: QubicAsset[]) => {
+        if (r) {
+          // update wallet
+          const groupedAssets = this.groupBy(r, (a: QubicAsset) => a.publicId);
+          Object.keys(groupedAssets).forEach(k => {
+            this.walletService.updateAssets(k, groupedAssets[k]);
+          });
+
+          if (callbackFn)
+            callbackFn(r);
+        }
+      }, errorResponse => {
+        this.processError(errorResponse, false);
+      });
     }
+  }
+
+  /**
+    * load balances directly from network
+    * @returns 
+    */
+  private getCurrentPrice(callbackFn: ((mi: MarketInformation) => void) | undefined = undefined): void {
+    if (!this.isActive || this.currentPriceLoading)
+      return;
+
+    this.currentPriceLoading = true;
+
+    // todo: Use Websocket!
+    this.api.getCurrentPrice().subscribe((r: MarketInformation) => {
+      if (r) {
+        this.currentPrice.next(r);
+       
+        if (callbackFn)
+          callbackFn(r);
+
+          
+      }
+      this.currentPriceLoading = false;
+    }, errorResponse => {
+      this.processError(errorResponse, false);
+      this.currentPriceLoading = false;
+    });
+  }
+
 
   private processError(errObject: any, showToUser: boolean = true) {
-    if(errObject.status == 401){
+    if (errObject.status == 401) {
       this.api.reAuthenticate();
-    } else if (errObject.error.indexOf("Amount of Accounts must be between") >= 0){
+    } else if (errObject.error.indexOf("Amount of Accounts must be between") >= 0) {
       this.errorStatus.next(errObject.error);
-    }else if (errObject.statusText) {
-      if(showToUser)
+    } else if (errObject.statusText) {
+      if (showToUser)
         this.errorStatus.next(errObject.error);
     }
   }
@@ -197,7 +235,7 @@ export class UpdaterService {
     this.getCurrentTick();
   }
 
-  public addQubicTransaction(tx: QubicTransaction): void{
+  public addQubicTransaction(tx: QubicTransaction): void {
     const newTx: Transaction = {
       amount: Number(tx.amount.getNumber()),
       status: "Broadcasted",
@@ -213,9 +251,9 @@ export class UpdaterService {
     this.addTransaction(newTx);
   }
 
-  public addTransaction(tx: Transaction): void{
+  public addTransaction(tx: Transaction): void {
     const list = this.internalTransactions.getValue();
-    if(!list.find(f => f.id.slice(0, 56) === tx.id.slice(0, 56))){
+    if (!list.find(f => f.id.slice(0, 56) === tx.id.slice(0, 56))) {
       list.unshift(tx);
       this.internalTransactions.next(list);
     }
@@ -225,13 +263,13 @@ export class UpdaterService {
     var list = this.internalTransactions.getValue();
     txs.forEach(tx => {
       const existingTx = list.find(f => f.id.slice(0, 56) === tx.id.slice(0, 56));
-      if(!existingTx){
+      if (!existingTx) {
         list.push(tx);
-      }else{
+      } else {
         Object.assign(existingTx, tx);
       }
     });
-    this.internalTransactions.next(list.sort((a,b) =>  { return b.targetTick - a.targetTick}));
+    this.internalTransactions.next(list.sort((a, b) => { return b.targetTick - a.targetTick }));
   }
 
 }
