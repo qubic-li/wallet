@@ -66,7 +66,7 @@ $mat-light-theme-background: (
 
 
 // Dark Theme text
-$light-text: #e0f0f1;
+$light-text: #ffffff;
 $light-primary-text: $light-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
@@ -95,8 +95,8 @@ $mat-dark-theme-foreground: (
 );
 
 // Dark bg
-$dark-background:     #151e27;
-$dark-bg-lighter-2:   lighten($dark-background, 2%);
+$dark-background:     #101820;
+$dark-bg-lighter-2:   #151E27;
 $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
 $dark-bg-lighter-20:  lighten($dark-background, 20%);
@@ -365,7 +365,6 @@ a:active {
 }
 
 .darkTheme {
-
   div.copy,
   a:link,
   a:visited,
@@ -373,6 +372,25 @@ a:active {
   a:active {
     color: $light-link;    
   }
+
+  .toolbar {
+    background-color: $dark-background;
+  }
+  
+  .mat-drawer  {
+    background-color: $dark-background !important;    
+  }
+
+  button[color="accent"] {
+    background-color: $light-link !important;   
+  }
+}
+
+.mat-drawer  {
+  width: 250px;
+}
+.toolbar {
+  padding: 0 !important;
 }
 
 a:hover {
@@ -744,8 +762,6 @@ h2 {
   h1 {
     text-align: center;
   }
-  .mat-mdc-card-content{
-  }
 }
 
 .target-highlight {
@@ -779,11 +795,6 @@ h2 {
 }
 .toolbar{
   background-color: #ffffff;
-}
-.darkTheme {
-  .toolbar {
-    background-color: #000000;
-  }
 }
 hr {
   border: none;
@@ -834,15 +845,9 @@ hr {
 
 // /*New Design*/
 
-// mat-sidenav-content{
-//   padding-left: 10px;
-//   padding-right: 10px;
-// }
-
-// .sidenav-container {
-//   flex: 1;
-//   height: 95%; 
-// }
+mat-sidenav-container{
+  top: 1px;
+}
 
 .important {
   display: flex;
@@ -898,6 +903,10 @@ button{
 
 .mdc-data-table__table {
 border-spacing: revert-layer !important;
+}
+
+.mat-mdc-card-content:last-child{
+  padding:24px;
 }
 
 .mat-mdc-text-field-wrapper{  
