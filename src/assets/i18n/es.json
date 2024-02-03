@@ -24,11 +24,11 @@
       "maximize": "Maximizar"
     },
     "messages": {
-      "notConnected": "No conectado a la red Qubic. Por favor, conéctese.",
+      "notConnected": "No está conectado a la red Qubic. Por favor, conéctese.",
       "refreshRequested": "Actualización solicitada",
       "refreshFailed": "Falló la actualización, por favor intente más tarde",
       "balanceReceived": "La red indica un saldo de {{balance}} QUBIC para {{publicId}}.",
-      "timeoutTryAgain": "We run into a timeout. Please try again."
+      "timeoutTryAgain": "Se agotó el tiempo de espera del sistema. Por favor, intente nuevamente."
     }
   },
   "payment": {
@@ -59,7 +59,7 @@
   },
   "assetsComponent": {
     "title": "Your Assets",
-    "openAssets": "Goto Asset Management",
+    "openAssets": "Ir a Asset Management",
     "overview": {
       "title": "Asset Overview"
     },
@@ -67,36 +67,36 @@
       "publicId": "Public ID",
       "contractIndex": "Contract Index",
       "assetName": "Asset Name",
-      "contractName": "Contract Name",
+      "contractName": "Contrato",
       "ownedAmount": "Owned Amount",
       "possessedAmount": "Possessed Amount",
-      "tick": "Valid for Tick {{tick}}",
+      "tick": "Válido para el Tick {{tick}}",
       "reportingNodes": "Reporting Nodes"
     },
     "buttons": {
-      "close": "Close",
-      "refresh": "Refresh",
-      "send": "Transfer Assets"
+      "close": "Cerrar",
+      "refresh": "Refrescar",
+      "send": "Enviar Assets"
     },
     "form": {
-      "info": "Send Assets form",
-      "fees": "Fixed sending fees: 1,000,000 Qubic",
-      "select": "Select Asset",
-      "select.error": "Asset selection is required",
+      "info": "Envío de Assets",
+      "fees": "Costo fijo del envío: 1,000,000 Qubic",
+      "select": "Seleccione un Asset",
+      "select.error": "Debe seleccionar un Asset",
       "placeholder": "Address ID of the receiver",
-      "placeholder.error": "An 55-char seed is required.",
-      "amount": "Amount to send",
-      "amount.error": "Amount is required",
-      "amount.value.error": "The amount must be greater than 0",
-      "amount.max.error": "The amount cannot exceed the quantity held",
+      "placeholder.error": "Se requiere clave privada Qubic (Seed) de 55 caracteres.",
+      "amount": "Cantidad a enviar",
+      "amount.error": "Se requiere la cantidad",
+      "amount.value.error": "La cantidad debe ser mayor a 0",
+      "amount.max.error": "La cantidad no puede exceder su saldo actual",
       "tick": "Tick",
-      "tick.error": "Tick is required",
-      "tick.tooltip": "Tick is required",
-      "tick.min": "Tick must be a minimum of {{currentTick}}",
+      "tick.error": "El Tick es requerido",
+      "tick.tooltip": "El Tick es requerido",
+      "tick.min": "El Tick debe ser igual o mayor a {{currentTick}}",
       "buttons": {
-        "send": "Send",
-        "cancel": "Cancel",
-        "error.balance": "Insufficient balance, minimum balance is 1,000,000 Qubic"
+        "send": "Enviar",
+        "cancel": "Cancelar",
+        "error.balance": "No tiene saldo suficiente. Se requiere un mínimo de 1,000,000 Qubic"
       }
     },
     "noAssets": "No assets available"
@@ -128,23 +128,23 @@
           "required": "Se requiere una Seed de 55 caracteres.",
           "min": "La Seed de 55 caracteres debe estar compuesta exactamente de 55 caracteres en minúsculas",
           "max": "La Seed de 55 caracteres debe estar compuesta exactamente de 55 caracteres en minúsculas",
-          "regex": "Solo puede contener a-zA-Z0-9_-"
+          "regex": "Solo puede contener caracteres a-zA-Z0-9_-"
         },
         "generateSeed": "Generar aleatoriamente una Seed de 55 caracteres."
       },
       "watchOnlyAddress": {
         "title":"Watch-Only-Address",
-        "placeholder": "60-char public-key",
+        "placeholder": "Clave pública de 60 caracteres",
         "error": {
-          "required": "An 60-char public-key is required.",
-          "min": "The 60-char public-key must exactly consist of 60 upper case characters",
-          "max": "The 60-char public-key must exactly consist of 55 upper case characters",
-          "regex": "Can only contain A-Z"
+          "required": "Se requiere una clave pública de 60 caracteres",
+          "min": "La clave pública debe contener exactamente 60 caracteres en máyuscula",
+          "max": "La clave pública debe contener exactamente 60 caracteres en máyuscula",
+          "regex": "Solo puede contener caracteres A-Z"
         }
       },
       "error": {
         "text": "Por favor, verifique el formulario.",
-        "close": "cerrar"
+        "close": "Cerrar"
       }
     },
     "publicIdMessage": "Su ID de dirección es:",
@@ -156,8 +156,8 @@
     }
   },
   "seedOverviewComponent": {
-    "title": "Addresses",
-    "isTable":"Show table",
+    "title": "Direcciones",
+    "isTable":"Mostrar como tabla",
     "addSeedButton": "Agregar una dirección",
     "importButton": "Importar",
     "exportButton": "Exportar",
@@ -237,7 +237,7 @@
     "title": "Enviar unidades Qubic (qus)",
     "messages": {
       "pleaseUnlock": "Por favor, desbloquee su Wallet primero",
-      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
+      "storedForPropagation": "Su transacciíon se ha guardado y será enviada en el tick {{tick}}",
       "failedToSend": "Su transacción no pudo ser enviada. Por favor, intente más tarde.",
       "failedToDecrypt": "No pudimos descifrar su Seed. ¿Utilizó la clave privada correcta?",
       "failedValidation": "Hemos encontrado errores de validación. Por favor, verifique el formulario."
