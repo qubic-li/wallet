@@ -46,10 +46,10 @@
 }
 .card-list {
 
-    gap: 20px;
+    gap: 0px 20px;
 
     mat-card {
-        min-width: 320px;
+        min-width: 380px;
     }
 }
 .dashboard-balance-name {
