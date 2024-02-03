@@ -37,8 +37,6 @@ export class MainComponent implements AfterViewInit {
   public transactions: Transaction[] = [];
   isTable: boolean = false;
   currentPrice: MarketInformation = ({ supply: 0, price: 0, capitalization: 0, currency: 'USD' });
-  public totalAmountOfTokens: number = 0;
-  public totalValueWallets: number = 0;
 
   @ViewChild(MatTable)
   table!: MatTable<ISeed>;
@@ -73,12 +71,6 @@ export class MainComponent implements AfterViewInit {
     updaterService.currentBalance.subscribe(b => {
       this.balances = b;
       this.setDataSource();
-
-      this.balances.forEach(element => {
-        this.totalAmountOfTokens += this.getBalance(element.publicId);
-      });
-
-      this.totalValueWallets = this.totalAmountOfTokens * this.currentPrice.price;
     })
 
     updaterService.internalTransactions.subscribe(txs => {

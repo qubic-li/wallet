@@ -183,7 +183,8 @@
     "dashboard":{
       "title": "Dashboard",
       "balance": "Wallet balance",
-      "currency": "Qu"
+      "currency": "Qu",
+      "totalBalance": "Your Total Balance"
     },
     "unlockComponent": {
         "title": "Wallet vrijgeven",
