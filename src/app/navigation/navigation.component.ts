@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { UpdaterService } from '../services/updater-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
+import { MarketInformation } from '../services/api.model';
 
 
 @Component({
@@ -34,29 +35,36 @@ export class NavigationComponent implements OnInit {
   private currentTick = 0;
   private currentErrorState = "";
   private isMaximized = false;
-  public showMinimize = false;
-
-
+  public showMinimize = false;  
+  public currentPrice: MarketInformation = ({ supply: 0, price: 0, capitalization: 0, currency: 'USD' });
   private _mobileQueryListener!: () => void;
 
   constructor(private renderer: Renderer2, private cd: ChangeDetectorRef, public us: UpdaterService,
     private transloco: TranslocoService, private _snackBar: MatSnackBar,
     public themeService: ThemeService, private breakpointObserver: BreakpointObserver,
     public walletService: WalletService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) {
-
   }
+
   ngOnInit(): void {
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
     this.version = environment.version;
-
     
     this.renderer.addClass(document.body, this.themeService.isDarkTheme ? 'darkTheme' : 'light');
 
     // if ((<any>window).require) {
     //   this.showMinimize = true;
     // }
+
+    this.us.currentPrice.subscribe(response => {
+      this.currentPrice = response;
+    }, errorResponse => {
+      this._snackBar.open(errorResponse.error, this.transloco.translate("general.close"), {
+        duration: 0,
+        panelClass: "error"
+      });
+    });
 
     this.us.currentTick.subscribe(s => {
       if (s && s > this.currentTick) {

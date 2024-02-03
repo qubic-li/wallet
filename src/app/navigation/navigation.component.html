@@ -47,18 +47,20 @@
           <a mat-list-item routerLink="settings"
             (click)="checkMobileToggle()"><mat-icon>settings</mat-icon>{{t("general.navigation.settings")}}</a>
         </mat-nav-list>
-        <div>
 
+        <div>
           <div class="version">
+            {{currentPrice.price}}
+            {{currentPrice.currency}}<br>
+            ~ {{currentPrice.capitalization| number : "1.0-0"}} {{currentPrice.currency}}<br>
+            Σ {{currentPrice.supply | number : "1.0-0"}}<br>
             <br>
             <a href="#" (click)="themeService.toggleTheme()">Theme Switch</a>
             <br><br>
             {{t("general.version", { version: version})}}<br>
             <a href="https://qubic.li" target="_blank">&copy; {{t("general.version.url")}}</a><br>
-
           </div>
         </div>
-
       </mat-sidenav>
 
       <mat-sidenav-content>
