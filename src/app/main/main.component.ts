@@ -9,7 +9,7 @@ import { SeedEditDialog } from './edit-seed/seed-edit.component';
 import { RevealSeedDialog } from './reveal-seed/reveal-seed.component';
 import { Router } from '@angular/router';
 import { QrReceiveDialog } from './qr-receive/qr-receive.component';
-import { BalanceResponse,  NetworkBalance, Transaction, MarketInformation } from '../services/api.model';
+import { BalanceResponse, NetworkBalance, Transaction, MarketInformation } from '../services/api.model';
 import { MatSort } from '@angular/material/sort';
 import { UpdaterService } from '../services/updater-service';
 import { QubicService } from '../services/qubic.service';
@@ -37,6 +37,8 @@ export class MainComponent implements AfterViewInit {
   public transactions: Transaction[] = [];
   isTable: boolean = false;
   currentPrice: MarketInformation = ({ supply: 0, price: 0, capitalization: 0, currency: 'USD' });
+  public totalAmountOfTokens: number = 0;
+  public totalValueWallets: number = 0;
 
   @ViewChild(MatTable)
   table!: MatTable<ISeed>;
@@ -56,7 +58,7 @@ export class MainComponent implements AfterViewInit {
   ) {
 
     var dashBoardStyle = localStorage.getItem("dashboard-grid");
-    this.isTable = dashBoardStyle== '0' ? true : false;
+    this.isTable = dashBoardStyle == '0' ? true : false;
 
     this.updaterService.currentPrice.subscribe(response => {
       this.currentPrice = response;
@@ -71,6 +73,12 @@ export class MainComponent implements AfterViewInit {
     updaterService.currentBalance.subscribe(b => {
       this.balances = b;
       this.setDataSource();
+
+      this.balances.forEach(element => {
+        this.totalAmountOfTokens += this.getBalance(element.publicId);
+      });
+
+      this.totalValueWallets = this.totalAmountOfTokens * this.currentPrice.price;
     })
 
     updaterService.internalTransactions.subscribe(txs => {
@@ -102,11 +110,11 @@ export class MainComponent implements AfterViewInit {
 
   toggleChanged(event: MatSlideToggleChange) {
     this.isTable = !this.isTable;
-    localStorage.setItem("dashboard-grid", this.isTable ? '0': '1');             
+    localStorage.setItem("dashboard-grid", this.isTable ? '0' : '1');
     window.location.reload();
     this.isTable = event.checked;
   }
-  
+
 
   load(): void {
     const dialogRef = this.dialog.open(LoadConfigDialog, { disableClose: true, });

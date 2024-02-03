@@ -1,8 +1,14 @@
 <ng-container *transloco="let t">
   <div class="content_container">
-
-    <h1 *ngIf="isTable">{{ t("seedOverviewComponent.title") }}</h1>       
-    <h1 *ngIf="!isTable">{{ t("dashboard.title") }}</h1>       
+    <div class="flex flex-wrap" >
+      <div class="col-6 col-sm-12">
+        <h1 *ngIf="isTable">{{ t("seedOverviewComponent.title") }}</h1>
+        <h1 *ngIf="!isTable">{{ t("dashboard.title") }}</h1>
+      </div>  
+      <div class="col-6 col-sm-12 text-right">
+        <h2>${{totalValueWallets| number : "1.0-0"}}<br>{{totalAmountOfTokens| number : "1.0-2"}} {{ t("dashboard.currency") }}</h2>
+      </div>  
+    </div>  
     <mat-form-field>
       <mat-label>{{ t("seedOverviewComponent.search.label") }}</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input />
