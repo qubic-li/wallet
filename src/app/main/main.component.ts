@@ -108,10 +108,9 @@ export class MainComponent implements AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  toggleChanged(event: MatSlideToggleChange) {
+  toggleTableView(event: MatSlideToggleChange) {
     this.isTable = !this.isTable;
     localStorage.setItem("dashboard-grid", this.isTable ? '0' : '1');
-    window.location.reload();
     this.isTable = event.checked;
   }
 
@@ -134,6 +133,10 @@ export class MainComponent implements AfterViewInit {
   getDeprecatedLastUpdate(publicId: string): Date | undefined {
     var balanceEntry = this.balances.find(f => f.publicId === publicId);
     return balanceEntry ? new Date() : undefined;
+  }
+
+  getTotalBalance(): number {
+    return Number(this.walletService.getSeeds().reduce((p,c) => p + c.balance, 0) ?? BigInt(0));
   }
 
   getBalance(publicId: string): number {

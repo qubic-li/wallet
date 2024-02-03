@@ -1,14 +1,15 @@
 <ng-container *transloco="let t">
   <div class="content_container">
-    <div class="flex flex-wrap" >
+    <div class="flex flex-wrap">
       <div class="col-6 col-sm-12">
         <h1 *ngIf="isTable">{{ t("seedOverviewComponent.title") }}</h1>
         <h1 *ngIf="!isTable">{{ t("dashboard.title") }}</h1>
-      </div>  
+      </div>
       <div class="col-6 col-sm-12 text-right">
-        <h2>${{totalValueWallets| number : "1.0-0"}}<br>{{totalAmountOfTokens| number : "1.0-2"}} {{ t("dashboard.currency") }}</h2>
-      </div>  
-    </div>  
+        <h2>${{totalValueWallets| number : "1.0-0"}}<br>{{totalAmountOfTokens| number : "1.0-2"}} {{
+          t("dashboard.currency") }}</h2>
+      </div>
+    </div>
     <mat-form-field>
       <mat-label>{{ t("seedOverviewComponent.search.label") }}</mat-label>
       <input matInput (keyup)="applyFilter($event)" #input />
@@ -18,7 +19,8 @@
         <mat-icon>add_circle</mat-icon>
         {{ t("seedOverviewComponent.addSeedButton") }}
       </button>&nbsp;
-      <mat-slide-toggle (change)="toggleChanged($event)" [checked]="isTable">{{ t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
+      <mat-slide-toggle (change)="toggleTableView($event)" [checked]="isTable">{{
+        t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
       <!-- <div>&nbsp;</div> -->
       <!-- <button mat-raised-button aria-label="Export Addresses" title="Export Addresses" (click)="openExportDialog(false)">
         <mat-icon>download_file</mat-icon>
@@ -29,35 +31,49 @@
         {{ t("seedOverviewComponent.importButton") }}
       </button> -->
     </div>
-  
+
     <!-- card version /-->
     <div *ngIf="!isTable">
-      <div class="flex flex-wrap" >
-        <span *ngFor="let address of dataSource.filteredData; let i = index">           
-          <div class="col col-10 col-sm-12">
-            <mat-card class="proposal-card">
-              <mat-card-content>
-              <br>
-                <div class="dashboard-wallet-name">
-                  {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
-                </div>        
-                <br>        
-                <h1 class="dashboard-balance-name" *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number : "1.0-0"}}&nbsp;<span class="dashboard-currency-name">{{ t("dashboard.currency") }}</span></h1>
-                <h1 class="dashboard-balance-name" *ngIf="!address.lastUpdate">?&nbsp;<span class="dashboard-currency-name">{{ t("dashboard.currency") }}</span></h1>
-                <div class="dashboard-amount-name">
-                  ${{currentPrice.price * getBalance(address.publicId)  | number : "1.0-2"}}
-                </div>
-                <div class="text-center">
-                  <ng-container class="mobileActionLine" *ngTemplateOutlet="actions; context: address"></ng-container>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>    
-        </span> 
-      </div>  
+      <div class="card-list flex flex-wrap">
+        <mat-card class="proposal-card">
+          <mat-card-content>
+            <br>
+            <div class="dashboard-wallet-name">
+              {{ t("dashboard.totalBalance") }}
+            </div>
+            <br>
+            <div class="dashboard-balance-name">
+              {{ getTotalBalance() | number : "1.0-0"}}
+            </div>
+            <div class="dashboard-amount-name">
+              ${{currentPrice.price * getTotalBalance() | number : "1.0-2"}}
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card class="proposal-card" *ngFor="let address of dataSource.filteredData; let i = index">
+          <mat-card-content>
+            <br>
+            <div class="dashboard-wallet-name">
+              {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
+            </div>
+            <br>
+            <div class="dashboard-balance-name">
+              <span *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number :"1.0-0"}}</span>
+              <span *ngIf="!address.lastUpdate">?</span>
+            </div>
+            <div class="dashboard-amount-name">
+              ${{currentPrice.price * getBalance(address.publicId) | number : "1.0-2"}}
+            </div>
+            <div class="text-center">
+              <ng-container class="mobileActionLine" *ngTemplateOutlet="actions; context: address"></ng-container>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
-   
-    <!-- table version-->    
+
+    <!-- table version-->
     <div *ngIf="isTable" class="mobileOnly seedList">
       <div class="mobileSeedItem" *ngFor="let seed of dataSource.filteredData">
         <h3>
@@ -125,7 +141,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="alignRight">
           {{ t("seedOverviewComponent.table.epochChanges") }}
         </th>
-        <td mat-cell *matCellDef="let element" >
+        <td mat-cell *matCellDef="let element">
           <div [class]="{
               alignRight: true,
               epochChanges: true,
@@ -167,11 +183,12 @@
       [title]="t('seedOverviewComponent.table.actions.revealSeed')" (click)="reveal(publicId)">
       <mat-icon>visibility</mat-icon>
     </button>
-    <button *ngIf="hasAssets(publicId)" mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.assets')"
-      (click)="assets(publicId)">
+    <button *ngIf="hasAssets(publicId)" mat-icon-button class="card-button"
+      [title]="t('seedOverviewComponent.table.actions.assets')" (click)="assets(publicId)">
       <mat-icon>category</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.makePayment')" (click)="payment(publicId)">
+    <button mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.makePayment')"
+      (click)="payment(publicId)">
       <mat-icon>payment</mat-icon>
     </button>
     <button mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.refreshBalance')"
@@ -182,10 +199,12 @@
       (click)="receive(publicId)">
       <mat-icon>qr_code_2</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" *ngIf="walletService.privateKey" [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId)">
+    <button mat-icon-button class="card-button" *ngIf="walletService.privateKey"
+      [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId)">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" *ngIf="walletService.privateKey" [title]="t('seedOverviewComponent.table.actions.deleteSeed')" (click)="delete(publicId)">
+    <button mat-icon-button class="card-button" *ngIf="walletService.privateKey"
+      [title]="t('seedOverviewComponent.table.actions.deleteSeed')" (click)="delete(publicId)">
       <mat-icon>delete</mat-icon>
     </button>
   </ng-template>
