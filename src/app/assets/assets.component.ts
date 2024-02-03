@@ -219,7 +219,7 @@ export class AssetsComponent implements OnInit {
       return;
     }
 
-    let targetTick = this.sendForm.get("tick")?.value ?? 0;;
+    let targetTick = this.sendForm.get("tick")?.value ?? 0;
     // todo: think about if we want to let the user set a custom target tick
 
     if (!this.tickOverwrite || targetTick == 0) {
