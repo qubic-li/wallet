@@ -32,7 +32,7 @@ export class ApiService {
 
 
     this.authenticationActive = true;
-    // temp Login für aktuelle verwendung mit public user
+    // temp login for current use with public user
     // login to qubic.li
     this.login({
       username: 'guest@qubic.li',

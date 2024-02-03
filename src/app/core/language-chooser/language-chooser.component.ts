@@ -22,9 +22,7 @@ export class LanguageChooserComponent implements OnInit {
 
   public selected: string = "en"; 
 
-  constructor(public translocoService: TranslocoService, public dialog: MatDialog) {
-    // Hier im Konstruktor keine Operationen durchführen
-  }
+  constructor(public translocoService: TranslocoService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     if (Object.keys(this.supportedLanguagesDictionary).includes(this.browserLanguage)) {

@@ -104,10 +104,7 @@ export class MainComponent implements AfterViewInit {
     this.isTable = !this.isTable;
     localStorage.setItem("dashboard-grid", this.isTable ? '0': '1');             
     window.location.reload();
-
-
     this.isTable = event.checked;
-    // Hier können Sie weitere Aktionen ausführen, basierend auf dem Zustand des Toggles
   }
   
 
