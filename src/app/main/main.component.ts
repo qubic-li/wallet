@@ -55,6 +55,9 @@ export class MainComponent implements AfterViewInit {
     private decimalPipe: DecimalPipe,
   ) {
 
+    var dashBoardStyle = localStorage.getItem("dashboard-grid");
+    this.isTable = dashBoardStyle== '0' ? true : false;
+
     this.updaterService.currentPrice.subscribe(response => {
       this.currentPrice = response;
     }, errorResponse => {
@@ -98,6 +101,11 @@ export class MainComponent implements AfterViewInit {
   }
 
   toggleChanged(event: MatSlideToggleChange) {
+    this.isTable = !this.isTable;
+    localStorage.setItem("dashboard-grid", this.isTable ? '0': '1');             
+    window.location.reload();
+
+
     this.isTable = event.checked;
     // Hier können Sie weitere Aktionen ausführen, basierend auf dem Zustand des Toggles
   }
