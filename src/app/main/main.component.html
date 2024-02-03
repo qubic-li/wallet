@@ -32,20 +32,14 @@
             <mat-card class="proposal-card">
               <mat-card-content>
               <br>
-                <div class="card-label">
-                  {{ t("dashboard.balance") }}
+                <div class="dashboard-wallet-name">
+                  {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
                 </div>        
                 <br>        
-                <h1 class="balance-text" *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number : "1.0-0"}}&nbsp;<span class="card-label">{{ t("dashboard.currency") }}</span></h1>
-                <h1 class="balance-text" *ngIf="!address.lastUpdate">?&nbsp;<span class="card-label">{{ t("dashboard.currency") }}</span></h1>
-                <div class="card-label">
+                <h1 class="dashboard-balance-name" *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number : "1.0-0"}}&nbsp;<span class="dashboard-currency-name">{{ t("dashboard.currency") }}</span></h1>
+                <h1 class="dashboard-balance-name" *ngIf="!address.lastUpdate">?&nbsp;<span class="dashboard-currency-name">{{ t("dashboard.currency") }}</span></h1>
+                <div class="dashboard-amount-name">
                   $...
-                </div>
-                <h2 class="text-center">
-                  {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
-                </h2>               
-                <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="address.publicId">
-                 
                 </div>
                 <div class="text-center">
                   <ng-container class="mobileActionLine" *ngTemplateOutlet="actions; context: address"></ng-container>

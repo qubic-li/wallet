@@ -217,16 +217,21 @@ $altTheme: (
 .darkTheme {
   @include mat.all-component-themes($altTheme);
 
-  .balance-text{
+  .dashboard-wallet-name{
     color:$light-text;
   }
-  
-  .card-label{
-  color:$light-accent-text;
+  .dashboard-balance-name{
+   color: $light-link; 
+  }
+  .dashboard-amount-name{
+    color: $light-accent-text;
+  }
+  .dashboard-currency-name{
+    color: $light-accent-text;
   }
 
   .card-button{
-    color:$light-link;
+   color: $light-link; 
   }
 
   .mat-mdc-card {    
@@ -911,11 +916,21 @@ border-spacing: revert-layer !important;
   margin-bottom:20px;
 }
 
-.balance-text{
-  color:$dark-text;
+.dashboard-wallet-name{
+  font-size: 16px;
+  color: #FFFFFF;
+  // color:$light-text;
+}
+.dashboard-balance-name{
+ font-size:  32px;
+ color:$dark-text;
+}
+.dashboard-amount-name{
+  font-size: 16px;
+  color:$dark-primary-text;
 }
 
-.card-label{
+.dashboard-currency-name{
   color:$dark-primary-text;
 }
 
