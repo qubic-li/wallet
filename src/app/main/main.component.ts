@@ -9,8 +9,7 @@ import { SeedEditDialog } from './edit-seed/seed-edit.component';
 import { RevealSeedDialog } from './reveal-seed/reveal-seed.component';
 import { Router } from '@angular/router';
 import { QrReceiveDialog } from './qr-receive/qr-receive.component';
-import { ApiService } from '../services/api.service';
-import { BalanceResponse, NetworkBalance, Transaction } from '../services/api.model';
+import { BalanceResponse,  NetworkBalance, Transaction, MarketInformation } from '../services/api.model';
 import { MatSort } from '@angular/material/sort';
 import { UpdaterService } from '../services/updater-service';
 import { QubicService } from '../services/qubic.service';
@@ -37,6 +36,7 @@ export class MainComponent implements AfterViewInit {
   balances: BalanceResponse[] = [];
   public transactions: Transaction[] = [];
   isTable: boolean = false;
+  currentPrice: MarketInformation = ({ supply: 0, price: 0, capitalization: 0, currency: 'USD' });
 
   @ViewChild(MatTable)
   table!: MatTable<ISeed>;
@@ -48,20 +48,29 @@ export class MainComponent implements AfterViewInit {
     public walletService: WalletService,
     public dialog: MatDialog,
     private router: Router,
-    private us: UpdaterService,
+    private updaterService: UpdaterService,
     private q: QubicService,
     private _snackBar: MatSnackBar,
     private t: TranslocoService,
     private decimalPipe: DecimalPipe,
   ) {
 
+    this.updaterService.currentPrice.subscribe(response => {
+      this.currentPrice = response;
+    }, errorResponse => {
+      this._snackBar.open(errorResponse.error, this.t.translate("general.close"), {
+        duration: 0,
+        panelClass: "error"
+      });
+    });
+
     this.setDataSource();
-    us.currentBalance.subscribe(b => {
+    updaterService.currentBalance.subscribe(b => {
       this.balances = b;
       this.setDataSource();
     })
 
-    us.internalTransactions.subscribe(txs => {
+    updaterService.internalTransactions.subscribe(txs => {
       this.transactions = txs;
     });
 
@@ -127,7 +136,7 @@ export class MainComponent implements AfterViewInit {
   refreshData() {
     this.setDataSource();
     this.table.renderRows();
-    this.us.forceLoadAssets();
+    this.updaterService.forceLoadAssets();
   }
 
   applyFilter(event: Event) {
@@ -265,7 +274,7 @@ export class MainComponent implements AfterViewInit {
         }
       }
     } else {
-      this.us.forceUpdateNetworkBalance(publicId, (balances: NetworkBalance[]) => {
+      this.updaterService.forceUpdateNetworkBalance(publicId, (balances: NetworkBalance[]) => {
         if (balances) {
           var entry = balances.find(f => f.publicId == publicId);
           if (entry) {

@@ -39,7 +39,7 @@
                 <h1 class="dashboard-balance-name" *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number : "1.0-0"}}&nbsp;<span class="dashboard-currency-name">{{ t("dashboard.currency") }}</span></h1>
                 <h1 class="dashboard-balance-name" *ngIf="!address.lastUpdate">?&nbsp;<span class="dashboard-currency-name">{{ t("dashboard.currency") }}</span></h1>
                 <div class="dashboard-amount-name">
-                  $...
+                  ${{currentPrice.price * getBalance(address.publicId)  | number : "1.0-2"}}
                 </div>
                 <div class="text-center">
                   <ng-container class="mobileActionLine" *ngTemplateOutlet="actions; context: address"></ng-container>

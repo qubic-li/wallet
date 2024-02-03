@@ -288,7 +288,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Space Grotesk', Courier, sans-serif;
+  font-family: 'Space Grotesk' !important;
   font-size:1em;
 }
 
@@ -296,10 +296,10 @@ body {
 body {
   margin: 0;  
   padding: 0;
-  font-family: 'Space Grotesk', Courier, sans-serif;
+  font-family: 'Space Grotesk' !important;
 }
 table, div, span, button, th, td, tr {
-  font-family: 'Space Grotesk', Courier, sans-serif;
+  font-family: 'Space Grotesk' !important;
 }
 
 table{  
@@ -350,7 +350,7 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 div.copy {
   cursor: pointer;
   color: $dark-text;
-  font-family: "Space Mono", Courier, sans-serif;
+  font-family: "Courier" !important;
   width: 100%;
   word-wrap: break-word;
 }
@@ -371,7 +371,7 @@ a:active {
   a:visited,
   
   a:active {
-    color: $light-link;
+    color: $light-link;    
   }
 }
 
@@ -922,7 +922,7 @@ border-spacing: revert-layer !important;
   // color:$light-text;
 }
 .dashboard-balance-name{
- font-size:  32px;
+ font-size: 35px;
  color:$dark-text;
 }
 .dashboard-amount-name{
