@@ -44,3 +44,16 @@
         display: inline;
     }
 }
+.card-list {
+
+    gap: 20px;
+
+    mat-card {
+        min-width: 320px;
+    }
+}
+.dashboard-balance-name {
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
