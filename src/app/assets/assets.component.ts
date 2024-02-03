@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QubicAsset } from "../services/api.model";
 import { ApiService } from "../services/api.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
@@ -6,17 +6,15 @@ import { WalletService } from '../services/wallet.service';
 import { QubicTransferAssetPayload } from 'qubic-ts-library/dist/qubic-types/transacion-payloads/QubicTransferAssetPayload';
 import { QubicTransaction } from 'qubic-ts-library/dist/qubic-types/QubicTransaction';
 import { QubicDefinitions } from 'qubic-ts-library/dist/QubicDefinitions';
-import { DynamicPayload } from 'qubic-ts-library/dist/qubic-types/DynamicPayload';
 import { lastValueFrom } from 'rxjs';
-import { ISeed } from "../model/seed";
-import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { UpdaterService } from "../services/updater-service";
 import { UnLockComponent } from '../lock/unlock/unlock.component';
 import { TransactionService } from '../services/transaction.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
-import { QubicHelper } from 'qubic-ts-library/dist/qubicHelper';
 import { PublicKey } from 'qubic-ts-library/dist/qubic-types/PublicKey';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-assets',
@@ -26,7 +24,7 @@ import { PublicKey } from 'qubic-ts-library/dist/qubic-types/PublicKey';
 
 export class AssetsComponent implements OnInit {
 
-  displayedColumns: string[] = ['publicId', 'contractIndex', 'assetName', 'contractName', 'ownedAmount', 'possessedAmount', 'tick', 'reportingNodes'];
+  displayedColumns: string[] = ['publicId', 'contractIndex', 'assetName', 'contractName', 'ownedAmount', 'possessedAmount', 'tick', 'reportingNodes','issuerIdentity','send'];
   public assets: QubicAsset[] = [];
   public currentTick = 0;
   public tickOverwrite = false;
@@ -37,6 +35,7 @@ export class AssetsComponent implements OnInit {
   showSendForm: boolean = false;
   balanceTooLow: boolean = false; // logic
 
+  balanceAfterFees: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -135,15 +134,33 @@ export class AssetsComponent implements OnInit {
     return this.walletService.getSeed(publicId)?.alias;
   }
 
-  openSendForm(): void {
+  openIssuerIdentity(issuerIdentity: string): void {
+    const url = `https://app.qubic.li/network/explorer/address/${issuerIdentity}`;
+    window.open(url, '_blank');
+  }
+
+  getBalanceAfterFees(publicId: string): number {
+    const currentBalance = this.walletService.getSeed(publicId)?.balance ?? BigInt(0);
+    const balanceAfterFees = BigInt(currentBalance) - BigInt(environment.assetsFees);
+    return balanceAfterFees > 0 ? Number(balanceAfterFees) : 0;
+  }
+
+  openSendForm(selectedAsset?: QubicAsset): void {
     this.showSendForm = true;
 
     this.tickOverwrite = false;
     this.sendForm.controls['tick'].setValue(this.currentTick + this.walletService.getSettings().tickAddition);
 
     const assetSelectControl = this.sendForm.get('assetSelect');
-    if (assetSelectControl && this.assets.length > 0) {
-      assetSelectControl.setValue(this.assets[0]);
+
+    if (assetSelectControl) {
+      if (selectedAsset) {
+        assetSelectControl.setValue(selectedAsset);
+        this.balanceAfterFees = this.getBalanceAfterFees(selectedAsset.publicId);
+      } else if (this.assets.length > 0) {
+        assetSelectControl.setValue(this.assets[0]);
+        this.balanceAfterFees = this.getBalanceAfterFees(this.assets[0].publicId);
+      }
       this.updateAmountValidator();
     }
   }
@@ -160,7 +177,6 @@ export class AssetsComponent implements OnInit {
       finally {
         this.isSending = false;
       }
-
     }
   }
 

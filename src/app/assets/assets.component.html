@@ -4,93 +4,113 @@
 
     <div>
       !THIS IS BETA SOFTWARE!<br>
-      You can send Assets. The Transferstatus is not reflected in Balance. Please wait an appropriate amount of time to see the Asset Transfer happen.
+      You can send Assets. The Transferstatus is not reflected in Balance. Please wait an appropriate amount of time to
+      see the Asset Transfer happen.
     </div>
 
     <mat-card *ngIf="!showSendForm" class="asset-card">
       <div *ngIf="assets.length > 0">
+        <mat-card-header>
+          <mat-card-title>
+            <h2>{{ t("assetsComponent.overview.title") }}</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="assets" class="mat-elevation-z8">
 
-        <mat-card class="asset-card">
-          <mat-card-header>
-            <mat-card-title>
-              <h2>{{ t("assetsComponent.overview.title") }}</h2>
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <table mat-table [dataSource]="assets" class="mat-elevation-z8">
+            <!-- Public ID -->
+            <ng-container matColumnDef="publicId">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.publicId") }}</th>
+              <td mat-cell *matCellDef="let asset">
+                <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}"
+                     [cdkCopyToClipboard]="asset.publicId">
+                  {{ getSeedAlias(asset.publicId) }} {{ asset.publicId }}
+                </div>
+              </td>
+            </ng-container>
 
-              <!-- Public ID -->
-              <ng-container matColumnDef="publicId">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.publicId") }}</th>
-                <td mat-cell *matCellDef="let asset">
-                  <div class="copy" matTooltip="{{ t('general.copy.tooltip') }}" [cdkCopyToClipboard]="asset.publicId">
-                    {{ getSeedAlias(asset.publicId) }} {{ asset.publicId }}
-                  </div>
-                </td>
-              </ng-container>
+            <!-- Contract Index -->
+            <ng-container matColumnDef="contractIndex">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.contractIndex") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.contractIndex }}</td>
+            </ng-container>
 
-              <!-- Contract Index -->
-              <ng-container matColumnDef="contractIndex">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.contractIndex") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.contractIndex }}</td>
-              </ng-container>
+            <!-- Asset Name -->
+            <ng-container matColumnDef="assetName">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.assetName") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.assetName }}</td>
+            </ng-container>
 
-              <!-- Asset Name -->
-              <ng-container matColumnDef="assetName">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.assetName") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.assetName }}</td>
-              </ng-container>
+            <!-- Contract Name -->
+            <ng-container matColumnDef="contractName">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.contractName") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.contractName }}</td>
+            </ng-container>
 
-              <!-- Contract Name -->
-              <ng-container matColumnDef="contractName">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.contractName") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.contractName }}</td>
-              </ng-container>
+            <!-- Owned Amount -->
+            <ng-container matColumnDef="ownedAmount">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.ownedAmount") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.ownedAmount }}</td>
+            </ng-container>
 
-              <!-- Owned Amount -->
-              <ng-container matColumnDef="ownedAmount">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.ownedAmount") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.ownedAmount }}</td>
-              </ng-container>
+            <!-- Possessed Amount -->
+            <ng-container matColumnDef="possessedAmount">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.possessedAmount") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.possessedAmount }}</td>
+            </ng-container>
 
-              <!-- Possessed Amount -->
-              <ng-container matColumnDef="possessedAmount">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.possessedAmount") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.possessedAmount }}</td>
-              </ng-container>
+            <!-- Tick -->
+            <ng-container matColumnDef="tick">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.tick") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.tick }}</td>
+            </ng-container>
 
-              <!-- Tick -->
-              <ng-container matColumnDef="tick">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.tick") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.tick }}</td>
-              </ng-container>
+            <!-- Reporting Nodes -->
+            <ng-container matColumnDef="reportingNodes">
+              <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.reportingNodes") }}</th>
+              <td mat-cell *matCellDef="let asset"> {{ asset.reportingNodes.join(', ') }}</td>
+            </ng-container>
 
-              <!-- Reporting Nodes -->
-              <ng-container matColumnDef="reportingNodes">
-                <th mat-header-cell *matHeaderCellDef> {{ t("assetsComponent.table.reportingNodes") }}</th>
-                <td mat-cell *matCellDef="let asset"> {{ asset.reportingNodes.join(', ') }}</td>
-              </ng-container>
+            <!-- Issuer Identity -->
+            <ng-container matColumnDef="issuerIdentity">
+              <th mat-header-cell *matHeaderCellDef>{{ t("assetsComponent.table.issuerIdentity") }}</th>
+              <td mat-cell *matCellDef="let asset">
+                <button mat-icon-button (click)="openIssuerIdentity(asset.issuerIdentity)">
+                  <mat-icon>info_outline</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </mat-card-content>
-        </mat-card>
-      </div>
-      <div *ngIf="assets.length <= 0">
-        {{ t("assetsComponent.noAssets") }}
-      </div>
-      <div *ngIf="assets.length > 0">
-        <mat-card-actions class="padding">
-          <button mat-raised-button type="button" [disabled]="isAssetsLoading" (click)="refreshData()">
-            <span *ngIf="!isAssetsLoading">{{ t("assetsComponent.buttons.refresh") }}</span>
-            <mat-progress-spinner mode="indeterminate" [diameter]="20" *ngIf="isAssetsLoading">
-            </mat-progress-spinner>
-          </button>
-          <button mat-raised-button type="button" color="primary" (click)="openSendForm()">{{
-            t("assetsComponent.buttons.send") }}
-          </button>
-        </mat-card-actions>
+            <!-- Send Button -->
+            <ng-container matColumnDef="send">
+              <th mat-header-cell *matHeaderCellDef>{{ t("assetsComponent.buttons.send") }}</th>
+              <td mat-cell *matCellDef="let asset">
+                <button mat-icon-button (click)="openSendForm(asset)">
+                  <mat-icon>send</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card-content>
+        <div *ngIf="assets.length <= 0" class="no-assets-message">
+          {{ t("assetsComponent.noAssets") }}
+        </div>
+        <div *ngIf="assets.length > 0">
+          <mat-card-actions class="padding">
+            <button mat-raised-button type="button" [disabled]="isAssetsLoading" (click)="refreshData()">
+              <span *ngIf="!isAssetsLoading">{{ t("assetsComponent.buttons.refresh") }}</span>
+              <mat-progress-spinner mode="indeterminate" [diameter]="20" *ngIf="isAssetsLoading">
+              </mat-progress-spinner>
+            </button>
+            <button mat-raised-button type="button" color="primary" (click)="openSendForm()">{{
+                t("assetsComponent.buttons.send")
+              }}
+            </button>
+          </mat-card-actions>
+        </div>
       </div>
     </mat-card>
 
@@ -108,7 +128,7 @@
                   <mat-select formControlName="assetSelect">
                     <mat-option *ngFor="let asset of assets" [value]="asset">
                       {{ asset.assetName }} ({{ asset.ownedAmount }})
-                      {{ getSeedAlias(asset.publicId ) }} {{ asset.publicId }}
+                      {{ getSeedAlias(asset.publicId) }} {{ asset.publicId }}
                     </mat-option>
                   </mat-select>
                   <mat-error *ngIf="sendForm.controls['assetSelect'].hasError('required')">
@@ -149,7 +169,7 @@
                   <mat-label>{{ t("assetsComponent.form.tick") }}</mat-label>
                   <input matInput type="number" formControlName="tick" [readonly]="!tickOverwrite">
                   <button matSuffix mat-icon-button matTooltip="{{ t('assetsComponent.form.tick.tooltip') }}"
-                    (click)="handleTickEdit()" type="button" [class]="{tickOverwrite: tickOverwrite}">
+                          (click)="handleTickEdit()" type="button" [class]="{tickOverwrite: tickOverwrite}">
                     <mat-icon>tune</mat-icon>
                   </button>
                   <mat-error *ngIf="sendForm.controls['tick'].hasError('required')">
@@ -162,13 +182,17 @@
               </div>
             </div>
 
+            <div *ngIf="!balanceTooLow"
+                 class="transaction-fee"> {{ t("assetsComponent.form.balance") }} {{ balanceAfterFees }} Qubic
+            </div>
+            <div *ngIf="balanceTooLow" class="error-message"> {{ t("assetsComponent.form.buttons.error.balance") }}
+            </div>
             <mat-card-actions class="padding">
               <button *ngIf="!walletService.privateKey" mat-raised-button color="accent" type="button"
-                (click)="loadKey()">{{
-                t("votingComponent.create.buttons.loadPrivateKey") }}</button>
-
+                      (click)="loadKey()">{{ t("votingComponent.create.buttons.loadPrivateKey") }}
+              </button>
               <button *ngIf="walletService.privateKey" mat-raised-button color="primary" type="submit"
-                [disabled]="!sendForm.valid || balanceTooLow">
+                      [disabled]="!sendForm.valid || balanceTooLow">
                 <span *ngIf="!isSending">{{ t("assetsComponent.form.buttons.send") }}</span>
                 <mat-progress-spinner *ngIf="isSending" mode="indeterminate" [diameter]="20">
                 </mat-progress-spinner>
@@ -177,9 +201,6 @@
                 {{ t("assetsComponent.form.buttons.cancel") }}
               </button>
             </mat-card-actions>
-            <div *ngIf="balanceTooLow" class="error-message">
-              {{ t("assetsComponent.form.buttons.error.balance") }}
-            </div>
 
           </form>
         </mat-card-content>
