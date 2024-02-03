@@ -178,31 +178,31 @@
     </table>
   </div>
   <ng-template #actions let-publicId="publicId">
-    <button *ngIf="walletService.privateKey" mat-icon-button class="card-button"
+    <button *ngIf="walletService.privateKey" mat-icon-button class="icon-color-link"
       [title]="t('seedOverviewComponent.table.actions.revealSeed')" (click)="reveal(publicId)">
       <mat-icon>visibility</mat-icon>
     </button>
-    <button *ngIf="hasAssets(publicId)" mat-icon-button class="card-button"
+    <button *ngIf="hasAssets(publicId)" mat-icon-button class="icon-color-link"
       [title]="t('seedOverviewComponent.table.actions.assets')" (click)="assets(publicId)">
       <mat-icon>category</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.makePayment')"
+    <button mat-icon-button class="icon-color-link" [title]="t('seedOverviewComponent.table.actions.makePayment')"
       (click)="payment(publicId)">
       <mat-icon>payment</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.refreshBalance')"
+    <button mat-icon-button class="icon-color-link" [title]="t('seedOverviewComponent.table.actions.refreshBalance')"
       (click)="refreshBalance(publicId)">
       <mat-icon>refresh</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" [title]="t('seedOverviewComponent.table.actions.receivePayment')"
+    <button mat-icon-button class="icon-color-link" [title]="t('seedOverviewComponent.table.actions.receivePayment')"
       (click)="receive(publicId)">
       <mat-icon>qr_code_2</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" *ngIf="walletService.privateKey"
+    <button mat-icon-button class="icon-color-link" *ngIf="walletService.privateKey"
       [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId)">
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button class="card-button" *ngIf="walletService.privateKey"
+    <button mat-icon-button class="icon-color-link" *ngIf="walletService.privateKey"
       [title]="t('seedOverviewComponent.table.actions.deleteSeed')" (click)="delete(publicId)">
       <mat-icon>delete</mat-icon>
     </button>

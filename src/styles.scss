@@ -230,7 +230,7 @@ $altTheme: (
     color: $light-accent-text;
   }
 
-  .card-button{
+  .icon-color-link{
    color: $light-link; 
   }
 
@@ -350,7 +350,7 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 div.copy {
   cursor: pointer;
   color: $dark-text;
-  font-family: "Courier" !important;
+  font-family: 'Space Mono';
   width: 100%;
   word-wrap: break-word;
 }
