@@ -8,18 +8,24 @@
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #E0E0E0;
+}
+
+
+mat-sidenav-container{
+  border: 1px solid #E0E0E0;
 }
 
 ::ng-deep {
-
-  /* must be ng-deep because .darkTheme is outside the components context */
   .darkTheme {
-    .container {
-      background-color: #222930;
+    mat-sidenav-container{
+
+      border: 0px solid #222930;
+      border-top: 1px solid #222930;
     }
   }
 }
+
+
 
 h1.app-name {
   margin-left: 8px;
