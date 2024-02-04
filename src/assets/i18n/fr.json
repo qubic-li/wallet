@@ -181,7 +181,11 @@
         "refreshBalance": "Actualiser le solde depuis le réseau"
       }
     },
-    "hasPendingTransaction": "Transactions en attente"
+    "hasPendingTransaction": "Transactions en attente",
+    "marketPrice": "Price",
+    "marketSupply": "Supply",
+    "marketCap": "Marketcap",
+    "marketCurrency": "$"
   },
   "dashboard": {
     "title": "Dashboard",

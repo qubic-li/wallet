@@ -179,7 +179,11 @@
         "refreshBalance": "Atualizar saldo da rede"
       }
     },
-    "hasPendingTransaction": "Transações pendentes"
+    "hasPendingTransaction": "Transações pendentes",
+    "marketPrice": "Price",
+    "marketSupply": "Supply",
+    "marketCap": "Marketcap",
+    "marketCurrency": "$"
   },
   "dashboard": {
     "title": "Dashboard",

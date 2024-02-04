@@ -179,7 +179,11 @@
         "refreshBalance": "Kontostand im Netzwerk abrufen"
       }
     },
-    "hasPendingTransaction": "Offene Zahlungen"
+    "hasPendingTransaction": "Offene Zahlungen",
+    "marketPrice": "Preis",
+    "marketSupply": "Gesamtbestand",
+    "marketCap": "Marktkapitalisierung",
+    "marketCurrency": "$"
   },
   "dashboard": {
     "title": "Dashboard",

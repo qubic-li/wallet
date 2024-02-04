@@ -340,7 +340,7 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 }
 
 .content_container {
-  padding: 10px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -749,7 +749,7 @@ h2 {
 
   .copy span {
     word-break: break-all;
-  }
+  } 
 
   .trans-amount {
     min-width: 150px !important;
@@ -761,6 +761,10 @@ h2 {
 .is-mobile {
   h1 {
     text-align: center;
+  }
+
+  .content_container {
+    padding: 16px !important;
   }
 }
 

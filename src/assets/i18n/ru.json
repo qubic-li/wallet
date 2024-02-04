@@ -179,7 +179,11 @@
         "refreshBalance": "Refresh Balance from Network"
       }
     },
-    "hasPendingTransaction": "Transactions pending"
+    "hasPendingTransaction": "Transactions pending",
+    "marketPrice": "Price",
+    "marketSupply": "Supply",
+    "marketCap": "Marketcap",
+    "marketCurrency": "$"
   },
   "dashboard": {
     "title": "Dashboard",
