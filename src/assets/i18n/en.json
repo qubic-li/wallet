@@ -135,7 +135,7 @@
         "generateSeed": "Randomly generate an 55-char seed."
       },
       "watchOnlyAddress": {
-        "title":"Watch-Only-Address",
+        "title": "Watch-Only-Address",
         "placeholder": "60-char public-key",
         "error": {
           "required": "An 60-char public-key is required.",
@@ -159,7 +159,7 @@
   },
   "seedOverviewComponent": {
     "title": "Addresses",
-    "isTable":"Show table",
+    "isTable": "Show table",
     "addSeedButton": "Add Address",
     "importButton": "Import",
     "exportButton": "Export",
@@ -183,7 +183,7 @@
     },
     "hasPendingTransaction": "Transactions pending"
   },
-  "dashboard":{
+  "dashboard": {
     "title": "Dashboard",
     "balance": "Wallet balance",
     "currency": "Qu",
@@ -211,7 +211,8 @@
       "existingUser": "I already have a Wallet",
       "newUser": "I want to create a new Wallet",
       "closeWallet": "Close Wallet"
-    }
+    },
+    "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
   "lockIconComponent": {
     "lock": "Lock Wallet",
@@ -475,7 +476,7 @@
       "unlock": "Unlock Vault"
     },
     "messages": {
-      "unlockInfo": "Please unlock your Vault to be able to export another Vault file",
+      "unlockInfo": "Please unlock your Vault to be able to export your Vault file with the newest inventory.",
       "export": "You have modified your account inventory. Be sure to download your current vault file so you can import it later.",
       "info": "It contains your account inventory, settings and encrypted seeds. The Vault file will be protected by the provided password."
     }

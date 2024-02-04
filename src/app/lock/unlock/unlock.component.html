@@ -18,9 +18,12 @@
         <br>
         <form [formGroup]="importForm" novalidate (ngSubmit)="onSubmit($event)">
           <span *ngIf="file">{{ file.name }}</span>
-          <input type="file" id="input-file-id" class="file-input" (change)="onFileSelected($event)">
-          <label for="input-file-id" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link">{{
-            t("unlockComponent.choosePrivateKeyFile")}}</label>
+          <input #inputfileid type="file" id="input-file-id" class="file-input" (change)="onFileSelected($event)">
+          <label for="input-file-id" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link">
+            <button mat-raised-button type="button" color="accent" (click)="inputfileid.click()">
+              {{ t("unlockComponent.choosePrivateKeyFile")}}
+            </button>
+            </label>
           <mat-error *ngIf="!file">
             {{ t("unlockComponent.form.file.error.required")}}
           </mat-error>
@@ -38,9 +41,11 @@
           </mat-error>
           <div *ngIf="!hasExistingConfig() && !selectedFileIsVaultFile">
             <span *ngIf="configFile">{{ configFile.name }}</span><br>
-          <input type="file" id="input-file-config" class="file-input" (change)="onConfigFileSelected($event)"><br>
-          <label for="input-file-config" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link">{{
-            t("unlockComponent.chooseConfigFile")}}</label>
+          <input #configFile type="file" id="input-file-config" class="file-input" (change)="onConfigFileSelected($event)"><br>
+          <label for="input-file-config" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link">
+            <button mat-raised-button type="button" color="accent" (click)="configFile.click()">
+              {{ t("unlockComponent.chooseConfigFile")}}
+            </button></label>
           <mat-error *ngIf="!configFile">
             {{ t("unlockComponent.form.file.error.required")}}
           </mat-error>
@@ -60,7 +65,7 @@
             t("unlockComponent.buttons.importAndUnlock")}}</button>
         <button *ngIf="!isNewUser() && configFile" [disabled]="!importForm.valid" mat-raised-button color="accent" (click)="checkImportAndUnlock()">{{
               t("unlockComponent.buttons.importAndUnlock")}}</button>
-        <button *ngIf="!isNewUser() && hasExistingConfig()" [disabled]="!importForm.valid" mat-raised-button color="accent" (click)="unlock()">{{
+        <button *ngIf="!isNewUser()" [disabled]="!importForm.valid" mat-raised-button color="accent" (click)="unlock()">{{
           t("unlockComponent.buttons.unlock")}}</button>
         <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="primary" (click)="lock()">{{
           t("unlockComponent.buttons.closeWallet")}}</button>

@@ -79,8 +79,9 @@ export class UpdaterService {
     });
   }
 
-  public loadCurrentBalance() {
-    this.getCurrentBalance();
+  public loadCurrentBalance(force = false) {
+    this.getCurrentBalance(force);
+    this.getNetworkBalances(undefined, undefined, force);
   }
 
 
@@ -88,8 +89,8 @@ export class UpdaterService {
    * should load the current balances for the accounts
    * @returns 
    */
-  private getCurrentBalance() {
-    if (this.balanceLoading || !this.isActive)
+  private getCurrentBalance(force = false) {
+    if (!force && (this.balanceLoading || !this.isActive))
       return;
 
     this.balanceLoading = true;
@@ -125,12 +126,14 @@ export class UpdaterService {
    * load balances directly from network
    * @returns 
    */
-  private getNetworkBalances(publicIds: string[] | undefined = undefined, callbackFn: ((balances: NetworkBalance[]) => void) | undefined = undefined): void {
-    if (this.networkBalanceLoading || !this.isActive)
+  private getNetworkBalances(publicIds: string[] | undefined = undefined, callbackFn: ((balances: NetworkBalance[]) => void) | undefined = undefined, force = false): void {
+    if (!force && (this.networkBalanceLoading || !this.isActive))
       return;
 
     if (!publicIds)
       publicIds = this.walletService.getSeeds().map(m => m.publicId);
+
+    console.log("LOAD NETWORK BALANCE", publicIds);
 
     this.networkBalanceLoading = true;
     if (this.walletService.getSeeds().length > 0) {

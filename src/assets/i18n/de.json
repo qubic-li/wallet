@@ -20,15 +20,15 @@
     "currentTick": "Tick: {{tick}}",
     "loading": "loading...",
     "buttons": {
-        "close": "Close",
-        "maximize": "Maximize"
+      "close": "Close",
+      "maximize": "Maximize"
     },
     "messages": {
-        "notConnected": "Not connected to the Qubic Network. Please Connect first.",
-        "refreshRequested": "Refresh has been requested",
-        "refreshFailed": "Refresh failed, please try again later",
-        "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}.",
-        "timeoutTryAgain": "We run into a timeout. Please try again."
+      "notConnected": "Not connected to the Qubic Network. Please Connect first.",
+      "refreshRequested": "Refresh has been requested",
+      "refreshFailed": "Refresh failed, please try again later",
+      "balanceReceived": "Network reported {{balance}} QUBIC for {{publicId}}.",
+      "timeoutTryAgain": "We run into a timeout. Please try again."
     }
   },
   "payment": {
@@ -133,7 +133,7 @@
         "generateSeed": "Ein zufälliges Konto-Passwort erzeugen."
       },
       "watchOnlyAddress": {
-        "title":"Watch-Only-Address",
+        "title": "Watch-Only-Address",
         "placeholder": "60-char public-key",
         "error": {
           "required": "An 60-char public-key is required.",
@@ -157,7 +157,7 @@
   },
   "seedOverviewComponent": {
     "title": "Konten",
-    "isTable":"Tabelle anzeigen",
+    "isTable": "Tabelle anzeigen",
     "addSeedButton": "Konto hinzufügen",
     "importButton": "Import",
     "exportButton": "Export",
@@ -181,7 +181,7 @@
     },
     "hasPendingTransaction": "Offene Zahlungen"
   },
-  "dashboard":{
+  "dashboard": {
     "title": "Dashboard",
     "balance": "Wallet balance",
     "currency": "Qu",
@@ -207,7 +207,8 @@
       "existingUser": "Ich habe bereits einen Vault",
       "newUser": "Ich möchte einen neuen Vault erstellen",
       "closeWallet": "Close Wallet"
-    }
+    },
+    "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
   "lockIconComponent": {
     "lock": "Wallet sperren",
@@ -242,7 +243,7 @@
       "failedToSend": "Your transaction could not be sent. Please try again later.",
       "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
       "failedValidation": "We had validation errors. Please check the form."
-  },
+    },
     "form": {
       "sourceSeed": {
         "label": "Konto von dem qus gesendet werden",
@@ -309,10 +310,10 @@
   },
   "settings": {
     "general": {
-        "title": "Web Bridge",
-        "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
-        "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
-        "button.save": "Save Settings"
+      "title": "Web Bridge",
+      "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
+      "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
+      "button.save": "Save Settings"
     },
     "import": {
       "title": "Einstellungen importieren",
@@ -329,147 +330,148 @@
     }
   },
   "votingComponent": {
-      "title": "Qubic Computor Abstimmung",
-      "description": "The Qubic computor voting is used to reach a consensus on topics to be decided regarding the entire network. This can include accepting smart contracts or making other protocol decisions. Only computors are allowed to participate.",
-      "proposals": {
-          "editButton": "Bearbeiten",
-          "createButton": "Vorschlag erstellen",
-          "voteButton": "Abstimmen",
-          "title": "{{amount}} Vorschläge",
-          "noComputorHint": "Du hast keine registrierten Computors. Wenn du etwas vorschlagen möchtest, musst du mindestens einen Computor haben.",
-          "votingResult": "Ergebnis",
-          "noVotes": "keine Stimmen",
-          "from": "Von:",
-          "url": "URL:"
-      },
-      "participate": {
-          "title": "Abstimmen",
-          "cancelButton": "Abbrechen",
-          "sendVotesButton": "Stimmen senden",
-          "notConfirmedMessage": "Dieser Vorschlag ist vom Netzwerk noch nicht bestätigt. Bitte warte mit abstimmen.",
-          "noComputorsText": "Du hast keine Computoren oder diese wurden bereits für Vorschläge verwendet.",
-          "computorsSelected": "Alle auswählen"
-      },
-      "create": {
-          "title": "Vorschlag erstellen",
-          "cancelButton": "Abbrechen",
-          "sendVotesButton": "Vorschlag speichern",
-          "alreadyPublished": "Dieser Computor hat bereits einen veröffentlichten Vorschlag. Es ist pro Epoche nur ein Vorschlag erlaubt.",
-          "buttons": {
-              "create": "Vorschlag erstellen",
-              "publish": "Verbinden und Vorschlag publizieren",
-              "reset": "Zurücksetzen",
-              "loadPrivateKey": "Vault öffnen",
-              "finish": "Zeige Vorschläge"
-          },
-          "form": {
-              "operatorSeed.label": "Operator Seed",
-              "operatorSeed.error.required": "Operator is required",
-              "sourceSeed.label": "Computor",
-              "sourceSeed.error.required": "Computor is required",
-              "title.label": "Titel",
-              "title.placeholder": "Titel",
-              "title.error.required": "Titel is required",
-              "title.error.min": "Title must have at least 2 characters",
-              "title.error.max": "Title must have at maximum 100 characters",
-              "description.label": "Beschreibung",
-              "description.placeholder": "Beschreibung",
-              "description.error.required": "Beschreibung is required",
-              "description.error.min": "Description must have at least 2 characters",
-              "description.error.max": "Description must have at maximum 1000 characters",
-              "option.label": "Option {{id}}",
-              "option.placeholder": "Option {{id}}",
-              "option.error.required": "Option {{id}} is required",
-              "option.error.min": "Option must have at least 2 characters",
-              "option.error.max": "Option must have at maximum 50 characters",
-              "computorIp.label": "Computor IP Adresse",
-              "computorIp.placeholder": "Computor IP Adresse",
-              "computorIp.error.required": "Computor IP Adresse required"
-          },
-          "proposalStep.label": "Erstellen",
-          "publishStep.label": "Veröffentlichen",
-          "finishStep.label": "Abschluss",
-          "finishStep.success": "Dein Vorschlag wurde zu deinem Computor gesendet."
-      },
-      "status":{
-          "success": "Accepted by Quorum",
-          "failed": "Dismissed by Quorum",
-          "publishing": "Publish in progress",
-          "pending": "Voting is open",
-          "draft": "Draft",
-          "unknown": "Unknown status"
-      }
+    "title": "Qubic Computor Abstimmung",
+    "description": "The Qubic computor voting is used to reach a consensus on topics to be decided regarding the entire network. This can include accepting smart contracts or making other protocol decisions. Only computors are allowed to participate.",
+    "proposals": {
+      "editButton": "Bearbeiten",
+      "createButton": "Vorschlag erstellen",
+      "voteButton": "Abstimmen",
+      "title": "{{amount}} Vorschläge",
+      "noComputorHint": "Du hast keine registrierten Computors. Wenn du etwas vorschlagen möchtest, musst du mindestens einen Computor haben.",
+      "votingResult": "Ergebnis",
+      "noVotes": "keine Stimmen",
+      "from": "Von:",
+      "url": "URL:"
     },
-    "ipoComponent": {
-      "messages": {
-        "unlock": "Please unlock your Wallet first",
-        "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
-        "failedToSend": "Your IPO could not be sent. Pleas try again later.",
-        "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
-        "failedToValidate": "We had validation errors. Please check the form."
+    "participate": {
+      "title": "Abstimmen",
+      "cancelButton": "Abbrechen",
+      "sendVotesButton": "Stimmen senden",
+      "notConfirmedMessage": "Dieser Vorschlag ist vom Netzwerk noch nicht bestätigt. Bitte warte mit abstimmen.",
+      "noComputorsText": "Du hast keine Computoren oder diese wurden bereits für Vorschläge verwendet.",
+      "computorsSelected": "Alle auswählen"
     },
-        "title": "Qubic IPO",
-        "description": "The Qubic IPO is an auction for shares of smart contracts.",
-        "noIpos": "Currently no IPO's active",
-        "yourBids": "Your Bids",
-        "yourShares": "Your Shares",
-        "sharesFor": "Shares for",
-        "statusValid": "Status valid for tick {{tick}}",
-        "livPanelHint": "Check out current Results",
-        "buttons.place-bid": "Place Bid",
-        "buttons.refresh": "Refresh Status",
-        "bidStatus.hint": "The status shows only if your bid has been placed. NOT if it was successful.",
-        "bidStatus.pcs": "pcs",
-        "place-bid": {
-            "title": "Place a Bid",
-            "needBalance": "You need at least one seed with a positive balance.",
-            "noContract": "Contract not found. Please try again later.",
-            "noContract.gotoIpoLabel": "Show available Contract IPO's",
-            "buttons": {
-                "send": "Send Bid"
-            },
-            "form": {
-                "quantity": {
-                    "placeholder": "Quantity",
-                    "error.min": "Minimum 1",
-                    "error.required": "Quantity is required"
-                },
-                "price": {
-                    "placeholder": "Price (qus)",
-                    "error.min": "Minimum 1",
-                    "error.required": "Price is required",
-                    "max.tooltip": "Bid all available qus"
-                }
-            }
+    "create": {
+      "title": "Vorschlag erstellen",
+      "cancelButton": "Abbrechen",
+      "sendVotesButton": "Vorschlag speichern",
+      "alreadyPublished": "Dieser Computor hat bereits einen veröffentlichten Vorschlag. Es ist pro Epoche nur ein Vorschlag erlaubt.",
+      "buttons": {
+        "create": "Vorschlag erstellen",
+        "publish": "Verbinden und Vorschlag publizieren",
+        "reset": "Zurücksetzen",
+        "loadPrivateKey": "Vault öffnen",
+        "finish": "Zeige Vorschläge"
+      },
+      "form": {
+        "operatorSeed.label": "Operator Seed",
+        "operatorSeed.error.required": "Operator is required",
+        "sourceSeed.label": "Computor",
+        "sourceSeed.error.required": "Computor is required",
+        "title.label": "Titel",
+        "title.placeholder": "Titel",
+        "title.error.required": "Titel is required",
+        "title.error.min": "Title must have at least 2 characters",
+        "title.error.max": "Title must have at maximum 100 characters",
+        "description.label": "Beschreibung",
+        "description.placeholder": "Beschreibung",
+        "description.error.required": "Beschreibung is required",
+        "description.error.min": "Description must have at least 2 characters",
+        "description.error.max": "Description must have at maximum 1000 characters",
+        "option.label": "Option {{id}}",
+        "option.placeholder": "Option {{id}}",
+        "option.error.required": "Option {{id}} is required",
+        "option.error.min": "Option must have at least 2 characters",
+        "option.error.max": "Option must have at maximum 50 characters",
+        "computorIp.label": "Computor IP Adresse",
+        "computorIp.placeholder": "Computor IP Adresse",
+        "computorIp.error.required": "Computor IP Adresse required"
+      },
+      "proposalStep.label": "Erstellen",
+      "publishStep.label": "Veröffentlichen",
+      "finishStep.label": "Abschluss",
+      "finishStep.success": "Dein Vorschlag wurde zu deinem Computor gesendet."
+    },
+    "status": {
+      "success": "Accepted by Quorum",
+      "failed": "Dismissed by Quorum",
+      "publishing": "Publish in progress",
+      "pending": "Voting is open",
+      "draft": "Draft",
+      "unknown": "Unknown status"
+    }
+  },
+  "ipoComponent": {
+    "messages": {
+      "unlock": "Please unlock your Wallet first",
+      "storedForPropagation": "Your transaction has been stored for propagation in tick {{tick}}",
+      "failedToSend": "Your IPO could not be sent. Pleas try again later.",
+      "failedToDecrypt": "We were not able to decrypt your seed. Did you use the correct private key??",
+      "failedToValidate": "We had validation errors. Please check the form."
+    },
+    "title": "Qubic IPO",
+    "description": "The Qubic IPO is an auction for shares of smart contracts.",
+    "noIpos": "Currently no IPO's active",
+    "yourBids": "Your Bids",
+    "yourShares": "Your Shares",
+    "sharesFor": "Shares for",
+    "statusValid": "Status valid for tick {{tick}}",
+    "livPanelHint": "Check out current Results",
+    "buttons.place-bid": "Place Bid",
+    "buttons.refresh": "Refresh Status",
+    "bidStatus.hint": "The status shows only if your bid has been placed. NOT if it was successful.",
+    "bidStatus.pcs": "pcs",
+    "place-bid": {
+      "title": "Place a Bid",
+      "needBalance": "You need at least one seed with a positive balance.",
+      "noContract": "Contract not found. Please try again later.",
+      "noContract.gotoIpoLabel": "Show available Contract IPO's",
+      "buttons": {
+        "send": "Send Bid"
+      },
+      "form": {
+        "quantity": {
+          "placeholder": "Quantity",
+          "error.min": "Minimum 1",
+          "error.required": "Quantity is required"
+        },
+        "price": {
+          "placeholder": "Price (qus)",
+          "error.min": "Minimum 1",
+          "error.required": "Price is required",
+          "max.tooltip": "Bid all available qus"
         }
-    },
-    "okDialog": {
-      "title": "Hinweis",
-      "button": "Ja, ich bestätige.",
-      "messages": {
-        "tresorText": "Sie haben jetzt ihre Tresor-Datei heruntergeladen? Bitte wählen Sie im nächsten Schritt, diese Tersor-Datei aus, um das Wallet zu öffnen!"
-      }
-    },
-    "loadConfigComponent": {
-      "title": "Konten importieren",      
-      "buttons": {
-        "import": "Importieren",
-        "cancel": "Ohne Konten beginnen"
-      },
-      "messages": {
-        "import": "Wenn Sie bereits eine .config Datei beseitzen, die Ihre PublicKeys enthält, sollten Sie diese jetzt auswählen und importieren. ",
-        "noImport": "Wenn Sie noch keine .config Datei besitzen, legen Sie im nächsten Bereich ein Konto an."
-      }
-    },
-    "exportConfigComponent": {
-      "title": "Konten exportieren",      
-      "buttons": {
-        "export": "Exportieren",
-        "cancel": "Abbrechen"
-      },
-      "messages": {
-        "export": "Du hast deinen Kontenbestand geändert. Lade unbedingt deine aktuelle Konfiguration herunterzuladen, damit du sie später wieder importieren kannst.",
-        "info":"Es enthält deine verschlüsselten Seeds."
       }
     }
+  },
+  "okDialog": {
+    "title": "Hinweis",
+    "button": "Ja, ich bestätige.",
+    "messages": {
+      "tresorText": "Sie haben jetzt ihre Tresor-Datei heruntergeladen? Bitte wählen Sie im nächsten Schritt, diese Tersor-Datei aus, um das Wallet zu öffnen!"
+    }
+  },
+  "loadConfigComponent": {
+    "title": "Konten importieren",
+    "buttons": {
+      "import": "Importieren",
+      "cancel": "Ohne Konten beginnen"
+    },
+    "messages": {
+      "import": "Wenn Sie bereits eine .config Datei beseitzen, die Ihre PublicKeys enthält, sollten Sie diese jetzt auswählen und importieren. ",
+      "noImport": "Wenn Sie noch keine .config Datei besitzen, legen Sie im nächsten Bereich ein Konto an."
+    }
+  },
+  "exportConfigComponent": {
+    "title": "Konten exportieren",
+    "buttons": {
+      "export": "Exportieren",
+      "cancel": "Abbrechen"
+    },
+    "messages": {
+      "export": "Du hast deinen Kontenbestand geändert. Lade unbedingt deine aktuelle Konfiguration herunterzuladen, damit du sie später wieder importieren kannst.",
+      "info": "Es enthält deine verschlüsselten Seeds.",
+      "unlockInfo": "Please unlock your Vault to be able to export your Vault file with the newest inventory."
+    }
+  }
 }
