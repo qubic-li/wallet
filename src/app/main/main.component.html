@@ -40,10 +40,10 @@
             <div class="dashboard-amount-name">
               {{ t("dashboard.totalBalance") }}
             </div>
-            <span>
+            <span class="disable-area">
               {{ getTotalBalance() | number : "1.0-0"}}
             </span> / 
-            <span class="dashboard-amount-name">
+            <span class="dashboard-amount-name disable-area">
               ${{currentPrice.price * getTotalBalance() | number : "1.0-2"}}
             </span>
       </div>
@@ -59,11 +59,11 @@
               {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
             </div>
             <br>
-            <div class="dashboard-balance-name">
+            <div class="dashboard-balance-name disable-area">
               <span *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number :"1.0-0"}}</span>
               <span *ngIf="!address.lastUpdate">?</span>
             </div>
-            <div class="dashboard-amount-name">
+            <div class="dashboard-amount-name disable-area">
               ${{currentPrice.price * getBalance(address.publicId) | number : "1.0-2"}}
             </div>
             <div class="text-center">
@@ -126,7 +126,7 @@
           {{ t("seedOverviewComponent.table.balance") }}
         </th>
         <td mat-cell *matCellDef="let element" class="alignRight">
-          <div class="flex-valign-center flex-halign-right">
+          <div class="flex-valign-center flex-halign-right disable-area">
             <mat-icon *ngIf="hasPendingTransaction(element.publicId)" matTooltip="{{
                 t('seedOverviewComponent.hasPendingTransaction')
               }}">hourglass_empty</mat-icon>
@@ -142,7 +142,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="alignRight">
           {{ t("seedOverviewComponent.table.epochChanges") }}
         </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element" class="disable-area">
           <div [class]="{
               alignRight: true,
               epochChanges: true,

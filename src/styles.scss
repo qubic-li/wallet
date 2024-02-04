@@ -852,6 +852,10 @@ hr {
 
 // /*New Design*/
 
+.blurred {
+  filter: blur(5px);
+}
+
 .important {
   display: flex;
   align-items: center;
