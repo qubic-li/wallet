@@ -14,7 +14,7 @@
         <div *ngIf="walletService.isWalletReady && !walletService.configError && !mobileQuery.matches" class="currentTick"><span class="title">{{ t("general.currentTick", { tick: '' }) }} </span><span
             [class]="{'target-highlight': higlightTick}">{{ us.currentTick.getValue() | number: '1.0-0' }}</span>
         </div>
-        <qli-notifys></qli-notifys>                     
+        <qli-notifys *ngIf="walletService.isWalletReady && !walletService.configError"></qli-notifys>                     
         <qli-lock *ngIf="walletService.isWalletReady && !walletService.configError"></qli-lock>
         <qli-language-chooser></qli-language-chooser>
         <button *ngIf="showMinimize && environmentService.isElectron" (click)="minimize()" mat-icon-button><mat-icon>minimize</mat-icon></button>
@@ -26,7 +26,7 @@
       <qli-config-error></qli-config-error>
     </div>
     <div *ngIf="!walletService.isWalletReady && !walletService.configError" class="open-wallet-screen">
-      <qli-unlock></qli-unlock>
+      <router-outlet></router-outlet>
     </div>
     <mat-sidenav-container *ngIf="walletService.isWalletReady && !walletService.configError" class="sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
       <mat-sidenav class="navigation" #snav [opened]="!mobileQuery.matches" [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -67,6 +67,5 @@
         <router-outlet></router-outlet>  
       </mat-sidenav-content>
     </mat-sidenav-container>
-
   </div>
 </ng-container>

@@ -206,7 +206,8 @@
       "unlock": "Wallet entsperren",
       "existingUser": "Ich habe bereits einen Vault",
       "newUser": "Ich möchte einen neuen Vault erstellen",
-      "closeWallet": "Close Wallet"
+      "closeWallet": "Close Wallet",
+      "importVault": "I want to import another Wallet"
     },
     "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
@@ -473,5 +474,16 @@
       "info": "Es enthält deine verschlüsselten Seeds.",
       "unlockInfo": "Please unlock your Vault to be able to export your Vault file with the newest inventory."
     }
+  },
+  "welcomeComponent": {
+    "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+    "button": {
+      "createVault": "Create a new Vault",
+      "importVault": "Imporrt existing Vault"
+    }
+  },
+  "importComponent": {
+    "title": "Import Vault",
+    "message": "You can import an existing Vault to your Wallet."
   }
 }

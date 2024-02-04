@@ -204,7 +204,8 @@
       "unlock": "Ontgrendel wallet",
       "existingUser": "Ik heb al een kluis",
       "newUser": "Ik wil een nieuwe kluis maken",
-      "closeWallet": "Sluit Wallet"
+      "closeWallet": "Sluit Wallet",
+      "importVault": "I want to import another Wallet"
     },
     "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
@@ -470,5 +471,16 @@
       "info": "Het bevat je versleutelde seeds.",
       "unlockInfo": "Please unlock your Vault to be able to export your Vault file with the newest inventory."
     }
+  },
+  "welcomeComponent": {
+    "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+    "button": {
+      "createVault": "Create a new Vault",
+      "importVault": "Imporrt existing Vault"
+    }
+  },
+  "importComponent": {
+    "title": "Import Vault",
+    "message": "You can import an existing Vault to your Wallet."
   }
 }

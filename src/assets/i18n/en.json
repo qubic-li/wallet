@@ -193,7 +193,7 @@
     "title": "Unlock wallet",
     "title.new": "Create a Wallet",
     "welcomeMessage": "Welcome to the Qubic Wallet.\nTo use this Wallet you must create a wallet unlock file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
-    "reasonMessage": "To unlock your Wallet your wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
+    "reasonMessage": "To unlock your Wallet, your Vault or wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
     "choosePrivateKeyFile": "Choose Vault or Wallet Unlock file",
     "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
@@ -210,7 +210,8 @@
       "unlock": "Unlock wallet",
       "existingUser": "I already have a Wallet",
       "newUser": "I want to create a new Wallet",
-      "closeWallet": "Close Wallet"
+      "closeWallet": "Close Wallet",
+      "importVault": "I want to import another Wallet"
     },
     "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
@@ -480,5 +481,16 @@
       "export": "You have modified your account inventory. Be sure to download your current vault file so you can import it later.",
       "info": "It contains your account inventory, settings and encrypted seeds. The Vault file will be protected by the provided password."
     }
+  },
+  "welcomeComponent": {
+    "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+    "button": {
+      "createVault": "Create a new Vault",
+      "importVault": "Imporrt existing Vault"
+    }
+  },
+  "importComponent": {
+    "title": "Import Vault",
+    "message": "You can import an existing Vault to your Wallet."
   }
 }

@@ -9,6 +9,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { WalletService } from 'src/app/services/wallet.service';
 import { OkDialog } from 'src/app/core/ok-dialog/ok-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'qli-lock-confirm',
@@ -26,7 +27,7 @@ export class LockConfirmDialog extends QubicDialogWrapper {
   public keyDownload = false;
   public isVaultFileExported = false; // is set to true as soon the vault file has been exported/downloaded
 
-  constructor(renderer: Renderer2, private _snackBar: MatSnackBar, themeService: ThemeService, @Inject(MAT_DIALOG_DATA) public data: any, private chdet: ChangeDetectorRef, public walletService: WalletService, private dialog: MatDialog, private fb: FormBuilder, private dialogRef: DialogRef, private transloco: TranslocoService) {
+  constructor(renderer: Renderer2, private _snackBar: MatSnackBar, private router: Router, themeService: ThemeService, @Inject(MAT_DIALOG_DATA) public data: any, private chdet: ChangeDetectorRef, public walletService: WalletService, private dialog: MatDialog, private fb: FormBuilder, private dialogRef: DialogRef, private transloco: TranslocoService) {
     super(renderer, themeService);
     if (data && data.command && data.command == "keyDownload") {
       this.keyDownload = true;
@@ -82,10 +83,11 @@ export class LockConfirmDialog extends QubicDialogWrapper {
    this.exportVault();
   }
 
-  closeWallet() {
+  async closeWallet() {
     this.walletService.isWalletReady = false;
-    this.walletService.lock();
+    await this.walletService.lock();
     this.dialogRef.close();
+    this.router.navigate(['/unlock']);
   }
 
   async saveAndCloseWallet() {

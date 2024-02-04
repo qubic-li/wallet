@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { MarketInformation } from '../services/api.model';
 import { EnvironmentService } from '../services/env.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -48,6 +49,8 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
+
     this.mobileQuery = this.media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
@@ -88,6 +91,8 @@ export class NavigationComponent implements OnInit {
         });
       }
     })
+
+    console.log("NAVIGATION LOADED");
   }
 
 

@@ -1,0 +1,150 @@
+<ng-container *transloco="let t">
+  <div>
+    <mat-stepper orientation="vertical" [linear]="true" #stepper>
+      <mat-step [completed]="vaultCreated" [editable]="false">
+        <ng-template matStepLabel>Create Vault</ng-template>
+        This step will create a private/public key pair for the wallet and add
+        your first Qubic address. Select "Create Vault" to create your Qubic
+        Vault.
+        <br /><br />
+        <button mat-raised-button color="primary" (click)="createVault()">
+          Create Vault
+        </button>
+      </mat-step>
+      <mat-step [completed]="addressCreated" [editable]="false">
+        <ng-template matStepLabel>Add Address</ng-template>
+        In your Qubic Wallet you can have multiple Addresses. Every Address
+        consists of a Seed (private Key) and a Public Id. The Seed is needed
+        to send Qubic and the Public Id can be used to receive Qubic. We create now your
+        first Address.
+        <br /><br />
+        <form [formGroup]="createAddressForm">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Name</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="name"
+                  placeholder="Choose an Account Name"
+                  required
+                />
+              </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Seed</mat-label>
+                <input
+                  type="text"
+                  matInput
+                  formControlName="seed"
+                  placeholder="Choose a random seed..."
+                  required
+                />
+                <mat-hint *ngIf="generatedPublicId.length === 60">{{ generatedPublicId }}</mat-hint>
+              </mat-form-field>
+              <div class="flex full-width button-container">
+              <button mat-raised-button color="accent" (click)="randomizeSeed()">
+                Randomize Seed
+                </button>
+            <button mat-raised-button color="primary" (click)="createAddress()" [disabled]="!this.createAddressForm.valid">
+            Create Address
+            </button>
+        </div>
+        </form>
+      </mat-step>
+      <mat-step [completed]="vaultExported" [editable]="true">
+        <form [formGroup]="vaultPasswordFormGroup">
+          <ng-template matStepLabel>Download initial Vault</ng-template>
+          Your personal Vault has been created. You can now download it. Please
+          choose a secure Password and select "Download Vault".
+          <br /><br />
+
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              formControlName="password"
+              placeholder="Choose a secure password..."
+              required
+            />
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="exportVault()"
+            [disabled]="!vaultPasswordFormGroup.valid"
+          >
+            Download Vault
+          </button>
+        </form>
+      </mat-step>
+      <mat-step [completed]="vaultVerified" [editable]="false">
+        <form [formGroup]="verifyVaultFormGroup">
+          <ng-template matStepLabel>Load/Import Vault</ng-template>
+          The Vault file which you have downloaded is the file which contains
+          all important information. Everytime when you want to unlock your
+          wallet, you will need this file. Everytime when you change your Wallet
+          (e.g. add or edit an address) you will be prompted do download the
+          newest Vault file. To Ensure this works for you. Please select below
+          the downloaded Vault file and enter your Vault Password again.
+          <br /><br />
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              formControlName="password"
+              placeholder="Your Vault Password"
+              required
+            />
+          </mat-form-field>
+          <span *ngIf="file">{{ file.name }}</span>
+          <input
+            #inputfileid
+            type="file"
+            id="input-file-id"
+            class="file-input"
+            (change)="onFileSelected($event)"
+          />
+          <label
+            for="input-file-id"
+            class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link"
+          >
+            <button
+              mat-raised-button
+              type="button"
+              color="accent"
+              (click)="inputfileid.click()"
+            >
+              {{ t("unlockComponent.choosePrivateKeyFile") }}
+            </button>
+          </label>
+          <mat-error *ngIf="!file">
+            {{ t("unlockComponent.form.file.error.required") }}
+          </mat-error>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="verifyVault()"
+            [disabled]="!verifyVaultFormGroup.valid || !selectedFileIsVaultFile"
+          >
+            Load and Verify Vault File
+          </button>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>Happy Qubic! Your Wallet is ready.</p>
+        <div>
+          <button mat-raised-button color="primary" [routerLink]="['/']">
+            Open My Wallet
+          </button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+    <div class="button-container">
+      <button mat-raised-button [routerLink]="['../']">Cancel</button>
+    </div>
+  </div>
+</ng-container>

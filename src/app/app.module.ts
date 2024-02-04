@@ -46,7 +46,6 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { QrReceiveDialog } from './main/qr-receive/qr-receive.component';
 import { TranslocoRootModule } from './transloco-root.module';
 import { LanguageChooserComponent } from './core/language-chooser/language-chooser.component';
-import { WelcomeComponent } from './welcome/welcome.component';
 import { UpdaterService } from './services/updater-service';
 import {MatTabsModule} from '@angular/material/tabs';
 import { AccountComponent } from './settings/account/account.component';
@@ -73,6 +72,10 @@ import { AssetsComponent } from './assets/assets.component';
 import { TransactionService } from './services/transaction.service';
 import { EnvironmentService } from './services/env.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { WelcomeComponent } from './public/welcome/welcome.component';
+import { CreateVaultComponent } from './public/create-vault/create-vault.component';
+import { PublicUnLockComponent } from './public/unlock/unlock.component';
+import { ImportVaultComponent } from './public/import/import.component';
 
 
 
@@ -102,7 +105,6 @@ export const httpInterceptorProviders = [
     BalanceComponent,
     QrReceiveDialog,
     LanguageChooserComponent,
-    WelcomeComponent,
     AccountComponent,
     ExportComponent,
     VotingComponent,
@@ -114,7 +116,11 @@ export const httpInterceptorProviders = [
     TransferStatusComponent,
     SettingsGeneralComponent,
     AssetsDialog,
-    AssetsComponent
+    AssetsComponent,
+    WelcomeComponent,
+    CreateVaultComponent,
+    PublicUnLockComponent,
+    ImportVaultComponent
   ],
   imports: [
     BrowserModule,
