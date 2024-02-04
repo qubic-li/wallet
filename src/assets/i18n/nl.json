@@ -178,7 +178,12 @@
         "deleteSeed": "Account verwijderen",
         "refreshBalance": "Refresh Balance from Network"
       }
-    }
+    },
+    "hasPendingTransaction": "Transactions pending",
+    "marketPrice": "Price",
+    "marketSupply": "Supply",
+    "marketCap": "Marketcap",
+    "marketCurrency": "$"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -192,6 +197,7 @@
     "welcomeMessage": "Welkom bij de qubic Wallet.� Om deze Wallet te gebruiken moet u een kluisbestand aanmaken. Deze zal uw publieke/prive sleutel bevatten die daarna wordt gebruikt om uw gegevens te versleutelen/decoderen.",
     "reasonMessage": "Om uw portemonnee te ontgrendelen is uw kluisbestand nodig. Dit bestand wordt automatisch verwijderd zodra deze pagina opnieuw wordt geladen of gesloten.",
     "choosePrivateKeyFile": "Kies een kluisbestand",
+    "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "Het lijkt erop dat er al gegevens zijn opgeslagen in deze Browser. Wilt u deze echt overschrijven?",
     "form": {
       "file.error.required": "Kluisbestand verplicht",
@@ -230,6 +236,7 @@
     "buttons": {
       "savePrivateKey": "Save kluisbestand",
       "closeWallet": "Vergrendel Wallet",
+      "exportAndCloseWallet": "Export Vault file and Lock Wallet",
       "enableExport": "Exporteer",
       "cancel": "Cancel"
     }

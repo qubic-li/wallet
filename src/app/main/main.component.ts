@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialog } from '../core/confirm-dialog/confirm-dialog.component';
@@ -22,6 +22,7 @@ import { AssetsDialog } from './assets/assets.component';
 import { LoadConfigDialog } from '../lock/load-config/load-config.component';
 import { ExportConfigDialog } from '../lock/export-config/export-config.component';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class MainComponent implements AfterViewInit {
   public transactions: Transaction[] = [];
   isTable: boolean = false;
   currentPrice: MarketInformation = ({ supply: 0, price: 0, capitalization: 0, currency: 'USD' });
+  public isMobile = false;
 
   @ViewChild(MatTable)
   table!: MatTable<ISeed>;
@@ -53,8 +55,9 @@ export class MainComponent implements AfterViewInit {
     private _snackBar: MatSnackBar,
     private t: TranslocoService,
     private decimalPipe: DecimalPipe,
+    private deviceService: DeviceDetectorService,
   ) {
-
+    this.isMobile = deviceService.isMobile();
     var dashBoardStyle = localStorage.getItem("dashboard-grid");
     this.isTable = dashBoardStyle == '0' ? true : false;
 
@@ -80,8 +83,20 @@ export class MainComponent implements AfterViewInit {
     if (this.dataSource.data.length == 0) {
       this.load();
     }
-
   }
+
+  @HostListener('document:keydown.escape', ['$event']) 
+  handleEscapeKey(event: KeyboardEvent): void {
+    const disableAreasElements = document.querySelectorAll('.disable-area') as NodeListOf<HTMLElement>;
+    disableAreasElements.forEach((area: HTMLElement) => {
+      if (area.classList.contains('blurred')) {
+        area.classList.remove('blurred');
+      } else {
+        area.classList.add('blurred');
+      }
+    });
+  }
+
   ngAfterViewInit(): void {
     this.setDataSource();
   }

@@ -23,7 +23,13 @@
     </div>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <button mat-raised-button [disabled]="!configToImport" color="accent" mat-dialog-close (click)="import()">{{ t("loadConfigComponent.buttons.import")}}</button>
-      <button mat-raised-button  color="warn" (click)="close()"> {{ t("loadConfigComponent.buttons.cancel")}}</button>
+      <div class="flex flex-wrap">
+        <div>
+          <button mat-raised-button [disabled]="!configToImport" color="accent" mat-dialog-close (click)="import()">{{ t("loadConfigComponent.buttons.import")}}</button>
+        </div>
+        <div>
+          <button mat-raised-button  color="warn" (click)="close()"> {{ t("loadConfigComponent.buttons.cancel")}}</button>
+        </div>
+      </div>
     </mat-dialog-actions>
     </ng-container>

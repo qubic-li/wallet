@@ -1,55 +1,57 @@
 <ng-container *transloco="let t">
   <div class="content_container">
-    <div class="flex flex-wrap">
-      <div class="col-6 col-sm-12">
+    <div class="flex flex-wrap card-list">
+      <div>
         <h1 *ngIf="isTable">{{ t("seedOverviewComponent.title") }}</h1>
-        <h1 *ngIf="!isTable">{{ t("dashboard.title") }}</h1>
+        <h1 *ngIf="!isTable">{{ t("dashboard.title") }}</h1>       
       </div>
-      <div class="col-6 col-sm-12 text-right">
-        <h2>{{getTotalBalance() | number : "1.0-0"}}<br>${{currentPrice.price * getTotalBalance() | number : "1.0-2"}}</h2>
+      <div class="flex-grow"></div> <!-- Flex-Element, um Platz zu schaffen -->
+      <div style="margin-left: auto; padding-top:14px;" class="text-right">      
+        {{currentPrice.price}} {{currentPrice.currency}}
+        <br>
+        <div class="dashboard-amount-name">
+          ~ {{currentPrice.capitalization| number : "1.0-0"}} {{currentPrice.currency}}
+        </div>
+      </div>      
+    </div> 
+     <mat-form-field>
+          <mat-label>{{ t("seedOverviewComponent.search.label") }}</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input />
+      </mat-form-field>
+    <div class="flex flex-wrap card-list">
+      <div>
+        <button color="accent" mat-raised-button aria-label="Add Addresse" title="Add Addresse" (click)="addSeed()">
+          <mat-icon>add_circle</mat-icon>
+          {{ t("seedOverviewComponent.addSeedButton") }}
+        </button>&nbsp;
+        <mat-slide-toggle (change)="toggleTableView($event)" [checked]="isTable">{{
+          t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
+        <!-- <div>&nbsp;</div> -->
+        <!-- <button mat-raised-button aria-label="Export Addresses" title="Export Addresses" (click)="openExportDialog(false)">
+          <mat-icon>download_file</mat-icon>
+          {{ t("seedOverviewComponent.exportButton") }}
+        </button>
+        <button mat-raised-button aria-label="Import Addresses" title="Import Addresses" (click)="openExportDialog(false)">
+          <mat-icon>upload_file</mat-icon>
+          {{ t("seedOverviewComponent.importButton") }}
+        </button> -->
+      </div>
+      <div style="margin-left: auto;" class="text-right"> 
+            <div class="dashboard-amount-name">
+              {{ t("dashboard.totalBalance") }}
+            </div>
+            <span class="disable-area">
+              {{ getTotalBalance() | number : "1.0-0"}}
+            </span> / 
+            <span class="dashboard-amount-name disable-area">
+              ${{currentPrice.price * getTotalBalance() | number : "1.0-2"}}
+            </span>
       </div>
     </div>
-    <mat-form-field>
-      <mat-label>{{ t("seedOverviewComponent.search.label") }}</mat-label>
-      <input matInput (keyup)="applyFilter($event)" #input />
-    </mat-form-field>
-    <div>
-      <button color="accent" mat-raised-button aria-label="Add Addresse" title="Add Addresse" (click)="addSeed()">
-        <mat-icon>add_circle</mat-icon>
-        {{ t("seedOverviewComponent.addSeedButton") }}
-      </button>&nbsp;
-      <mat-slide-toggle (change)="toggleTableView($event)" [checked]="isTable">{{
-        t('seedOverviewComponent.isTable')}}</mat-slide-toggle>
-      <!-- <div>&nbsp;</div> -->
-      <!-- <button mat-raised-button aria-label="Export Addresses" title="Export Addresses" (click)="openExportDialog(false)">
-        <mat-icon>download_file</mat-icon>
-        {{ t("seedOverviewComponent.exportButton") }}
-      </button>
-      <button mat-raised-button aria-label="Import Addresses" title="Import Addresses" (click)="openExportDialog(false)">
-        <mat-icon>upload_file</mat-icon>
-        {{ t("seedOverviewComponent.importButton") }}
-      </button> -->
-    </div>
-
+    <br>
     <!-- card version /-->
     <div *ngIf="!isTable">
       <div class="card-list flex flex-wrap">
-        <mat-card class="proposal-card">
-          <mat-card-content>
-            <br>
-            <div class="dashboard-wallet-name">
-              {{ t("dashboard.totalBalance") }}
-            </div>
-            <br>
-            <div class="dashboard-balance-name">
-              {{ getTotalBalance() | number : "1.0-0"}}
-            </div>
-            <div class="dashboard-amount-name">
-              ${{currentPrice.price * getTotalBalance() | number : "1.0-2"}}
-            </div>
-          </mat-card-content>
-        </mat-card>
-
         <mat-card class="proposal-card" *ngFor="let address of dataSource.filteredData; let i = index">
           <mat-card-content>
             <br>
@@ -57,11 +59,11 @@
               {{ address.alias }} <span *ngIf="!address.lastUpdate">?</span>
             </div>
             <br>
-            <div class="dashboard-balance-name">
+            <div class="dashboard-balance-name disable-area">
               <span *ngIf="address.lastUpdate">{{getBalance(address.publicId) | number :"1.0-0"}}</span>
               <span *ngIf="!address.lastUpdate">?</span>
             </div>
-            <div class="dashboard-amount-name">
+            <div class="dashboard-amount-name disable-area">
               ${{currentPrice.price * getBalance(address.publicId) | number : "1.0-2"}}
             </div>
             <div class="text-center">
@@ -124,7 +126,7 @@
           {{ t("seedOverviewComponent.table.balance") }}
         </th>
         <td mat-cell *matCellDef="let element" class="alignRight">
-          <div class="flex-valign-center flex-halign-right">
+          <div class="flex-valign-center flex-halign-right disable-area">
             <mat-icon *ngIf="hasPendingTransaction(element.publicId)" matTooltip="{{
                 t('seedOverviewComponent.hasPendingTransaction')
               }}">hourglass_empty</mat-icon>
@@ -140,7 +142,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="alignRight">
           {{ t("seedOverviewComponent.table.epochChanges") }}
         </th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element" class="disable-area">
           <div [class]="{
               alignRight: true,
               epochChanges: true,

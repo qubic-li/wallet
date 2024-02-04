@@ -159,7 +159,7 @@ body {
 }
 
 $mat-accent: (
-  main: $dark-bg-tooltip,
+  main: $light-primary-text,
   lighter: #c4ddec,
   darker: #2472a7,
   200: $light-link, // For slide toggle,
@@ -248,6 +248,11 @@ $altTheme: (
   .mat-mdc-card {
     background-color: $dark-bg-lighter-2 !important;
   }
+
+  .mdc-switch.mdc-switch--selected .mdc-switch__track {
+    background-color: rgb(97, 97, 97);
+  }
+  
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -340,7 +345,7 @@ mat-snack-bar-container.error .mdc-snackbar__surface {
 }
 
 .content_container {
-  padding: 10px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -426,8 +431,6 @@ a:hover {
 }
 
 @media screen and (min-width: 1200px) {
-
-
   app-navigation.isDesktop {
     .mobileOnly {
       display: none;
@@ -749,7 +752,7 @@ h2 {
 
   .copy span {
     word-break: break-all;
-  }
+  } 
 
   .trans-amount {
     min-width: 150px !important;
@@ -759,9 +762,43 @@ h2 {
 /* balance page end */
 
 .is-mobile {
+  
+
   h1 {
     text-align: center;
   }
+
+  .content_container {
+    padding: 16px !important;
+  }
+ 
+  button .mdc-button{
+    font-size: 18px;
+    margin: 0px 10px 10px 10px;
+    min-width: 290px;
+    max-width: 290px;
+    min-height: 50px;
+    hyphens: auto;
+  }
+
+  .mdc-button{
+    font-size: 18px;
+    margin: 0px 10px 10px 10px;
+    min-width: 290px;
+    max-width: 290px;
+    min-height: 50px;
+    hyphens: auto;
+  }
+}
+
+.mdc-button{
+  margin: 0px 10px 0px 10px; 
+  min-height: 40px;
+}
+
+button{
+  margin: 0px 10px 0px 10px;  
+  min-height: 40px;
 }
 
 .target-highlight {
@@ -811,8 +848,9 @@ hr {
 .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
   fill: black !important;
 }
+
 .mdc-switch.mdc-switch--selected .mdc-switch__track {
-  background-color: rgb(97, 97, 97);
+  background-color: rgb(224, 224, 224);
 }
 
 .window-drag{
@@ -847,6 +885,10 @@ hr {
 }
 
 // /*New Design*/
+
+.blurred {
+  filter: blur(5px);
+}
 
 .important {
   display: flex;
@@ -949,7 +991,6 @@ border-spacing: revert-layer !important;
  margin-right: 20px;
 }
 
-/* Stile für verschiedene Spaltenbreiten */
 .col-1 { flex: 0 0 8.333333%; max-width: 8.333333%;}
 .col-2 { flex: 0 0 16.666667%; max-width: 16.666667%;}
 .col-3 { flex: 0 0 25%; max-width: 25%;}
@@ -963,7 +1004,7 @@ border-spacing: revert-layer !important;
 .col-11 { flex: 0 0 91.666667%; max-width: 91.666667%;}
 .col-12 { flex: 0 0 100%; max-width: 100%;}
 
-/* Mobile Geräte */
+/* Mobile Phone */
 @media (max-width: 896px) {
   .col-sm-1 { flex: 0 0 8.333333%; max-width: 8.333333%; }
   .col-sm-2 { flex: 0 0 16.666667%; max-width: 16.666667%; }

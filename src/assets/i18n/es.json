@@ -179,7 +179,11 @@
         "refreshBalance": "Actualizar el saldo desde la red"
       }
     },
-    "hasPendingTransaction": "Transacciones pendientes"
+    "hasPendingTransaction": "Transacciones pendientes",
+    "marketPrice": "Price",
+    "marketSupply": "Supply",
+    "marketCap": "Marketcap",
+    "marketCurrency": "$"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -193,6 +197,7 @@
     "welcomeMessage": "Bienvenido al Wallet qubic.li.\nPara usar este Wallet, debe crear un archivo Wallet. Contendrá su clave pública/privada que luego se usará para cifrar/descifrar sus datos.",
     "reasonMessage": "Para desbloquear su Wallet, es necesario su archivo Wallet. Este archivo se elimina automáticamente una vez que esta página se recarga o se cierra.",
     "choosePrivateKeyFile": "Elegir el archivo Wallet",
+    "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "Parece que ya hay datos guardados en este navegador. ¿Realmente desea sobrescribirlos?",
     "form": {
       "file.error.required": "Archivo Wallet requerido",
@@ -231,6 +236,7 @@
     "buttons": {
       "savePrivateKey": "Guardar el archivo Wallet",
       "closeWallet": "Bloquear el Wallet",
+      "exportAndCloseWallet": "Export Vault file and Lock Wallet",
       "enableExport": "Exportar",
       "cancel": "Cancelar"
     }
