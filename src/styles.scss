@@ -248,6 +248,11 @@ $altTheme: (
   .mat-mdc-card {
     background-color: $dark-bg-lighter-2 !important;
   }
+
+  .mdc-switch.mdc-switch--selected .mdc-switch__track {
+    background-color: rgb(97, 97, 97);
+  }
+  
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -811,8 +816,9 @@ hr {
 .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
   fill: black !important;
 }
+
 .mdc-switch.mdc-switch--selected .mdc-switch__track {
-  background-color: rgb(97, 97, 97);
+  background-color: rgb(224, 224, 224);
 }
 
 .window-drag{
