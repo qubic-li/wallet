@@ -811,6 +811,9 @@ hr {
 .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
   fill: black !important;
 }
+.mdc-switch.mdc-switch--selected .mdc-switch__track {
+  background-color: rgb(97, 97, 97);
+}
 
 .window-drag{
   -webkit-app-region: drag
