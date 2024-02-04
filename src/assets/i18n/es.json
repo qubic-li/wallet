@@ -133,7 +133,7 @@
         "generateSeed": "Generar aleatoriamente una Seed de 55 caracteres."
       },
       "watchOnlyAddress": {
-        "title":"Watch-Only-Address",
+        "title": "Watch-Only-Address",
         "placeholder": "Clave pública de 60 caracteres",
         "error": {
           "required": "Se requiere una clave pública de 60 caracteres",
@@ -157,7 +157,7 @@
   },
   "seedOverviewComponent": {
     "title": "Direcciones",
-    "isTable":"Mostrar como tabla",
+    "isTable": "Mostrar como tabla",
     "addSeedButton": "Agregar una dirección",
     "importButton": "Importar",
     "exportButton": "Exportar",
@@ -181,7 +181,7 @@
     },
     "hasPendingTransaction": "Transacciones pendientes"
   },
-  "dashboard":{
+  "dashboard": {
     "title": "Dashboard",
     "balance": "Wallet balance",
     "currency": "Qu",
@@ -206,7 +206,8 @@
       "existingUser": "Ya tengo un Wallet",
       "newUser": "Quiero crear un nuevo Wallet",
       "closeWallet": "Cerrar el Wallet"
-    }
+    },
+    "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
   "lockIconComponent": {
     "lock": "Bloquear el Wallet",
@@ -450,7 +451,7 @@
     }
   },
   "loadConfigComponent": {
-    "title": "Importar cuentas",      
+    "title": "Importar cuentas",
     "buttons": {
       "import": "Importar",
       "cancel": "Cancelar"
@@ -463,12 +464,13 @@
   "exportConfigComponent": {
     "title": "Exportar cuentas",
     "buttons": {
-        "export": "Exportar",
-        "cancel": "Cancelar"
+      "export": "Exportar",
+      "cancel": "Cancelar"
     },
     "messages": {
       "export": "Has modificado tu inventario de cuentas. Asegúrate de descargar tu configuración actual para poder importarla más tarde.",
-      "info": "Contiene tus seeds encriptadas."
+      "info": "Contiene tus seeds encriptadas.",
+      "unlockInfo": "Please unlock your Vault to be able to export your Vault file with the newest inventory."
     }
-}
+  }
 }

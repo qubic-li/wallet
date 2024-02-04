@@ -99,10 +99,9 @@ export class WalletService {
     // todo: load web bridges dynamically
   }
 
-  public createNewKeys() {
-    this.generateKey().then((k: CryptoKeyPair) => {
-      this.setKeys(k.publicKey, k.privateKey);
-    });
+  public async createNewKeys() {
+    const keyPair = await this.generateKey()
+    await this.setKeys(keyPair.publicKey, keyPair.privateKey);
   }
 
   private async save(lock: boolean = false): Promise<void> {
@@ -266,8 +265,12 @@ export class WalletService {
     this.publicKey = null;
   }
 
-  private setKeys(publicKey: CryptoKey, privateKey: CryptoKey | null = null) {
+  private async setKeys(publicKey: CryptoKey, privateKey: CryptoKey | null = null) {
     this.publicKey = publicKey;
+    // also push the current publickey to the running configuration
+    const jwk = await crypto.subtle.exportKey('jwk', this.publicKey!);
+    this.runningConfiguration.publicKey = jwk;
+
     if (privateKey)
       this.privateKey = privateKey;
   }
@@ -482,7 +485,7 @@ export class WalletService {
 
   public async exportVault(password: string) {
     if (!this.privateKey || !this.runningConfiguration.publicKey)
-      return Promise.resolve();
+      return Promise.reject("Private- or PublicKey not loaded");
 
     const jsonKey = await this.createJsonKey(password);
     if (jsonKey === null) {
@@ -490,6 +493,7 @@ export class WalletService {
       return Promise.resolve();
     }
 
+    
     const vaultFile: IVaultFile = {
       privateKey: this.arrayBufferToBase64(jsonKey),
       publicKey: this.runningConfiguration.publicKey!,

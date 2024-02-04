@@ -30,7 +30,6 @@ export class ApiService {
     if (this.authenticationActive)
       return;
 
-
     this.authenticationActive = true;
     // temp login for current use with public user
     // login to qubic.li

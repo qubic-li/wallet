@@ -9,6 +9,7 @@ import { ConfirmDialog } from 'src/app/core/confirm-dialog/confirm-dialog.compon
 import { TranslocoService } from '@ngneat/transloco';
 import { ThemeService } from 'src/app/services/theme.service';
 import { QubicDialogWrapper } from 'src/app/core/dialog-wrapper/dialog-wrapper';
+import { UpdaterService } from 'src/app/services/updater-service';
 
 
 @Component({
@@ -30,7 +31,17 @@ export class UnLockComponent extends QubicDialogWrapper {
 
   dialogRef: DialogRef | null = null;
 
-  constructor(renderer: Renderer2, themeService: ThemeService, public walletService: WalletService, private transloco: TranslocoService, private cdr: ChangeDetectorRef, private fb: FormBuilder, private dialog: MatDialog, private _snackBar: MatSnackBar, private injector: Injector) {
+  constructor(
+        renderer: Renderer2, 
+        themeService: ThemeService, 
+        public walletService: WalletService, 
+        public updaterService: UpdaterService, 
+        private transloco: TranslocoService, 
+        private cdr: ChangeDetectorRef, 
+        private fb: FormBuilder, 
+        private dialog: MatDialog, 
+        private _snackBar: MatSnackBar, 
+        private injector: Injector) {
     super(renderer, themeService);
     this.dialogRef = injector.get(DialogRef, null)
     this.newUser = this.walletService.getSeeds().length <= 0 && !this.walletService.publicKey;
@@ -49,12 +60,12 @@ export class UnLockComponent extends QubicDialogWrapper {
     this.cdr.detectChanges();
   }
 
-  startCreateProcess() {
+  async startCreateProcess() {
     this.walletService.clearConfig();
-    this.walletService.createNewKeys();
+    await this.walletService.createNewKeys();
     this.toggleNewUser(false);
     const lockRef = this.dialog.open(LockConfirmDialog, {
-      restoreFocus: false, data: {
+      restoreFocus: false, closeOnNavigation: false, disableClose: true, data: {
         command: "keyDownload"
       }
     });
@@ -106,6 +117,7 @@ export class UnLockComponent extends QubicDialogWrapper {
         if (success) {
           this.pwdWrong = false;
           this.walletService.isWalletReady = true;
+          this.updaterService.loadCurrentBalance(true);
           this.dialogRef?.close();
         } else {
           this._snackBar.open("Import Failed (passord or file do not match)", "close", {
@@ -131,6 +143,7 @@ export class UnLockComponent extends QubicDialogWrapper {
           if((await this.unlock())){
             // legacy format
             await this.walletService.importConfig(config);
+            this.updaterService.loadCurrentBalance(true);
           }
         } else {
           this._snackBar.open("Unlock Failed (no file)", "close", {
@@ -197,6 +210,7 @@ export class UnLockComponent extends QubicDialogWrapper {
         if (r) {
           this.pwdWrong = false;
           this.walletService.isWalletReady = true;
+          this.updaterService.loadCurrentBalance(true);
           this.dialogRef?.close();
         } else {
           this._snackBar.open("Import Failed", "close", {

@@ -133,7 +133,7 @@
         "generateSeed": "Gerar aleatoriamente uma Seed de 55 caracteres."
       },
       "watchOnlyAddress": {
-        "title":"Watch-Only-Address",
+        "title": "Watch-Only-Address",
         "placeholder": "60-char public-key",
         "error": {
           "required": "An 60-char public-key is required.",
@@ -157,7 +157,7 @@
   },
   "seedOverviewComponent": {
     "title": "Addresses",
-    "isTable":"Show table",
+    "isTable": "Show table",
     "addSeedButton": "Adicionar um Endereço",
     "importButton": "Importar",
     "exportButton": "Exportar",
@@ -181,7 +181,7 @@
     },
     "hasPendingTransaction": "Transações pendentes"
   },
-  "dashboard":{
+  "dashboard": {
     "title": "Dashboard",
     "balance": "Wallet balance",
     "currency": "Qu",
@@ -206,7 +206,8 @@
       "existingUser": "Já tenho uma Wallet",
       "newUser": "Quero criar uma nova Wallet",
       "closeWallet": "Fechar a Wallet"
-    }
+    },
+    "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
   "lockIconComponent": {
     "lock": "Trancar a Wallet",
@@ -450,7 +451,7 @@
     }
   },
   "loadConfigComponent": {
-    "title": "Importar contas",      
+    "title": "Importar contas",
     "buttons": {
       "import": "Importar",
       "cancel": "Cancelar"
@@ -463,12 +464,13 @@
   "exportConfigComponent": {
     "title": "Exportar contas",
     "buttons": {
-        "export": "Exportar",
-        "cancel": "Cancelar"
+      "export": "Exportar",
+      "cancel": "Cancelar"
     },
     "messages": {
       "export": "Você modificou seu inventário de contas. Certifique-se de baixar sua configuração atual para poder importá-la posteriormente.",
-      "info": "Ele contém suas seeds criptografadas."
+      "info": "Ele contém suas seeds criptografadas.",
+      "unlockInfo": "Please unlock your Vault to be able to export your Vault file with the newest inventory."
     }
   }
 }
