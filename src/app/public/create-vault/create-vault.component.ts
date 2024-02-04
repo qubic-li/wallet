@@ -18,6 +18,7 @@ import { UpdaterService } from 'src/app/services/updater-service';
 import { MatStepper } from '@angular/material/stepper';
 import { QubicHelper } from 'qubic-ts-library/dist/qubicHelper';
 import { IDecodedSeed } from 'src/app/model/seed';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'qli-create-vault',
@@ -39,6 +40,11 @@ export class CreateVaultComponent extends QubicDialogWrapper {
   public newUser = false;
   public pwdWrong = false;
   public selectedFileIsVaultFile = false;
+  private walletService: WalletService;
+
+  createVaultForm = this.fb.group({
+    name: [null, [Validators.required, Validators.minLength(3)]],
+  });
 
   importForm = this.fb.group({
     password: [null, [Validators.required, Validators.minLength(8)]],
@@ -69,18 +75,21 @@ export class CreateVaultComponent extends QubicDialogWrapper {
     private _formBuilder: FormBuilder,
     renderer: Renderer2,
     themeService: ThemeService,
-    public walletService: WalletService,
     public updaterService: UpdaterService,
     private transloco: TranslocoService,
-    private cdr: ChangeDetectorRef,
+    private router: Router,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private _snackBar: MatSnackBar,
     private injector: Injector,
-    private changeDetector: ChangeDetectorRef
+    private changeDetector: ChangeDetectorRef,
+    private persistedWalletService: WalletService
   ) {
     super(renderer, themeService);
     this.dialogRef = injector.get(DialogRef, null);
+
+    this.walletService = new WalletService(false);
+
     this.newUser =
       this.walletService.getSeeds().length <= 0 &&
       !this.walletService.publicKey;
@@ -150,7 +159,14 @@ export class CreateVaultComponent extends QubicDialogWrapper {
   }
 
   public verifyVault() {
-    this.importAndUnlock();
+    this.importAndUnlock(this.walletService);
+  }
+
+  public async openWallet() 
+  {
+    await this.importAndUnlock(this.persistedWalletService);
+    this.updaterService.loadCurrentBalance(true);
+    this.router.navigate(['/']);
   }
 
   async downloadVaultFile() {
@@ -181,6 +197,7 @@ export class CreateVaultComponent extends QubicDialogWrapper {
   async startCreateProcess() {
     this.walletService.clearConfig();
     await this.walletService.createNewKeys();
+    this.walletService.updateName(this.createVaultForm.controls.name.value!);
     this.vaultCreated = true;
     this.nextStep();
   }
@@ -224,18 +241,17 @@ export class CreateVaultComponent extends QubicDialogWrapper {
   //   });
   // }
 
-  private async importAndUnlock() {
+  private async importAndUnlock(service: WalletService) {
     // one vault file
     const binaryFileData = await this.file?.arrayBuffer();
     if (binaryFileData) {
-      const success = await this.walletService.importVault(
+      const success = await service.importVault(
         binaryFileData,
-        <any>this.importForm.controls.password.value
+        <any>this.verifyVaultFormGroup.controls.password.value
       );
       if (success) {
         this.pwdWrong = false;
-        this.walletService.isWalletReady = true;
-        this.updaterService.loadCurrentBalance(true);
+        service.isWalletReady = true;
         this.vaultVerified = true;
         this.nextStep();
       } else {

@@ -10,6 +10,7 @@ import { OnReadOpts } from 'net';
 
 @Injectable({
   providedIn: 'root',
+  useFactory: () => new WalletService()
 })
 export class WalletService {
   private runningConfiguration: IConfig;
@@ -66,7 +67,7 @@ export class WalletService {
     name: 'RSA-OAEP',
   };
 
-  constructor() {
+  constructor(private persistence = true) {
     // create empty configuration
     this.runningConfiguration = {
       seeds: [],
@@ -82,18 +83,22 @@ export class WalletService {
     this.loadConfigFromStorage();
   }
 
-  private loadConfigFromStorage() {
+  private async loadConfigFromStorage() {
+    if(!this.persistence)
+      return;
+
     const jsonString = localStorage.getItem(this.configName);
     if (jsonString) {
       try {
         const config = JSON.parse(jsonString);
-        this.loadConfig(config);
+        await this.loadConfig(config);
       } catch (e) {
         this.configError = true;
         this.erroredCOnfig = jsonString;
       }
     }
     this.config.next(this.runningConfiguration);
+    this.setConfigLoaded(); // resolve config loaded promise
   }
 
   /**
@@ -117,6 +122,8 @@ export class WalletService {
 
   private async loadConfig(config: IConfig) {
     this.runningConfiguration = config;
+
+    console.log("LOADED CONFIG", this.runningConfiguration);
 
     // backward compatibility
     if (!this.runningConfiguration.tickAddition)
@@ -150,7 +157,7 @@ export class WalletService {
 
     // todo: load web bridges dynamically
 
-    this.setConfigLoaded();
+    
   }
 
   public async createNewKeys() {
@@ -179,6 +186,11 @@ export class WalletService {
       useBridge: this.runningConfiguration.useBridge,
       tickAddition: this.runningConfiguration.tickAddition,
     };
+  }
+
+  public async updateName(name: string) {
+    this.runningConfiguration.name = name;
+    await this.saveConfig(false);
   }
 
   public async updateConfig(config: any): Promise<void> {
@@ -326,6 +338,8 @@ export class WalletService {
   }
 
   private async saveConfig(lock: boolean) {
+    if(!this.persistence)
+      return;
     if (lock) {
       // when locking we don't want that the public key is saved.
       this.runningConfiguration.publicKey = undefined;
@@ -373,15 +387,19 @@ export class WalletService {
     if (!this.isVaultFile(binaryVaultFile))
       return Promise.reject('INVALID VAULT FILE');
 
-    // unlock
-    await this.unlockVault(binaryVaultFile, password);
+    try {
+      // unlock
+      await this.unlockVault(binaryVaultFile, password);
 
-    const vault = this.convertBinaryVault(binaryVaultFile, password);
+      const vault = await this.convertBinaryVault(binaryVaultFile, password);
 
-    // import configuration
-    await this.importConfig((await vault).configuration);
+      // import configuration
+      await this.importConfig(vault.configuration);
 
-    return Promise.resolve(true);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   /**
@@ -642,7 +660,8 @@ export class WalletService {
       JSON.stringify(encryptedVaultFile)
     );
     const blob = new Blob([fileData], { type: 'application/octet-stream' });
-    this.downloadBlob('qubic-wallet.vault', blob);
+    const name = this.runningConfiguration.name ?? 'qubic-config-addresses';
+    this.downloadBlob(name + '.qubic-vault', blob);
     this.shouldExportKey = false;
 
     await this.markSeedsAsSaved();
@@ -696,6 +715,7 @@ export class WalletService {
 
   private prepareConfigExport(): IConfig {
     const exportConfig: IConfig = {
+      name: this.runningConfiguration.name,
       seeds: this.runningConfiguration.seeds.map((m) => {
         const exportSeed: ISeed = <ISeed>{};
         Object.assign(exportSeed, m);
@@ -732,7 +752,8 @@ export class WalletService {
 
     const data = new TextEncoder().encode(JSON.stringify(exportConfig));
     const blob = new Blob([data], { type: 'application/octet-stream' });
-    this.downloadBlob('qubic-config-addresses.config', blob);
+    const name = this.runningConfiguration.name ?? 'qubic-config-addresses';
+    this.downloadBlob(name + '.qubic-wallet-config', blob);
 
     await this.markSeedsAsSaved();
 

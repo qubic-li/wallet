@@ -1,6 +1,7 @@
 import { ISeed } from "./seed";
 
 export interface IConfig {
+    name?: string; // wallet name
     seeds: ISeed[];
     publicKey?: JsonWebKey;
     webBridges: string[];

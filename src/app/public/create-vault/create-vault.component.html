@@ -3,51 +3,69 @@
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
       <mat-step [completed]="vaultCreated" [editable]="false">
         <ng-template matStepLabel>Create Vault</ng-template>
-        This step will create a private/public key pair for the wallet and add
-        your first Qubic address. Select "Create Vault" to create your Qubic
-        Vault.
+        This step will create a private/public key pair for the wallet. Choose a name and select "Create Vault" to create your Qubic
+        Wallet.
         <br /><br />
-        <button mat-raised-button color="primary" (click)="createVault()">
-          Create Vault
-        </button>
+        <form [formGroup]="createVaultForm">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Name</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="name"
+              placeholder="Choose a name for your Vault"
+              required
+            />
+          </mat-form-field>
+          <button mat-raised-button color="primary" (click)="createVault()" [disabled]="!createVaultForm.valid">
+            Create Vault
+          </button>
+        </form>
       </mat-step>
       <mat-step [completed]="addressCreated" [editable]="false">
         <ng-template matStepLabel>Add Address</ng-template>
         In your Qubic Wallet you can have multiple Addresses. Every Address
-        consists of a Seed (private Key) and a Public Id. The Seed is needed
-        to send Qubic and the Public Id can be used to receive Qubic. We create now your
-        first Address.
+        consists of a Seed (private Key) and a Public Id. The Seed is needed to
+        send Qubic and the Public Id can be used to receive Qubic. We create now
+        your first Address.
         <br /><br />
         <form [formGroup]="createAddressForm">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Name</mat-label>
-                <input
-                  type="text"
-                  matInput
-                  formControlName="name"
-                  placeholder="Choose an Account Name"
-                  required
-                />
-              </mat-form-field>
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Seed</mat-label>
-                <input
-                  type="text"
-                  matInput
-                  formControlName="seed"
-                  placeholder="Choose a random seed..."
-                  required
-                />
-                <mat-hint *ngIf="generatedPublicId.length === 60">{{ generatedPublicId }}</mat-hint>
-              </mat-form-field>
-              <div class="flex full-width button-container">
-              <button mat-raised-button color="accent" (click)="randomizeSeed()">
-                Randomize Seed
-                </button>
-            <button mat-raised-button color="primary" (click)="createAddress()" [disabled]="!this.createAddressForm.valid">
-            Create Address
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Name</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="name"
+              placeholder="Choose an Account Name"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Seed</mat-label>
+            <input
+              type="text"
+              matInput
+              formControlName="seed"
+              placeholder="Choose a random seed..."
+              required
+            />
+            <mat-hint *ngIf="generatedPublicId.length === 60">{{
+              generatedPublicId
+            }}</mat-hint>
+          </mat-form-field>
+          <div class="flex full-width button-container">
+            <button mat-raised-button color="accent" (click)="randomizeSeed()">
+              Randomize Seed
             </button>
-        </div>
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="createAddress()"
+              [disabled]="!this.createAddressForm.valid"
+            >
+              Create Address
+            </button>
+          </div>
         </form>
       </mat-step>
       <mat-step [completed]="vaultExported" [editable]="true">
@@ -128,7 +146,7 @@
             (click)="verifyVault()"
             [disabled]="!verifyVaultFormGroup.valid || !selectedFileIsVaultFile"
           >
-            Load and Verify Vault File
+            Verify Vault File
           </button>
         </form>
       </mat-step>
@@ -136,7 +154,7 @@
         <ng-template matStepLabel>Done</ng-template>
         <p>Happy Qubic! Your Wallet is ready.</p>
         <div>
-          <button mat-raised-button color="primary" [routerLink]="['/']">
+          <button mat-raised-button color="primary" (click)="openWallet()">
             Open My Wallet
           </button>
         </div>
@@ -144,7 +162,7 @@
     </mat-stepper>
 
     <div class="button-container">
-      <button mat-raised-button [routerLink]="['../']">Cancel</button>
+      <button mat-raised-button [routerLink]="['/']">Cancel</button>
     </div>
   </div>
 </ng-container>

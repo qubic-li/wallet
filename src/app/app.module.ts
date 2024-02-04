@@ -164,7 +164,11 @@ export const httpInterceptorProviders = [
   providers: [
       VisibilityService,
       TokenService,
-      WalletService,
+      {
+        provide: WalletService,
+        useFactory: () => new WalletService(),
+        deps: []
+      },
       AuthInterceptor,
       ApiService,
       UpdaterService,
