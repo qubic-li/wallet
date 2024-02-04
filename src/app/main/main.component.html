@@ -198,6 +198,7 @@
       (click)="receive(publicId)">
       <mat-icon>qr_code_2</mat-icon>
     </button>
+    <br>
     <button mat-icon-button class="icon-color-link" *ngIf="walletService.privateKey"
       [title]="t('seedOverviewComponent.table.actions.editSeed')" (click)="edit(publicId)">
       <mat-icon>edit</mat-icon>
