@@ -71,6 +71,7 @@ import { AssetsDialog } from './main/assets/assets.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { AssetsComponent } from './assets/assets.component';
 import { TransactionService } from './services/transaction.service';
+import { EnvironmentService } from './services/env.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 
@@ -163,6 +164,7 @@ export const httpInterceptorProviders = [
       UpdaterService,
       QubicService,
       DecimalPipe,
+      EnvironmentService,
       { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
       httpInterceptorProviders,
       TransactionService
