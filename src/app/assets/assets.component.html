@@ -2,12 +2,6 @@
   <div class="content_container">
     <h1>{{ t("assetsComponent.title") }}</h1>
 
-    <div>
-      !THIS IS BETA SOFTWARE!<br>
-      You can send Assets. The Transferstatus is not reflected in Balance. Please wait an appropriate amount of time to
-      see the Asset Transfer happen.
-    </div>
-
     <mat-card *ngIf="!showSendForm" class="asset-card">
       <div *ngIf="assets.length > 0">
         <mat-card-header>
@@ -182,17 +176,17 @@
               </div>
             </div>
 
-            <div *ngIf="!balanceTooLow"
-                 class="transaction-fee"> {{ t("assetsComponent.form.balance") }} {{ balanceAfterFees }} Qubic
+            <div
+                 class="transaction-fee"> {{ t("assetsComponent.form.balance") }} {{ getBalanceAfterFees() | number: '1.0-0'  }} {{ t("general.currency") }}
             </div>
-            <div *ngIf="balanceTooLow" class="error-message"> {{ t("assetsComponent.form.buttons.error.balance") }}
+            <div *ngIf="getBalanceAfterFees() < 0" class="error-message"> {{ t("assetsComponent.form.buttons.error.balance") }}
             </div>
             <mat-card-actions class="padding">
               <button *ngIf="!walletService.privateKey" mat-raised-button color="accent" type="button"
                       (click)="loadKey()">{{ t("votingComponent.create.buttons.loadPrivateKey") }}
               </button>
               <button *ngIf="walletService.privateKey" mat-raised-button color="primary" type="submit"
-                      [disabled]="!sendForm.valid || balanceTooLow">
+                      [disabled]="!sendForm.valid || getBalanceAfterFees() < 0">
                 <span *ngIf="!isSending">{{ t("assetsComponent.form.buttons.send") }}</span>
                 <mat-progress-spinner *ngIf="isSending" mode="indeterminate" [diameter]="20">
                 </mat-progress-spinner>

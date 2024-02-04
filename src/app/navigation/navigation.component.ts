@@ -10,6 +10,7 @@ import { UpdaterService } from '../services/updater-service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslocoService } from '@ngneat/transloco';
 import { MarketInformation } from '../services/api.model';
+import { EnvironmentService } from '../services/env.service';
 
 
 @Component({
@@ -42,7 +43,8 @@ export class NavigationComponent implements OnInit {
   constructor(private renderer: Renderer2, private cd: ChangeDetectorRef, public us: UpdaterService,
     private transloco: TranslocoService, private _snackBar: MatSnackBar,
     public themeService: ThemeService, private breakpointObserver: BreakpointObserver,
-    public walletService: WalletService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) {
+    public walletService: WalletService, private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher,
+    public environmentService: EnvironmentService) {
   }
 
   ngOnInit(): void {

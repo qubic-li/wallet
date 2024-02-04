@@ -17,9 +17,9 @@
         <qli-notifys></qli-notifys>                     
         <qli-lock *ngIf="walletService.isWalletReady && !walletService.configError"></qli-lock>
         <qli-language-chooser></qli-language-chooser>
-        <button *ngIf="showMinimize" (click)="minimize()" mat-icon-button><mat-icon>minimize</mat-icon></button>
-        <button *ngIf="!mobileQuery.matches" [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
-        <button *ngIf="!mobileQuery.matches" [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>   
+        <button *ngIf="showMinimize && environmentService.isElectron" (click)="minimize()" mat-icon-button><mat-icon>minimize</mat-icon></button>
+        <button *ngIf="!mobileQuery.matches && environmentService.isElectron" [matTooltip]="t('general.buttons.maximize')" (click)="maximize()" mat-icon-button><mat-icon>maximize</mat-icon></button>
+        <button *ngIf="!mobileQuery.matches && environmentService.isElectron" [matTooltip]="t('general.buttons.close')" (click)="close()" mat-icon-button><mat-icon>close</mat-icon></button>   
       </div>
     </mat-toolbar>
     <div *ngIf="walletService.configError" class="open-wallet-screen">
@@ -39,7 +39,7 @@
           <a mat-list-item routerLink="balance"
             (click)="checkMobileToggle()"><mat-icon class="icon-color-link icon">account_balance</mat-icon>{{t("general.navigation.balance")}}</a>
           <a mat-list-item routerLink="assets"
-             (click)="checkMobileToggle()"><mat-icon class="icon-color-link icon">category</mat-icon>{{t("general.navigation.assets")}} (!BETA!)</a>
+             (click)="checkMobileToggle()"><mat-icon class="icon-color-link icon">category</mat-icon>{{t("general.navigation.assets")}}</a>
           <a mat-list-item routerLink="voting"
             (click)="checkMobileToggle()"><mat-icon class="icon-color-link icon">how_to_vote</mat-icon>{{t("general.navigation.voting")}}</a>
           <a mat-list-item routerLink="ipo"

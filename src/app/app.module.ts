@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -71,6 +71,8 @@ import { AssetsDialog } from './main/assets/assets.component';
 import {MatMenuModule} from "@angular/material/menu";
 import { AssetsComponent } from './assets/assets.component';
 import { TransactionService } from './services/transaction.service';
+import { EnvironmentService } from './services/env.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 
@@ -144,7 +146,13 @@ export const httpInterceptorProviders = [
     MatStepperModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
-    MatMenuModule
+    MatMenuModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
 
   providers: [
@@ -156,6 +164,7 @@ export const httpInterceptorProviders = [
       UpdaterService,
       QubicService,
       DecimalPipe,
+      EnvironmentService,
       { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
       httpInterceptorProviders,
       TransactionService

@@ -33,9 +33,6 @@ export class AssetsComponent implements OnInit {
   isAssetsLoading: boolean = false;
   isSending: boolean = false;
   showSendForm: boolean = false;
-  balanceTooLow: boolean = false; // logic
-
-  balanceAfterFees: number = 0;
 
   constructor(
     private apiService: ApiService,
@@ -139,10 +136,10 @@ export class AssetsComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-  getBalanceAfterFees(publicId: string): number {
-    const currentBalance = this.walletService.getSeed(publicId)?.balance ?? BigInt(0);
-    const balanceAfterFees = BigInt(currentBalance) - BigInt(environment.assetsFees);
-    return balanceAfterFees > 0 ? Number(balanceAfterFees) : 0;
+  getBalanceAfterFees(): number {
+    var balanceOfSelectedId = this.walletService.getSeed((<QubicAsset>this.sendForm.controls['assetSelect']?.value)?.publicId)?.balance ?? 0;
+    const balanceAfterFees = BigInt(balanceOfSelectedId) - BigInt(environment.assetsFees);
+    return Number(balanceAfterFees);
   }
 
   openSendForm(selectedAsset?: QubicAsset): void {
@@ -156,10 +153,8 @@ export class AssetsComponent implements OnInit {
     if (assetSelectControl) {
       if (selectedAsset) {
         assetSelectControl.setValue(selectedAsset);
-        this.balanceAfterFees = this.getBalanceAfterFees(selectedAsset.publicId);
       } else if (this.assets.length > 0) {
         assetSelectControl.setValue(this.assets[0]);
-        this.balanceAfterFees = this.getBalanceAfterFees(this.assets[0].publicId);
       }
       this.updateAmountValidator();
     }
