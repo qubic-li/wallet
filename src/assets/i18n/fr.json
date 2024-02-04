@@ -199,6 +199,7 @@
     "welcomeMessage": "Bienvenue dans le Wallet qubic.\nPour utiliser ce Wallet, vous devez créer un fichier Wallet. Il contiendra votre clé publique/privée qui sera ensuite utilisée pour chiffrer/déchiffrer vos données.",
     "reasonMessage": "Pour déverrouiller votre Wallet, votre fichier Wallet est nécessaire. Ce fichier est automatiquement supprimé une fois cette page rechargée ou fermée.",
     "choosePrivateKeyFile": "Choisir le fichier Wallet",
+    "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "Il semble qu'il y ait déjà des données enregistrées dans ce navigateur. Voulez-vous vraiment les écraser ?",
     "form": {
       "file.error.required": "Fichier Wallet requis",

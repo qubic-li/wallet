@@ -426,8 +426,6 @@ a:hover {
 }
 
 @media screen and (min-width: 1200px) {
-
-
   app-navigation.isDesktop {
     .mobileOnly {
       display: none;
@@ -766,6 +764,34 @@ h2 {
   .content_container {
     padding: 16px !important;
   }
+ 
+  button .mdc-button{
+    font-size: 18px;
+    margin: 0px 10px 10px 10px;
+    min-width: 320px;
+    max-width: 320px;
+    min-height: 50px;
+    hyphens: auto;
+  }
+
+  .mdc-button{
+    font-size: 18px;
+    margin: 0px 10px 10px 10px;
+    min-width: 320px;
+    max-width: 320px;
+    min-height: 50px;
+    hyphens: auto;
+  }
+}
+
+.mdc-button{
+  margin: 0px 10px 0px 10px; 
+  min-height: 40px;
+}
+
+button{
+  margin: 0px 10px 0px 10px;  
+  min-height: 40px;
 }
 
 .target-highlight {

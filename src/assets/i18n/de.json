@@ -197,6 +197,7 @@
     "reasonMessage": "Um das Wallet öffnen zu können, wird deine Tresor-Datei benötigt. Diese Datei wird automatisch gelöscht, sobald du die Seite neu lädst oder schließt.",
     "welcomeMessage": "Willkommen im qubic Wallet.\nUm das Wallet nutzen zu können musst du zuerst eine Vault Datei erstellen. Die Vault Datei enthält deinen öffentlichen und privaten Schlüssel der zum Verschlüsseln und Entschlüsseln von deinen Daten dient.",
     "choosePrivateKeyFile": "Datei auswählen",
+    "chooseConfigFile": "Choose wallet config file",
     "overwriteVault": "Es sieht aus als gab es hier schon vorher ein Vault. Möchtest du diese Daten überschreiben?",
     "form": {
       "file.error.required": "Tresor-Datei wird benötigt",
