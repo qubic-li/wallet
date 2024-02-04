@@ -234,6 +234,7 @@
     "buttons": {
       "savePrivateKey": "Guardar el archivo Wallet",
       "closeWallet": "Bloquear el Wallet",
+      "exportAndCloseWallet": "Export Vault file and Lock Wallet",
       "enableExport": "Exportar",
       "cancel": "Cancelar"
     }

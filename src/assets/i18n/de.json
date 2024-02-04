@@ -235,6 +235,7 @@
     "buttons": {
       "savePrivateKey": "Tresor-Datei speichern",
       "closeWallet": "Wallet sperren",
+      "exportAndCloseWallet": "Tresor-Datei speichern und Wallet sperren",
       "enableExport": "Export",
       "cancel": "Abbrechen"
     }

@@ -234,6 +234,7 @@
     "buttons": {
       "savePrivateKey": "Сохранить файл Vault",
       "closeWallet": "Закрыть кошелек",
+      "exportAndCloseWallet": "Export Vault file and Lock Wallet",
       "enableExport": "Экспорт",
       "cancel": "Отменить"
     }

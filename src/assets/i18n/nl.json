@@ -234,6 +234,7 @@
     "buttons": {
       "savePrivateKey": "Save kluisbestand",
       "closeWallet": "Vergrendel Wallet",
+      "exportAndCloseWallet": "Export Vault file and Lock Wallet",
       "enableExport": "Exporteer",
       "cancel": "Cancel"
     }
