@@ -159,7 +159,7 @@
   },
   "seedOverviewComponent": {
     "title": "Addresses",
-    "isTable":"Show table",
+    "isTable":"Show as a table",
     "addSeedButton": "Add Address",
     "importButton": "Import",
     "exportButton": "Export",
@@ -346,7 +346,7 @@
       "votingResult": "Voting Result",
       "noVotes": "no votes",
       "from": "From:",
-      "url": "Propsal URL:"
+      "url": "Proposal URL:"
     },
     "participate": {
       "title": "Participate",
