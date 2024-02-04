@@ -159,7 +159,7 @@
   },
   "seedOverviewComponent": {
     "title": "Addresses",
-    "isTable":"Show as a table",
+    "isTable":"Show table",
     "addSeedButton": "Add Address",
     "importButton": "Import",
     "exportButton": "Export",
