@@ -103,7 +103,7 @@
                                 {{ t("paymentComponent.form.tick.error.required") }}
                             </mat-error>
                             <mat-error *ngIf="transferForm.controls['tick'].hasError('min')">
-                                {{ t("paymentComponent.form.tick.error.min", {currentTick: currentTick}) }}
+                                {{ t("paymentComponent.form.tick.error.min", {currentTick: currentTick | number: '1.0-0'})}}
                             </mat-error>
                             <button matSuffix mat-icon-button
                                 matTooltip="{{ t('paymentComponent.form.tick.customize.tooltip') }}"
