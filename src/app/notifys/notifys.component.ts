@@ -28,7 +28,7 @@ export class NotifysComponent implements OnInit {
       this.isNodeConnected = s;
       this.cd.detectChanges();
     });
-    this.walletService.config.subscribe(s => {
+    this.walletService.onConfig.subscribe(s => {
       this.useBridge = s.useBridge;
       if(this.hasUnsavedSeeds()) {
         this.saveSettings(true);

@@ -39,7 +39,7 @@ export class QubicService {
     private bridgeConnected = false;
 
     constructor(private visibilityService: VisibilityService, private updateService: UpdaterService, private walletService: WalletService, private api: ApiService) {
-        walletService.config.subscribe(c => {
+        walletService.onConfig.subscribe(c => {
             this.useBridge = c.useBridge;
             this.checkConnection();
         });

@@ -49,6 +49,12 @@ export class AssetsComponent implements OnInit {
       assetSelect: new FormControl('', Validators.required),
     });
 
+
+    // subscribe to config changes to receive asset updates
+    this.walletService.onConfig.subscribe(c => {
+      this.assets = this.walletService.getSeeds().flatMap(m => m.assets).filter(f => f).map(m => <QubicAsset>m);
+    });
+
     // const amountControl = this.sendForm.get('amount');
     const assetSelectControl = this.sendForm.get('assetSelect');
 
@@ -104,13 +110,10 @@ export class AssetsComponent implements OnInit {
   }
 
   loadAssets(force: boolean = false) {
-    this.assets = this.walletService.getSeeds().flatMap(m => m.assets).filter(f => f).map(m => <QubicAsset>m);
-
     if (force || this.assets.length <= 0) {
       this.isAssetsLoading = true;
       this.updaterService.forceLoadAssets((r) => {
         this.isAssetsLoading = false;
-        this.assets = r;
       });
       // timeout because of unpropper handling in forceLoadAssets :()
       window.setTimeout(() => {

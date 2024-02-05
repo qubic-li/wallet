@@ -24,9 +24,14 @@ export class WalletService {
   public configError = false;
   public erroredCOnfig: string = '';
   public shouldExportKey = true;
-  public config: BehaviorSubject<IConfig>;
+  
 
   public isWalletReady = false;
+
+  /** Events start */
+  public onConfig: BehaviorSubject<IConfig>;
+
+  /** Events stop */
 
   /* Keep Track of Wallet Start Process */
   /*
@@ -75,7 +80,7 @@ export class WalletService {
       tickAddition: 10,
       useBridge: (<any>window).require,
     };
-    this.config = new BehaviorSubject(this.runningConfiguration);
+    this.onConfig = new BehaviorSubject(this.runningConfiguration);
     this.load();
   }
 
@@ -97,7 +102,7 @@ export class WalletService {
         this.erroredCOnfig = jsonString;
       }
     }
-    this.config.next(this.runningConfiguration);
+    this.onConfig.next(this.runningConfiguration);
     this.setConfigLoaded(); // resolve config loaded promise
   }
 
@@ -257,6 +262,18 @@ export class WalletService {
     }
   }
 
+  
+  /**
+   * remove assets that are no longer updated
+   * @param referenceTick the tick from which on we consider an asset as old
+   */
+  public async removeOldAssets(referenceTick: number) {
+    this.runningConfiguration.seeds.forEach(seed => {
+      seed.assets = seed.assets?.filter(f => f.tick >= referenceTick)
+    });
+    await this.save();
+  }
+
   public async updateAssets(publicId: string, assets: QubicAsset[]) {
     let seed = this.getSeed(publicId);
 
@@ -360,7 +377,7 @@ export class WalletService {
         // ignore
       }
     }
-    this.config.next(this.runningConfiguration);
+    this.onConfig.next(this.runningConfiguration);
   }
 
   public async lock() {
