@@ -2,13 +2,12 @@
   <div>
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
       <mat-step [completed]="vaultCreated" [editable]="false">
-        <ng-template matStepLabel>Create Vault</ng-template>
-        This step will create a private/public key pair for the wallet. Choose a name and select "Create Vault" to create your Qubic
-        Wallet.
+        <ng-template matStepLabel>{{ t('createVaultComponent.createVault.stepTitle') }}</ng-template>
+        {{ t('createVaultComponent.createVault.message') }}
         <br /><br />
         <form [formGroup]="createVaultForm">
           <mat-form-field class="full-width">
-            <mat-label>Name</mat-label>
+            <mat-label>{{ t('createVaultComponent.createVault.vaultName') }}</mat-label>
             <input
               type="text"
               matInput
@@ -18,47 +17,44 @@
             />
           </mat-form-field>
           <button mat-raised-button color="primary" (click)="createVault()" [disabled]="!createVaultForm.valid">
-            Create Vault
+            {{ t('createVaultComponent.createVault.button') }}
           </button>
         </form>
       </mat-step>
       <mat-step [completed]="addressCreated" [editable]="false">
-        <ng-template matStepLabel>Add Address</ng-template>
-        In your Qubic Wallet you can have multiple Addresses. Every Address
-        consists of a Seed (private Key) and a Public Id. The Seed is needed to
-        send Qubic and the Public Id can be used to receive Qubic. We create now
-        your first Address.
+        <ng-template matStepLabel>{{ t('createVaultComponent.createAddress.title') }}</ng-template>
+        {{ t('createVaultComponent.createAddress.message') }}
         <br /><br />
         <form [formGroup]="createAddressForm">
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Name</mat-label>
+            <mat-label>{{ t('createVaultComponent.createAddress.addressNam') }}</mat-label>
             <input
               type="text"
               matInput
               formControlName="name"
-              placeholder="Choose an Account Name"
+              placeholder="{{ t('createVaultComponent.createAddress.addressPlaceholder') }}"
               required
             />
           </mat-form-field>
           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Seed</mat-label>
+            <mat-label>{{ t('createVaultComponent.createAddress.seed') }}</mat-label>
             <input
               type="text"
               matInput
               formControlName="seed"
-              placeholder="Choose a random seed..."
+              placeholder="{{ t('createVaultComponent.createAddress.seedPlaceholder') }}"
               required
             />
             
           </mat-form-field>
           <div *ngIf="generatedPublicId.length === 60" class="word-break">
-            <strong>Pulic Id</strong><br>
+            <strong>{{ t('createVaultComponent.createAddress.publicId') }}</strong><br>
           {{
             generatedPublicId
           }}</div>
           <div class="flex full-width button-container">
             <button mat-raised-button color="accent" (click)="randomizeSeed()">
-              Randomize Seed
+              {{ t('createVaultComponent.createAddress.radomizeSeed') }}
             </button>
             <button
               mat-raised-button
@@ -66,25 +62,24 @@
               (click)="createAddress()"
               [disabled]="!this.createAddressForm.valid"
             >
-              Create Address
+              {{ t('createVaultComponent.createAddress.button') }}
             </button>
           </div>
         </form>
       </mat-step>
       <mat-step [completed]="vaultExported" [editable]="true">
         <form [formGroup]="vaultPasswordFormGroup">
-          <ng-template matStepLabel>Download initial Vault</ng-template>
-          Your personal Vault has been created. You can now download it. Please
-          choose a secure Password and select "Download Vault".
+          <ng-template matStepLabel>{{ t('createVaultComponent.downloadVault.stepTitle') }}</ng-template>
+          {{ t('createVaultComponent.downloadVault.message') }}
           <br /><br />
 
           <mat-form-field>
-            <mat-label>Password</mat-label>
+            <mat-label>{{ t('createVaultComponent.downloadVault.password') }}</mat-label>
             <input
               type="password"
               matInput
               formControlName="password"
-              placeholder="Choose a secure password..."
+              placeholder="{{ t('createVaultComponent.downloadVault.passwordHint') }}"
               required
             />
           </mat-form-field>
@@ -95,27 +90,22 @@
             (click)="exportVault()"
             [disabled]="!vaultPasswordFormGroup.valid"
           >
-            Download Vault
+            {{ t('createVaultComponent.downloadVault.button') }}
           </button>
         </form>
       </mat-step>
       <mat-step [completed]="vaultVerified" [editable]="false">
         <form [formGroup]="verifyVaultFormGroup">
-          <ng-template matStepLabel>Load/Import Vault</ng-template>
-          The Vault file which you have downloaded is the file which contains
-          all important information. Everytime when you want to unlock your
-          wallet, you will need this file. Everytime when you change your Wallet
-          (e.g. add or edit an address) you will be prompted do download the
-          newest Vault file. To Ensure this works for you. Please select below
-          the downloaded Vault file and enter your Vault Password again.
+          <ng-template matStepLabel>{{ t('createVaultComponent.verifyVault.stpTitle') }}</ng-template>
+          {{ t('createVaultComponent.verifyVault.message') }}
           <br /><br />
           <mat-form-field>
-            <mat-label>Password</mat-label>
+            <mat-label>{{ t('createVaultComponent.verifyVault.password') }}</mat-label>
             <input
               type="password"
               matInput
               formControlName="password"
-              placeholder="Your Vault Password"
+              placeholder="{{ t('createVaultComponent.verifyVault.passwordHint') }}"
               required
             />
           </mat-form-field>
@@ -148,23 +138,23 @@
             (click)="verifyVault()"
             [disabled]="!verifyVaultFormGroup.valid || !selectedFileIsVaultFile"
           >
-            Verify Vault File
+            {{ t('createVaultComponent.verifyVault.button') }}
           </button>
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>Happy Qubic! Your Wallet is ready.</p>
+        <ng-template matStepLabel>{{ t('createVaultComponent.done.stepTitle') }}</ng-template>
+        <p>{{ t('createVaultComponent.done.message') }}</p>
         <div>
           <button mat-raised-button color="primary" (click)="openWallet()">
-            Open My Wallet
+            {{ t('createVaultComponent.done.button') }}
           </button>
         </div>
       </mat-step>
     </mat-stepper>
 
     <div class="button-container">
-      <button mat-raised-button [routerLink]="['/']">Cancel</button>
+      <button mat-raised-button [routerLink]="['/']">{{ t('createVaultComponent.buttons.cancel') }}</button>
     </div>
   </div>
 </ng-container>

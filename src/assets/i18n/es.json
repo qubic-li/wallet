@@ -490,5 +490,46 @@
   "importComponent": {
     "title": "Import Vault",
     "message": "You can import an existing Vault to your Wallet."
+  },
+  "createVaultComponent": {
+    "createVault": {
+      "message": "This step will create a private/public key pair for the wallet. Choose a name and select \"Create Vault\" to create your Qubic\r\n        Wallet.",
+      "stepTitle": "Create Vault",
+      "vaultName": "Name",
+      "button": "Create Vault"
+    },
+    "createAddress": {
+      "title": "Add Address",
+      "message": "In your Qubic Wallet you can have multiple Addresses. Every Address\r\n        consists of a Seed (private Key) and a Public Id. The Seed is needed to\r\n        send Qubic and the Public Id can be used to receive Qubic. We create now\r\n        your first Address.",
+      "addressNam": "Name",
+      "seed": "Seed",
+      "seedPlaceholder": "Choose a random seed...",
+      "publicId": "Pulic Id",
+      "radomizeSeed": "Randomize Seed",
+      "addressPlaceholder": "Choose an Account Name",
+      "button": "Create Address"
+    },
+    "downloadVault": {
+      "stepTitle": "Download initial Vault",
+      "message": "Your personal Vault has been created. You can now download it. Please\r\n          choose a secure Password and select \"Download Vault\".",
+      "password": "Password",
+      "passwordHint": "Choose a secure password...",
+      "button": "Download Vault"
+    },
+    "verifyVault": {
+      "stpTitle": "Load/Import Vault",
+      "message": "The Vault file which you have downloaded is the file which contains\r\n          all important information. Everytime when you want to unlock your\r\n          wallet, you will need this file. Everytime when you change your Wallet\r\n          (e.g. add or edit an address) you will be prompted do download the\r\n          newest Vault file. To Ensure this works for you. Please select below\r\n          the downloaded Vault file and enter your Vault Password again.",
+      "password": "Password",
+      "passwordHint": "Your Vault Password",
+      "button": "Verify Vault File"
+    },
+    "done": {
+      "stepTitle": "Done",
+      "message": "Happy Qubic! Your Wallet is ready.",
+      "button": "Open My Wallet"
+    },
+    "buttons": {
+      "cancel": "Cancel"
+    }
   }
 }
