@@ -7,6 +7,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --open",
+    "start-public-access": "ng serve --host 0.0.0.0 --open",
     "start-api-proxy": "node dev-proxy.js",
     "start-electron": "ng build --base-href ./ && electron .",
     "build": "ng build",
