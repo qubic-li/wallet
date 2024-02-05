@@ -489,11 +489,12 @@
     }
   },
   "welcomeComponent": {
-    "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+    "welcomeMessage": "To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
     "button": {
       "createVault": "Create Vault",
       "importVault": "Import Vault"
-    }
+    },
+    "title": "Welcome to the Qubic Wallet"
   },
   "importComponent": {
     "title": "Import Vault",

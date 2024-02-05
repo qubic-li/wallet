@@ -1,15 +1,9 @@
 <ng-container *transloco="let t">
   <div class="title">
     <img
-      src="assets/logos/Logo_light.webp"
-      class="logo-title"
-      *ngIf="themeService.isDarkTheme"
-    />
-    <img
-      src="assets/logos/Logo_dark.webp"
-      class="logo-title"
-      *ngIf="!themeService.isDarkTheme"
-    />
+          src="assets/icons/wallet.svg"
+          class="wallet-icon"
+        />
   </div>
   <div class="flex flex-center">
     <h2 mat-dialog-title>{{ t("importComponent.title") }}</h2>

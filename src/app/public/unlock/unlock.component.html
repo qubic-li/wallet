@@ -1,19 +1,13 @@
 <ng-container *transloco="let t">
-  <div *ngIf="!dialogRef" class="title">
+  <div class="title">
     <img
-      src="assets/logos/Logo_light.webp"
-      class="logo-title"
-      *ngIf="themeService.isDarkTheme"
-    />
-    <img
-      src="assets/logos/Logo_dark.webp"
-      class="logo-title"
-      *ngIf="!themeService.isDarkTheme"
-    />
+          src="assets/icons/wallet.svg"
+          class="wallet-icon"
+        />
   </div>
-  <div class="flex flex-center">
+  <div class="flex flex-center text-center">
 
-    <h2 mat-dialog-title>{{ t("unlockComponent.title") }}</h2>
+    <h1>{{ t("unlockComponent.title") }}</h1>
     
       <div>
         {{ t("unlockComponent.reasonMessage") }}
