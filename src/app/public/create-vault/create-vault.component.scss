@@ -1,19 +1,7 @@
-form {
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    flex-wrap: wrap;
-    row-gap: 15px;
-}
 .file-input {
     display: none;
 }
-.button-container {
-    margin-top:16px;
-    display: flex;
-    justify-content: space-around;
-}
+
 .full-width {
     width:100%;
 }

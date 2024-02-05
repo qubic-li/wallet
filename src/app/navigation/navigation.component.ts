@@ -91,8 +91,6 @@ export class NavigationComponent implements OnInit {
         });
       }
     })
-
-    console.log("NAVIGATION LOADED");
   }
 
 

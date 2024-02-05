@@ -3,7 +3,7 @@
     "title": "Qubic - Wallet",
     "comingSoon": "Em breve!",
     "navigation": {
-      "home": "Início",
+      "home": "Dashboard",
       "payment": "Pagamento",
       "balance": "Saldo",
       "settings": "Configurações",
@@ -209,9 +209,9 @@
       "generateKey": "Criar uma nova Wallet",
       "unlock": "Desbloquear a Wallet",
       "existingUser": "Já tenho uma Wallet",
-      "newUser": "Quero criar uma nova Wallet",
+      "newUser": "Create Vault",
       "closeWallet": "Fechar a Wallet",
-      "importVault": "I want to import another Wallet"
+      "importVault": "Import Vault"
     },
     "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
@@ -482,8 +482,8 @@
   "welcomeComponent": {
     "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
     "button": {
-      "createVault": "Create a new Vault",
-      "importVault": "Imporrt existing Vault"
+      "createVault": "Create Vault",
+      "importVault": "Import Vault"
     }
   },
   "importComponent": {

@@ -110,7 +110,6 @@ export class WalletService {
   public async getLockUnlockRoute(router: Router) {
     await this.configLoadedSet; // wait until config is loaded
     if (!this.isWalletReady && !this.publicKey) {
-      console.log('WS', this);
       if (this.getSeeds().length > 0) {
         return router.parseUrl('/unlock');
       } else {
@@ -122,8 +121,6 @@ export class WalletService {
 
   private async loadConfig(config: IConfig) {
     this.runningConfiguration = config;
-
-    console.log("LOADED CONFIG", this.runningConfiguration);
 
     // backward compatibility
     if (!this.runningConfiguration.tickAddition)
@@ -186,6 +183,10 @@ export class WalletService {
       useBridge: this.runningConfiguration.useBridge,
       tickAddition: this.runningConfiguration.tickAddition,
     };
+  }
+
+  public getName() {
+    return this.runningConfiguration.name;
   }
 
   public async updateName(name: string) {
@@ -644,7 +645,6 @@ export class WalletService {
 
     const jsonKey = await this.createJsonKey(password);
     if (jsonKey === null) {
-      console.error('KEY NULL');
       return Promise.reject('JSONKEY IS NULL');
     }
 

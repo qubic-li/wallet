@@ -211,9 +211,9 @@
       "generateKey": "Créer un nouveau Wallet",
       "unlock": "Déverrouiller le Wallet",
       "existingUser": "J'ai déjà un Wallet",
-      "newUser": "Je veux créer un nouveau Wallet",
+      "newUser": "Create Vault",
       "closeWallet": "Fermer le Wallet",
-      "importVault": "I want to import another Wallet"
+      "importVault": "Import Vault"
     },
     "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
@@ -485,8 +485,8 @@
   "welcomeComponent": {
     "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
     "button": {
-      "createVault": "Create a new Vault",
-      "importVault": "Imporrt existing Vault"
+      "createVault": "Create Vault",
+      "importVault": "Import Vault"
     }
   },
   "importComponent": {

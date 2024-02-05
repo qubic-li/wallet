@@ -1,5 +1,5 @@
 <ng-container *transloco="let t">
-  <div *ngIf="!dialogRef" class="title">
+  <div class="title">
     <img
       src="assets/logos/Logo_light.webp"
       class="logo-title"
@@ -11,9 +11,7 @@
       *ngIf="!themeService.isDarkTheme"
     />
   </div>
-  <div class="start_container">
     <h2 mat-dialog-title>{{ t("importComponent.title") }}</h2>
-    <mat-dialog-content>
       <div>
         {{ t("importComponent.message") }}
         <br /><br />
@@ -29,10 +27,9 @@
           />
           <label
             for="input-file-id"
-            class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link"
           >
             <button
-              mat-raised-button
+              mat-button
               type="button"
               color="accent"
               (click)="inputfileid.click()"
@@ -77,10 +74,9 @@
             />
             <label
               for="input-file-config"
-              class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link"
             >
               <button
-                mat-raised-button
+                mat-button
                 type="button"
                 color="accent"
                 (click)="configFile.click()"
@@ -95,8 +91,6 @@
         </form>
       </div>
       <br />
-    </mat-dialog-content>
-    <mat-dialog-actions>
       <div class="text-center">
         <button
           [disabled]="!importForm.valid"
@@ -110,6 +104,4 @@
           {{ t("unlockComponent.buttons.cancel") }}
         </button>
       </div>
-    </mat-dialog-actions>
-  </div>
 </ng-container>

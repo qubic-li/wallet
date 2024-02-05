@@ -18,6 +18,7 @@ export class NotifysComponent implements OnInit {
 
   public isNodeConnected = false;
   public useBridge = false;
+  private vaultSaverAcive = false;
 
   constructor(private cd: ChangeDetectorRef, public walletService: WalletService, public dialog: MatDialog, private q: QubicService, private transloco: TranslocoService, private _snackBar: MatSnackBar){
    
@@ -29,6 +30,9 @@ export class NotifysComponent implements OnInit {
     });
     this.walletService.config.subscribe(s => {
       this.useBridge = s.useBridge;
+      if(this.hasUnsavedSeeds()) {
+        this.saveSettings(true);
+      }
       this.cd.detectChanges();
     });
   }
@@ -48,8 +52,13 @@ export class NotifysComponent implements OnInit {
     return this.walletService.getSeeds().find(f => !f.isExported);
   }
 
-  saveSettings(): void {
-    this.dialog.open(ExportConfigDialog);
+  saveSettings(force = false): void {
+    if(!this.vaultSaverAcive){
+      this.vaultSaverAcive = true;
+      this.dialog.open(ExportConfigDialog, {disableClose: force}).afterClosed().subscribe(s => {
+        this.vaultSaverAcive = false;
+      });
+    }
   }
 
   lock(): void {

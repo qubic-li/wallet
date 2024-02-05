@@ -109,7 +109,6 @@ export class CreateVaultComponent extends QubicDialogWrapper {
     if (seed && seed.length == 55) {
       const helper = new QubicHelper();
       const idp = await helper.createIdPackage(seed);
-      console.log('IDP', idp);
       this.generatedPublicId = idp.publicId;
       this.changeDetector.detectChanges();
     } else {

@@ -7,7 +7,7 @@
         Wallet.
         <br /><br />
         <form [formGroup]="createVaultForm">
-          <mat-form-field appearance="fill" class="full-width">
+          <mat-form-field class="full-width">
             <mat-label>Name</mat-label>
             <input
               type="text"
@@ -49,10 +49,13 @@
               placeholder="Choose a random seed..."
               required
             />
-            <mat-hint *ngIf="generatedPublicId.length === 60">{{
-              generatedPublicId
-            }}</mat-hint>
+            
           </mat-form-field>
+          <div *ngIf="generatedPublicId.length === 60" class="word-break">
+            <strong>Pulic Id</strong><br>
+          {{
+            generatedPublicId
+          }}</div>
           <div class="flex full-width button-container">
             <button mat-raised-button color="accent" (click)="randomizeSeed()">
               Randomize Seed
@@ -126,10 +129,9 @@
           />
           <label
             for="input-file-id"
-            class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link"
           >
             <button
-              mat-raised-button
+              mat-button
               type="button"
               color="accent"
               (click)="inputfileid.click()"

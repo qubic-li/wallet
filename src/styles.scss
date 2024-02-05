@@ -137,7 +137,7 @@ body {
   --text-primary-darker-color: #{$light-primary-text};
 }
 $mat-primary: (
-  main: #272660,
+  main: #1bdef5,
   lighter: #1b64f5,
   darker: #171744,
   200: #272660, // For slide toggle,
@@ -150,8 +150,8 @@ $mat-primary: (
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
 
 body {
-  --accent-color: #1b64f5;
-  --accent-lighter-color: #c4ddec;
+  --accent-color: #1bdef5;
+  --accent-lighter-color: #1bdef5;
   --accent-darker-color: #2472a7;
   --text-accent-color: #{$light-primary-text};
   --text-accent-lighter-color: #{$dark-primary-text};
@@ -159,8 +159,8 @@ body {
 }
 
 $mat-accent: (
-  main: $light-primary-text,
-  lighter: #c4ddec,
+  main: #1bdef5,
+  lighter: #1bdef5,
   darker: #2472a7,
   200: $light-link, // For slide toggle,
   contrast : (
@@ -281,12 +281,6 @@ $altTheme: (
 /* THEMING END */
 
 
-// ### THEM FIXES ### //
-.darkTheme .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label {
-  color: #ffffff;
-}
-// ### THEM FIXES ### //
-
 
 html,
 body {
@@ -386,9 +380,10 @@ a:active {
     background-color: $dark-background !important;    
   }
 
-  button[color="accent"] {
-    background-color: $light-link !important;   
-  }
+  // todo: AndyQus: adopted, the style is to global and overwrites other styles.
+  // button[color="accent"] {
+  //   background-color: $light-link !important;   
+  // }
 }
 
 .mat-drawer  {
@@ -772,23 +767,25 @@ h2 {
     padding: 16px !important;
   }
  
-  button .mdc-button{
-    font-size: 18px;
-    margin: 0px 10px 10px 10px;
-    min-width: 290px;
-    max-width: 290px;
-    min-height: 50px;
-    hyphens: auto;
-  }
+  // todo: AndyQus: removed this, because it is to "global" and can cause issues at several places joetom
 
-  .mdc-button{
-    font-size: 18px;
-    margin: 0px 10px 10px 10px;
-    min-width: 290px;
-    max-width: 290px;
-    min-height: 50px;
-    hyphens: auto;
-  }
+  // button .mdc-button{
+  //   font-size: 18px;
+  //   margin: 0px 10px 10px 10px;
+  //   min-width: 290px;
+  //   max-width: 290px;
+  //   min-height: 50px;
+  //   hyphens: auto;
+  // }
+
+  // .mdc-button{
+  //   font-size: 18px;
+  //   margin: 0px 10px 10px 10px;
+  //   min-width: 290px;
+  //   max-width: 290px;
+  //   min-height: 50px;
+  //   hyphens: auto;
+  // }
 }
 
 .mdc-button{
@@ -796,10 +793,12 @@ h2 {
   min-height: 40px;
 }
 
-button{
-  margin: 0px 10px 15px 10px;  
-  min-height: 40px;
-}
+// todo: AndyQus: remove, to global
+
+// button{
+//   margin: 0px 10px 15px 10px;  
+//   min-height: 40px;
+// }
 
 .target-highlight {
   animation: highlight 2s;
@@ -841,9 +840,10 @@ hr {
   background-color: gray;
 }
 
-.mat-mdc-select-panel{
-  background-color: gray !important;
-}
+// todo: AndyQus: removed
+// .mat-mdc-select-panel{
+//   background-color: gray !important;
+// }
 
 .mdc-switch.mdc-switch--selected:enabled .mdc-switch__icon {
   fill: black !important;
@@ -963,7 +963,6 @@ border-spacing: revert-layer !important;
 
 .dashboard-wallet-name{
   font-size: 16px;
-  color: #FFFFFF;
   // color:$light-text;
 }
 .dashboard-balance-name{
@@ -986,10 +985,12 @@ border-spacing: revert-layer !important;
   flex-wrap: wrap;
 }
 
-.col{ 
- min-width: 380px;
- margin-right: 20px;
-}
+// todo: AndyQus: adjusted to not have horizontal scrolling on mobile
+
+// .col{ 
+//  min-width: 380px;
+//  margin-right: 20px;
+// }
 
 .col-1 { flex: 0 0 8.333333%; max-width: 8.333333%;}
 .col-2 { flex: 0 0 16.666667%; max-width: 16.666667%;}
@@ -1020,3 +1021,11 @@ border-spacing: revert-layer !important;
   .col-sm-12 { flex: 0 0 100%; max-width: 100%; }
 }
 
+.button-container {
+  margin-top:16px;
+  display: flex;
+  justify-content: space-around;
+  gap: 2px;
+  flex-wrap: wrap;
+  row-gap: 2px;
+}

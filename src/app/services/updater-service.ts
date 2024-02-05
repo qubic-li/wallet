@@ -133,8 +133,6 @@ export class UpdaterService {
     if (!publicIds)
       publicIds = this.walletService.getSeeds().map(m => m.publicId);
 
-    console.log("LOAD NETWORK BALANCE", publicIds);
-
     this.networkBalanceLoading = true;
     if (this.walletService.getSeeds().length > 0) {
       // todo: Use Websocket!

@@ -19,8 +19,8 @@
         <form [formGroup]="importForm" novalidate (ngSubmit)="onSubmit($event)">
           <span *ngIf="file">{{ file.name }}</span>
           <input #inputfileid type="file" id="input-file-id" class="file-input" (change)="onFileSelected($event)">
-          <label for="input-file-id" class="mdc-button mdc-button--raised mat-mdc-raised-button mat-link">
-            <button mat-raised-button type="button" color="primary" (click)="inputfileid.click()">
+          <label for="input-file-id">
+            <button mat-button type="button" color="accent" (click)="inputfileid.click()">
               {{ t("unlockComponent.choosePrivateKeyFile")}}
             </button>
             </label>
@@ -56,39 +56,13 @@
       <hr>
     </mat-dialog-content>
     <mat-dialog-actions>
-      <div class="flex flex-wrap">
-        <div>
-          <button *ngIf="dialogRef" mat-raised-button mat-dialog-close>{{
-            t("unlockComponent.buttons.cancel")}}</button>
-        </div>
-        <div>
-          <button *ngIf="isNewUser()" mat-raised-button color="accent" (click)="gengerateNew()">{{
-            t("unlockComponent.buttons.generateKey")}}</button>
-        </div>
-        <div>
-          <button *ngIf="!isNewUser() && selectedFileIsVaultFile" [disabled]="!importForm.valid" mat-raised-button color="accent" (click)="checkImportAndUnlock()">{{
-            t("unlockComponent.buttons.importAndUnlock")}}</button>
-        </div>
-        <div>
-          <button *ngIf="!isNewUser() && configFile" [disabled]="!importForm.valid" mat-raised-button color="accent" (click)="checkImportAndUnlock()">{{
-            t("unlockComponent.buttons.importAndUnlock")}}</button>
-        </div>
-        <div>
+      <div class="button-container">
           <button *ngIf="!isNewUser()" [disabled]="!importForm.valid" mat-raised-button color="accent" (click)="unlock()">{{
             t("unlockComponent.buttons.unlock")}}</button>
-        </div>
-        <div>
           <button *ngIf="!isNewUser() && walletService.isWalletReady" mat-raised-button color="primary" (click)="lock()">{{
             t("unlockComponent.buttons.closeWallet")}}</button>
-        </div>
-        <div>
-          <button *ngIf="isNewUser()" (click)="toggleNewUser(false)" mat-raised-button>{{
-            t("unlockComponent.buttons.existingUser")}}</button>
-        </div>
-        <div>           
-          <button *ngIf="!isNewUser() && !walletService.isWalletReady" (click)="toggleNewUser(true)" mat-raised-button>{{
-            t("unlockComponent.buttons.newUser")}}</button>
-        </div>
+            <button *ngIf="dialogRef" mat-raised-button mat-dialog-close>{{
+              t("unlockComponent.buttons.cancel")}}</button>
       </div>
       </mat-dialog-actions>
     </div>

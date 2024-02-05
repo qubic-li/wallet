@@ -3,9 +3,9 @@
     "title": "Qubic - Wallet",
     "comingSoon": "coming soon!",
     "navigation": {
-      "home": "Home",
+      "home": "Dashboard",
       "payment": "Payment",
-      "balance": "Balance",
+      "balance": "Transactions",
       "settings": "Settings",
       "voting": "Voting",
       "ipo": "IPO",
@@ -43,8 +43,8 @@
     "confirmationText": "Are you sure?"
   },
   "notifyComponent": {
-    "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Wallet.",
-    "saveYourKey": "Please store your wallet unlock file in a safe place.",
+    "saveYourSettings": "Please Export/Download your Settings. Your Settings Contains the Encrypted Seeds which you need to restore the Vault.",
+    "saveYourKey": "Please store your Vault file in a safe place.",
     "qubicLiSync": "Sync your settings with qubic.li",
     "qubicOffline": "QUBIC network not connected",
     "qubicOnline": "Connected to the QUBIC network"
@@ -150,7 +150,7 @@
       }
     },
     "publicIdMessage": "Your address id is:",
-    "privateKeyWarning": "Caution! Your wallet file is not loaded. Please make sure you have it safely stored.",
+    "privateKeyWarning": "Caution! Your Vault file is not loaded. Please make sure you have it safely stored.",
     "buttons": {
       "cancel": "Cancel",
       "create": "Create address",
@@ -189,57 +189,57 @@
   },
   "dashboard": {
     "title": "Dashboard",
-    "balance": "Wallet balance",
+    "balance": "Vault balance",
     "currency": "Qu",
     "totalBalance": "Your Total Balance"
   },
   "unlockComponent": {
-    "title": "Unlock wallet",
-    "title.new": "Create a Wallet",
-    "welcomeMessage": "Welcome to the Qubic Wallet.\nTo use this Wallet you must create a wallet unlock file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
-    "reasonMessage": "To unlock your Wallet, your Vault or wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
-    "choosePrivateKeyFile": "Choose Vault or Wallet Unlock file",
-    "chooseConfigFile": "Choose wallet config file",
+    "title": "Unlock Vault",
+    "title.new": "Create Vault",
+    "welcomeMessage": "Welcome to the Qubic Wallet.\nTo use this Wallet you must create a Vault file. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
+    "reasonMessage": "To unlock your Vault, your Vault or wallet unlock file is needed. This file is automatically deleted once this page is reloaded or closed.",
+    "choosePrivateKeyFile": "Select Vault File",
+    "chooseConfigFile": "Select Config file",
     "overwriteVault": "It looks like there is already some data saved in this Browser. Do you really want to overwrite it?",
     "form": {
       "file.error.required": "Vault/Wallet unlock file required",
-      "password.error.required": "Wallet password required",
+      "password.error.required": "Vault password required",
       "password.error.min": "Your password must have a minimum of 8 characters.",
       "password.error.wrong": "Your password is incorrect."
     },
     "buttons": {
       "cancel": "Cancel",
-      "generateKey": "Create a new wallet",
+      "generateKey": "Create Vault",
       "importAndUnlock": "Import Vault and Unlock",
-      "unlock": "Unlock wallet",
+      "unlock": "Unlock Vault",
       "existingUser": "I already have a Wallet",
-      "newUser": "I want to create a new Wallet",
+      "newUser": "Create Vault",
       "closeWallet": "Close Wallet",
-      "importVault": "I want to import another Wallet"
+      "importVault": "Import Vault"
     },
     "welcomeHintMessage": "After you have downloaded your Vault file. You need to select the downloaded file and enter your password again. This will unlock your wallet."
   },
   "lockIconComponent": {
-    "lock": "Lock Wallet",
-    "unlock": "Unlock Wallet"
+    "lock": "Lock Vault",
+    "unlock": "Unlock Vault"
   },
   "lockComponent": {
-    "title": "Close Wallet?",
+    "title": "Close Vault?",
     "forceDownload": {
-      "title": "Download wallet unlock file",
-      "reason": "When you lock your Wallet your wallet unlock file is automatically deleted. Without this wallet file no transactions can be made. Please be aware your wallet file is safely stored. Export it again in case of any doubt...",
+      "title": "Download Vault File",
+      "reason": "When you lock your Wallet your loaded Vault file is automatically deleted. Without this Vault file no transactions can be made. Please be aware your Vault file is safely stored. Export it again in case of any doubt...",
       "buttons": {
         "allOk": "I have my unlock file, thanks"
       }
     },
-    "reason": "It is paramount to safely store your wallet unlock file. Please choose a strong password you won't forget and then click on \"save\".",
-    "warning": "I confirm that I have saved my wallet unlock file.",
+    "reason": "It is paramount to safely store your Vault file. Please choose a strong password you won't forget and then click on \"save\".",
+    "warning": "I confirm that I have saved my Vault file.",
     "password.placeholder": "Password",
     "password.required": "Password required",
     "password.min": "Password must have a minimum of 8 characters.",
     "buttons": {
       "savePrivateKey": "Save Vault file",
-      "closeWallet": "Lock Wallet",
+      "closeWallet": "Lock Vault",
       "exportAndCloseWallet": "Export Vault file and Lock Wallet",
       "enableExport": "Export Vault File",
       "cancel": "Cancel"
@@ -290,7 +290,7 @@
     "buttons": {
       "send": "Perform transaction",
       "reset": "Reset",
-      "loadPrivateKey": "Load wallet unlock file file"
+      "loadPrivateKey": "Load Vault file"
     }
   },
   "balanceComponent": {
@@ -371,7 +371,7 @@
         "create": "Create Proposal",
         "publish": "Connect and Publish Proposal",
         "reset": "Reset Form",
-        "loadPrivateKey": "Load wallet unlock file",
+        "loadPrivateKey": "Load Vault file",
         "finish": "Show Proposals"
       },
       "form": {
@@ -459,7 +459,7 @@
     "title": "Notice",
     "button": "Yes, I confirm.",
     "messages": {
-      "tresorText": "Have you downloaded your wallet unlock file now? Please select this wallet unlock file in the next step to open the wallet!"
+      "tresorText": "Have you downloaded your Vault file now? Please select this Vault file in the next step to open the Vault!"
     }
   },
   "loadConfigComponent": {
@@ -469,7 +469,7 @@
       "cancel": "Start Without Addresses"
     },
     "messages": {
-      "import": "If you already have a wallet addres config file containing your PublicKeys, you should select and import it now.",
+      "import": "If you already have a wallet address config file containing your PublicKeys, you should select and import it now.",
       "noImport": "If you do not yet have a wallet address config file, create an account in the next section."
     }
   },
@@ -489,8 +489,8 @@
   "welcomeComponent": {
     "welcomeMessage": "Welcome to the Qubic Wallet. To use this Wallet you must either create or import your existing Vault. This will contain your public/private key which afterwards is used to encrypt/decrypt your data.",
     "button": {
-      "createVault": "Create a new Vault",
-      "importVault": "Imporrt existing Vault"
+      "createVault": "Create Vault",
+      "importVault": "Import Vault"
     }
   },
   "importComponent": {

@@ -15,6 +15,13 @@ export class LockComponent {
 
   }
 
+  public getName() {
+    if(this.walletService.getName()){
+      return ' ' + this.walletService.getName();
+    }
+    return '';
+  }
+  
   lock(): void {
     const dialogRef = this.dialog.open(LockConfirmDialog, { restoreFocus: false });
 
