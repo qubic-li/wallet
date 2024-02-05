@@ -32,15 +32,15 @@ export class UnLockComponent extends QubicDialogWrapper {
   dialogRef: DialogRef | null = null;
 
   constructor(
-        renderer: Renderer2, 
-        themeService: ThemeService, 
-        public walletService: WalletService, 
-        public updaterService: UpdaterService, 
-        private transloco: TranslocoService, 
-        private cdr: ChangeDetectorRef, 
-        private fb: FormBuilder, 
-        private dialog: MatDialog, 
-        private _snackBar: MatSnackBar, 
+        renderer: Renderer2,
+        themeService: ThemeService,
+        public walletService: WalletService,
+        public updaterService: UpdaterService,
+        private transloco: TranslocoService,
+        private cdr: ChangeDetectorRef,
+        private fb: FormBuilder,
+        private dialog: MatDialog,
+        private _snackBar: MatSnackBar,
         private injector: Injector) {
     super(renderer, themeService);
     this.dialogRef = injector.get(DialogRef, null)
@@ -206,12 +206,38 @@ export class UnLockComponent extends QubicDialogWrapper {
     }
 
     if (unlockPromise) {
-      await unlockPromise.then(r => {
+      await unlockPromise.then(async r => {
         if (r) {
-          this.pwdWrong = false;
-          this.walletService.isWalletReady = true;
-          this.updaterService.loadCurrentBalance(true);
-          this.dialogRef?.close();
+
+          // test if the private and public key match
+          const seeds = this.walletService.getSeeds();
+          let decryptedSeed = '';
+          try {
+            decryptedSeed = await this.walletService.revealSeed(
+              seeds[0].publicId
+            );
+          } catch (e) {
+            console.error(e);
+          }
+
+          if (seeds && seeds.length > 0 && decryptedSeed == '') {
+            this._snackBar.open(
+              'Unlock Failed: Private- and PublicKey mismatch',
+              'close',
+              {
+                duration: 5000,
+                panelClass: 'error',
+              }
+            );
+            this.walletService.lock();
+          } else {
+            this.pwdWrong = false;
+            this.walletService.isWalletReady = true;
+            this.updaterService.loadCurrentBalance(true);
+            this.dialogRef?.close();
+          }
+
+
         } else {
           this._snackBar.open("Import Failed", "close", {
             duration: 5000,
