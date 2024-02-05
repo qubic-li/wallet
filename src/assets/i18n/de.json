@@ -496,7 +496,8 @@
     "button": {
       "createVault": "Tresor erstellen",
       "importVault": "Tresor importieren"
-    }
+    },
+    "title": "Willkommen in der Qubic Wallet"
   },
   "importComponent": {
     "title": "Tresor importieren",
