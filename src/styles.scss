@@ -95,7 +95,7 @@ $mat-dark-theme-foreground: (
 );
 
 // Dark bg
-$dark-background:     #101820;
+$dark-background:     $darkBackgroundColor;
 $dark-bg-lighter-2:   #151E27;
 $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
