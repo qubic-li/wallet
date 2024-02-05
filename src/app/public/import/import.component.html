@@ -1,15 +1,15 @@
 <ng-container *transloco="let t">
   <div class="title">
     <img
-      src="assets/logos/Logo_light.webp"
-      class="logo-title"
-      *ngIf="themeService.isDarkTheme"
-    />
-    <img
-      src="assets/logos/Logo_dark.webp"
-      class="logo-title"
-      *ngIf="!themeService.isDarkTheme"
-    />
+          src="assets/icons/wallet.svg"
+          class="wallet-icon"
+          *ngIf="themeService.isDarkTheme"
+        />
+        <img
+          src="assets/icons/wallet_whitemode.svg"
+          class="wallet-icon"
+          *ngIf="!themeService.isDarkTheme"
+        />
   </div>
   <div class="flex flex-center">
     <h2 mat-dialog-title>{{ t("importComponent.title") }}</h2>
@@ -48,6 +48,7 @@
         </mat-form-field>
 
         <app-file-selector
+          *ngIf="!selectedFileIsVaultFile"
           class="flex flex-center"
           (fileSelected)="onConfigFileSelected($event)"
           requredText="{{
@@ -59,14 +60,14 @@
     </div>
   </div>
   <br />
-  <div class="text-center">
+  <div class="button-container buttons-vertical">
     <button
       [disabled]="!importForm.valid || !file || (!selectedConfigFile && !selectedFileIsVaultFile)"
       mat-raised-button
       color="primary"
       (click)="checkImportAndUnlock()"
     >
-      {{ t("unlockComponent.buttons.importAndUnlock") }}
+      {{ t("unlockComponent.buttons.importVault") }}
     </button>
     <button [routerLink]="['/']" mat-raised-button>
       {{ t("unlockComponent.buttons.cancel") }}
