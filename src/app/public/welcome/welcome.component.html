@@ -5,6 +5,12 @@
         <img
           src="assets/icons/wallet.svg"
           class="wallet-icon"
+          *ngIf="themeService.isDarkTheme"
+        />
+        <img
+          src="assets/icons/wallet_whitemode.svg"
+          class="wallet-icon"
+          *ngIf="!themeService.isDarkTheme"
         />
       </div>
       <h1>
