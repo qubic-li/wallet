@@ -140,7 +140,7 @@
         "error": {
           "required": "An 60-char public-key is required.",
           "min": "The 60-char public-key must exactly consist of 60 upper case characters",
-          "max": "The 60-char public-key must exactly consist of 55 upper case characters",
+          "max": "The 60-char public-key must exactly consist of 60 upper case characters",
           "regex": "Can only contain A-Z"
         }
       },
@@ -518,7 +518,7 @@
       "addressNam": "Name",
       "seed": "Seed",
       "seedPlaceholder": "Choose a random seed...",
-      "publicId": "Pulic Id",
+      "publicId": "Public Id",
       "radomizeSeed": "Randomize Seed",
       "addressPlaceholder": "Choose an Account Name",
       "button": "Create Address"

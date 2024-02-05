@@ -71,7 +71,8 @@
       "ownedAmount": "Owned Amount",
       "possessedAmount": "Possessed Amount",
       "tick": "Válido para el Tick {{tick}}",
-      "reportingNodes": "Reporting Nodes"
+      "reportingNodes": "Reporting Nodes",
+      "issuerIdentity": "Issuer Identity"
     },
     "buttons": {
       "close": "Cerrar",
@@ -212,6 +213,7 @@
     "buttons": {
       "cancel": "Cancelar",
       "generateKey": "Crear un nuevo Wallet",
+      "importAndUnlock": "Import Vault and Unlock",
       "unlock": "Desbloquear el Wallet",
       "existingUser": "Ya tengo un Wallet",
       "newUser": "Create Vault",
@@ -512,7 +514,7 @@
       "addressNam": "Name",
       "seed": "Seed",
       "seedPlaceholder": "Choose a random seed...",
-      "publicId": "Pulic Id",
+      "publicId": "Public Id",
       "radomizeSeed": "Randomize Seed",
       "addressPlaceholder": "Choose an Account Name",
       "button": "Create Address"

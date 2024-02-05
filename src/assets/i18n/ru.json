@@ -71,7 +71,8 @@
       "ownedAmount": "Owned Amount",
       "possessedAmount": "Possessed Amount",
       "tick": "Valid for Tick {{tick}}",
-      "reportingNodes": "Reporting Nodes"
+      "reportingNodes": "Reporting Nodes",
+      "issuerIdentity": "Issuer Identity"
     },
     "buttons": {
       "close": "Close",
@@ -138,7 +139,7 @@
         "error": {
           "required": "An 60-char public-key is required.",
           "min": "The 60-char public-key must exactly consist of 60 upper case characters",
-          "max": "The 60-char public-key must exactly consist of 55 upper case characters",
+          "max": "The 60-char public-key must exactly consist of 60 upper case characters",
           "regex": "Can only contain A-Z"
         }
       },
@@ -212,6 +213,7 @@
     "buttons": {
       "cancel": "Отмена",
       "generateKey": "Создать новый файл Vault",
+      "importAndUnlock": "Import Vault and Unlock",
       "unlock": "Разблокировать кошелек",
       "existingUser": "У меня уже есть мой Vault",
       "newUser": "Create Vault",
@@ -513,7 +515,7 @@
       "addressNam": "Name",
       "seed": "Seed",
       "seedPlaceholder": "Choose a random seed...",
-      "publicId": "Pulic Id",
+      "publicId": "Public Id",
       "radomizeSeed": "Randomize Seed",
       "addressPlaceholder": "Choose an Account Name",
       "button": "Create Address"
