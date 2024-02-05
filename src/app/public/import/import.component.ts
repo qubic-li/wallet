@@ -181,16 +181,17 @@ export class ImportVaultComponent extends QubicDialogWrapper {
   }
 
 
-  async onFileSelected(event: any): Promise<void> {
-    this.file = event?.target.files[0];
+  async onFileSelected(file: File): Promise<void> {
+    console.log("EV", file);
+    this.file = file; //event?.target.files[0];
     if (this.file) {
       const binaryVaultFile = await this.file.arrayBuffer();
       this.selectedFileIsVaultFile = this.walletService.isVaultFile(binaryVaultFile);
     }
   }
 
-  async onConfigFileSelected(event: any): Promise<void> {
-    this.selectedConfigFile = event?.target.files[0];
+  async onConfigFileSelected(file: File): Promise<void> {
+    this.selectedConfigFile = file;
   }
 
 

@@ -263,16 +263,16 @@ export class UnLockComponent extends QubicDialogWrapper {
   }
 
 
-  async onFileSelected(event: any): Promise<void> {
-    this.file = event?.target.files[0];
+  async onFileSelected(file: File): Promise<void> {
+    this.file = file;
     if (this.file) {
       const binaryVaultFile = await this.file.arrayBuffer();
       this.selectedFileIsVaultFile = this.walletService.isVaultFile(binaryVaultFile);
     }
   }
 
-  async onConfigFileSelected(event: any): Promise<void> {
-    this.configFile = event?.target.files[0];
+  async onConfigFileSelected(file: File): Promise<void> {
+    this.configFile = file;
   }
 
 

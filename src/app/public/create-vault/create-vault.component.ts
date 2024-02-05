@@ -36,8 +36,6 @@ export class CreateVaultComponent extends QubicDialogWrapper {
   public vaultVerified = false; // steop 4
 
   public file: File | null = null;
-  public configFile: File | null = null;
-  public newUser = false;
   public pwdWrong = false;
   public selectedFileIsVaultFile = false;
   private walletService: WalletService;
@@ -90,11 +88,7 @@ export class CreateVaultComponent extends QubicDialogWrapper {
 
     this.walletService = new WalletService(false);
 
-    this.newUser =
-      this.walletService.getSeeds().length <= 0 &&
-      !this.walletService.publicKey;
-
-    this.createAddressForm.controls.seed.valueChanges.subscribe((s) => {
+   this.createAddressForm.controls.seed.valueChanges.subscribe((s) => {
       if (s) this.generatePublicId(s);
     });
   }
@@ -161,8 +155,7 @@ export class CreateVaultComponent extends QubicDialogWrapper {
     this.importAndUnlock(this.walletService);
   }
 
-  public async openWallet() 
-  {
+  public async openWallet() {
     await this.importAndUnlock(this.persistedWalletService);
     this.updaterService.loadCurrentBalance(true);
     this.router.navigate(['/']);
@@ -181,18 +174,6 @@ export class CreateVaultComponent extends QubicDialogWrapper {
     }
   }
 
-  // onPasswordChange() {
-  //   this.pwdWrong = false;
-  // }
-
-  // isNewUser() {
-  //   return this.newUser;
-  // }
-  // toggleNewUser(v: boolean) {
-  //   this.newUser = v;
-  //   this.cdr.detectChanges();
-  // }
-
   async startCreateProcess() {
     this.walletService.clearConfig();
     await this.walletService.createNewKeys();
@@ -200,14 +181,6 @@ export class CreateVaultComponent extends QubicDialogWrapper {
     this.vaultCreated = true;
     this.nextStep();
   }
-
-  //   // Manually restore focus to the menu trigger since the element that
-  //   // opens the dialog won't be in the DOM any more when the dialog closes.
-  //   lockRef.afterClosed().subscribe(() => {
-  //     // do anything :)
-  //     this.dialogRef?.close();
-  //   });
-  // }
 
   async gengerateNew() {
     if (this.hasExistingConfig()) {
@@ -226,19 +199,6 @@ export class CreateVaultComponent extends QubicDialogWrapper {
       this.startCreateProcess();
     }
   }
-
-  // lock() {
-
-  //   this.dialogRef?.close();
-
-  //   const dialogRef = this.dialog.open(LockConfirmDialog, { restoreFocus: false });
-
-  //   // Manually restore focus to the menu trigger since the element that
-  //   // opens the dialog won't be in the DOM any more when the dialog closes.
-  //   dialogRef.afterClosed().subscribe(() => {
-
-  //   });
-  // }
 
   private async importAndUnlock(service: WalletService) {
     // one vault file
@@ -277,93 +237,12 @@ export class CreateVaultComponent extends QubicDialogWrapper {
     );
   }
 
-  // async checkImportAndUnlock() {
-  //   if (this.hasExistingConfig()) {
-  //     const confirmDialo = this.dialog.open(ConfirmDialog, {
-  //       restoreFocus: false, data: {
-  //         message: this.transloco.translate("unlockComponent.overwriteVault")
-  //       }
-  //     });
-  //     confirmDialo.afterClosed().subscribe(result => {
-  //       if (result) {
-  //         start import
-  //         this.importAndUnlock();
-  //       }
-  //     })
-  //   } else {
-  //     this.importAndUnlock();
-  //   }
-  // }
-
-  // public async unlock(): Promise<boolean> {
-
-  //   if (!this.importForm.valid || !this.importForm.controls.password.value || !this.file) {
-  //     this.importForm.markAsTouched();
-  //     this.importForm.controls.password.markAllAsTouched();
-  //     return false;
-  //   }
-
-  //   let unlockPromise: Promise<Boolean> | undefined;
-
-  //   const binaryFileData = await this.file?.arrayBuffer();
-
-  //   if (this.selectedFileIsVaultFile) {
-  //     if (binaryFileData) {
-  //       unlockPromise = this.walletService.unlockVault(binaryFileData, (<any>this.importForm.controls.password.value));
-  //     } else {
-  //       this._snackBar.open("Unlock Failed (no file)", "close", {
-  //         duration: 5000,
-  //         panelClass: "error"
-  //       });
-  //     }
-  //   } else {
-  //     // legacy
-  //     this.pwdWrong = true;
-  //     unlockPromise = this.walletService.unlock(binaryFileData, (<any>this.importForm.controls.password.value));
-
-  //   }
-
-  //   if (unlockPromise) {
-  //     await unlockPromise.then(r => {
-  //       if (r) {
-  //         this.pwdWrong = false;
-  //         this.walletService.isWalletReady = true;
-  //         this.updaterService.loadCurrentBalance(true);
-  //         this.dialogRef?.close();
-  //       } else {
-  //         this._snackBar.open("Import Failed", "close", {
-  //           duration: 5000,
-  //           panelClass: "error"
-  //         });
-  //       }
-  //     }).catch(r => {
-  //       this._snackBar.open("Import Failed (passord or file do not match)", "close", {
-  //         duration: 5000,
-  //         panelClass: "error"
-  //       });
-  //     });
-  //     return true;
-  //   }
-
-  //   return false;
-  // }
-
-  // onSubmit(event: any): void {
-  //   event.stopPropagation();
-  //   event.preventDefault();
-  //   this.unlock();
-  // }
-
-  async onFileSelected(event: any): Promise<void> {
-    this.file = event?.target.files[0];
+  async onFileSelected(file: File): Promise<void> {
+    this.file = file;
     if (this.file) {
       const binaryVaultFile = await this.file.arrayBuffer();
       this.selectedFileIsVaultFile =
         this.walletService.isVaultFile(binaryVaultFile);
     }
   }
-
-  // async onConfigFileSelected(event: any): Promise<void> {
-  //   this.configFile = event?.target.files[0];
-  // }
 }

@@ -205,7 +205,12 @@
       "file.error.required": "Vault/Wallet unlock file required",
       "password.error.required": "Vault password required",
       "password.error.min": "Your password must have a minimum of 8 characters.",
-      "password.error.wrong": "Your password is incorrect."
+      "password.error.wrong": "Your password is incorrect.",
+      "configFile": {
+        "error": {
+          "required": "Config file required"
+        }
+      }
     },
     "buttons": {
       "cancel": "Cancel",

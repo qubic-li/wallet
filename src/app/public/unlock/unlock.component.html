@@ -11,36 +11,23 @@
       *ngIf="!themeService.isDarkTheme"
     />
   </div>
-  
+  <div class="flex flex-center">
+
     <h2 mat-dialog-title>{{ t("unlockComponent.title") }}</h2>
     
       <div>
         {{ t("unlockComponent.reasonMessage") }}
         <br /><br />
         <form [formGroup]="importForm" novalidate (ngSubmit)="onSubmit($event)">
-          <span *ngIf="file">{{ file.name }}</span>
-          <input
-            #inputfileid
-            type="file"
-            id="input-file-id"
-            class="file-input"
-            (change)="onFileSelected($event)"
-          />
-          <label
-            for="input-file-id"
-          >
-            <button
-              mat-button
-              type="button"
-              color="accent"
-              (click)="inputfileid.click()"
-            >
-              {{ t("unlockComponent.choosePrivateKeyFile") }}
-            </button>
-          </label>
-          <mat-error *ngIf="!file">
-            {{ t("unlockComponent.form.file.error.required") }}
-          </mat-error>
+
+          <app-file-selector
+          class="flex flex-center"
+          (fileSelected)="onFileSelected($event)"
+          requredText="{{ t('unlockComponent.form.file.error.required') }}"
+          selectFileText="{{ t('unlockComponent.choosePrivateKeyFile') }}"
+        ></app-file-selector>
+
+         
           <mat-form-field class="full-width">
             <input
               matInput
@@ -65,7 +52,7 @@
           </mat-error>
         </form>
       </div>
-      <br />
+    </div>
       <div class="button-container">
         <button
           [disabled]="!importForm.valid"

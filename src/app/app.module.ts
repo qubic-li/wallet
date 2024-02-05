@@ -76,6 +76,7 @@ import { WelcomeComponent } from './public/welcome/welcome.component';
 import { CreateVaultComponent } from './public/create-vault/create-vault.component';
 import { PublicUnLockComponent } from './public/unlock/unlock.component';
 import { ImportVaultComponent } from './public/import/import.component';
+import { FileSelectorComponent } from './common/file-selector/file-selector.component';
 
 
 
@@ -120,7 +121,8 @@ export const httpInterceptorProviders = [
     WelcomeComponent,
     CreateVaultComponent,
     PublicUnLockComponent,
-    ImportVaultComponent
+    ImportVaultComponent,
+    FileSelectorComponent
   ],
   imports: [
     BrowserModule,

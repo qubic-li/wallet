@@ -204,7 +204,12 @@
     "form": {
       "file.error.required": "Fichier Wallet requis",
       "password.error.required": "Mot de passe du Wallet requis",
-      "password.error.min": "Votre mot de passe doit comporter au moins 8 caractères."
+      "password.error.min": "Votre mot de passe doit comporter au moins 8 caractères.",
+      "configFile": {
+        "error": {
+          "required": "Config file required"
+        }
+      }
     },
     "buttons": {
       "cancel": "Annuler",

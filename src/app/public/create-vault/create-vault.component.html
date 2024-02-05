@@ -109,29 +109,12 @@
               required
             />
           </mat-form-field>
-          <span *ngIf="file">{{ file.name }}</span>
-          <input
-            #inputfileid
-            type="file"
-            id="input-file-id"
-            class="file-input"
-            (change)="onFileSelected($event)"
-          />
-          <label
-            for="input-file-id"
-          >
-            <button
-              mat-button
-              type="button"
-              color="accent"
-              (click)="inputfileid.click()"
-            >
-              {{ t("unlockComponent.choosePrivateKeyFile") }}
-            </button>
-          </label>
-          <mat-error *ngIf="!file">
-            {{ t("unlockComponent.form.file.error.required") }}
-          </mat-error>
+          <app-file-selector
+          class="flex flex-halign-left"
+          (fileSelected)="onFileSelected($event)"
+          requredText="{{ t('unlockComponent.form.file.error.required') }}"
+          selectFileText="{{ t('unlockComponent.choosePrivateKeyFile') }}"
+        ></app-file-selector>
           <button
             mat-raised-button
             color="primary"

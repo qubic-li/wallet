@@ -202,7 +202,12 @@
     "form": {
       "file.error.required": "Требуется файл Vault",
       "password.error.required": "Требуется пароль к файлу Vault",
-      "password.error.min": "Ваш пароль должен состоять минимум из 8 символов."
+      "password.error.min": "Ваш пароль должен состоять минимум из 8 символов.",
+      "configFile": {
+        "error": {
+          "required": "Config file required"
+        }
+      }
     },
     "buttons": {
       "cancel": "Отмена",

@@ -202,7 +202,12 @@
     "form": {
       "file.error.required": "Kluisbestand verplicht",
       "password.error.required": "Kluis wachtwoord verplicht",
-      "password.error.min": "Uw wachtwoord moet minimaal 8 tekens bevatten."
+      "password.error.min": "Uw wachtwoord moet minimaal 8 tekens bevatten.",
+      "configFile": {
+        "error": {
+          "required": "Config file required"
+        }
+      }
     },
     "buttons": {
       "cancel": "Cancel",

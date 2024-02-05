@@ -202,7 +202,12 @@
     "form": {
       "file.error.required": "Arquivo Wallet necessário",
       "password.error.required": "Senha Wallet necessária",
-      "password.error.min": "Sua senha deve ter pelo menos 8 caracteres."
+      "password.error.min": "Sua senha deve ter pelo menos 8 caracteres.",
+      "configFile": {
+        "error": {
+          "required": "Config file required"
+        }
+      }
     },
     "buttons": {
       "cancel": "Cancelar",
