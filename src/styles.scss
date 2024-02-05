@@ -248,7 +248,7 @@ $altTheme: (
   --mdc-elevated-card-container-elevation:  1px 1px 1px 0px rgba(63, 62, 62, 1.0) !important;
   }
 
-  background-color: #000000;
+  background-color: $darkBackgroundColor;
   color:#ffffff;
 
   .mdc-text-field--focused:not(.mdc-text-field--disabled) .mdc-floating-label {
