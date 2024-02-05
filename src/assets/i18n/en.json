@@ -324,7 +324,10 @@
       "title": "Web Bridge",
       "tickAddition.placeholder": "Number of Ticks added to the current tick to send a new transaction",
       "webBridge.placeholder": "Enable the Web Bridge (Direct Connection to the QUBIC Network)",
-      "button.save": "Save Settings"
+      "button.save": "Save Settings",
+      "beta": {
+        "placeholder": "Enable Beta Features"
+      }
     },
     "import": {
       "title": "Import Settings",

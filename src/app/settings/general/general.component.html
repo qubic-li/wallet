@@ -11,6 +11,8 @@
                 </mat-form-field>
                 <mat-slide-toggle formControlName="useBridge">{{ t('settings.general.webBridge.placeholder')
                     }}</mat-slide-toggle>
+                <mat-slide-toggle formControlName="enableBeta">{{ t('settings.general.beta.placeholder')
+                    }}</mat-slide-toggle>
                     <div class="flex-center">
                         <br>
                         <button mat-raised-button color="accent" type="submit" [disabled]="!form.valid">

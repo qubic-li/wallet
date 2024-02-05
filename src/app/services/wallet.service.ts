@@ -79,6 +79,7 @@ export class WalletService {
       webBridges: [],
       tickAddition: 10,
       useBridge: (<any>window).require,
+      enableBeta: false
     };
     this.onConfig = new BehaviorSubject(this.runningConfiguration);
     this.load();
@@ -187,6 +188,7 @@ export class WalletService {
       webBridges: [...this.runningConfiguration.webBridges],
       useBridge: this.runningConfiguration.useBridge,
       tickAddition: this.runningConfiguration.tickAddition,
+      enableBeta: this.runningConfiguration.enableBeta,
     };
   }
 
@@ -202,6 +204,8 @@ export class WalletService {
   public async updateConfig(config: any): Promise<void> {
     if (config.tickAddition !== undefined)
       this.runningConfiguration.tickAddition = config.tickAddition;
+    if (config.enableBeta !== undefined)
+      this.runningConfiguration.enableBeta = config.enableBeta;
     if (config.useBridge !== undefined)
       this.runningConfiguration.useBridge = config.useBridge;
     await this.saveConfig(false);
@@ -745,6 +749,7 @@ export class WalletService {
       webBridges: this.runningConfiguration.webBridges,
       useBridge: this.runningConfiguration.useBridge,
       tickAddition: this.runningConfiguration.tickAddition,
+      enableBeta: this.runningConfiguration.enableBeta
     };
     return exportConfig;
   }
