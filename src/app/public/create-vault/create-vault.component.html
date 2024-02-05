@@ -2,7 +2,7 @@
   <div>
     <mat-stepper orientation="vertical" [linear]="true" #stepper>
       <mat-step [completed]="vaultCreated" [editable]="false">
-        <ng-template matStepLabel>{{ t('createVaultComponent.createVault.stepTitle') }}</ng-template>
+        <ng-template matStepLabel>{{ t('createVaultComponent.createVault.stepTitle') }}  {{ getVaultName() }}</ng-template>
         {{ t('createVaultComponent.createVault.message') }}
         <br /><br />
         <form [formGroup]="createVaultForm">
@@ -22,7 +22,7 @@
         </form>
       </mat-step>
       <mat-step [completed]="addressCreated" [editable]="false">
-        <ng-template matStepLabel>{{ t('createVaultComponent.createAddress.title') }}</ng-template>
+        <ng-template matStepLabel>{{ t('createVaultComponent.createAddress.title') }} {{ getVaultName() }}</ng-template>
         {{ t('createVaultComponent.createAddress.message') }}
         <br /><br />
         <form [formGroup]="createAddressForm">
@@ -69,7 +69,7 @@
       </mat-step>
       <mat-step [completed]="vaultExported" [editable]="true">
         <form [formGroup]="vaultPasswordFormGroup">
-          <ng-template matStepLabel>{{ t('createVaultComponent.downloadVault.stepTitle') }}</ng-template>
+          <ng-template matStepLabel>{{ t('createVaultComponent.downloadVault.stepTitle') }} {{ getVaultName() }}</ng-template>
           {{ t('createVaultComponent.downloadVault.message') }}
           <br /><br />
 
@@ -96,7 +96,7 @@
       </mat-step>
       <mat-step [completed]="vaultVerified" [editable]="false">
         <form [formGroup]="verifyVaultFormGroup">
-          <ng-template matStepLabel>{{ t('createVaultComponent.verifyVault.stpTitle') }}</ng-template>
+          <ng-template matStepLabel>{{ t('createVaultComponent.verifyVault.stpTitle') }} {{ getVaultName() }}</ng-template>
           {{ t('createVaultComponent.verifyVault.message') }}
           <br /><br />
           <mat-form-field>
@@ -126,7 +126,7 @@
         </form>
       </mat-step>
       <mat-step>
-        <ng-template matStepLabel>{{ t('createVaultComponent.done.stepTitle') }}</ng-template>
+        <ng-template matStepLabel>{{ t('createVaultComponent.done.stepTitle') }}  {{ getVaultName() }}</ng-template>
         <p>{{ t('createVaultComponent.done.message') }}</p>
         <div>
           <button mat-raised-button color="primary" (click)="openWallet()">
@@ -138,6 +138,7 @@
 
     <div class="button-container">
       <button mat-raised-button [routerLink]="['/']">{{ t('createVaultComponent.buttons.cancel') }}</button>
+      <button mat-raised-button (click)="reset()">{{ t('createVaultComponent.buttons.reset') }}</button>
     </div>
   </div>
 </ng-container>

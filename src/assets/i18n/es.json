@@ -537,7 +537,8 @@
       "button": "Open My Wallet"
     },
     "buttons": {
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "reset": "Reset"
     }
   }
 }

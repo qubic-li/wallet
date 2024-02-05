@@ -245,4 +245,15 @@ export class CreateVaultComponent extends QubicDialogWrapper {
         this.walletService.isVaultFile(binaryVaultFile);
     }
   }
+
+  reset() {
+    window.location.reload();
+  }
+
+  getVaultName() {
+    if(this.walletService.getName()){
+      return "'" + this.walletService.getName() + "'";
+    }
+    return "";
+  }
 }
