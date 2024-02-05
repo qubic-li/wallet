@@ -7,11 +7,12 @@
       </div>
       <div class="flex-grow"></div> <!-- Flex-Element, um Platz zu schaffen -->
       <div style="margin-left: auto; padding-top:14px;" class="text-right">
-        {{currentPrice.price}} {{currentPrice.currency}}
-        <br>
         <div class="dashboard-amount-name">
-          ~ {{currentPrice.capitalization| number : "1.0-0"}} {{currentPrice.currency}}
+          ~ {{currentPrice.capitalization| number : "1.0-0"}} {{currentPrice.currency}} MC
         </div>
+        <!-- {{currentPrice.price}} {{currentPrice.currency}}/{{ t("general.currency") }} |-->
+        {{currentPrice.price * 1000000000}} {{currentPrice.currency}} / b{{ t("general.currency") }}
+        <br>
       </div>
     </div>
      <mat-form-field>
@@ -20,7 +21,7 @@
       </mat-form-field>
     <div class="flex flex-wrap card-list">
       <div>
-        <button color="accent" mat-raised-button aria-label="Add Addresse" title="Add Addresse" (click)="addSeed()">
+        <button color="accent" mat-raised-button (click)="addSeed()">
           <mat-icon>add_circle</mat-icon>
           {{ t("seedOverviewComponent.addSeedButton") }}
         </button>&nbsp;
@@ -41,7 +42,7 @@
               {{ t("dashboard.totalBalance") }}
             </div>
             <span class="disable-area">
-              {{ getTotalBalance() | number : "1.0-0"}}
+              {{ getTotalBalance() | number : "1.0-0"}} {{ t("general.currency") }}
             </span> /
             <span class="dashboard-amount-name disable-area">
               ${{currentPrice.price * getTotalBalance() | number : "1.0-2"}}
