@@ -5,6 +5,8 @@
 
 // Light Theme Text
 $dark-text: #000000;
+$dark-positiv-color: #079455;
+$dark-negativ-color: #D92D20;
 $dark-primary-text: rgba($dark-text, 0.87);
 $dark-accent-text: rgba($dark-primary-text, 0.54);
 $dark-disabled-text: rgba($dark-primary-text, 0.38);
@@ -29,7 +31,7 @@ $mat-light-theme-foreground: (
   slider-min:        $dark-primary-text,
   slider-off:        rgba($dark-text, 0.26),
   slider-off-active: $dark-disabled-text,
-  link-color:        $dark-link, 
+  link-color:        $dark-link,
 );
 
 // Background config
@@ -67,6 +69,8 @@ $mat-light-theme-background: (
 
 // Dark Theme text
 $light-text: #ffffff;
+$light-positiv-color:  #47CD89;
+$light-negativ-color: #F97066;
 $light-primary-text: $light-text;
 $light-accent-text: rgba($light-primary-text, 0.7);
 $light-disabled-text: rgba($light-primary-text, 0.5);
@@ -91,7 +95,7 @@ $mat-dark-theme-foreground: (
   slider-min:        $light-text,
   slider-off:        rgba($light-text, 0.3),
   slider-off-active: rgba($light-text, 0.3),
-  link-color:       $light-link, 
+  link-color:       $light-link,
 );
 
 // Dark bg
@@ -221,7 +225,7 @@ $altTheme: (
     color:$light-text;
   }
   .dashboard-balance-name{
-   color: $light-link; 
+   color: $light-link;
   }
   .dashboard-amount-name{
     color: $light-accent-text;
@@ -229,12 +233,18 @@ $altTheme: (
   .dashboard-currency-name{
     color: $light-accent-text;
   }
-
-  .icon-color-link{
-   color: $light-link; 
+  .isPositiv{
+    color: $light-positiv-color;
+  }
+  .isNegativ{
+    color: $light-negativ-color;
   }
 
-  .mat-mdc-card {    
+  .icon-color-link{
+   color: $light-link;
+  }
+
+  .mat-mdc-card {
   --mdc-elevated-card-container-elevation:  1px 1px 1px 0px rgba(63, 62, 62, 1.0) !important;
   }
 
@@ -252,7 +262,7 @@ $altTheme: (
   .mdc-switch.mdc-switch--selected .mdc-switch__track {
     background-color: rgb(97, 97, 97);
   }
-  
+
 }
 
 // Specific component overrides, pieces that are not in line with the general theming
@@ -293,7 +303,7 @@ body {
 
 
 body {
-  margin: 0;  
+  margin: 0;
   padding: 0;
   font-family: 'Space Grotesk';
 }
@@ -301,7 +311,7 @@ table, div, span, button, th, td, tr {
   font-family: 'Space Grotesk';
 }
 
-table{  
+table{
   border-radius: 12px;
   background-color: var(--mat-table-background-color) !important;
   padding:2px;
@@ -367,22 +377,22 @@ a:active {
   div.copy,
   a:link,
   a:visited,
-  
+
   a:active {
-    color: $light-link;    
+    color: $light-link;
   }
 
   .toolbar {
     background-color: $dark-background;
   }
-  
+
   .mat-drawer  {
-    background-color: $dark-background !important;    
+    background-color: $dark-background !important;
   }
 
   // todo: AndyQus: adopted, the style is to global and overwrites other styles.
   // button[color="accent"] {
-  //   background-color: $light-link !important;   
+  //   background-color: $light-link !important;
   // }
 }
 
@@ -747,7 +757,7 @@ h2 {
 
   .copy span {
     word-break: break-all;
-  } 
+  }
 
   .trans-amount {
     min-width: 150px !important;
@@ -757,7 +767,7 @@ h2 {
 /* balance page end */
 
 .is-mobile {
-  
+
 
   h1 {
     text-align: center;
@@ -766,7 +776,7 @@ h2 {
   .content_container {
     padding: 16px !important;
   }
- 
+
   // todo: AndyQus: removed this, because it is to "global" and can cause issues at several places joetom
 
   // button .mdc-button{
@@ -789,14 +799,14 @@ h2 {
 }
 
 .mdc-button{
-  margin: 0px 10px 15px 10px; 
+  margin: 0px 10px 15px 10px;
   min-height: 40px;
 }
 
 // todo: AndyQus: remove, to global
 
 // button{
-//   margin: 0px 10px 15px 10px;  
+//   margin: 0px 10px 15px 10px;
 //   min-height: 40px;
 // }
 
@@ -922,14 +932,14 @@ hr {
   border: 1px solid rgba(255, 255, 255, .33);
   border-top-color: #fff;
   border-radius: 5%;
-  max-width: 40%; 
-  height: auto; 
+  max-width: 40%;
+  height: auto;
   margin: 50px 0px 50px 0px;
 }
 
 @media (max-width: 800px) {
   .logo-title{
-    max-width: 20%; 
+    max-width: 20%;
   }
 }
 
@@ -945,7 +955,7 @@ border-spacing: revert-layer !important;
   padding:24px;
 }
 
-.mat-mdc-text-field-wrapper{  
+.mat-mdc-text-field-wrapper{
   border-radius: 8px !important;
 }
 
@@ -978,6 +988,14 @@ border-spacing: revert-layer !important;
   color:$dark-primary-text;
 }
 
+.isPositiv{
+  color: $dark-positiv-color;
+}
+
+.isNegativ{
+  color: $dark-negativ-color;
+}
+
 // analog bootstrap
 
 .row {
@@ -987,7 +1005,7 @@ border-spacing: revert-layer !important;
 
 // todo: AndyQus: adjusted to not have horizontal scrolling on mobile
 
-// .col{ 
+// .col{
 //  min-width: 380px;
 //  margin-right: 20px;
 // }
