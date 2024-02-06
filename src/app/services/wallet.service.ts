@@ -493,14 +493,11 @@ export class WalletService {
    * @returns
    */
   public async unlock(data: ArrayBuffer, password: string): Promise<boolean> {
-    return this.importEncryptedPrivateKey(data, password).then(
-      ({ privateKey, publicKey }) => {
-        this.shouldExportKey = false;
-        this.setKeys(publicKey, privateKey);
-        this.save();
-        return true;
-      }
-    );
+    const { privateKey, publicKey } = await this.importEncryptedPrivateKey(data, password);
+    this.shouldExportKey = false;
+    await this.setKeys(publicKey, privateKey);
+    await this.save();
+    return true;
   }
 
   async getPublicKey(privateKey: CryptoKey) {
